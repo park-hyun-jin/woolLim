@@ -3,12 +3,9 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="note">C,CS,D,DS,E,F,FS,G,GS,A,AS,B</c:set>
-<h1>
-	Piano <input type="checkbox" name="mute" value="piano">
-</h1>
+<h1>Piano <input type="checkbox" name="mute" value="piano"></h1>
 
-
-<c:forEach var="poctv" varStatus="j" begin="1" end="2" step="1">
+	<c:forEach var="poctv" varStatus="j" begin="1" end="2" step="1">
 	<c:forEach var="noteList" items="${note}">
 		<div class="sound ${noteList}${poctv} piano">
 			<div>${noteList}${poctv}</div>
