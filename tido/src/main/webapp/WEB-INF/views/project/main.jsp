@@ -412,11 +412,11 @@ $(function() {
    });
 
    function playSound(sound) {
-	    console.log(sound);
 	    const audio = document.querySelector("audio[id='"+ sound+"']");
 	    if (!audio) return;
 	    audio.currentTime = 0;
 	    audio.play();
+	    
 	      
    }
    
