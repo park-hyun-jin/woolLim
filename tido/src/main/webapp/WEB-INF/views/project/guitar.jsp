@@ -1,23 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<c:set var="chord">C,Cm,CS,CSm,D,Dm,EF,EFm,E,Em,F,Fm,FS,FSm,G,Gm,GS,GSm,A,Am,BF,BFm,B,Bm</c:set>
 
-<% String[] chord ={"C","Cm", "CS","CSm","D", "Dm", "EF", "EFm","E","Em","F", "Fm", "FS","FSm", "G", "Gm","GS","GSm","A","Am","BF","BFm","B","Bm"}; %>
 
-
-
-   <h2>Guitar <input type="checkbox" name="mute" value="guitar"></h2>
-		<%for(int j=0; j<24; j++) {%>
-		
-		   <div class="sound <%=chord[j]%> guitar">
-		      <div><%=chord[j]%></div>
-		      <%for (int i = 1; i <= 32; i++) {%>
-		      <div class='pad <%=chord[j]%> length<%=i%>'><input type='hidden' value=""></div>
-		      <%}%>
-		   </div>
-		   
-	   <%} %>
-	   
+<h2>Guitar<input type="checkbox" name="mute" value="guitar"></h2>
+<c:forEach var="cList" items="${chord}" >
 	
-   
-  
- 
+	<div class="sound ${cList} guitar">
+		<div>${cList}</div>
+		<c:forEach var="glength" varStatus="i" begin="1" end="32" step="1">
+			<div class='pad ${cList} length${glength}'>
+				<input type='hidden' value="">
+			</div>
+		</c:forEach>
+	</div>
+
+</c:forEach>
+
+
+
+
