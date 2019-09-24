@@ -123,46 +123,42 @@ $(function() {
 	$("#test").on("click",function(){
 		var sound="";
 		var sounds="";
-		
-		
 		for(var i =1; i<=32; i++){ 
-           for (var k = 1; k < 3; k++) {
-	               	for(var j = 0; j < noteArr.length; j++) {
-	               		sound=$(".piano ."+noteArr[j]+k+".length"+i).children().val();
-	               	    if(sound==""){
-	               	    	sounds+="x ";
-	               		}else{
-	               			sounds+=sound+" ";
-	               		}
-	                } 
-         	  }
-         	  if($(".piano .C3.length"+i).children().val()==""){
-	           	  pianoSoundInfo+=sounds+"x/";
-         	  }else{
-         		  pianoSoundInfo+=sounds+$(".piano .C3.length"+i).children().val()+"/";
-         	  }
-         	  sounds="";
+	        for (var k = 1; k < 3; k++) {
+		        for(var j = 0; j < noteArr.length; j++) {
+		           sound=$(".piano ."+noteArr[j]+k+".length"+i).children().val();
+		           if(sound==""){
+		              sounds+="x ";
+		           }else{
+		              sounds+=sound+" ";
+		           }
+		        } 
+	    }
+	    if($(".piano .C3.length"+i).children().val()==""){
+		  pianoSoundInfo+=sounds+"x/";
+	    }else{
+	      pianoSoundInfo+=sounds+$(".piano .C3.length"+i).children().val()+"/";
+	    }
+	      sounds="";
 		}
 		for(var i =1; i<=32; i++){ 
-          		 for (var k = 0; k < 2; k++) {
-	               	for(var j = 0; j < noteArr; j++) {
-	               		sound=$(".bass ."+noteArr[j]+k+".length"+i).children().val();
-	               		console.log(i+""+sound)
-	               	    if(sound==""){
-	               	    	sounds+="x ";
-	               		}else{
-	               			sounds+=sound+" ";
-	               		}
-	                }
-         		 }
-         		 if($(".bass .C2.length"+i).children().val()==""){
-		           	  bassSoundInfo+=sounds+"x/";
-	           	  }else{
-	           		  bassSoundInfo+=sounds+$(".bass .C2.length"+i).children().val()+"/";
-	           	  }
-  			 console.log(bassSoundInfo);
-	           	 sounds="";
-			}
+	       for (var k = 0; k < 2; k++) {
+		       for(var j = 0; j < noteArr; j++) {
+		          sound=$(".bass ."+noteArr[j]+k+".length"+i).children().val();
+		          if(sound==""){
+		             sounds+="x ";
+		          }else{
+		             sounds+=sound+" ";
+		          }
+		       }
+	       }
+		   if($(".bass .C2.length"+i).children().val()==""){
+				bassSoundInfo+=sounds+"x/";
+		   }else{
+				bassSoundInfo+=sounds+$(".bass .C2.length"+i).children().val()+"/";
+		   }
+			    sounds="";
+		}
 		console.log(bassSoundInfo);
 		
 		
@@ -192,7 +188,7 @@ $(function() {
 	          sounds="";
 		}
 		
-	 $.ajax({
+	  $.ajax({
 			url:"savePjt.kh",
 			data:{pianoSoundInfo:pianoSoundInfo,
 				  bassSoundInfo:bassSoundInfo,
@@ -303,44 +299,26 @@ $(function() {
 	  
    
    $("#length").on("change",function(){
-  	   for(var i = 1; i < 33; i++) {
-             $(".length"+i).hide();
-          }
-          for(var i = 1; i <= $("#length").val(); i++) {
+       for(var i = 1; i <= $("#length").val(); i++) {
              $(".length"+i).show();
-          }
+       }
    });
-
-
-
-
-
-
-	
- 
    
    $("input[name='mute']").on("change",function(){
   	
          
-         var $mute = $("."+$(this).val()+"Audio");
-         console.log($(this).val());
-	      console.log($mute[0]);
-	      console.log($mute[1]);
-         for(var i=0; i<$mute.length; i++){
-	 	       	  if($mute[i].volume!=0){
-	 	          		$mute[i].volume=0;
-	 	          }else{
-	 	        		$mute[i].volume=1.0;
-	         	  }
-	        	  
-	     }
-         
-       	  
+       var $mute = $("."+$(this).val()+"Audio");
+       console.log($(this).val());
+	   console.log($mute[0]);
+	   console.log($mute[1]);
+       for(var i=0; i<$mute.length; i++){
+	 	  if($mute[i].volume!=0){
+	 	    $mute[i].volume=0;
+	 	  }else{
+	 	    $mute[i].volume=1.0;
+	      }
+	   }
    });
-  
- 
-
-   
    
   // 마우스 올렸을 때 색 변화
   $(".sound").on("mouseenter",function(){
@@ -348,7 +326,6 @@ $(function() {
   }).on("mouseleave",function(){
   	$(this).children().eq(0).css("color","");
   });
-  
   
   // 드래그 이벤트
   $(".pad").on("mousedown",function(){
@@ -365,7 +342,6 @@ $(function() {
   	$(".pad").off("mouseenter");
   });
       
-  
   // 안찍혀있을 때 색칠, 찍혀있을 때 색 없앰
   function imprint(pad){
   		var sound = pad.parent().children().eq(0).text(); 
@@ -380,9 +356,6 @@ $(function() {
              pad.children().val("");
           }
   }
-
-
-   
    
    $("#beat,#bpm").on("change",function(){
   	 if($("#beat").val()>beat){
@@ -394,9 +367,6 @@ $(function() {
   	 bpm = $("#bpm").val();
   
    });
-   
-   
-   
    
    $("#length").on('change', function(){
       length = $("#length").val();
@@ -416,16 +386,11 @@ $(function() {
 	    if (!audio) return;
 	    audio.currentTime = 0;
 	    audio.play();
-	    
-	      
    }
-   
    
    var idx = 1;
    function test(){
-  	//$(".pad").css({"opacity":"1","border-left":"1px solid black","border-right":"1px solid black"});
   		$(".pad").css({"opacity":"1"});
-    	//$(".length"+idx).css({"opacity":"0.5","border-left":"3px solid orange","border-right":"3px solid orange"});	
     	$(".length"+idx).css({"opacity":"0.5"});	
         for (var i = 1; i < 3; i++) {
 	        for(var j = 0; j < noteArr.length; j++) {
@@ -440,31 +405,23 @@ $(function() {
 	        } 
         }
        playSound($(".C3 " + ".length" + idx).children().val());
-       
    	   for(var i = 0; i < drumArr.length; i++) { 
    			var sound =$("."+drumArr[i]+".length" + idx).children().val();
    	        if(sound!="")playSound(sound);
        }
-       
        for(var i=0; i<chordArr.length; i++){
     	   var sound =$("."+chordArr[i]+".length" + idx).children().val();
     	   if(sound!="")playSound(sound);
  	    } 
- 	   
-     	
-      	   
-        	play=setTimeout(function(){
-        		  if (idx >= length) {
-                    idx = 1;
-                }else{
-           		  idx++;
-                }
-	          	 test();
-        	},(1000/(bpm*(bpm/60)))*bpm/(beat/4));
-          
-    
+       play=setTimeout(function(){
+	       if (idx >= length) {
+	         idx = 1;
+	       }else{
+	         idx++;
+	       }
+		   test();
+       },(1000/(bpm*(bpm/60)))*bpm/(beat/4));
    }
-   
    
    $("#play").click(function() {
   	 test();
