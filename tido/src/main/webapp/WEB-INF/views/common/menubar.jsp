@@ -7,8 +7,9 @@
     <head>
     <meta charset="UTF-8">
         <title></title>
+        <link href="https://fonts.googleapis.com/css?family=Audiowide|Open+Sans"rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+       
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -20,11 +21,13 @@
         });
     </script>
     <body>
+    	
+    	<c:url var="goMain" value="main.kh"></c:url>
     	<c:url var="goProject" value="compPjtView.kh"></c:url>
     	
         <nav class="header">
             <ul class="nav_ul">
-                <li><img src="${contextPath }/resources/images/main.png" width="135px" height="90px"></li>
+                <li><a href="${goMain }"><img src="${contextPath }/resources/images/main.png" width="135px" height="90px"></a></li>
                 <li><a href="${goProject }">작곡하기</a></li> 
                 <li><a href="#">공유게시판</a></li>
                 <li><a href="#">공지사항</a></li>

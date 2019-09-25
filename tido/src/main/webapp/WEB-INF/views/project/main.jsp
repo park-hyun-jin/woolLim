@@ -7,9 +7,6 @@
 <head>
 <meta charset="UTF-8">
 <title>JS Drum Kit</title>
-<link href="https://fonts.googleapis.com/css?family=Audiowide|Open+Sans"
-	rel="stylesheet">
-<script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
 
 
 
@@ -118,6 +115,7 @@ $(function() {
     var beat = $("#beat").val();
     
     var noteArr = '<c:out value="${note}"/>'.split(",");
+    console.log(noteArr);
     var bassNoteArr = '<c:out value="${note1}"/>'.split(",");
 	var chordArr = '<c:out value="${chord}"/>'.split(","); 
 	var drumArr = '<c:out value="${drum}"/>'.split(","); 
@@ -335,7 +333,8 @@ $(function() {
   });
   
   // 드래그 이벤트
-  $(".pad").on("mousedown",function(){
+  $(".pad").mousedown(function(){
+	 	 console.log("as");
          var $pad = $(this);
          imprint($pad);
          $(".pad").on("mouseenter",function() {
