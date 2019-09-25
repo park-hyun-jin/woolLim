@@ -35,4 +35,9 @@ public class ProjectController {
 		return new Gson().toJson(project);
 	}
 	
+	@RequestMapping("compPjtView.kh")
+	public String compProjectView() {
+		return "project/projectView";
+	}
+	
 }

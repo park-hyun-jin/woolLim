@@ -12,15 +12,14 @@
 <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
 
 
-
 <style>
 * {
 	box-sizing: border-box;
 }
 
 body{
-	background:grey;
-	
+	background:grey !important;
+
 }
 
 div {
@@ -42,14 +41,26 @@ div div:first-child{
 	float: left;
 	background:rgba(255,255,255,0.4)
 }
+h1{
+	color:white;
+}
+section{
+	
+	width:95%;
+	height:95%;
+	margin:auto;
+}
 </style>
 </head>
 <body oncontextmenu="return false" onselectstart="return false"
 	ondragstart="return false">
-	<%@ include file="../common/menubar.jsp" %>
+	<jsp:include page="../common/menubar.jsp"/>
 
 	
 	
+	
+
+	<section>
 	<button id="stop">멈춤</button>
 	<button id="play">재생</button>
 	<button id="test">save</button>
@@ -59,12 +70,10 @@ div div:first-child{
 	bpm<input id="bpm" type="number" value="120" min="30" max="300">
 	beat<input id="beat" type="number" value="8" min="4" max="16">
 	
-
-	<section>
-		<%@ include file="piano.jsp" %>
-		<%@ include file="guitar.jsp" %>
-		<%@ include file="bass.jsp" %>
-		<%@ include file="drum.jsp" %>
+		<jsp:include page="piano.jsp" />
+		<jsp:include page="guitar.jsp" />
+		<jsp:include page="bass.jsp" />
+		<jsp:include page="drum.jsp" />
 	</section>
 	
 	
