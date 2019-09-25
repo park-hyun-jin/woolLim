@@ -20,10 +20,12 @@
         });
     </script>
     <body>
+    	<c:url var="goProject" value="compPjtView.kh"></c:url>
+    	
         <nav class="header">
             <ul class="nav_ul">
                 <li><img src="${contextPath }/resources/images/main.png" width="135px" height="90px"></li>
-                <li><a href="#">작곡하기</a></li> 
+                <li><a href="${goProject }">작곡하기</a></li> 
                 <li><a href="#">공유게시판</a></li>
                 <li><a href="#">공지사항</a></li>
                 <li><a href="#">문의하기</a></li>
