@@ -148,12 +148,12 @@ $(function() {
 	               	sound=$(".bass ."+bassNoteArr[j]+k+".length"+i).children().val();
 	               	console.log(i+""+sound)
 	               	if(sound==""){
-	               	    	sounds+="x ";
-	               		}else{
-	               			sounds+=sound+" ";
-	               		}
-	              }
-       		 }
+	               	    sounds+="x ";
+               		}else{
+               			sounds+=sound+" ";
+               		}
+	            }
+       		}
          	if($(".bass .C2.length"+i).children().val()==""){
 		        bassSoundInfo+=sounds+"x/";
 	        }else{
