@@ -3,10 +3,10 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
-<c:set var="drum">hihat,openhat,snare,kick,crash,ride,hightom,middletom,floortom</c:set>
-<h2>
+<c:set var="drum" value="hihat,openhat,snare,kick,crash,ride,hightom,middletom,floortom" scope="request"/>
+<h1>
 	Drum <input type="checkbox" name="mute" value="drum">
-</h2>
+</h1>
 
 <c:forEach var="dList" items="${drum}">
 	<div class="sound ${dList } drum">

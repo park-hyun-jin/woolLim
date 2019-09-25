@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
 <!DOCTYPE>
 <html>
 <head>
@@ -9,9 +8,7 @@
 <title>JS Drum Kit</title>
 <link href="https://fonts.googleapis.com/css?family=Audiowide|Open+Sans"
 	rel="stylesheet">
-<script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
-
-
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <style>
 * {
@@ -19,8 +16,8 @@
 }
 
 body{
-	background:grey;
-	
+	background:grey !important;
+
 }
 
 div {
@@ -42,14 +39,26 @@ div div:first-child{
 	float: left;
 	background:rgba(255,255,255,0.4)
 }
+h1{
+	color:white;
+}
+section{
+	
+	width:95%;
+	height:95%;
+	margin:auto;
+}
 </style>
 </head>
 <body oncontextmenu="return false" onselectstart="return false"
 	ondragstart="return false">
-	<%@ include file="../common/menubar.jsp" %>
+	<jsp:include page="../common/menubar.jsp"/>
 
 	
 	
+	
+
+	<section>
 	<button id="stop">멈춤</button>
 	<button id="play">재생</button>
 	<button id="test">save</button>
@@ -58,19 +67,19 @@ div div:first-child{
 	length<input id="length" type="number" value="32" min="4" max="32" step=4>
 	bpm<input id="bpm" type="number" value="120" min="30" max="300">
 	beat<input id="beat" type="number" value="8" min="4" max="16">
-	
-
-	<section>
-		<%@ include file="piano.jsp" %>
-		<%@ include file="guitar.jsp" %>
-		<%@ include file="bass.jsp" %>
-		<%@ include file="drum.jsp" %>
+		<%-- <c:import url="piano.jsp" />
+		<c:import url="guitar.jsp" />
+		<c:import url="bass.jsp" />
+		<c:import url="drum.jsp" /> --%>
+		
+		<jsp:include page="piano.jsp" />
+		<jsp:include page="guitar.jsp" />
+		<jsp:include page="bass.jsp" />
+		<jsp:include page="drum.jsp" />
 	</section>
 	
 	
 	
-	
-
 	
 	<c:forEach  var="poctv" varStatus="j" begin="1" end="2">
 		<c:forEach var="noteList" items="${note}">
@@ -85,7 +94,7 @@ div div:first-child{
     	<audio class="guitarAudio" id="${cList}guitar" src="${contextPath }/resources/sounds/guitar/${cList}.m4a" preload="none"></audio>
     </c:forEach>
 	
-	<c:forEach var="boctv" varStatus="j" begin="1" end="2">
+	<c:forEach var="boctv" varStatus="j" begin="0" end="1">
 	   	<c:forEach var="bList" items="${note1}">
 	         <audio class="bassAudio" id="${bList}${boctv}bass" src="${contextPath }/resources/sounds/bass/${bList}${boctv}.wav" preload="none"></audio>
 	
@@ -96,17 +105,11 @@ div div:first-child{
 	  	<c:forEach var="dList" items="${drum}">
    			<audio class="drumAudio" id="${dList}drum" src="${contextPath }/resources/sounds/drum/${dList}.m4a" preload="none"></audio>
    	  	</c:forEach>
-	
-	
-	
-
-
-
  <input type="hidden" id="padCheck">
 <script>
 
 $(function() {
-	  var play;
+	var play;
     var instruments = ["piano","bass"];
     var pianoSoundInfo="";
     var bassSoundInfo="";
@@ -289,7 +292,6 @@ $(function() {
 		 	    for(var i=0; i<32; i++){
 		 			soundArr= $.trim(beatArr[i]).split(" ");
 		 			var sidx=0;	
-		 			console.log(soundArr);
 	  		 			 for(var j=0; j<drumArr.length; j++){
 	  		 			
 	  		 				if(soundArr[sidx]!="x"){
@@ -328,8 +330,6 @@ $(function() {
          
          var $mute = $("."+$(this).val()+"Audio");
          console.log($(this).val());
-	      console.log($mute[0]);
-	      console.log($mute[1]);
          for(var i=0; i<$mute.length; i++){
 	 	       	  if($mute[i].volume!=0){
 	 	          		$mute[i].volume=0;
@@ -362,6 +362,8 @@ $(function() {
 				$pad = $(this);
 				imprint($pad);
          });
+         
+         console.log(noteArr);
 	});
   
   // 마우스 땟을 때 이벤트 제거
@@ -374,6 +376,7 @@ $(function() {
   function imprint(pad){
   		var sound = pad.parent().children().eq(0).text(); 
   		var instrument =pad.parent().attr('class').split(" ")[2];
+  		 console.log(sound+instrument);
           if (pad.children().val() == "") {
               $("#padCheck").val(sound+instrument);
               pad.children().val(sound+instrument);
@@ -433,6 +436,7 @@ $(function() {
     	$(".length"+idx).css({"opacity":"0.5"});	
         for (var i = 1; i < 3; i++) {
 	        for(var j = 0; j < noteArr.length; j++) {
+	        	
 	            var sound =$(".piano>."+noteArr[j]+i+".length" + idx).children().val();
 	            if(sound!="")playSound(sound);
 	        } 
@@ -476,7 +480,7 @@ $(function() {
 
    
 $("#stop").click(function() {
-   clearinterval(play);
+   clearInterval(play);
 });
 
 
