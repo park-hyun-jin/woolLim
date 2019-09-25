@@ -37,6 +37,10 @@ public class ProjectController {
 	
 	@RequestMapping("compPjtView.kh")
 	public String compProjectView() {
+		return "project/selectMenuView";
+	}
+	@RequestMapping("newProject.kh")
+	public String newProjectView() {
 		return "project/projectView";
 	}
 	

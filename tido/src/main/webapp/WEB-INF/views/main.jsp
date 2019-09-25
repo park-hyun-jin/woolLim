@@ -5,8 +5,22 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<style>
+	section{
+		
+		width:1500px;
+		height:600px;
+		margin:100px auto;
+	}
+	
+</style>
 </head>
 <body>
 	<jsp:include page="common/menubar.jsp"/>
+	<section>
+	
+	</section>
+	<jsp:include page="common/footer.jsp"/>
 </body>
 </html>
