@@ -4,9 +4,9 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <c:set var="drum" value="hihat,openhat,snare,kick,crash,ride,hightom,middletom,floortom" scope="request"/>
-<h1>
-	Drum <input type="checkbox" name="mute" value="drum">
-</h1>
+<h1>Drum</h1>
+<input type="checkbox" name="mute" value="drum">
+<input type="range" name="volume" class="drum" min="0" max="10">
 
 <c:forEach var="dList" items="${drum}">
 	<div class="sound ${dList } drum">

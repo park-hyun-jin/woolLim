@@ -61,7 +61,7 @@ section{
 	<section>
 	<button id="stop">멈춤</button>
 	<button id="play">재생</button>
-	<button id="test">save</button>
+	<button id="save">save</button>
 	<button id="open">open</button>
 	
 	length<input id="length" type="number" value="32" min="4" max="32" step=4>
@@ -124,7 +124,7 @@ $(function() {
     var bassNoteArr = '<c:out value="${note1}"/>'.split(",");
 	var chordArr = '<c:out value="${chord}"/>'.split(","); 
 	var drumArr = '<c:out value="${drum}"/>'.split(","); 
-	$("#test").on("click",function(){
+	$("#save").on("click",function(){
 		var sound="";
 		var sounds="";
 		
@@ -322,26 +322,40 @@ $(function() {
 
 
 
-	
- 
+   var volume= 0.5;
    
+   for(var i=0; i < $("audio").length; i++) {
+	   $("audio")[i].volume = volume;
+   }
+ 
+   // 음소거
    $("input[name='mute']").on("change",function(){
-  	
-         
+	   
          var $mute = $("."+$(this).val()+"Audio");
          console.log($(this).val());
          for(var i=0; i<$mute.length; i++){
 	 	       	  if($mute[i].volume!=0){
 	 	          		$mute[i].volume=0;
 	 	          }else{
-	 	        		$mute[i].volume=1.0;
+	 	        		$mute[i].volume=volume;
 	         	  }
 	        	  
 	     }
          
        	  
    });
-  
+   
+   
+   // 볼륨조절
+   $("input[name='volume']").on("change",function(){
+       var $audio = $("."+$(this).attr("class")+"Audio");
+       volume = $(this).val()/10;
+       console.log(volume);
+       console.log($(this).attr("class"))
+       for(var i=0; i<$audio.length; i++){
+    	   $audio[i].volume= volume;
+	     }
+   });
  
 
    
