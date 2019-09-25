@@ -5,7 +5,7 @@
 <c:set var="chord">C,Cm,CS,CSm,D,Dm,EF,EFm,E,Em,F,Fm,FS,FSm,G,Gm,GS,GSm,A,Am,BF,BFm,B,Bm</c:set>
 
 
-<h2>Guitar<input type="checkbox" name="mute" value="guitar"></h2>
+<h1>Guitar<input type="checkbox" name="mute" value="guitar"></h1>
 <c:forEach var="cList" items="${chord}" >
 	
 	<div class="sound ${cList} guitar">
