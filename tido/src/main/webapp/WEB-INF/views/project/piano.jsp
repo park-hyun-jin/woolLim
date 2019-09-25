@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<c:set var="note">C,CS,D,DS,E,F,FS,G,GS,A,AS,B</c:set>
+<c:set var="note" value="C,CS,D,DS,E,F,FS,G,GS,A,AS,B" scope="request"/>
 <h1>Piano <input type="checkbox" name="mute" value="piano"></h1>
 
 	<c:forEach var="poctv" varStatus="j" begin="1" end="2" step="1">
