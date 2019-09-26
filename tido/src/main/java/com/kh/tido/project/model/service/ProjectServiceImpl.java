@@ -36,15 +36,10 @@ public class ProjectServiceImpl implements ProjectService {
 			project.setprojectTitle("착신아리");
 			project.setProjectWriter("박신현");
 			project.setProjectPath(projectPath);
-			
 			int result =pDao.saveProject(project);
-			
 			return result;
-			
 		}
-		
 		return 0;
-		
 	}
 
 	@Override

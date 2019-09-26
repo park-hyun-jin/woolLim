@@ -48,7 +48,7 @@
 				<div >작곡하러가기</div>
 			</div>
 		</div>
-		<div class="area2" onclick="location.href='ProjectListView.kh'">
+		<div class="area2" onclick="location.href='projectListView.kh'">
 			<div>
 				<img src="${contextPath }/resources/images/open-project.png">
 				<div >내 프로젝트 열기</div>

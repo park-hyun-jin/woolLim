@@ -58,10 +58,6 @@ input[name="mute"]{
 	ondragstart="return false">
 	<jsp:include page="../common/menubar.jsp"/>
 
-	
-	
-	
-
 	<section>
 	<button id="stop">멈춤</button>
 	<button id="play">재생</button>
@@ -71,11 +67,6 @@ input[name="mute"]{
 	length<input id="length" type="number" value="32" min="4" max="32" step=4>
 	bpm<input id="bpm" type="number" value="120" min="30" max="300">
 	beat<input id="beat" type="number" value="8" min="4" max="16">
-		<%-- <c:import url="piano.jsp" />
-		<c:import url="guitar.jsp" />
-		<c:import url="bass.jsp" />
-		<c:import url="drum.jsp" /> --%>
-		
 		<jsp:include page="piano.jsp" />
 		<jsp:include page="guitar.jsp" />
 		<jsp:include page="bass.jsp" />
@@ -90,9 +81,7 @@ input[name="mute"]{
 		   <audio class="pianoAudio" id="${noteList}${poctv}piano" src="${contextPath }/resources/sounds/piano/${noteList}${poctv}.wav" preload="none"></audio>
 		 </c:forEach>
 	</c:forEach>
-
-    
-   		<audio class="pianoAudio" id="C3piano" src="${contextPath }/resources/sounds/piano/C3.wav" preload="none"></audio>
+   	<audio class="pianoAudio" id="C3piano" src="${contextPath }/resources/sounds/piano/C3.wav" preload="none"></audio>
 	
 	<c:forEach var="cList" items="${chord}">
     	<audio class="guitarAudio" id="${cList}guitar" src="${contextPath }/resources/sounds/guitar/${cList}.m4a" preload="none"></audio>
@@ -200,7 +189,6 @@ $(function() {
 				imprint($pad);
          });
          
-         console.log(noteArr);
 	});
   
   // 마우스 땟을 때 이벤트 제거
@@ -218,7 +206,7 @@ $(function() {
               $("#padCheck").val(sound+instrument);
               pad.children().val(sound+instrument);
               pad.css("background", "#F79F81");
-     		    playSound($("#padCheck").val());
+     		  playSound($("#padCheck").val());
           } else {
              pad.css("background", "");
              pad.children().val("");
@@ -271,6 +259,9 @@ $(function() {
   		$(".pad").css({"opacity":"1"});
     	//$(".length"+idx).css({"opacity":"0.5","border-left":"3px solid orange","border-right":"3px solid orange"});	
     	$(".length"+idx).css({"opacity":"0.5"});	
+    	
+    	
+    	
         for (var i = 1; i < 3; i++) {
 	        for(var j = 0; j < noteArr.length; j++) {
 	        	
@@ -278,18 +269,22 @@ $(function() {
 	            if(sound!="")playSound(sound);
 	        } 
         }
+        
+        
         for (var i = 0; i < 2; i++) {
 	        for(var j = 0; j < noteArr.length; j++) {
 	            var sound =$(".bass>."+noteArr[j]+i+".length" + idx).children().val();
 	            if(sound!="")playSound(sound);
 	        } 
         }
+        
        playSound($(".C3 " + ".length" + idx).children().val());
        
    	   for(var i = 0; i < drumArr.length; i++) { 
    			var sound =$("."+drumArr[i]+".length" + idx).children().val();
    	        if(sound!="")playSound(sound);
        }
+   	   
        
        for(var i=0; i<chordArr.length; i++){
     	   var sound =$("."+chordArr[i]+".length" + idx).children().val();
@@ -320,28 +315,29 @@ $("#stop").click(function() {
    clearInterval(play);
 });
 
+
+
+
 $("#save").on("click",function(){
 	var sound="";
 	var sounds="";
-	
-	
 	for(var i =1; i<=32; i++){ 
        for (var k = 1; k < 3; k++) {
-               	for(var j = 0; j < noteArr.length; j++) {
-               		sound=$(".piano ."+noteArr[j]+k+".length"+i).children().val();
-               	    if(sound==""){
-               	    	sounds+="x ";
-               		}else{
-               			sounds+=sound+" ";
-               		}
-                } 
-     	  }
-     	  if($(".piano .C3.length"+i).children().val()==""){
-           	  pianoSoundInfo+=sounds+"x/";
-     	  }else{
-     		  pianoSoundInfo+=sounds+$(".piano .C3.length"+i).children().val()+"/";
-     	  }
-     	  sounds="";
+          for(var j = 0; j < noteArr.length; j++) {
+        	  sound=$(".piano ."+noteArr[j]+k+".length"+i).children().val();
+        	  if(sound==""){
+        	     sounds+="x ";
+        	  }else{
+        		 sounds+=sound+" ";
+        	  }
+         } 
+   	  }
+   	  if($(".piano .C3.length"+i).children().val()==""){
+         	  pianoSoundInfo+=sounds+"x/";
+   	  }else{
+   		  pianoSoundInfo+=sounds+$(".piano .C3.length"+i).children().val()+"/";
+   	  }
+   	  sounds="";
 	}
 	for(var i =1; i<=32; i++){ 
       		 for (var k = 0; k < 2; k++) {
@@ -363,7 +359,6 @@ $("#save").on("click",function(){
 			 console.log(bassSoundInfo);
            	 sounds="";
 		}
-	console.log(bassSoundInfo);
 	
 	
 	for(var i =1; i<=32; i++){ 
@@ -422,6 +417,7 @@ $("#save").on("click",function(){
 			$("#beat").val(project.beat);
 			var beatArr = project.pianoSoundInfo.split("/");
 			var soundArr;
+			
 	 		for(var i=0; i<32; i++){
 	 			soundArr= $.trim(beatArr[i]).split(" ");
 	 			var sidx=0;
@@ -489,14 +485,14 @@ $("#save").on("click",function(){
 	 	    for(var i=0; i<32; i++){
 	 			soundArr= $.trim(beatArr[i]).split(" ");
 	 			var sidx=0;	
-  		 			 for(var j=0; j<drumArr.length; j++){
-  		 			
-  		 				if(soundArr[sidx]!="x"){
-	    		 				$(".drum ."+drumArr[j]+".length"+(i+1)).children().val(soundArr[sidx]);
-	    		 				$(".drum ."+drumArr[j]+".length"+(i+1)).css("background","#F79F81");
-  		 				}
-  		 				sidx++;
-		 				}
+	 			for(var j=0; j<drumArr.length; j++){
+	 			
+	 				if(soundArr[sidx]!="x"){
+  		 				$(".drum ."+drumArr[j]+".length"+(i+1)).children().val(soundArr[sidx]);
+  		 				$(".drum ."+drumArr[j]+".length"+(i+1)).css("background","#F79F81");
+	 				}
+	 				sidx++;
+ 			    }
 	 		}
  		   sidx=0;
 		}

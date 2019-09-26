@@ -17,7 +17,7 @@
     </head>
 
     <body>
-    	
+    	<c:set var="loginUser" value="신현"/>
     	<c:url var="goMain" value="main.kh"></c:url>
     	<c:url var="goProject" value="compPjtView.kh"></c:url>
     	
@@ -34,11 +34,14 @@
 	                   		 <img id="user_before" width="20%" src="${contextPath }/resources/images/user_before.png">
 	                	</c:when>
 	                	<c:otherwise>
-	           				<img id="user_after" width="20%" src="${contextPath }/resources/images/user_after.png"> --%>
+	           				<div class="userProfile">
+		           				<img id="user_after" src="${contextPath }/resources/images/user.png">
+		           			</div>
+		           			<div class="nickname">${loginUser } 님</div>
 	                	</c:otherwise>
                 	</c:choose>
-                	
                 </li>
+                
             </ul>
         </nav>
     </body>
