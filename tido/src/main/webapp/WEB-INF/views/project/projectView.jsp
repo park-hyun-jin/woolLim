@@ -48,8 +48,22 @@ section{
 	height:95%;
 	margin:auto;
 }
+.volumeController{
+	padding: 0;
+	height: 40px;
+	position: relative;
+}
+.volumeController label img{
+	position: absolute;
+	top: 8px;
+}
 input[name="mute"]{
 	display:none;
+}
+input[name="volume"]{
+	height: 100%;
+	width: 120px;
+	margin-left: 30px;
 }
 #pause{
 	display:none;
@@ -61,15 +75,18 @@ input[name="mute"]{
 	<jsp:include page="../common/menubar.jsp"/>
 
 	<section>
-	<img id="pause" src="${contextPath}/resources/images/pause.png" style="cursor: pointer;"/>
-	<img id="play" src="${contextPath}/resources/images/play.png" style="cursor: pointer;"/>
-	<img id="stop" src="${contextPath}/resources/images/stop.png" style="cursor: pointer;"/>
-	<button id="save">save</button>
-	<button id="open">open</button>
+	<div class = "controller">
+		<img id="pause" src="${contextPath}/resources/images/pause.png" style="cursor: pointer;"/>
+		<img id="play" src="${contextPath}/resources/images/play.png" style="cursor: pointer;"/>
+		<img id="stop" src="${contextPath}/resources/images/stop.png" style="cursor: pointer;"/>
+		<button id="save">save</button>
+		<button id="open">open</button>
+		length<input id="length" type="number" value="32" min="4" max="32" step=4>
+		bpm<input id="bpm" type="number" value="120" min="30" max="300">
+		beat<input id="beat" type="number" value="8" min="4" max="16">
+	</div>
 	
-	length<input id="length" type="number" value="32" min="4" max="32" step=4>
-	bpm<input id="bpm" type="number" value="120" min="30" max="300">
-	beat<input id="beat" type="number" value="8" min="4" max="16">
+	
 		<jsp:include page="piano.jsp" />
 		<jsp:include page="guitar.jsp" />
 		<jsp:include page="bass.jsp" />
@@ -434,21 +451,18 @@ $("#save").on("click",function(){
 			$("#beat").val(project.beat);
 			var beatArr = project.pianoSoundInfo.split("/");
 			var soundArr;
-			
 	 		for(var i=0; i<32; i++){
 	 			soundArr= $.trim(beatArr[i]).split(" ");
 	 			var sidx=0;
 	 			for(var octv=1; octv<3; octv++){
   		 			 for(var j=0; j<noteArr.length; j++){
-  		 			
   		 				if(soundArr[sidx]!="x"){
-  		 				
 	    		 			$(".piano ."+noteArr[j]+octv+".length"+(i+1)).children().val(soundArr[sidx]);
 	    		 			$(".piano ."+noteArr[j]+octv+".length"+(i+1)).css("background","#F79F81");
   		 				}
   		 				sidx++;
-		 				}
 		 			}
+		 		}
   		 		if(soundArr[sidx]!="x"){
   		 			console.log(soundArr[sidx]);
 	    		 		$(".piano .C3.length"+i).children().val(soundArr[sidx]);
@@ -487,19 +501,18 @@ $("#save").on("click",function(){
 	 			soundArr= $.trim(beatArr[i]).split(" ");
 	 			var sidx=0;	
 	 			console.log(soundArr);
-  		 			 for(var j=0; j<chordArr.length; j++){
-  		 			
-  		 				if(soundArr[sidx]!="x"){
-	    		 				$(".guitar ."+chordArr[j]+".length"+(i+1)).children().val(soundArr[sidx]);
-	    		 				$(".guitar ."+chordArr[j]+".length"+(i+1)).css("background","#F79F81");
-  		 				}
-  		 				sidx++;
-		 				}
-	 		}
+  		 		for(var j=0; j<chordArr.length; j++){
+	  		 		if(soundArr[sidx]!="x"){
+		    		 	$(".guitar ."+chordArr[j]+".length"+(i+1)).children().val(soundArr[sidx]);
+		    		 	$(".guitar ."+chordArr[j]+".length"+(i+1)).css("background","#F79F81");
+	  		 		}
+	  		 			 sidx++;
+		 		}
+	 	   }
  		   
  		  
  		  beatArr = project.drumSoundInfo.split("/");
-	 	    for(var i=0; i<32; i++){
+	 	   for(var i=0; i<32; i++){
 	 			soundArr= $.trim(beatArr[i]).split(" ");
 	 			var sidx=0;	
 	 			for(var j=0; j<drumArr.length; j++){
@@ -510,7 +523,7 @@ $("#save").on("click",function(){
 	 				}
 	 				sidx++;
  			    }
-	 		}
+	 	   }
  		   sidx=0;
 		}
 	});    

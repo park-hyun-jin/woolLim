@@ -13,7 +13,6 @@
                 height: 110px;
                 /* position: fixed; */
                 /* float: left; */
-                margin-bottom: 10px;
                 background-color: #242323;
             }
 
@@ -60,4 +59,9 @@
             	color:white;
             	font-weight: 400;
             	display: inline-block;
+            }
+            .controller{
+            	width:100%;
+            	height:50px;
+            	margin-top: 10px;
             }
