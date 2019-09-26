@@ -17,11 +17,11 @@
 		VALUES 
 		(SEQ_PNO.NEXTVAL,#{projectTitle},SYSDATE,SYSDATE,#{projectPath},DEFAULT,#{projectWriter})
 	</insert>
-<!-- 	<select id="openProject" resultMap="projectResultSet">
+ 	<select id="openProject" resultMap="projectResultSet" parameterType="_int">
 		SELECT *
 		FROM 
-		COMPOSITION_INFO
-		WHERE ROWNUM =1
-	</select> -->
+		PROJECT
+		WHERE PROJECT_NO = #{pNo}
+	</select>
 	
 </mapper>
