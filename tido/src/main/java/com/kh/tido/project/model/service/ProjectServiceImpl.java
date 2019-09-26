@@ -35,7 +35,7 @@ public class ProjectServiceImpl implements ProjectService {
 			
 			project.setprojectTitle("착신아리");
 			project.setProjectWriter("박신현");
-			project.setProjectPath(projectPath);
+			project.setProjectPath(projectPath + ".properties");
 			
 			int result =pDao.saveProject(project);
 			
