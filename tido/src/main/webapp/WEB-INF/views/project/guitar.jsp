@@ -6,7 +6,8 @@
 
 
 <h1>Guitar</h1>
-<input type="checkbox" name="mute" value="guitar">
+<input type="checkbox" id="gVolume" name="mute" value="guitar">
+<label for="gVolume"><img  src="${contextPath}/resources/images/unmute.png"/></label>
 <input type="range" name="volume" class="guitar" min="0" max="10">
 
 <c:forEach var="cList" items="${chord}" >

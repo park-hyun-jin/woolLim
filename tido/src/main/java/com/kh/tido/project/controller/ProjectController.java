@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.kh.tido.project.model.service.ProjectService;
-import com.kh.tido.project.model.vo.Project;
 import com.kh.tido.project.model.vo.ProjectFile;
 
 @Controller
