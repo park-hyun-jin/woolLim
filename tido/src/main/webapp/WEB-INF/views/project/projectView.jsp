@@ -51,7 +51,9 @@ section{
 input[name="mute"]{
 	display:none;
 }
-
+#pause{
+	display:none;
+}
 </style>
 </head>
 <body oncontextmenu="return false" onselectstart="return false"
@@ -63,8 +65,9 @@ input[name="mute"]{
 	
 
 	<section>
-	<button id="stop">멈춤</button>
-	<button id="play">재생</button>
+	<img id="pause" src="${contextPath}/resources/images/pause.png" style="cursor: pointer;"/>
+	<img id="play" src="${contextPath}/resources/images/play.png" style="cursor: pointer;"/>
+	<img id="stop" src="${contextPath}/resources/images/stop.png" style="cursor: pointer;"/>
 	<button id="save">save</button>
 	<button id="open">open</button>
 	
@@ -129,6 +132,8 @@ $(function() {
 	var chordArr = '<c:out value="${chord}"/>'.split(","); 
 	var drumArr = '<c:out value="${drum}"/>'.split(","); 
 	
+	
+
 	
    
    $("#length").on("change",function(){
@@ -312,13 +317,25 @@ $(function() {
    
    
    $("#play").click(function() {
+	 $("#play").hide();
+	 $("#pause").show();
   	 test();
    });
 
    
-$("#stop").click(function() {
-   clearInterval(play);
-});
+	$("#pause").click(function() {
+		$("#pause").hide();
+		$("#play").show();
+	   clearInterval(play);
+	});
+	
+	$("#stop").click(function() {
+		idx=1;
+		$(".pad").css({"opacity":"1"});
+		$("#pause").hide();
+		$("#play").show();
+		clearInterval(play);
+	});
 
 $("#save").on("click",function(){
 	var sound="";
