@@ -8,7 +8,7 @@
 <title>JS Drum Kit</title>
 <link href="https://fonts.googleapis.com/css?family=Audiowide|Open+Sans"
 	rel="stylesheet">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 
 <style>
 * {
@@ -132,12 +132,10 @@ $(function() {
 	
    
    $("#length").on("change",function(){
-  	   for(var i = 1; i < 33; i++) {
-             $(".length"+i).hide();
-          }
-          for(var i = 1; i <= $("#length").val(); i++) {
-             $(".length"+i).show();
-          }
+  	 
+       for(var i = 1; i <= $("#length").val(); i++) {
+          $(".length"+i).show();
+       }
    });
 
    var volume= 0.5;
@@ -152,21 +150,20 @@ $(function() {
          var $mute = $("."+$(this).val()+"Audio");
          console.log($(this).val());
          for(var i=0; i<$mute.length; i++){
-	 	       	  if($mute[i].volume!=0){
-	 	          		$mute[i].volume=0;
-	 	          		$(this).next().children().attr("src","${contextPath}/resources/images/mute.png");
-	 	          }else{
-	 	        		$mute[i].volume=volume;
-	 	        		$(this).next().children().attr("src","${contextPath}/resources/images/unmute.png");
-	         	  }
-	        	  
+ 	       	  if($mute[i].volume!=0){
+ 	          		$mute[i].volume=0;
+ 	          		$(this).next().children().attr("src","${contextPath}/resources/images/mute.png");
+ 	          		
+ 	          }else{
+ 	        		$mute[i].volume=volume;
+ 	        		$(this).next().children().attr("src","${contextPath}/resources/images/unmute.png");
+         	  }
 	     }
-         
-       	  
    });
    
    
    // 볼륨조절
+  
    $("input[name='volume']").on("change",function(){
        var $audio = $("."+$(this).attr("class")+"Audio");
        volume = $(this).val()/10;
@@ -174,8 +171,14 @@ $(function() {
        console.log($(this).attr("class"))
        for(var i=0; i<$audio.length; i++){
     	   $audio[i].volume= volume;
+    	   if(volume==0){
+    		   $(this).prev().children().attr("src","${contextPath}/resources/images/mute.png");
+    	   }else{
+    		   $(this).prev().children().attr("src","${contextPath}/resources/images/unmute.png");
+    	   }
 	     }
    });
+   
  
 
    
