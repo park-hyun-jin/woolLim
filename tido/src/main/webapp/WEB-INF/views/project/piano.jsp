@@ -4,7 +4,8 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="note" value="C,CS,D,DS,E,F,FS,G,GS,A,AS,B" scope="request"/>
 <h1>Piano</h1>
-<input type="checkbox" name="mute" value="piano">
+<input type="checkbox" id="pVolume" name="mute" value="piano">
+<label for="pVolume"><img src="${contextPath}/resources/images/unmute.png"/></label>
 <input type="range" name="volume" class="piano" min="0" max="10">
 
 	<c:forEach var="poctv" varStatus="j" begin="1" end="2" step="1">
