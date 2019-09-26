@@ -2,9 +2,9 @@ package com.kh.tido.project.model.vo;
 
 import java.sql.Date;
 
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 
-@Repository("project")
+@Component("project")
 public class Project {
 	
 	private int pNo;

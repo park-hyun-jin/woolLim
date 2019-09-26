@@ -1,5 +1,8 @@
 package com.kh.tido.project.model.vo;
 
+import org.springframework.stereotype.Component;
+
+@Component("projectFile")
 public class ProjectFile {
 	private int bpm;
 	private int beat;

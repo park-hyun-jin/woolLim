@@ -1,10 +1,12 @@
 package com.kh.tido.project.model.service;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Properties;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,7 +23,8 @@ public class ProjectServiceImpl implements ProjectService {
 	private ProjectDao pDao;
 	@Autowired
 	private Project project;
-	
+	@Autowired
+	ProjectFile projectFile;
 	
 	@Override
 	public int saveProject(ProjectFile projectFile,HttpServletRequest request) {
@@ -45,15 +48,33 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	@Override
-	public Project openProject() {
-		return pDao.openProject();
+	public ProjectFile openProject(int pNo, HttpServletRequest request) {
+		String filePath = request.getSession().getServletContext().getRealPath("resources") + "/project/" + pDao.openProject(pNo).getProjectPath();
+		
+		try {
+			Properties prop = new Properties();
+			prop.load(new FileReader(filePath));
+			
+			projectFile.setBpm(Integer.parseInt(prop.getProperty("bpm")));
+			projectFile.setBeat(Integer.parseInt(prop.getProperty("beat")));
+			projectFile.setPianoSoundInfo(prop.getProperty("pianoSoundInfo"));
+			projectFile.setGuitarSoundInfo(prop.getProperty("guitarSoundInfo"));
+			projectFile.setBassSoundInfo(prop.getProperty("bassSoundInfo"));
+			projectFile.setDrumSoundInfo(prop.getProperty("drumSoundInfo"));
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return projectFile;
 	}
 	
 	
 	
 	
 	
-	public String createFile(ProjectFile project,HttpServletRequest request) {
+	public String createFile(ProjectFile project, HttpServletRequest request) {
 		//파일 객체 생성
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		String savePath = root + "\\project";
@@ -92,7 +113,7 @@ public class ProjectServiceImpl implements ProjectService {
 			    		+ "drumSoundInfo = " + project.getDrumSoundInfo()
 			    		); writer.close();
 			    
-			    return filePath;
+			    return fileName;
 			} else {
 			    System.out.println("File already exists.");
 			    return null;

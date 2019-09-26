@@ -31,9 +31,11 @@ public class ProjectController {
 	
 	@ResponseBody
 	@RequestMapping("openPjt.kh")
-	public String openProject() {
+	public String openProject(HttpServletRequest request) {
+		
+		int pNo = 49;
 	
-		Project project= pService.openProject();
+		ProjectFile project= pService.openProject(pNo, request);
 		
 		return new Gson().toJson(project);
 	}

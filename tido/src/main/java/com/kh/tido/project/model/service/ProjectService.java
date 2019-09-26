@@ -9,6 +9,6 @@ public interface ProjectService {
 
 	public abstract int saveProject(ProjectFile project, HttpServletRequest request);
 
-	public abstract Project openProject();
+	public abstract ProjectFile openProject(int pNo, HttpServletRequest request);
 	
 }
