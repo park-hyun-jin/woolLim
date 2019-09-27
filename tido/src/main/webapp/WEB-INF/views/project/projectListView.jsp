@@ -30,43 +30,98 @@
 		font-family:"Archivo Black",sans-serif;
 	}
 	
-	aside>div.head>h3{
+	aside>div.asidehead>h3{
 		font-family:"Archivo Black";
-		padding: 20px;
+		padding-top:25px;
 	}
 	.projectSearch{
-		width:80%;
+		width:74%;
 	}
-	#projectSearchBtn{
-		background:none;
-		border:none;
-		width:32px;
-		height:32px;
+	.imgbtns{
+		display:inline-block;
+		width:24px;
+		height:24px;
+		margin-right:8px;
 	}
-	#projectSearchBtn img{
+	#projectSearchBtn img,#folderAddBtn img{
 		width:100%;
-		height: 72%;
+		height: 100%;
 	}
-	.folders span{
-		margin-left : 15px;
+	.folders,.folders ul{
+		list-style: none;
+		padding:10px 0 0 0 ;
 		color:white;
 	}
+	.folders:hover,.imgbtns:hover{
+	cursor: pointer;
+	}
+	.folders span{
+		margin-left : 10px;
+	}
+	.folders p{
+	   margin: 0;
+	}
+	.folders ul{
+		padding:3px 0 0 0;
+		margin-left: 20px;
+	}
+	
 </style>
 </head>
 <body>
 		<jsp:include page="../common/menubar.jsp"/>
 		<section>
-			<aside>
-				<div class="asidehead">
+			<aside oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
+				<div class="asidehead" >
 				<h3>내 프로젝트</h3>
 				</div>
-				<p><input class="projectSearch"><button id="projectSearchBtn"><img src="${contextPath }/resources/images/search.png"></button></p>
-				<p class="folders"><img src="${contextPath }/resources/images/closed_folder.png"><span>내 라이브러리</span></p>
+					<input class="projectSearch">
+					<span class="imgbtns" id="projectSearchBtn"><img src="${contextPath }/resources/images/search.png"></span>
+					<span class="imgbtns"  id="folderAddBtn"><img src="${contextPath }/resources/images/plus.png"></span>
+				<ul class="folders">
+					<li>
+					<p>
+					<img id="arrowimg" src="${contextPath }/resources/images/right-arrow.png" width=10px height="10px">
+					<img id="folderimg" src="${contextPath }/resources/images/closed_folder.png" width=30px height="30px" style="margin-left:10px">
+					<span>내 라이브러리</span>
+					</p>
+						<ul>
+							<li><p>폴더가 비어있습니다.</p></li>
+						</ul>
+					</li>
+				</ul>
 			</aside>
 			<div>
 			
 			</div>
 		</section>
 		<jsp:include page="../common/footer.jsp"/>
+		
+		<script>
+			$(function(){
+			var folderStatus =0;
+				$(".folders #folderimg,.folders span").on("dblclick",function(){
+					if(folderStatus==0){
+						folderStatus++;
+						$("#arrowimg").attr("src","${contextPath }/resources/images/down-arrow.png");
+					}else{
+						folderStatus--;
+						$("#arrowimg").attr("src","${contextPath }/resources/images/right-arrow.png");
+					}
+					console.log("dbclick");
+				});
+				$("#arrowimg").on("click",function(){
+					console.log("click");
+					if(folderStatus==0){
+						folderStatus++;
+						$(this).attr("src","${contextPath }/resources/images/down-arrow.png")
+					}else{
+						folderStatus--;
+						$(this).attr("src","${contextPath }/resources/images/right-arrow.png")
+					}
+					console.log(folderStatus);
+				});
+			});
+		</script>
 </body>
 </html>

@@ -221,7 +221,7 @@ $(function() {
   
   // 안찍혀있을 때 색칠, 찍혀있을 때 색 없앰
   function imprint(pad){
-  		var sound = pad.parent().children().eq(0).text(); 
+  		var sound = pad.parent().attr('class').split(" ")[1]; 
   		var instrument =pad.parent().attr('class').split(" ")[2];
   		 console.log(sound+instrument);
           if (pad.children().val() == "") {

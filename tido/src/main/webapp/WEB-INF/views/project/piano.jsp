@@ -23,7 +23,7 @@
 <c:forEach var="poctv" varStatus="j" begin="1" end="2">
 	<c:forEach var="noteList" items="${note}">
 		<div class="sound ${noteList}${3-poctv} piano">
-			<div>${noteList}${3-poctv}</div>
+			<div>${fn:replace(noteList,'S','#')}${3-poctv}</div>
 			<c:forEach var="plength" varStatus="i" begin="1" end="32" step="1">
 				<div class='pad ${noteList}${3-poctv} length${plength}'>
 					<input type='hidden' value="">
