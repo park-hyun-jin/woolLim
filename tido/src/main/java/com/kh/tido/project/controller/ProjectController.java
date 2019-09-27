@@ -48,4 +48,9 @@ public class ProjectController {
 		return "project/projectView";
 	}
 	
+	@RequestMapping("projectListView.kh")
+	public String projectListView() {
+		return "project/projectListView";
+	}
+	
 }

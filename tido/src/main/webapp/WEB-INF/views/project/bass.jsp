@@ -4,9 +4,13 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="note1" value="B,AS,A,GS,G,FS,F,E,DS,D,CS,C" scope="request"/>
 <h1>Bass</h1>
+<div class="volumeController">
 <input type="checkbox" id="bVolume" name="mute" value="bass">
 <label for="bVolume"><img  src="${contextPath}/resources/images/unmute.png"/></label>
 <input type="range" name="volume" class="bass" min="0" max="10">
+
+</div>
+
    
 <div class="sound C2 bass">
    <div>C2</div>

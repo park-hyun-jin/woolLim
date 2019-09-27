@@ -38,13 +38,9 @@ public class ProjectServiceImpl implements ProjectService {
 			project.setProjectPath(projectPath + ".properties");
 			
 			int result =pDao.saveProject(project);
-			
 			return result;
-			
 		}
-		
 		return 0;
-		
 	}
 
 	@Override
