@@ -47,6 +47,10 @@
 		width:100%;
 		height: 72%;
 	}
+	.folders span{
+		margin-left : 15px;
+		color:white;
+	}
 </style>
 </head>
 <body>
@@ -57,7 +61,7 @@
 				<h3>내 프로젝트</h3>
 				</div>
 				<p><input class="projectSearch"><button id="projectSearchBtn"><img src="${contextPath }/resources/images/search.png"></button></p>
-				<p><img src="${contextPath }/resources/images/folder.png">내 폴더</p>
+				<p class="folders"><img src="${contextPath }/resources/images/closed_folder.png"><span>내 라이브러리</span></p>
 			</aside>
 			<div>
 			
