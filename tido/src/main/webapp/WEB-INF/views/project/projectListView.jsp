@@ -35,7 +35,7 @@
 		padding-top:25px;
 	}
 	.projectSearch{
-		width:74%;
+		width:85%;
 	}
 	.imgbtns{
 		display:inline-block;
@@ -43,9 +43,10 @@
 		height:24px;
 		margin-right:8px;
 	}
-	#projectSearchBtn img,#folderAddBtn img{
+	#folderAddBtn img{
 		width:100%;
 		height: 100%;
+		margin-left:10px;
 	}
 	.folders,.folders ul{
 		list-style: none;
@@ -53,7 +54,7 @@
 		color:white;
 	}
 	.folders:hover,.imgbtns:hover{
-	cursor: pointer;
+	cursor:pointer;
 	}
 	.folders span{
 		margin-left : 10px;
@@ -63,7 +64,9 @@
 	}
 	.folders ul{
 		padding:3px 0 0 0;
-		margin-left: 20px;
+		text-align: center;
+		color:black;
+		display:none;
 	}
 	
 </style>
@@ -76,15 +79,14 @@
 				<h3>내 프로젝트</h3>
 				</div>
 					<input class="projectSearch">
-					<span class="imgbtns" id="projectSearchBtn"><img src="${contextPath }/resources/images/search.png"></span>
 					<span class="imgbtns"  id="folderAddBtn"><img src="${contextPath }/resources/images/plus.png"></span>
 				<ul class="folders">
 					<li>
-					<p>
-					<img id="arrowimg" src="${contextPath }/resources/images/right-arrow.png" width=10px height="10px">
-					<img id="folderimg" src="${contextPath }/resources/images/closed_folder.png" width=30px height="30px" style="margin-left:10px">
-					<span>내 라이브러리</span>
-					</p>
+						<p>
+							<img id="arrowimg" src="${contextPath }/resources/images/right-arrow.png" width=10px height="10px">
+							<img id="folderimg" src="${contextPath }/resources/images/closed_folder.png" width=30px height="30px" style="margin-left:10px">
+							<span>내 라이브러리</span>
+						</p>
 						<ul>
 							<li><p>폴더가 비어있습니다.</p></li>
 						</ul>
@@ -104,20 +106,31 @@
 					if(folderStatus==0){
 						folderStatus++;
 						$("#arrowimg").attr("src","${contextPath }/resources/images/down-arrow.png");
+						$(".folders ul").css({"display":"block","cursor":"text"});
 					}else{
 						folderStatus--;
 						$("#arrowimg").attr("src","${contextPath }/resources/images/right-arrow.png");
+						$(".folders ul").css("display","");
 					}
 					console.log("dbclick");
 				});
+				
+				
+				$(".folders #folderimg,.folders span,#arrowimg").on("click",function(){
+					$(this).parent().css("background","rgba(0,0,0,0.2)")
+				});
+				
+				
 				$("#arrowimg").on("click",function(){
 					console.log("click");
 					if(folderStatus==0){
 						folderStatus++;
 						$(this).attr("src","${contextPath }/resources/images/down-arrow.png")
+						$(".folders ul").css({"display":"block","cursor":"text"});
 					}else{
 						folderStatus--;
 						$(this).attr("src","${contextPath }/resources/images/right-arrow.png")
+						$(".folders ul").css("display","none");
 					}
 					console.log(folderStatus);
 				});

@@ -1,10 +1,17 @@
 package com.kh.tido.project.model.service;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Properties;
 
@@ -25,102 +32,111 @@ public class ProjectServiceImpl implements ProjectService {
 	private Project project;
 	@Autowired
 	ProjectFile projectFile;
-	
+
 	@Override
-	public int saveProject(ProjectFile projectFile,HttpServletRequest request) {
-		
-		String projectPath = createFile(projectFile, request);
-		
-		if(projectPath != null) {
-			
+	public int saveProject(ProjectFile projectFile, HttpServletRequest request, String nickname) {
+
+		String projectPath = createFile(projectFile, request, nickname);
+
+		if (projectPath != null) {
 			project.setprojectTitle("착신아리");
-			project.setProjectWriter("박신현");
+			project.setProjectWriter("신현");
 			project.setProjectPath(projectPath + ".properties");
-			
-			int result =pDao.saveProject(project);
+			int result = pDao.saveProject(project);
 			return result;
 		}
 		return 0;
 	}
 
 	@Override
-	public ProjectFile openProject(int pNo, HttpServletRequest request) {
-		String filePath = request.getSession().getServletContext().getRealPath("resources") + "/project/" + pDao.openProject(pNo).getProjectPath();
-		
+	public ProjectFile openProject(int pNo, HttpServletRequest request, String nickname) {
+		String filePath = request.getSession().getServletContext().getRealPath("resources") + "/project/" + nickname
+				+ "/" + pDao.openProject(pNo).getProjectPath();
+
 		try {
 			Properties prop = new Properties();
 			prop.load(new FileReader(filePath));
-			
+
 			projectFile.setBpm(Integer.parseInt(prop.getProperty("bpm")));
 			projectFile.setBeat(Integer.parseInt(prop.getProperty("beat")));
 			projectFile.setPianoSoundInfo(prop.getProperty("pianoSoundInfo"));
 			projectFile.setGuitarSoundInfo(prop.getProperty("guitarSoundInfo"));
 			projectFile.setBassSoundInfo(prop.getProperty("bassSoundInfo"));
 			projectFile.setDrumSoundInfo(prop.getProperty("drumSoundInfo"));
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
+
 		return projectFile;
 	}
-	
-	
-	
-	
-	
-	public String createFile(ProjectFile project, HttpServletRequest request) {
-		//파일 객체 생성
+
+	public String createFile(ProjectFile project, HttpServletRequest request, String nickname) {
+		// 파일 객체 생성
 		String root = request.getSession().getServletContext().getRealPath("resources");
-		String savePath = root + "\\project";
-		
+		String savePath = root + "\\project\\" + nickname;
+
 		// 저장 폴더 선택
 		File folder = new File(savePath);
-		
+
 		// 만약 해당 폴더가 없는 경우
-		if(!folder.exists()) {
+		if (!folder.exists()) {
 			folder.mkdir(); // 폴더 생성
 		}
 
-		String fileName =null;
+		String fileName = null;
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-		
-		fileName = sdf.format(new Date()) + (int)(Math.random()*100);
-		
-		
-		
+
+		fileName = sdf.format(new Date()) + (int) (Math.random() * 100);
+
 		String filePath = folder + "\\" + fileName + ".properties";
-		
+
 		File file = new File(filePath);
-		
+
 		try {
-			if (file.createNewFile())
-			{
-			    System.out.println("File is created!");
-			    
-			    FileWriter writer = new FileWriter(file);
-			    writer.write(""
-			    		+ "bpm = " + project.getBpm() + "\n"
-			    		+ "beat = " + project.getBeat() + "\n"
-			    		+ "pianoSoundInfo = " + project.getPianoSoundInfo() + "\n"
-			    		+ "bassSoundInfo = " + project.getBassSoundInfo() + "\n"
-			    		+ "guitarSoundInfo = " + project.getGuitarSoundInfo() + "\n"
-			    		+ "drumSoundInfo = " + project.getDrumSoundInfo()
-			    		); writer.close();
-			    
-			    return fileName;
+			if (file.createNewFile()) {
+				System.out.println("File is created!");
+
+				FileWriter writer = new FileWriter(file);
+				writer.write("" + "bpm = " + project.getBpm() + "\n" + "beat = " + project.getBeat() + "\n"
+						+ "pianoSoundInfo = " + project.getPianoSoundInfo() + "\n" + "bassSoundInfo = "
+						+ project.getBassSoundInfo() + "\n" + "guitarSoundInfo = " + project.getGuitarSoundInfo() + "\n"
+						+ "drumSoundInfo = " + project.getDrumSoundInfo());
+				writer.close();
+				return fileName;
 			} else {
-			    System.out.println("File already exists.");
-			    return null;
+				System.out.println("File already exists.");
+				return null;
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		
 		return null;
 	}
-	
+	@Override
+	public ArrayList<String> getFolderList(HttpServletRequest request, String nickname) {
+		
+		File dir = new File(request.getSession().getServletContext().getRealPath("resources")); 
+		File[] fileList = dir.listFiles(); 
+
+		for(int i = 0 ; i < fileList.length ; i++){
+
+			File file = fileList[i]; 
+
+			if(file.isFile()){
+
+				System.out.println("\t 파일 이름 = " + file.getName());
+
+			}else if(file.isDirectory()){
+
+				System.out.println("디렉토리 이름 = " + file.getName());
+
+			}
+
+		}
+		return null;
+	}
+
+
 
 }
