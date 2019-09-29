@@ -18,7 +18,7 @@
     </head>
 
     <body>
-    	<c:set var="loginUser" value="신현"/>
+    	<c:set var="loginUser" value="신현" scope="session"/>
     	<c:url var="goMain" value="main.kh"></c:url>
     	<c:url var="goProject" value="compPjtView.kh"></c:url>
     	

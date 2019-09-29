@@ -62,6 +62,8 @@
 	
 	<c:if test="${loginUser==null }">	
 		<script>
+		
+		$(function(){
 			$(".area2").on("mouseenter",function(){
 				$(this).children().children().eq(0).hide();
 				$(this).children().children().eq(1).text("로그인 해주세요").css("line-height","128px");
@@ -69,6 +71,7 @@
 				$(this).children().children().eq(0).show();
 				$(this).children().children().eq(1).text("내 프로젝트").css("line-height","");;
 			});
+		});
 		</script>
 	</c:if>	
 </body>
