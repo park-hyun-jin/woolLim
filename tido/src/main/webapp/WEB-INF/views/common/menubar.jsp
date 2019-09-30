@@ -14,10 +14,11 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="${contextPath }/resources/css/common/menubar-style.css">
+      
     </head>
 
     <body>
-    	
+    	<c:set var="loginUser" value="신현" scope="session"/>
     	<c:url var="goMain" value="main.kh"></c:url>
     	<c:url var="goProject" value="compPjtView.kh"></c:url>
     	
@@ -34,11 +35,14 @@
 	                   		 <img id="user_before" width="20%" src="${contextPath }/resources/images/user_before.png">
 	                	</c:when>
 	                	<c:otherwise>
-	           				<img id="user_after" width="20%" src="${contextPath }/resources/images/user_after.png"> --%>
+	           				<div class="userProfile">
+		           				<img id="user_after" src="${contextPath }/resources/images/user.png">
+		           			</div>
+		           			<div class="nickname">${loginUser } 님</div>
 	                	</c:otherwise>
                 	</c:choose>
-                	
                 </li>
+                
             </ul>
         </nav>
     </body>

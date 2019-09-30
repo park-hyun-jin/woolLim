@@ -48,10 +48,10 @@
 				<div >작곡하러가기</div>
 			</div>
 		</div>
-		<div class="area2" onclick="location.href='ProjectListView.kh'">
+		<div class="area2" onclick="location.href='projectListView.kh'">
 			<div>
 				<img src="${contextPath }/resources/images/open-project.png">
-				<div >내 프로젝트 열기</div>
+				<div >내 프로젝트</div>
 			</div>
 		</div>
 		<div class="area3"></div>
@@ -62,13 +62,16 @@
 	
 	<c:if test="${loginUser==null }">	
 		<script>
+		
+		$(function(){
 			$(".area2").on("mouseenter",function(){
 				$(this).children().children().eq(0).hide();
 				$(this).children().children().eq(1).text("로그인 해주세요").css("line-height","128px");
 			}).on("mouseleave",function(){
 				$(this).children().children().eq(0).show();
-				$(this).children().children().eq(1).text("내 프로젝트 열기").css("line-height","");;
+				$(this).children().children().eq(1).text("내 프로젝트").css("line-height","");;
 			});
+		});
 		</script>
 	</c:if>	
 </body>

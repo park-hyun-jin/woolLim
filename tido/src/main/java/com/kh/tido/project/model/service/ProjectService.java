@@ -1,14 +1,16 @@
 package com.kh.tido.project.model.service;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 
-import com.kh.tido.project.model.vo.Project;
+import javax.servlet.http.HttpServletRequest;
 import com.kh.tido.project.model.vo.ProjectFile;
 
 public interface ProjectService {
 
-	public abstract int saveProject(ProjectFile project, HttpServletRequest request);
+	public abstract int saveProject(ProjectFile project, HttpServletRequest request,String nickname);
 
-	public abstract ProjectFile openProject(int pNo, HttpServletRequest request);
+	public abstract ProjectFile openProject(int pNo, HttpServletRequest request,String nickname);
+
+	public abstract ArrayList<String> getDirectory(HttpServletRequest request,String nickname);
 	
 }
