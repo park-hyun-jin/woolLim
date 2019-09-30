@@ -122,13 +122,14 @@ public class ProjectServiceImpl implements ProjectService {
 	public ArrayList<String> getPathList(String path,ArrayList<String>pathList) {
 		File dir = new File(path);
 		File[] fileList = dir.listFiles();
-		for (int i = 0; i < fileList.length; i++) {
-			
-			if (fileList[i].isFile() || fileList[i].isDirectory()) {
-				pathList.add(path+"\\"+fileList[i].getName());
+		if(fileList!=null) {
+			for (int i = 0; i < fileList.length; i++) {
+				
+				if (fileList[i].isFile() || fileList[i].isDirectory()) {
+					pathList.add(path+"\\"+fileList[i].getName());
+				}
 			}
 		}
-	
 		return pathList;
 	}
 
