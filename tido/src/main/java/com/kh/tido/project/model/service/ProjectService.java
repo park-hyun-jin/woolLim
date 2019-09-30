@@ -11,6 +11,6 @@ public interface ProjectService {
 
 	public abstract ProjectFile openProject(int pNo, HttpServletRequest request,String nickname);
 
-	public abstract ArrayList<String> getFolderList(HttpServletRequest request,String nickname);
+	public abstract ArrayList<String> getDirectory(HttpServletRequest request,String nickname);
 	
 }

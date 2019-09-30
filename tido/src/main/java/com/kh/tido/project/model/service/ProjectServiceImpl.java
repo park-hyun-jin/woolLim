@@ -1,15 +1,9 @@
 package com.kh.tido.project.model.service;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -113,30 +107,29 @@ public class ProjectServiceImpl implements ProjectService {
 		}
 		return null;
 	}
+
 	@Override
-	public ArrayList<String> getFolderList(HttpServletRequest request, String nickname) {
-		
-		File dir = new File(request.getSession().getServletContext().getRealPath("resources")); 
-		File[] fileList = dir.listFiles(); 
-
-		for(int i = 0 ; i < fileList.length ; i++){
-
-			File file = fileList[i]; 
-
-			if(file.isFile()){
-
-				System.out.println("\t 파일 이름 = " + file.getName());
-
-			}else if(file.isDirectory()){
-
-				System.out.println("디렉토리 이름 = " + file.getName());
-
-			}
-
-		}
-		return null;
+	public ArrayList<String> getDirectory(HttpServletRequest request, String nickname) {
+		ArrayList<String> pathList = new ArrayList<String>(); 
+		String root = request.getSession().getServletContext().getRealPath("resources\\project\\"+nickname);
+		pathList =getPathList(root,pathList);
+		for(String p :pathList) {
+			System.out.println(p);
+		}		
+		return pathList;
 	}
 
-
+	public ArrayList<String> getPathList(String path,ArrayList<String>pathList) {
+		File dir = new File(path);
+		File[] fileList = dir.listFiles();
+		for (int i = 0; i < fileList.length; i++) {
+			
+			if (fileList[i].isFile() || fileList[i].isDirectory()) {
+				pathList.add(path+"\\"+fileList[i].getName());
+			}
+		}
+	
+		return pathList;
+	}
 
 }
