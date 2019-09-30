@@ -96,24 +96,11 @@ input[name="volume"]{
 	
 	
 	
-	<c:forEach  var="poctv" varStatus="j" begin="1" end="2">
-		<c:forEach var="noteList" items="${note}">
-		   <audio class="pianoAudio" id="${noteList}${poctv}piano" src="${contextPath }/resources/sounds/piano/${noteList}${poctv}.wav" preload="none"></audio>
-		 </c:forEach>
-	</c:forEach>
-   	<audio class="pianoAudio" id="C3piano" src="${contextPath }/resources/sounds/piano/C3.wav" preload="none"></audio>
 	
 	<c:forEach var="cList" items="${chord}">
     	<audio class="guitarAudio" id="${cList}guitar" src="${contextPath }/resources/sounds/guitar/${cList}.m4a" preload="none"></audio>
     </c:forEach>
 	
-	<c:forEach var="boctv" varStatus="j" begin="0" end="1">
-	   	<c:forEach var="bList" items="${note1}">
-	         <audio class="bassAudio" id="${bList}${boctv}bass" src="${contextPath }/resources/sounds/bass/${bList}${boctv}.wav" preload="none"></audio>
-	
-	    </c:forEach>
-  	</c:forEach>
-   			<audio class="bassAudio" id="C2bass" src="${contextPath }/resources/sounds/bass/C2.wav"preload="none"></audio>
 	
 	  	<c:forEach var="dList" items="${drum}">
    			<audio class="drumAudio" id="${dList}drum" src="${contextPath }/resources/sounds/drum/${dList}.m4a" preload="none"></audio>
