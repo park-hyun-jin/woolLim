@@ -139,14 +139,14 @@
 						if(depth>1){
 							for(var i=2; i<=depth; i++){
 								var folderNames =folder.parents(".depth"+i).children().children().children("span");
-								console.log(folderNames);
 								for(var j=0; j<folderNames.length; j++){
 									if(folderNames.eq(j).text()==folder.siblings("span").text()){
 										path+="\\"+folder.siblings("span").text();
 									}
 								}
-								console.log(path);
+								
 							}
+							console.log(path);
 						}
 						$.ajax({
 							url:"getFolder.kh",
@@ -215,16 +215,17 @@
 						 $folder.parent().css("background","rgba(0,0,0,0.2)");
 						 clickFolder($folder);
 					 });
-					
-					
-					
+					span.on("click",function(){
+						 $folder = $(this);
+						 $(".folders li p").css("background","");
+						 $folder.parent().css("background","rgba(0,0,0,0.2)");
+					 });
 					
 					p.on("mouseenter",function(){
 						p.css("cursor","pointer");
 					}).on("mouseleave",function(){
 						p.css("cursor","text");
 					});
-					
 					
 					span.css({"margin-left":"10px","color":"white"});
 					ul.css({"display":"block","cursor":"text"});
