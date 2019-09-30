@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -53,10 +54,16 @@ public class ProjectController {
 	}
 	
 	@RequestMapping("projectListView.kh")
-	public String projectListView(HttpServletRequest request) {
-		ArrayList<String> pathList = pService.getFolderList(request,"신현");
-		
+	public String projectListView() {
 		return "project/projectListView";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="getFolder.kh" ,produces="application/json; charset=utf-8 ")
+	public String getFolder(HttpServletRequest request,String path) {
+		System.out.println(path);
+		ArrayList<String> pathList = pService.getDirectory(request,path);
+		return new Gson().toJson(pathList);
 	}
 	
 }
