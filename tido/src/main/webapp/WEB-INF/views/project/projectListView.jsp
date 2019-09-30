@@ -9,19 +9,23 @@
 <title>Insert title here</title>
 <%-- <link rel="styleSheet" href="${contextPath }/resources/css/project" > --%>
 <style>
-
+	
 	@import url('https://fonts.googleapis.com/css?family=Archivo+Black|Kanit:400,700i&display=swap');
+	*{
+		box-sizing: border-box;
+	}
 	section{
-		margin:auto;
-		width:100%;
-		height: 800px;
+		width:80%;
+		height:800px;
 		background: rgba(200,200,200,0.8);
+		float:left;
 	}
 	aside{
-		height: 100%;
-		width:400px;
-		background: rgba(0,0,0,0.5);
+		height:800px;
+		width:20%;
+		background: rgba(0,0,0,0.7);
 		padding:0 10px 0 10px;
+		float:left;
 	}
 	aside>div.asidehead{
 		width:100%;
@@ -41,14 +45,16 @@
 	}
 	.imgbtns{
 		display:inline-block;
-		width:24px;
-		height:24px;
+		width:6%;
+		height:22px;
 		margin-right:8px;
 	}
 	#folderAddBtn img{
 		width:100%;
 		height: 100%;
 		margin-left:10px;
+		-webkit-filter: invert(100%);
+   		filter: invert(100%);
 	}
 	.folders,.folders ul{
 		list-style: none;
@@ -69,13 +75,15 @@
 		color:black;
 		display:none;
 	}
+	.folderTitle{
+		font-weight: bolder;
+	}
 	
 </style>
 </head>
 <body>
 		<jsp:include page="../common/menubar.jsp"/>
-		<section>
-			<aside oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
+		<aside oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
 				<div class="asidehead" >
 				<h3>내 프로젝트</h3>
 				</div>
@@ -91,11 +99,13 @@
 						</p>
 					</li>
 				</ul>
-			</aside>
-			<div>
-			
-			</div>
+		</aside>
+		<section>
+			<h3 class="folderTitle">내 라이브러리</h3>
+			<hr>
 		</section>
+	
+		
 		<jsp:include page="../common/footer.jsp"/>
 		
 		<script>
@@ -109,7 +119,8 @@
 				var $arrowimg;
 				var $folderimg;
 				var $span;
-				var path;
+				var path="${loginUser}";
+				var depth;
 				$(".folders .folderimg,.folders span").on("dblclick",function(){
 					$folder = $(this);
 					clickFolder($folder);
@@ -121,6 +132,7 @@
 				});
 				
 				$(".folders .folderimg,.folders span,.arrowimg").on("click",function(){
+					$(".folders li p").css("background","");
 					$(this).parent().css("background","rgba(0,0,0,0.2)");
 				});
 				
@@ -132,21 +144,22 @@
 					if(folder.siblings("input:hidden").val()==0){
 						folder.siblings("input:hidden").val(1);
 						folder.parent().children(".arrowimg").attr("src","${contextPath }/resources/images/down-arrow.png");
-						path="${loginUser}";
 						
-						var depth =folder.parent().parent().parent().attr("class").split(" ")[1];
+						depth =folder.parent().parent().parent().attr("class").split(" ")[1];
 						depth=Number(depth.substring(depth.length-1,depth.length));
 						if(depth>1){
+							var folderNames;
 							for(var i=2; i<=depth; i++){
-								var folderNames =folder.parents(".depth"+i).children().children().children("span");
+								folderNames =folder.parents(".depth"+i).children().children().children("span");
 								for(var j=0; j<folderNames.length; j++){
 									if(folderNames.eq(j).text()==folder.siblings("span").text()){
+										path=path.split(folder.siblings("span").text())[0];
 										path+="\\"+folder.siblings("span").text();
 									}
 								}
-								
 							}
-							console.log(path);
+							console.log("path:"+path);
+							$(".folderTitle").text(path.replace("\\",">"));
 						}
 						$.ajax({
 							url:"getFolder.kh",
