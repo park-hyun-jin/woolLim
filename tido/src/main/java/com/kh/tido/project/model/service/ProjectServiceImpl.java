@@ -34,7 +34,7 @@ public class ProjectServiceImpl implements ProjectService {
 
 		if (projectPath != null) {
 			project.setprojectTitle("착신아리");
-			project.setProjectWriter("신현");
+			project.setProjectWriter("1");
 			project.setProjectPath(projectPath + ".properties");
 			int result = pDao.saveProject(project);
 			return result;
@@ -110,23 +110,27 @@ public class ProjectServiceImpl implements ProjectService {
 
 	@Override
 	public ArrayList<String> getDirectory(HttpServletRequest request, String nickname) {
-		ArrayList<String> pathList = new ArrayList<String>(); 
-		String root = request.getSession().getServletContext().getRealPath("resources\\project\\"+nickname);
-		pathList =getPathList(root,pathList);
-		for(String p :pathList) {
+		ArrayList<String> pathList = new ArrayList<String>();
+		String root = request.getSession().getServletContext().getRealPath("resources\\project\\" + nickname);
+		pathList = getPathList(root, pathList);
+		for (String p : pathList) {
 			System.out.println(p);
-		}		
+		}
 		return pathList;
 	}
 
-	public ArrayList<String> getPathList(String path,ArrayList<String>pathList) {
+	public ArrayList<String> getPathList(String path, ArrayList<String> pathList) {
 		File dir = new File(path);
 		File[] fileList = dir.listFiles();
-		if(fileList!=null) {
+		if (fileList != null) {
 			for (int i = 0; i < fileList.length; i++) {
-				
-				if (fileList[i].isFile() || fileList[i].isDirectory()) {
-					pathList.add(path+"\\"+fileList[i].getName());
+
+				/*
+				 * if (fileList[i].isFile()) { pathList.add(path+"\\"+fileList[i].getName());
+				 * }else
+				 */
+				if (fileList[i].isDirectory()) {
+					pathList.add(path + "\\" + fileList[i].getName());
 				}
 			}
 		}

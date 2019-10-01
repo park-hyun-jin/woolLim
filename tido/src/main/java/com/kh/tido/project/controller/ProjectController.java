@@ -37,7 +37,7 @@ public class ProjectController {
 	@RequestMapping("openPjt.kh")
 	public String openProject(HttpServletRequest request) {
 		
-		int pNo = 67;
+		int pNo =1;
 	
 		ProjectFile project= pService.openProject(pNo, request,"신현");
 		
