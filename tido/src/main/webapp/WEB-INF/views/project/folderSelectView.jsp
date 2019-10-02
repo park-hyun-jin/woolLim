@@ -48,7 +48,7 @@ div.asidehead>h3{
 </style>
 
 
-<ul class="folders">
+<ul class="folders depth1">
 	<li>
 		<p>
 				<img class="arrowimg"
@@ -66,6 +66,7 @@ div.asidehead>h3{
 	<script>
 	var path;
 			$(function(){
+				$(".depth1 li p").css("background","rgba(255,255,255,0.2)");
 				path="${loginUser.name}";
 				var $folder,$p,$ul,$li,$arrowimg,$folderimg,$span,depth,folderName;
 				var lv=1;
@@ -80,7 +81,7 @@ div.asidehead>h3{
 				});
 				$(".folders .folderimg,.folders span,.arrowimg").on("click",function(){
 					$(".folders li p").css("background","");
-					$(this).parent().css("background","rgba(255,255,255,0.5)");
+					$(this).parent().css("background","rgba(255,255,255,0.2)");
 				});
 				function clickFolder(folder){
 					if(folder.siblings("input:hidden").val()==0){
@@ -140,7 +141,9 @@ div.asidehead>h3{
 								}else{
 									
 								}
-								$(".folderPath").text(path);
+								var replacedPath=path.replace("\\"," > ");
+								replacedPath=replacedPath.replace("${loginUser.name}","내 라이브러리");
+								$(".folderPath").text(replacedPath);
 								selectProjectList(path);
 							}
 						});
@@ -162,7 +165,7 @@ div.asidehead>h3{
 						    .on("click",function(){
 								$folder = $(this);
 								$(".folders li p").css("background","");
-								$folder.parent().css("background","rgba(255,255,255,0.5)");
+								$folder.parent().css("background","rgba(255,255,255,0.2)");
 								clickFolder($folder);
 							});
 					folderimg.attr({"class":"img","src":"${contextPath }/resources/images/closed_folder.png",
@@ -171,19 +174,19 @@ div.asidehead>h3{
 							 .on("dblclick",function(){
 								 $folder = $(this);
 								 $(".folders li p").css("background","");
-								 $folder.parent().css("background","rgba(255,255,255,0.5)");
+								 $folder.parent().css("background","rgba(255,255,255,0.2)");
 								 clickFolder($folder);
 							 });
 					span.on("dblclick",function(){
 						 $folder = $(this).siblings(".arrowimg");
 						 $(".folders li p").css("background","");
-						 $folder.parent().css("background","rgba(255,255,255,0.5)");
+						 $folder.parent().css("background","rgba(255,255,255,0.2)");
 						 clickFolder($folder);
 					 });
 					span.on("click",function(){
 						 $folder = $(this);
 						 $(".folders li p").css("background","");
-						 $folder.parent().css("background","rgba(255,255,255,0.5)");
+						 $folder.parent().css("background","rgba(255,255,255,0.2)");
 					 });
 					
 					p.on("mouseenter",function(){

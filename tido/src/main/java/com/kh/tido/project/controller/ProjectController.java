@@ -30,7 +30,6 @@ public class ProjectController {
 	public String saveProject(ProjectFile project,String projectPath,HttpServletRequest request) {
 		System.out.println(projectPath);
 		String projectWriter=((Member)request.getSession().getAttribute("loginUser")).getId();
-		
 		int result= pService.saveProject(project,projectPath,request,projectWriter);
 		return result+"";
 	}
