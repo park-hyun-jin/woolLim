@@ -42,8 +42,12 @@
       height:128px;
       margin-top: 150px;
    }
-    
-    @media ( max-width: 800px ) {
+    @media ( max-width: 900px ) {
+       section{
+	      height:300px;
+	  }
+    }
+    @media ( max-width: 768px ) {
 	    section{
 	      width:100%;
 	      height:600px;
