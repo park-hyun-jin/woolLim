@@ -55,7 +55,7 @@
 	      float: none;
 	      margin-bottom:10px;
   	 }
-  	  section>div>div>div{
+  	 section>div>div>div{
       text-align: center;
       font-weight:bolder;
       font-size:20px;
