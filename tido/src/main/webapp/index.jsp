@@ -85,6 +85,12 @@
 		left: 47%;
 		margin: -50px 0 0 -50px;
 	}
+	.center2 {
+		position: absolute;
+		top: 50%;
+		left: 47%;
+		margin: -50px 0 0 -50px;
+	}
 </style>
 <body>
 	<h1 style="text-align:center; color:#fff">
@@ -95,6 +101,9 @@
 	
 	<div id="indexBtn" class="center">
 		<button id="visual-btn" onclick="javascript:location.href='main.kh'">Visit our Site!</button>
+	</div>
+	<div id="indexBtn2" class="center2">
+		<button id="visual-btn" onclick="javascript:location.href='admin.kh'">go admin</button>
 	</div>
 	
 	<div class="video-background">
