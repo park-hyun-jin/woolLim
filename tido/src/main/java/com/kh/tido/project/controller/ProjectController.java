@@ -1,14 +1,22 @@
 package com.kh.tido.project.controller;
 
+import java.util.ArrayList;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.google.gson.Gson;
 import com.kh.tido.project.model.service.ProjectService;
-import com.kh.tido.project.model.vo.Project;
+import com.kh.tido.project.model.vo.ProjectFile;
 
+
+@SessionAttributes("loginUser")
 @Controller
 public class ProjectController {
 	@Autowired
@@ -18,21 +26,44 @@ public class ProjectController {
 	
 	@ResponseBody
 	@RequestMapping("savePjt.kh")
-	public String saveProject(Project project) {
+	public String saveProject(ProjectFile project,HttpServletRequest request) {
 		
 		System.out.println(project);
-		int result= pService.saveProject(project);
-		
+		int result= pService.saveProject(project,request,"신현");
 		return result+"";
 	}
 	
 	@ResponseBody
 	@RequestMapping("openPjt.kh")
-	public String openProject() {
+	public String openProject(HttpServletRequest request) {
+		
+		int pNo = 67;
 	
-		Project project= pService.openProject();
+		ProjectFile project= pService.openProject(pNo, request,"신현");
 		
 		return new Gson().toJson(project);
+	}
+	
+	@RequestMapping("compPjtView.kh")
+	public String compProjectView() {
+		return "project/selectMenuView";
+	}
+	@RequestMapping("newProject.kh")
+	public String newProjectView() {
+		return "project/projectView";
+	}
+	
+	@RequestMapping("projectListView.kh")
+	public String projectListView() {
+		return "project/projectListView";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="getFolder.kh" ,produces="application/json; charset=utf-8 ")
+	public String getFolder(HttpServletRequest request,String path) {
+		System.out.println(path);
+		ArrayList<String> pathList = pService.getDirectory(request,path);
+		return new Gson().toJson(pathList);
 	}
 	
 }

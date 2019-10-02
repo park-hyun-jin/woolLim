@@ -1,36 +1,45 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <h1>Bass <input type="checkbox" name="mute" value="bass"></h1>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<c:set var="note1" value="B,AS,A,GS,G,FS,F,E,DS,D,CS,C" scope="request"/>
+<h1>Bass</h1>
+<select name="bassSelect">
+    <option value="bass">bass</option>
+    <option value="synth">synth</option>
+</select>
 
-<% String note1[] = {"C", "CS", "D", "DS", "E", "F", "FS", "G", "GS", "A", "AS","B"}; %>
+<div class="volumeController">
+<input type="checkbox" id="bVolume" name="mute" value="bass">
+<label for="bVolume"><img  src="${contextPath}/resources/images/unmute.png"/></label>
+<input type="range" name="volume" class="bass" min="0" max="10">
+</div>
 
-   <% for(int j = 0; j <= 1; j++) {%>
-   	<% for(int k = 0; k < 12; k++) {%>
-      <div class="sound <%=note1[k]%><%= j %> bass">
-         <div><%=note1[k]%><%= j %></div>
-         <% for (int i = 1; i <= 32; i++) { %>
-         <div class='pad <%=note1[k]%><%= j %> length<%=i%>'>
-         	<input type='hidden' value="">
-         </div>
-         <% } %>
+<div class="sound C2 bass">
+   	<div>C2</div>
+    <c:forEach var="blength" varStatus="i" begin="1" end="32" step="1">
+		<div class='pad C2 length${blength}'>
+			<input type='hidden' value="">
+		</div>
+   	</c:forEach>
+</div>
+
+<c:forEach var="boctv" varStatus="j" begin="0" end="1">
+   	<c:forEach var="bList" items="${note1}">
+       <audio class="bassAudio" id="${bList}${boctv}bass" src="${contextPath }/resources/sounds/bass/${bList}${boctv}.wav" preload="none"></audio>
+    </c:forEach>
+</c:forEach>
+<audio class="bassAudio" id="C2bass" src="${contextPath }/resources/sounds/bass/C2.wav"preload="none"></audio>
+
+<c:forEach var="boctv" varStatus="j" begin="0" end="1" step="1">
+<c:forEach var="bList" items="${note1}">
+   <div class="sound ${bList}${1-boctv} bass">
+      <div>${bList}${1-boctv}</div>
+      <c:forEach var="blength" varStatus="i" begin="1" end="32" step="1">
+      <div class='pad ${bList}${1-boctv} length${blength}'>
+      	<input type='hidden' value="">
       </div>
-	<% } %>
-   <% } %>
-   
-   
-
-   <div class="sound C2 bass">
-      <div>C2</div>
-      <%for (int i = 1; i <= 32; i++) {%>
-      <div class='pad C2 length<%=i%>'>
-         <input type='hidden' value="">
-      </div>
-      <%}%>
+      </c:forEach>
    </div>
-
-
- 
-   
-   
-   
-   
+</c:forEach>
+</c:forEach>

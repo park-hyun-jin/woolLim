@@ -17,8 +17,8 @@ public class ProjectDao {
 		return sqlSession.insert("projectMapper.saveProject",project);
 	}
 
-	public Project openProject() {
-		return sqlSession.selectOne("projectMapper.openProject");
+	public Project openProject(int pNo) {
+		return sqlSession.selectOne("projectMapper.openProject", pNo);
 	}
 	
 	
