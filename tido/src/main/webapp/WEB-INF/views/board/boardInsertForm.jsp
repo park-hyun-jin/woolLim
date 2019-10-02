@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="css/bootstrap.css">
+<link rel="stylesheet" href="${contextPath }/resources/css/board/boardlist-style.css"> 
 <title>게시판 글쓰기</title>
 <style>
 	nav{
@@ -116,5 +116,9 @@
 			</div>
 		</div>
 	</form>
+	<script src="https://ajax.googlepis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script type="text/javascript" src="${contextPath }/resources/js/board/bootstrap.js"></script>
+	<!-- 애니매이션 담당 JQUERY -->
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 </body>
 </html>
