@@ -42,7 +42,25 @@
 		width:100%;
 		height: 100%;
 	}
-	
+	.projectArea>div{
+		margin:10px;
+		width:300px;
+		height:350px;
+		background:rgba(110,110,110,0.5);
+		float: left;
+		border-radius: 10px;
+	}
+	.projectArea>div>img{
+		margin:10px;
+		width:275px;
+		height:250px;
+	}
+	.projectArea>div>div{
+		margin:10px;
+		width:275px;
+		height:100px;
+		
+	}
 </style>
 </head>
 <body>
@@ -61,7 +79,6 @@
 			<h3  id="folderPath" class="folderPath">내 라이브러리</h3>
 			<hr>
 			<div id="projectArea" class="projectArea">
-				
 			</div>
 		</section>
 		<jsp:include page="../common/footer.jsp"/>
@@ -82,8 +99,14 @@
 							$("#projectArea").text("");
 							if(projectList.length!=0){
 								for(var i in projectList){
-									$("#projectArea").append(projectList[i].projectTitle);
-									$("#projectArea").append(projectList[i].pCreateDate);
+									var $div = $("<div class='project'>");
+									var $img=$("<img>").attr({"src":""});
+									var $info= $("<div>");
+								 	$info.append(projectList[i].projectTitle+" ");
+								 	$info.append(projectList[i].pCreateDate+"<br>");
+								 	$div.append($img);
+								 	$div.append($info);
+									$("#projectArea").append($div);
 								}
 							}else{
 								$("#projectArea").text("프로젝트가 없습니다");
