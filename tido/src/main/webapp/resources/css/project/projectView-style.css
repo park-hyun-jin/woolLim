@@ -56,3 +56,64 @@ input[name="volume"]{
 #pause{
 	display:none;
 }
+#saveModal{
+	position:fixed ;
+	width:100%;
+	height: 100%;
+	background: rgba(0,0,0,0.4);
+	z-index: 3;
+	display:none;
+}
+#saveModal>div{
+	width:26%;
+	height:45%;
+	margin-left:37%;
+	margin-top:300px;
+	background: rgb(30,30,30);
+	border-radius:5px;
+	border:none;
+	z-index: 3;
+	
+}
+#saveModal>div>.folderarea{
+	width:90%;
+	height:50%;
+	overflow: scroll;
+	border-radius:5px;
+	background: rgb(50,50,50);
+}
+.textarea{
+	width:90%;
+	height:20%;
+	color: white;
+}
+.textarea>input{
+	width:100%;
+}
+#saveModal>div>.btnarea{
+	width:90%;
+	height:20%;
+	text-align: center;
+}
+
+#saveModal>div>.btnarea>button{
+	width:50px;
+	margin-left:5px;
+	border-radius:3px;
+	background: gray;
+	border: none;
+	color:white;
+	
+}
+
+#saveModal>div>h5{
+	font-weight: bolder;
+	color:white;
+	padding: 10px;
+}
+::-webkit-scrollbar {
+	display:none;
+}
+.folders p{
+	padding-left:10px;
+}

@@ -38,6 +38,10 @@
 	.folderPath{
 		font-weight: bolder;
 	}
+	.projectArea{
+		width:100%;
+		height: 100%;
+	}
 	
 </style>
 </head>
@@ -54,11 +58,42 @@
 		<jsp:include page="folderSelectView.jsp"/>
 		</aside>
 		<section>
-			<h3 class="folderPath">내 라이브러리</h3>
+			<h3  id="folderPath" class="folderPath">내 라이브러리</h3>
 			<hr>
+			<div id="projectArea" class="projectArea">
+				
+			</div>
 		</section>
 		<jsp:include page="../common/footer.jsp"/>
 		
+		<script>
+			
+			$(function(){
+				selectProjectList(path);
+			});
+			function selectProjectList(path){
+				console.log("asd");
+				$.ajax({
+						url:"selectPjt.kh",
+						type:"post",
+						data:{projectPath:path},
+						dataType:"json",
+						success:function(projectList){
+							$("#projectArea").text("");
+							if(projectList.length!=0){
+								for(var i in projectList){
+									$("#projectArea").append(projectList[i].projectTitle);
+									$("#projectArea").append(projectList[i].pCreateDate);
+								}
+							}else{
+								$("#projectArea").text("프로젝트가 없습니다");
+							}
+						}
+						
+				});
+			}
+		
+		</script>
 	
 </body>
 </html>

@@ -64,8 +64,10 @@ div.asidehead>h3{
 </ul>
 
 	<script>
+	var path;
 			$(function(){
-				var $folder,$p,$ul,$li,$arrowimg,$folderimg, $span,path, depth,folderName;
+				path="${loginUser.name}";
+				var $folder,$p,$ul,$li,$arrowimg,$folderimg,$span,depth,folderName;
 				var lv=1;
 				var pathList=new Array();
 				$(".folders .folderimg,.folders span").on("dblclick",function(){
@@ -92,24 +94,22 @@ div.asidehead>h3{
 						if(pathList.length!=0){
 							var folderList = path.split("\\");
 							if(prevlv>lv){
-								console.log("prev:"+prevlv);
-								console.log("curr:"+lv);
 								folderList.slice(prevlv-1,folderList-1);							
 							}
 							folderList[lv-1] = folder.parent().children("span").text();
 							
 							console.log(folderList[lv-1]);
-							path="${loginUser}";
+							path="${loginUser.name}";
 							for(var i =1; i<lv; i++){
 								path+="\\"+folderList[i];
 							}
 						}else{
-							path="${loginUser}";
+							path="${loginUser.name}";
 							if(lv>1){
 								path+="\\"+folder.parent().children("span").text();
 							}
 						}
-						
+						console.log(path);
 						$.ajax({
 							url:"getFolder.kh",
 							type:"post",
@@ -120,7 +120,7 @@ div.asidehead>h3{
 									pathList=list;
 									$ul=$("<ul class='folders'>");
 									for(var i in list){
-										folderName=list[i].split("${loginUser}\\")[1];
+										folderName=list[i].split("${loginUser.name}\\")[1];
 										$li=$("<li>");
 										$arrowimg=$("<img>").css("margin-left",((lv)*20)+"px");
 										$folderimg=$("<img>");
@@ -140,8 +140,8 @@ div.asidehead>h3{
 								}else{
 									
 								}
-								
 								$(".folderPath").text(path);
+								selectProjectList(path);
 							}
 						});
 					
@@ -152,6 +152,9 @@ div.asidehead>h3{
 					}
 				
 				}
+				
+				
+				
 				function addAttrFolder(ul,li,arrowimg,folderimg,span,p){
 					arrowimg.attr({"class":"arrowimg",
 								   "src":"${contextPath }/resources/images/right-arrow.png",
