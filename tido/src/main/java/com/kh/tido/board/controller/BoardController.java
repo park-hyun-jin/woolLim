@@ -110,7 +110,7 @@ public class BoardController {
 	@RequestMapping("addReply.kh")
 	@ResponseBody
 	public String addReply(Reply reply, HttpSession session) {
-		String cBoardContent = ((Member)session.getAttribute("loginUser")).getMemberId();
+		String cBoardContent = ((Member)session.getAttribute("loginUser")).getId();
 		reply.setMemberId(cBoardContent);
 		
 		int result = bService.insertReply(reply);
