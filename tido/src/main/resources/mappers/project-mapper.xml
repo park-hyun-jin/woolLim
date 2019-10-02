@@ -4,24 +4,35 @@
 	<resultMap id="projectResultSet" type="Project">
 		<id property="pNo" column="PROJECT_NO"/>
 		<result property="projectTitle" column="PROJECT_TITLE"/>
-		<result property="projectWriter" column="MEMBER_ID"/>
+		<result property="projectWriter" column="PROJECT_WRITER"/>
 		<result property="projectPath" column="PROJECT_PATH"/>
 		<result property="pCreateDate" column="PROJECT_CREATE_DATE"/>
 		<result property="pModifyDate" column="PROJECT_MODIFY_DATE"/>
 		<result property="pStatus" column="PROJECT_STATUS"/>
+		<result property="projectFileName" column="PROJECT_FILE_NAME"/>
 	</resultMap>
 	
 	
 	<insert id="saveProject" parameterType="Project">
 		INSERT INTO PROJECT
 		VALUES 
-		(SEQ_PNO.NEXTVAL,#{projectTitle},SYSDATE,SYSDATE,#{projectPath},DEFAULT,#{projectWriter})
+		(SEQ_PNO.NEXTVAL,#{projectTitle},SYSDATE,SYSDATE,#{projectPath},DEFAULT,#{projectWriter},#{projectFileName})
 	</insert>
  	<select id="openProject" resultMap="projectResultSet" parameterType="_int">
 		SELECT *
 		FROM 
 		PROJECT
 		WHERE PROJECT_NO = #{pNo}
+	</select>
+	
+	<select id="selectProjectList" parameterType="Project" resultMap="projectResultSet">
+		SELECT *
+		FROM PROJECT
+		WHERE PROJECT_WRITER = #{projectWriter} AND
+		      PROJECT_PATH = #{projectPath} AND
+		      PROJECT_STATUS ='Y'
+		ORDER BY PROJECT_NO DESC
+		
 	</select>
 	
 </mapper>
