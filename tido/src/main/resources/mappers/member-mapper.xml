@@ -8,10 +8,10 @@
 		<result property="pwd" column="MEMBER_PWD"/>
 		<result property="enrollDate" column="ENROLL_DATE"/>
 		<result property="modifyDate" column="MODIFY_DATE"/>
-		<result property="reportCnt" column="MEMBER_REPORT_COUNT"/>
-		<result property="banCnt" column="MEMBER_BAN_COUNT"/>
+		<result property="reportCount" column="MEMBER_REPORT_COUNT"/>
+		<result property="banCount" column="MEMBER_BAN_COUNT"/>
 		<result property="status" column="MEMBER_STATUS"/>
-		<result property="imgPath" column="MEMBER_IMAGE_PATH"/>
+		<result property="imagePath" column="MEMBER_IMAGE_PATH"/>
 	</resultMap>
 	
 	<select id="selectOne" parameterType="Member" resultMap="memberResultSet">

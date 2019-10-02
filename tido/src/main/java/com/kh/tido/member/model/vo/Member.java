@@ -9,31 +9,35 @@ public class Member {
 	private String pwd;
 	private Date enrollDate;
 	private Date modifyDate;
-	private int reportCnt;
-	private int banCnt;
+	private int reportCount;
+	private int banCount;
 	private String status;
-	private String imgPath;
+	private String imagePath;
 	
-	public Member() {}
+	public Member() {
+		
+	}
 	
+
 	public Member(String id, String pwd) {
 		super();
 		this.id = id;
 		this.pwd = pwd;
 	}
-	
-	public Member(String id, String name, String pwd, Date enrollDate, Date modifyDate, int reportCnt, int banCnt,
-			String status, String imgPath) {
+
+
+	public Member(String id, String name, String pwd, Date enrollDate, Date modifyDate, int reportCcount, int banCount,
+			String status, String imagePath) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.pwd = pwd;
 		this.enrollDate = enrollDate;
 		this.modifyDate = modifyDate;
-		this.reportCnt = reportCnt;
-		this.banCnt = banCnt;
+		this.reportCount = reportCcount;
+		this.banCount = banCount;
 		this.status = status;
-		this.imgPath = imgPath;
+		this.imagePath = imagePath;
 	}
 
 	public String getId() {
@@ -76,20 +80,20 @@ public class Member {
 		this.modifyDate = modifyDate;
 	}
 
-	public int getReportCnt() {
-		return reportCnt;
+	public int getReportCcount() {
+		return reportCount;
 	}
 
-	public void setReportCnt(int reportCnt) {
-		this.reportCnt = reportCnt;
+	public void setReportCcount(int reportCcount) {
+		this.reportCount = reportCcount;
 	}
 
-	public int getBanCnt() {
-		return banCnt;
+	public int getBanCount() {
+		return banCount;
 	}
 
-	public void setBanCnt(int banCnt) {
-		this.banCnt = banCnt;
+	public void setBanCount(int banCount) {
+		this.banCount = banCount;
 	}
 
 	public String getStatus() {
@@ -100,21 +104,21 @@ public class Member {
 		this.status = status;
 	}
 
-	public String getImgPath() {
-		return imgPath;
+	public String getImagePath() {
+		return imagePath;
 	}
 
-	public void setImgPath(String imgPath) {
-		this.imgPath = imgPath;
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
 	}
 
 	@Override
 	public String toString() {
 		return "Member [id=" + id + ", name=" + name + ", pwd=" + pwd + ", enrollDate=" + enrollDate + ", modifyDate="
-				+ modifyDate + ", reportCnt=" + reportCnt + ", banCnt=" + banCnt + ", status=" + status + ", imgPath="
-				+ imgPath + "]";
+				+ modifyDate + ", reportCount=" + reportCount + ", banCount=" + banCount + ", status=" + status
+				+ ", imagePath=" + imagePath + "]";
 	}
-
+	
 	
 
 }

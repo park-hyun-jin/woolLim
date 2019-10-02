@@ -1,0 +1,132 @@
+package com.kh.tido.board.controller;
+
+import java.util.ArrayList;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.kh.tido.board.model.service.BoardService;
+import com.kh.tido.board.model.vo.Board;
+import com.kh.tido.board.model.vo.Reply;
+import com.kh.tido.common.Pagination;
+import com.kh.tido.member.model.vo.Member;
+
+
+@Controller
+public class BoardController {
+	
+	@Autowired
+	private BoardService bService;
+	
+	@RequestMapping("bList.kh")
+	public ModelAndView boardList(ModelAndView mv, Integer page) {
+		
+		int currentPage = page == null ? 1 : page;
+		
+		ArrayList<Board> list = bService.selectList(currentPage);
+		
+		if(list != null) {
+			mv.addObject("list", list).
+			addObject("pi",Pagination.getPageInfo()).
+			setViewName("board/boardListView");
+		}else {
+			mv.addObject("msg", "목록 조회 실패").setViewName("common/errorPage");
+		}
+		return mv;
+	}
+	
+	@RequestMapping("binsertView.kh")
+	public String boardinsertView() {
+		return "board/boardinsertForm";
+	}
+	
+	@RequestMapping("binsert.kh")
+	public String boardInsert(Board board, HttpServletRequest request, MultipartFile uploadFile, Model model) {
+		int result = bService.insertBoard(board, uploadFile, request);
+		
+		String path = null;
+		if(result > 0) {
+			path = "redirectLblist.kh";
+		}else {
+			model.addAttribute("msg", "게시글 등록 실패");
+			path = "common/errorPage";
+		}
+		return path;
+	}
+	
+	@RequestMapping("bdetail.kh")
+	public ModelAndView boardDetail(ModelAndView mv, Integer page, int memberId) {
+		int currentPage = page == null ? 1 : page;
+		Board board = bService.selectBoard(memberId);
+		if(board != null) {
+			mv.addObject("board", board).addObject("currentPage", currentPage).setViewName("board/boardDetailView");
+		}else {
+			mv.addObject("msg", "조회 실패").setViewName("common/errorPage");
+		}
+		return mv;
+	}
+	
+	@RequestMapping("bupView.kh")
+	public ModelAndView boardUpdateView(ModelAndView mv, int memberId, Integer page) {
+		int currentPage = page == null ? 1 : page;
+		Board board = bService.selectBoard(memberId);
+		mv.addObject("board", board).addObject("currentPage", currentPage).setViewName("board/boardUpdateView");
+		
+		return mv;
+	}
+	
+	@RequestMapping("bdelete.kh")
+	public ModelAndView boardDelete(ModelAndView mv, int memberId) {
+		int result = bService.deleteBoard(memberId);
+		if(result > 0) {
+			mv.setViewName("redirect:blist.kh");
+		}else {
+			mv.addObject("msg", "게시글 삭제 실패").setViewName("common/errorPage");
+		}
+		return mv;
+	}
+	
+	@RequestMapping("bupdate.kh")
+	public ModelAndView boardUpdate(ModelAndView mv, Board board, HttpServletRequest request, MultipartFile reloadFile, Integer page) {
+		int result = bService.updateBoard(board, reloadFile, request);
+		if(result > 0) {
+			mv.setViewName("redirect:boarddetail.kh?cBoardNo="+board.getcBoardNo()+"&page="+page);
+		}else {
+			mv.addObject("msg", "게시글 수정 실패").setViewName("common/errorPage");
+		}
+		return mv;
+	}
+	
+	@RequestMapping("addReply.kh")
+	@ResponseBody
+	public String addReply(Reply reply, HttpSession session) {
+		String cBoardContent = ((Member)session.getAttribute("loginUser")).getId();
+		reply.setMemberId(cBoardContent);
+		
+		int result = bService.insertReply(reply);
+		if(result > 0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+	}
+	
+	@RequestMapping(value="rList.kh", produces="application/json; charset=UTF-8")
+	@ResponseBody
+	public String listReply(int memberId) {
+		ArrayList<Reply> list = bService.selectReply(memberId);
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		return gson.toJson(list);
+	}
+	
+}

@@ -24,7 +24,7 @@
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">
-                  <span data-feather="clipboard"></span>
+                  <span data-feather="file-text"></span>
                   Board Management
                 </a>
               </li>             
