@@ -7,10 +7,13 @@
 	
 	<typeAliases>
 		<typeAlias type="com.kh.tido.project.model.vo.Project" alias="Project"/>
+		<typeAlias type="com.kh.tido.board.model.vo.Board" alias="Board"/>
+		<typeAlias type="com.kh.tido.board.model.vo.Reply" alias="Reply"/>
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="mappers/project-mapper.xml"/>
+		<mapper resource="mappers/board-mapper.xml"/>
  	</mappers>
 
 </configuration>
