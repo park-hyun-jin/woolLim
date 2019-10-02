@@ -3,57 +3,61 @@ package com.kh.tido.member.model.vo;
 import java.sql.Date;
 
 public class Member {
-
-	private String memberId;
-	private String memberName;
-	private String memberPwd;
+	
+	private String id;
+	private String name;
+	private String pwd;
 	private Date enrollDate;
 	private Date modifyDate;
-	private int memberReportCount;
-	private int memberBanCount;
-	private String memberStatus;
-	private String memberImagePath;
+	private int reportCnt;
+	private int banCnt;
+	private String status;
+	private String imgPath;
 	
-	public Member() {
-		
-	}
-
-	public Member(String memberId, String memberName, String memberPwd, Date enrollDate, Date modifyDate,
-			int memberReportCount, int memberBanCount, String memberStatus, String memberImagePath) {
+	public Member() {}
+	
+	public Member(String id, String pwd) {
 		super();
-		this.memberId = memberId;
-		this.memberName = memberName;
-		this.memberPwd = memberPwd;
+		this.id = id;
+		this.pwd = pwd;
+	}
+	
+	public Member(String id, String name, String pwd, Date enrollDate, Date modifyDate, int reportCnt, int banCnt,
+			String status, String imgPath) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.pwd = pwd;
 		this.enrollDate = enrollDate;
 		this.modifyDate = modifyDate;
-		this.memberReportCount = memberReportCount;
-		this.memberBanCount = memberBanCount;
-		this.memberStatus = memberStatus;
-		this.memberImagePath = memberImagePath;
+		this.reportCnt = reportCnt;
+		this.banCnt = banCnt;
+		this.status = status;
+		this.imgPath = imgPath;
 	}
 
-	public String getMemberId() {
-		return memberId;
+	public String getId() {
+		return id;
 	}
 
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
+	public void setId(String id) {
+		this.id = id;
 	}
 
-	public String getMemberName() {
-		return memberName;
+	public String getName() {
+		return name;
 	}
 
-	public void setMemberName(String memberName) {
-		this.memberName = memberName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getMemberPwd() {
-		return memberPwd;
+	public String getPwd() {
+		return pwd;
 	}
 
-	public void setMemberPwd(String memberPwd) {
-		this.memberPwd = memberPwd;
+	public void setPwd(String pwd) {
+		this.pwd = pwd;
 	}
 
 	public Date getEnrollDate() {
@@ -72,44 +76,43 @@ public class Member {
 		this.modifyDate = modifyDate;
 	}
 
-	public int getMemberReportCount() {
-		return memberReportCount;
+	public int getReportCnt() {
+		return reportCnt;
 	}
 
-	public void setMemberReportCount(int memberReportCount) {
-		this.memberReportCount = memberReportCount;
+	public void setReportCnt(int reportCnt) {
+		this.reportCnt = reportCnt;
 	}
 
-	public int getMemberBanCount() {
-		return memberBanCount;
+	public int getBanCnt() {
+		return banCnt;
 	}
 
-	public void setMemberBanCount(int memberBanCount) {
-		this.memberBanCount = memberBanCount;
+	public void setBanCnt(int banCnt) {
+		this.banCnt = banCnt;
 	}
 
-	public String getMemberStatus() {
-		return memberStatus;
+	public String getStatus() {
+		return status;
 	}
 
-	public void setMemberStatus(String memberStatus) {
-		this.memberStatus = memberStatus;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
-	public String getMemberImagePath() {
-		return memberImagePath;
+	public String getImgPath() {
+		return imgPath;
 	}
 
-	public void setMemberImagePath(String memberImagePath) {
-		this.memberImagePath = memberImagePath;
+	public void setImgPath(String imgPath) {
+		this.imgPath = imgPath;
 	}
 
 	@Override
 	public String toString() {
-		return "Member [memberId=" + memberId + ", memberName=" + memberName + ", memberPwd=" + memberPwd
-				+ ", enrollDate=" + enrollDate + ", modifyDate=" + modifyDate + ", memberReportCount="
-				+ memberReportCount + ", memberBanCount=" + memberBanCount + ", memberStatus=" + memberStatus
-				+ ", memberImagePath=" + memberImagePath + "]";
+		return "Member [id=" + id + ", name=" + name + ", pwd=" + pwd + ", enrollDate=" + enrollDate + ", modifyDate="
+				+ modifyDate + ", reportCnt=" + reportCnt + ", banCnt=" + banCnt + ", status=" + status + ", imgPath="
+				+ imgPath + "]";
 	}
-	
+
 }
