@@ -50,6 +50,10 @@
 		float: left;
 		border-radius: 10px;
 	}
+	.projectArea>div:hover{
+		background:rgba(90,90,90,0.5);
+		cursor: pointer;
+	}
 	.projectArea>div>img{
 		margin:10px;
 		width:275px;

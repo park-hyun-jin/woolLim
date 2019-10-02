@@ -30,18 +30,33 @@
 	</div>
 
 	<jsp:include page="../common/menubar.jsp" />
-
-	<section>
-		<div class="controller">
-			<img id="pause" src="${contextPath}/resources/images/pause.png" style="cursor: pointer;" /> 
-			<img id="play" src="${contextPath}/resources/images/play.png" style="cursor: pointer;" /> 
-			<img id="stop" src="${contextPath}/resources/images/stop.png" style="cursor: pointer;" />
-			<button id="savepop">저장</button>
-			<button id="open">open</button>
-			length<input id="length" type="number" value="32" min="4" max="32"step=4> 
-			bpm<input id="bpm" type="number" value="120"min="30" max="300"> 
-			beat<input id="beat" type="number"value="8" min="4" max="16">
+	<div class="musicController">
+		<div>
+			<div>
+				<img id="pause" src="${contextPath}/resources/images/pause.png" style="cursor: pointer;" /> 
+				<img id="play" src="${contextPath}/resources/images/play.png" style="cursor: pointer;" /> 
+				<img id="stop" src="${contextPath}/resources/images/stop.png" style="cursor: pointer;" />
+			</div>
+			
+			<div>
+				<!-- length<input id="length" type="number" value="32" min="4" max="32"step=4>  -->
+				bpm <input id="bpm" type="number" value="120" min="30" max="300"> 
+			</div>
+			<div>	
+			    beat <input id="beat" type="number"value="8" min="4" max="16">
+			</div>
+			<div>
+				<button id="savepop">저장</button>
+				<button id="open">open</button>
+			</div>
 		</div>
+		<div>
+			<img src="${contextPath }/resources/images/right-arrow.png">
+		</div>
+	</div>
+	<section>
+		
+		
 		<jsp:include page="piano.jsp" />
 		<jsp:include page="guitar.jsp" />
 		<jsp:include page="bass.jsp" />
@@ -256,6 +271,7 @@
 		});
 
 	$("#cancel").on("click",function(){
+		$("#projectTitle").val("");
 		$("#saveModal").css({"display":"none"});
 		$(".folders li").children("input:hidden").val(0);
 		$(".arrowimg").attr("src","${contextPath }/resources/images/right-arrow.png");
@@ -351,10 +367,12 @@
 					  projectPath:path},
 				type:"post",
 				success:function(result){
+					$("#projectTitle").val("");
 			 		$("#saveModal").css({"display":"none"});
 			 		$(".folders li").children("input:hidden").val(0);
 					$(".arrowimg").attr("src","${contextPath }/resources/images/right-arrow.png");
 					$(".folders li").children("ul").remove();
+					
 				}
 			});  
 		}else{

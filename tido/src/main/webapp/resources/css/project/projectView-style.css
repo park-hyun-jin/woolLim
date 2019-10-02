@@ -8,17 +8,50 @@ body{
 
 }
 
-div {
-	width: 100%;
+.sound {
+	width: 90%;
 	height: 25px;
-	margin: auto;
-
 }
-div div:first-child{
+.sound div:first-child{
 	width:4%;
 	float: left;
 	height: 100%;
 	border: 1px solid lightgrey;
+	right:0;
+}
+.musicController{
+	width:200px;
+	height:240px;
+	border:1px solid black;
+	position: fixed;
+	margin-left: 89%;
+	margin-top: 120px;
+	background:black;
+	border-radius: 10px;
+}
+.musicController>div{
+	float:left;
+	height: 100%;
+}
+.musicController>div:first-child{
+	width:90%;
+}
+.musicController>div:last-child{
+	width:10%;
+}
+.musicController>div:last-child>img{
+	height:12px;
+	width:12px;
+	margin-top:110px;
+	-webkit-filter: invert(100%);
+	filter: invert(100%);
+}
+.musicController>div:last-child>img:hover{
+	cursor: pointer;
+}
+.musicController>div:first-child>div{
+	margin:20px;	
+	color:white;
 }
 .pad{
 	width: 3%;
@@ -31,7 +64,6 @@ h1{
 	color:white;
 }
 section{
-	
 	width:95%;
 	height:95%;
 	margin:auto;

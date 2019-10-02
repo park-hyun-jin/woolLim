@@ -33,7 +33,6 @@ public class ProjectServiceImpl implements ProjectService {
 		String fileName = createFile(projectFile, request, projectPath);
 
 		if (fileName !=null) {
-			project.setProjectTitle(projectFile.getProjectTitle());
 			project.setProjectWriter(projectWriter);
 			System.out.println(projectPath);
 			project.setProjectPath(projectPath);
@@ -53,7 +52,6 @@ public class ProjectServiceImpl implements ProjectService {
 			Properties prop = new Properties();
 			prop.load(new FileReader(filePath));
 
-			projectFile.setProjectTitle(prop.getProperty("projectTitle"));
 			projectFile.setBpm(Integer.parseInt(prop.getProperty("bpm")));
 			projectFile.setBeat(Integer.parseInt(prop.getProperty("beat")));
 			projectFile.setPianoSoundInfo(prop.getProperty("pianoSoundInfo"));
@@ -95,8 +93,7 @@ public class ProjectServiceImpl implements ProjectService {
 				System.out.println("File is created!");
 
 				FileWriter writer = new FileWriter(file);
-				writer.write("projectTitle="+project.getProjectTitle()+ "\n"+
-							 "bpm = " + project.getBpm() + "\n" + 
+				writer.write("bpm = " + project.getBpm() + "\n" + 
 						     "beat = " + project.getBeat() + "\n"+ 
 							 "pianoSoundInfo = " + project.getPianoSoundInfo() + "\n" + 
 						     "bassSoundInfo = " + project.getBassSoundInfo() + "\n" + 
@@ -119,8 +116,7 @@ public class ProjectServiceImpl implements ProjectService {
 		ArrayList<String> pathList = new ArrayList<String>();
 		String root = request.getSession().getServletContext().getRealPath("resources\\project\\" + nickname);
 		pathList = getDirPathList(root, pathList);
-		for (String p : pathList) {
-		}
+		
 		return pathList;
 	}
 
