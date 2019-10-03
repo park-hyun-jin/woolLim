@@ -1,5 +1,6 @@
 package com.kh.tido.project.model.service;
 
+import java.awt.print.Pageable;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -14,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.tido.board.model.vo.PageInfo;
+import com.kh.tido.common.Pagination2;
 import com.kh.tido.project.model.dao.ProjectDao;
 import com.kh.tido.project.model.vo.Project;
 import com.kh.tido.project.model.vo.ProjectFile;
@@ -28,15 +31,15 @@ public class ProjectServiceImpl implements ProjectService {
 	ProjectFile projectFile;
 
 	@Override
-	public int saveProject(ProjectFile projectFile,String projectPath, HttpServletRequest request, String projectWriter) {
+	public int saveProject(ProjectFile projectFile,String projectTitle,String projectPath, HttpServletRequest request, String projectWriter) {
 
 		String fileName = createFile(projectFile, request, projectPath);
 
 		if (fileName !=null) {
 			project.setProjectWriter(projectWriter);
-			System.out.println(projectPath);
 			project.setProjectPath(projectPath);
 			project.setProjectFileName(fileName);
+			project.setProjectTitle(projectTitle);
 			int result = pDao.saveProject(project);
 			return result;
 		}
@@ -44,9 +47,10 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	@Override
-	public ProjectFile openProject(int pNo, HttpServletRequest request, String nickname) {
-		String filePath = request.getSession().getServletContext().getRealPath("resources") + "/project/" + nickname
-				+ "/" + pDao.openProject(pNo).getProjectPath();
+	public ProjectFile openProject(HttpServletRequest request, int pNo) {
+		Project project=pDao.openProject(pNo);
+		String filePath = request.getSession().getServletContext().getRealPath("resources\\project") + 
+				"/" + project.getProjectPath()+"/"+project.getProjectFileName();
 
 		try {
 			Properties prop = new Properties();

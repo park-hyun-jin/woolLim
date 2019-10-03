@@ -15,19 +15,19 @@
 		box-sizing: border-box;
 	}
 	section{
-		width:80%;
-		height:800px;
+		height:1000px;
+		width:60%;
 		background: rgba(200,200,200,0.8);
-		float:left;
+		float:left;	
 	}
 	aside{
-		height:800px;
-		width:20%;
+		height:1000px;
+		width:300px;
 		background: rgba(0,0,0,0.7);
 		padding:0 10px 0 10px;
-		float:left;
+		float: left;	
 	}
-	aside>div.asidehead{
+	aside>.asidehead{
 		width:100%;
 		height: 80px;
 		text-align: center;
@@ -37,18 +37,29 @@
 	}
 	.folderPath{
 		font-weight: bolder;
+		width:100%;
+		height: 5%;
+		margin:0;
+		padding:0;
+	
+	}
+	::-webkit-scrollbar {
+		display:none;
 	}
 	.projectArea{
 		width:100%;
-		height: 100%;
+		height: 95%;
+		overflow: scroll;
+		
 	}
 	.projectArea>div{
 		margin:10px;
-		width:300px;
+		width:310px;
 		height:350px;
 		background:rgba(110,110,110,0.5);
-		float: left;
 		border-radius: 10px;
+		display: inline-block;
+		
 	}
 	.projectArea>div:hover{
 		background:rgba(90,90,90,0.5);
@@ -62,26 +73,26 @@
 	.projectArea>div>div{
 		margin:10px;
 		width:275px;
-		height:100px;
+		height:50px;
 		
 	}
 </style>
 </head>
 <body>
 		<jsp:include page="../common/menubar.jsp"/>
+		
 		<aside oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
-		<div class="asidehead">
-			<h3>내 프로젝트</h3>
-		</div>
-		<input class="projectSearch">
-		<span class="imgbtns" id="folderAddBtn">
-		<img src="${contextPath }/resources/images/plus.png">
-		</span>
-		<jsp:include page="folderSelectView.jsp"/>
+			<div class="asidehead">
+				<h3>내 프로젝트</h3>
+			</div>
+			<input class="projectSearch">
+			<span class="imgbtns" id="folderAddBtn">
+			<img src="${contextPath }/resources/images/plus.png">
+			</span>
+			<jsp:include page="folderSelectView.jsp"/>
 		</aside>
 		<section>
 			<h3  id="folderPath" class="folderPath">내 라이브러리</h3>
-			<hr>
 			<div id="projectArea" class="projectArea">
 			</div>
 		</section>
@@ -91,9 +102,10 @@
 			
 			$(function(){
 				selectProjectList(path);
+				
+				
 			});
 			function selectProjectList(path){
-				console.log("asd");
 				$.ajax({
 						url:"selectPjt.kh",
 						type:"post",
@@ -105,11 +117,14 @@
 								for(var i in projectList){
 									var $div = $("<div class='project'>");
 									var $img=$("<img>").attr({"src":""});
+									var $path = $("<input type='hidden' value="+projectList[i].pNo+">");
 									var $info= $("<div>");
 								 	$info.append(projectList[i].projectTitle+" ");
 								 	$info.append(projectList[i].pCreateDate+"<br>");
 								 	$div.append($img);
 								 	$div.append($info);
+								 	$div.append($path);
+									openProject($div);
 									$("#projectArea").append($div);
 								}
 							}else{
@@ -119,7 +134,12 @@
 						
 				});
 			}
-		
+			function openProject(project){
+				project.on("click",function(){
+					var pNo=Number($(this).children("input:hidden").val());
+					location.href="openPjt.kh?pNo="+pNo;
+				});
+			}
 		</script>
 	
 </body>
