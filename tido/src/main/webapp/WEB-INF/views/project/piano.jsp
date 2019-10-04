@@ -56,6 +56,8 @@
 					console.log($("#"+noteArray[j]+i+"piano").attr("src"));
 				}
 			}
+				$("#C3piano").attr("src", $("#C3piano").attr("src").replace("sounds/piano", "sounds/" + $(this).val()));
+				$("#C3piano").attr("src", $("#C3piano").attr("src").replace("sounds/synth", "sounds/" + $(this).val()));
 			
 		});
 	})
