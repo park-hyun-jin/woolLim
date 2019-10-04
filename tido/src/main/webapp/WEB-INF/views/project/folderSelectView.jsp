@@ -73,13 +73,13 @@
 				var pathList=new Array();
 				$(".folders .folderimg,.folders span").on("click",function(){
 					$folder = $(this);
-					clickFolder($folder);
+					clickFolder($folder,0);
 					$(".folders li p").css("background","");
 					$(this).parent().css("background","rgba(255,255,255,0.2)");
 				});
 				$(".arrowimg").on("click",function(){
 					$folder = $(this);
-					clickFolder($folder);
+					clickFolder($folder,1);
 				});
 			
 				function clickFolder(folder){
@@ -108,25 +108,31 @@
 							if(lv>1){
 								path+="\\"+folder.parent().children("span").text();
 							}
+						
 						}
 						console.log(path);
+						getFolderName(path,folder);
 				
+						
 					}else{
 						folder.siblings("input:hidden").val(0);
 						folder.parent().children(".arrowimg").attr("src","${contextPath }/resources/images/right-arrow.png");
-						folder.parent().parent().children("ul").hide();
+						folder.parent().parent().children("ul").remove();
 					}
-					getFolderName(path,folder);
-					selectProjectList(path);
+					if(pageCheck=="projectListView"){
+						selectProjectList(path);
+					}
 				}
 				
 				function getFolderName(path,folder){
+					
 					$.ajax({
 						url:"getFolder.kh",
 						type:"post",
 						data:{path,path},
 						dataType:"json",
 						success:function(list){
+						
 							if(list.length!=0){
 								pathList=list;
 								$ul=$("<ul class='folders'>");
@@ -151,9 +157,7 @@
 							}else{
 								
 							}
-							var replacedPath=path.replace("\\"," > ");
-							replacedPath=replacedPath.replace("${loginUser.name}","내 라이브러리");
-							$(".folderPath").text(replacedPath);
+							
 							
 						}
 					});

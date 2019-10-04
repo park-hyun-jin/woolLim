@@ -39,6 +39,7 @@ public class ProjectController {
 		String projectWriter=((Member)request.getSession().getAttribute("loginUser")).getId();
 		int result= pService.saveProject(project,projectTitle,projectPath,request,projectWriter);
 		return result+"";
+	
 	}
 	
 	/*
