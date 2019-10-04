@@ -22,8 +22,8 @@
     	<c:url var="goMain" value="main.kh"></c:url>
     	<c:url var="goProject" value="compPjtView.kh"></c:url>
     	<c:url var="goBoard" value="bList.kh"></c:url>
-    	
     	<c:url var="goLoginPage" value="loginPage.kh"></c:url>
+    	
         <nav class="header">
             <ul class="nav_ul">
                 <li><a href="${goMain }"><img src="${contextPath }/resources/images/main.png" width="135px" height="90px"></a></li>
