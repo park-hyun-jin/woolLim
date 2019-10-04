@@ -6,6 +6,7 @@
 <!DOCTYPE html>
 <html lang="ko">
     <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
         <title></title>
          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -18,31 +19,31 @@
     </head>
 
     <body>
-    	<c:set var="loginUser" value="신현" scope="session"/>
     	<c:url var="goMain" value="main.kh"></c:url>
     	<c:url var="goProject" value="compPjtView.kh"></c:url>
+    	<c:url var="goBoard" value="bList.kh"></c:url>
     	
+    	<c:url var="goLoginPage" value="loginPage.kh"></c:url>
         <nav class="header">
             <ul class="nav_ul">
                 <li><a href="${goMain }"><img src="${contextPath }/resources/images/main.png" width="135px" height="90px"></a></li>
                 <li><a href="${goProject }">작곡하기</a></li> 
-                <li><a href="#">공유게시판</a></li>
+                <li><a href="${goBoard }">공유게시판</a></li>
                 <li><a href="#">공지사항</a></li>
                 <li><a href="#">문의하기</a></li>
                 <li>
                 	<c:choose>
 	                	<c:when test="${loginUser==null }">
-	                   		 <img id="user_before" width="20%" src="${contextPath }/resources/images/user_before.png">
+	                   		 <a href="${goLoginPage}"><img id="user_before" width="20%" src="${contextPath }/resources/images/user_before.png"></a>
 	                	</c:when>
 	                	<c:otherwise>
 	           				<div class="userProfile">
 		           				<img id="user_after" src="${contextPath }/resources/images/user.png">
 		           			</div>
-		           			<div class="nickname">${loginUser } 님</div>
+		           			<div class="nickname">${loginUser.name } 님</div>
 	                	</c:otherwise>
                 	</c:choose>
                 </li>
-                
             </ul>
         </nav>
     </body>

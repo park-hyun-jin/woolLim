@@ -25,6 +25,7 @@ public class ProjectFile {
 		this.guitarSoundInfo = guitarSoundInfo;
 		this.drumSoundInfo = drumSoundInfo;
 	}
+	
 
 	public int getBpm() {
 		return bpm;
@@ -76,8 +77,11 @@ public class ProjectFile {
 
 	@Override
 	public String toString() {
-		return "ProjectFile [bpm=" + bpm + ", beat=" + beat + ", pianoSoundInfo=" + pianoSoundInfo + ", bassSoundInfo="
-				+ bassSoundInfo + ", guitarSoundInfo=" + guitarSoundInfo + ", drumSoundInfo=" + drumSoundInfo + "]";
+		return "ProjectFile [bpm=" + bpm + ", beat=" + beat + ", pianoSoundInfo="
+				+ pianoSoundInfo + ", bassSoundInfo=" + bassSoundInfo + ", guitarSoundInfo=" + guitarSoundInfo
+				+ ", drumSoundInfo=" + drumSoundInfo + "]";
 	}
+
+	
 	
 }

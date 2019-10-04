@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.google.gson.Gson;
+import com.kh.tido.member.model.vo.Member;
 import com.kh.tido.project.model.service.ProjectService;
+import com.kh.tido.project.model.vo.Project;
 import com.kh.tido.project.model.vo.ProjectFile;
 
 
@@ -23,26 +25,43 @@ public class ProjectController {
 	private ProjectService pService;
 	
 	
+	@RequestMapping("openPjt.kh")
+	public String openProject(int pNo,HttpServletRequest request,Model model) {
+		ProjectFile projectFile= pService.openProject(request,pNo);
+		model.addAttribute("project",projectFile);
+		return "project/projectView";
+	}
 	
 	@ResponseBody
-	@RequestMapping("savePjt.kh")
-	public String saveProject(ProjectFile project,HttpServletRequest request) {
-		
-		System.out.println(project);
-		int result= pService.saveProject(project,request,"신현");
+	@RequestMapping(value="savePjt.kh",produces="application/json; charset=utf-8 ")
+	public String saveProject(ProjectFile project,String projectTitle,String projectPath,HttpServletRequest request) {
+		System.out.println(projectPath);
+		String projectWriter=((Member)request.getSession().getAttribute("loginUser")).getId();
+		int result= pService.saveProject(project,projectTitle,projectPath,request,projectWriter);
 		return result+"";
 	}
 	
-	@ResponseBody
-	@RequestMapping("openPjt.kh")
-	public String openProject(HttpServletRequest request) {
-		
-		int pNo = 67;
+	/*
+	 * @ResponseBody
+	 * 
+	 * @RequestMapping("openPj.kh") public String openProject(HttpServletRequest
+	 * request) {
+	 * 
+	 * int pNo =1; return new Gson().toJson(project); }
+	 */
 	
-		ProjectFile project= pService.openProject(pNo, request,"신현");
-		
-		return new Gson().toJson(project);
+	@ResponseBody
+	@RequestMapping(value="selectPjt.kh",produces="application/json; charset=utf-8 ")
+	public String selectProjectList(String projectPath,HttpServletRequest request) {
+		String projectWriter = ((Member)request.getSession().getAttribute("loginUser")).getId();
+		Project project = new Project();
+		project.setProjectWriter(projectWriter);
+		project.setProjectPath(projectPath);
+		ArrayList<Project> projectList = pService.selectProjectList(project,request); 
+		return new Gson().toJson(projectList);
 	}
+	
+	
 	
 	@RequestMapping("compPjtView.kh")
 	public String compProjectView() {

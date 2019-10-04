@@ -3,8 +3,9 @@
 
 <style>
 	footer{
+		clear:both;
 		background:#242323;
-		height: 200px;
+		height: 150px;
 	}
 </style>
 

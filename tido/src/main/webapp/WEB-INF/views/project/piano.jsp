@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<c:set var="note" value="B,AS,A,GS,G,FS,F,E,DS,D,CS,C" scope="request"/>
+<c:set var="note" value="B,AS,A,GS,G,FS,F,E,DS,D,CS,C" scope="application"/>
 <h1>Piano</h1>
 <select id="pianoSelect">
     <option value="piano">piano</option>
