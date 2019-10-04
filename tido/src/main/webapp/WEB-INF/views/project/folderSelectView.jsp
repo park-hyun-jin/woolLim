@@ -71,18 +71,17 @@
 				var $folder,$p,$ul,$li,$arrowimg,$folderimg,$span,depth,folderName;
 				var lv=1;
 				var pathList=new Array();
-				$(".folders .folderimg,.folders span").on("dblclick",function(){
+				$(".folders .folderimg,.folders span").on("click",function(){
 					$folder = $(this);
 					clickFolder($folder);
+					$(".folders li p").css("background","");
+					$(this).parent().css("background","rgba(255,255,255,0.2)");
 				});
 				$(".arrowimg").on("click",function(){
 					$folder = $(this);
 					clickFolder($folder);
 				});
-				$(".folders .folderimg,.folders span,.arrowimg").on("click",function(){
-					$(".folders li p").css("background","");
-					$(this).parent().css("background","rgba(255,255,255,0.2)");
-				});
+			
 				function clickFolder(folder){
 					if(folder.siblings("input:hidden").val()==0){
 						var prevlv=lv;
@@ -111,51 +110,54 @@
 							}
 						}
 						console.log(path);
-						$.ajax({
-							url:"getFolder.kh",
-							type:"post",
-							data:{path,path},
-							dataType:"json",
-							success:function(list){
-								if(list.length!=0){
-									pathList=list;
-									$ul=$("<ul class='folders'>");
-									for(var i in list){
-										folderName=list[i].split("${loginUser.name}\\")[1];
-										$li=$("<li>");
-										$arrowimg=$("<img>").css("margin-left",((lv)*20)+"px");
-										$folderimg=$("<img>");
-										$span = $("<span class='depth"+(lv+1)+"'>");
-										$p=$("<p>");
-										$p.append($arrowimg);
-										$p.append($folderimg);
-										$span.text(folderName.split("\\")[folderName.split("\\").length-1]);
-										$p.append($span);
-										$p.append("<input type='hidden' value=0>")
-										$li.append($p);
-										$ul.append($li);
-										addAttrFolder($ul,$li,$arrowimg,$folderimg,$span,$p);
-									}
-									folder.parent().parent().append($ul);
-									
-								}else{
-									
-								}
-								var replacedPath=path.replace("\\"," > ");
-								replacedPath=replacedPath.replace("${loginUser.name}","내 라이브러리");
-								$(".folderPath").text(replacedPath);
-								selectProjectList(path);
-							}
-						});
-					
+				
 					}else{
 						folder.siblings("input:hidden").val(0);
 						folder.parent().children(".arrowimg").attr("src","${contextPath }/resources/images/right-arrow.png");
-						folder.parent().parent().children("ul").remove();
+						folder.parent().parent().children("ul").hide();
 					}
-				
+					getFolderName(path,folder);
+					selectProjectList(path);
 				}
 				
+				function getFolderName(path,folder){
+					$.ajax({
+						url:"getFolder.kh",
+						type:"post",
+						data:{path,path},
+						dataType:"json",
+						success:function(list){
+							if(list.length!=0){
+								pathList=list;
+								$ul=$("<ul class='folders'>");
+								for(var i in list){
+									folderName=list[i].split("${loginUser.name}\\")[1];
+									$li=$("<li>");
+									$arrowimg=$("<img>").css("margin-left",((lv)*20)+"px");
+									$folderimg=$("<img>");
+									$span = $("<span class='depth"+(lv+1)+"'>");
+									$p=$("<p>");
+									$p.append($arrowimg);
+									$p.append($folderimg);
+									$span.text(folderName.split("\\")[folderName.split("\\").length-1]);
+									$p.append($span);
+									$p.append("<input type='hidden' value=0>")
+									$li.append($p);
+									$ul.append($li);
+									addAttrFolder($ul,$li,$arrowimg,$folderimg,$span,$p);
+								}
+								folder.parent().parent().append($ul);
+								
+							}else{
+								
+							}
+							var replacedPath=path.replace("\\"," > ");
+							replacedPath=replacedPath.replace("${loginUser.name}","내 라이브러리");
+							$(".folderPath").text(replacedPath);
+							
+						}
+					});
+				}
 				
 				
 				function addAttrFolder(ul,li,arrowimg,folderimg,span,p){
@@ -171,24 +173,19 @@
 					folderimg.attr({"class":"img","src":"${contextPath }/resources/images/closed_folder.png",
 								   "width":"20px","height":"20px"})
 						     .css({"margin-left":"10px","-webkit-filter":"invert(100%)","filter":"invert(100%)"})
-							 .on("dblclick",function(){
+							 .on("click",function(){
 								 $folder = $(this);
 								 $(".folders li p").css("background","");
 								 $folder.parent().css("background","rgba(255,255,255,0.2)");
 								 clickFolder($folder);
 							 });
-					span.on("dblclick",function(){
+					span.on("click",function(){
 						 $folder = $(this).siblings(".arrowimg");
 						 $(".folders li p").css("background","");
 						 $folder.parent().css("background","rgba(255,255,255,0.2)");
 						 clickFolder($folder);
 					 });
-					span.on("click",function(){
-						 $folder = $(this);
-						 $(".folders li p").css("background","");
-						 $folder.parent().css("background","rgba(255,255,255,0.2)");
-					 });
-					
+		
 					p.on("mouseenter",function(){
 						p.css("cursor","pointer");
 					}).on("mouseleave",function(){
