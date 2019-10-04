@@ -42,19 +42,14 @@
       height:128px;
       margin-top: 150px;
    }
-    @media ( max-width: 900px ) {
-       section{
-	      height:300px;
-	  }
-    }
+
     @media ( max-width: 768px ) {
 	    section{
 	      width:100%;
 	      height:600px;
-	      margin:100px auto;
 	   }
       section>div>div{
-	      width:480px;
+	      width:400px;
 	      height: 30%;
 	      float: none;
 	      margin-bottom:10px;

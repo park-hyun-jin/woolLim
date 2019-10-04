@@ -26,7 +26,7 @@
 	</select>
 	
 	<select id="selectProjectList" parameterType="Project" resultMap="projectResultSet">
-		SELECT *
+		SELECT PROJECT_NO,PROJECT_TITLE,PROJECT_CREATE_DATE
 		FROM PROJECT
 		WHERE PROJECT_WRITER = #{projectWriter} AND
 		      PROJECT_PATH = #{projectPath} AND

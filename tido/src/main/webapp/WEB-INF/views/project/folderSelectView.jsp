@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <style>
-div.asidehead>h3{
+	div.asidehead>h3{
 		font-family:"Archivo Black";
 		padding-top:25px;
 	}
@@ -15,7 +15,7 @@ div.asidehead>h3{
 		height:22px;
 		margin-right:8px;
 	}
-	.folderimg{
+	.arrowimg,.folderimg{
 		-webkit-filter: invert(100%);
 	   	filter: invert(100%);
    	}
