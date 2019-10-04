@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="noticeMapper">
+
+	<resultMap id="noticeResultSet" type="Notice">
+	<id property="nNo" column="NOTICE_NO"/> <!-- 공지사항 번호 -->
+	<result property="pnoticeTitle" column="NOTICE_TITLE"/> <!-- 공지사항 제목 -->
+	<result property="pnoticeContent"  column="NOTICE_CONTENT"/> <!-- 공지사항 내용 -->
+	<result property="pnoticeCreateDate" column="NOTICE_CREATE_DATE"/> <!-- 공지사항 작성일 -->
+	<result property="pnoticeModifyDate" column="NOTICE_MODIFY_DATE"/> <!-- 공지사항 수정일 -->
+	<result property="pnoticeViewCount" column="NOTICE_VIEW_COUNT"/> <!-- 조회수 -->
+	<result property="pnoticeStatus" column="NOTICE_STATUS"/> <!-- 공지사항 상태 -->
+	<result property="pmemberId" column="MEMBER_ID"/> <!-- 이메일 -->
+	<result property="pnoticeFilePath" column="NOTICE_FILE_PATH"/> <!-- 공지사항 파일경로 -->
+	</resultMap>
+	
+	<!-- 전체 조회 -->
+	<select id="getListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM NOTICE
+		WHERE NOTICE_STATUS = 'Y'
+	</select>
+	
+	<select id="selectList" resultMap="noticeResultSet">
+	SELECT * FROM NOTICE
+	WHERE NOTICE_STATUS ='Y'
+	ORDER BY NOTICE_NO DESC
+	</select>
+	
+	<insert id="insertList" parameterType="Notice">
+	INSERT INTO NOTICE
+	VALUES(SEQ_NOTICE_NO.NEXTVAL, #{pnoticeTitle},
+			#{pnoticeContent},
+			SYSDATE, SYSDATE,
+			DEFAULT, DEFAULT,
+			#{pmemberId}, #{pnoticeFilePath})
+	</insert>
+</mapper>
