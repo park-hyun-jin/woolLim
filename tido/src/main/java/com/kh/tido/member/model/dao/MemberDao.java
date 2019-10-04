@@ -13,7 +13,7 @@ public class MemberDao {
 	private SqlSessionTemplate sqlSession;
 
 	public Member selectMember(Member mem) {
-		
+		System.out.println("member session" + sqlSession);
 		Member loginUser = sqlSession.selectOne("memberMapper.selectOne", mem);
 		
 		return loginUser;

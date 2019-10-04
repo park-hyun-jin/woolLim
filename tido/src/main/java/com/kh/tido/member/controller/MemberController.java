@@ -1,10 +1,13 @@
 package com.kh.tido.member.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.kh.tido.member.model.service.MemberService;
@@ -41,6 +44,14 @@ public class MemberController {
 	public String memberJoin() {
 		
 		return null;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="temp.kh",method=RequestMethod.POST)
+	public String temp(HttpServletRequest request) {
+		String ip = request.getRemoteAddr();
+		System.out.println(ip);
+		return ip;
 	}
 	
 

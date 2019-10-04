@@ -10,13 +10,14 @@
 		<typeAlias type="com.kh.tido.board.model.vo.Board" alias="Board"/>
 		<typeAlias type="com.kh.tido.board.model.vo.Reply" alias="Reply"/>
 		<typeAlias type="com.kh.tido.member.model.vo.Member" alias="Member"/>
+		<typeAlias type="com.kh.tido.visitor.model.vo.VisitorCount" alias="VisitorCount"/>		
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="mappers/project-mapper.xml"/>
 		<mapper resource="mappers/board-mapper.xml"/>
 		<mapper resource="mappers/member-mapper.xml"/>
+		<mapper resource="mappers/visitor-mapper.xml"/>
  	</mappers>
 
 </configuration>
-

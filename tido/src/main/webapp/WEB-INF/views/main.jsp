@@ -22,5 +22,16 @@
 	
 	</section>
 	<jsp:include page="common/footer.jsp"/>
+	<script>
+		$(function(){
+			$.ajax({
+				url : "temp.kh",
+				type : "POST",
+				success : function(result){
+					console.log(result);
+				}
+			});
+		});
+	</script>
 </body>
 </html>
