@@ -113,11 +113,13 @@ input[name="volume"]{
 	overflow: scroll;
 	border-radius:5px;
 	background: rgb(50,50,50);
+	margin:auto;
 }
 .textarea{
 	width:90%;
 	height:20%;
 	color: white;
+	margin:auto;
 }
 .textarea>input{
 	width:100%;
@@ -126,6 +128,7 @@ input[name="volume"]{
 	width:90%;
 	height:20%;
 	text-align: center;
+	margin:auto;
 }
 
 #saveModal>div>.btnarea>button{
