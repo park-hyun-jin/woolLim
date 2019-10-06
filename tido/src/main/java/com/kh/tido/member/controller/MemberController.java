@@ -89,7 +89,7 @@ public class MemberController {
 			check = "fail";
 		}else {
 			check = "success";
-		}
+		} 
 		System.out.println("check : " + check);
 		return check;
 	}
