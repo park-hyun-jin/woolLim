@@ -43,11 +43,11 @@ var pageCheck="projectListView";
 				<h6 >새 폴더 추가</h6>
 			</div>
 			<div>
-				<input>
+				<input id="newFolderName">
 			</div>
 			<div>
-				<button>확인</button>
-				<button>취소</button>
+				<button id="addOk">확인</button>
+				<button id="addCancel">취소</button>
 			</div>
 		</div>			
 		
@@ -56,7 +56,7 @@ var pageCheck="projectListView";
 			<div class="asidehead">
 				<h3>내 프로젝트</h3>
 			</div>
-			<input class="projectSearch">
+			<input id="projectSearch" class="projectSearch">
 			<span class="imgbtns" id="folderAddBtn">
 			<img src="${contextPath }/resources/images/plus.png">
 			</span>
@@ -74,6 +74,23 @@ var pageCheck="projectListView";
 				
 				$("#folderAddBtn").on("click",function(){
 					$("#createFolderBtn").css("display","block");
+				});
+				
+				$("#addOk").on("click",function(){
+					if($("#newFolderName").val().trim()!=""){
+						var folderName = $("#newFolderName").val();
+						$.ajax({
+							url:"addFolder.kh",
+							data:{path:path+"\\"+folderName},
+							type:"post",
+							success:function(result){
+								
+							}
+						});
+						
+					}else{
+						$("#newFolderName").css({"border":"2px solid red"});
+					}	
 				});
 				
 			});
