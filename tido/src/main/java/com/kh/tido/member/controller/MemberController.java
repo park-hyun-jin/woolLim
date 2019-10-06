@@ -2,6 +2,7 @@ package com.kh.tido.member.controller;
 
 import java.io.IOException;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +11,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.tido.member.model.service.MemberService;
 import com.kh.tido.member.model.vo.Member;
+import com.kh.tido.member.model.vo.MemberAuth;
 
 @SessionAttributes({"loginUser", "msg"})
 @Controller
@@ -25,19 +28,22 @@ public class MemberController {
 	MemberService mService;
 	
 	@RequestMapping("loginPage.kh")
-	public String goLoginPage() {
-		
+	public String LoginPage() {
 		return "member/loginPage";
 	}
 	
 	@RequestMapping("minsertPage.kh")
-	public String goInsertPage() {
-		
+	public String InsertPage() {
 		return "member/joinPage";
 	}
 	
+	@RequestMapping("emailRegistPage.kh")
+	public String emailRegistPage() {
+		return "member/emailRegistPage";
+	}
+	
 	@RequestMapping(value="login.kh", method=RequestMethod.POST)
-	public String memberLogin(Member mem, Model model) {
+	public String loginMember(Member mem, Model model) {
 		
 		Member loginUser = mService.loginMember(mem);
 		
@@ -51,7 +57,7 @@ public class MemberController {
 	}
 
 	@RequestMapping("logout.kh")
-	public String memberLogout(SessionStatus status) {
+	public String logoutMember(SessionStatus status) {
 		
 		status.setComplete();
 		
@@ -59,25 +65,40 @@ public class MemberController {
 		
 	}
 	
-	@RequestMapping(value = "joinPage.kh", method = RequestMethod.GET) // 회원가입창 보기
-	public String registerGet() throws Exception {
-		return "/user/joinPage";
-	}
-	
-	@RequestMapping(value = "register.kh", method = RequestMethod.POST)
-	public String registerPost(Member mem, RedirectAttributes rttr) throws Exception { // 회원가입하기
-		mService.create(mem);
-		rttr.addFlashAttribute("msg", "인증 성공");
+	@RequestMapping(value = "register.kh")
+	public String register(String email) throws Exception { // 회원가입하기
+		mService.insertAuth(email);
 		return "member/joinPage";
 	}
 
-	@RequestMapping(value = "emailConfirm", method = RequestMethod.GET)
-		public String emailConfirm(String memberId, String memberAuthKey, Model model) throws Exception { // 이메일 인증 확인창
-			mService.userAuth(memberId, memberAuthKey);
-			model.addAttribute("id", memberId);
-
-			return "/member/joinPage";
+	@RequestMapping(value = "emailConfirm.kh")
+	public String emailConfirm(MemberAuth memberAuth, Model model) throws Exception { // 이메일 인증 확인
+		int result = mService.updateAuth(memberAuth);
+		model.addAttribute("result", result);
+		model.addAttribute("memberId", memberAuth.getMemberId());
+		return "/member/joinPage";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="idCheck.kh", method=RequestMethod.POST)
+	public String idCheck(String memberId) {
+		int result = mService.selectId(memberId);
+		String check;
+		System.out.println("----------------------------------------------------------------");
+		if(result == 0) {
+			check = "fail";
+		}else {
+			check = "success";
 		}
+		System.out.println("check : " + check);
+		return check;
+	}
+	
+	@RequestMapping("minsert.kh")
+	public String InsertMember(Member mem) {
+		int result = mService.insertMember(mem);
+		return "redirect:main.kh";
+	}
 	
 	
 }
