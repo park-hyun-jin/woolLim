@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +14,12 @@ nav {
 </style>
 </head>
 <body>
-	<!-- 네비게이션  -->
+	<jsp:include page="../common/menubar.jsp"/>
+	<div style="margin: 50px;"></div>
+	<h1 class="page-header" style="color: white; font-weight: bold;">게시판 목록</h1>
+	<div></div>
+
+	<!-- 상단 메뉴바 -->
 	<nav class="navbar navbar-default">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed"
@@ -24,48 +29,48 @@ nav {
 				<span class="icon-bar"></span> 
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="main.jsp">WOOLLIM</a>
+			<a class="navbar-brand" href="${contextPath }" style="font-size: 22px; float: left;">WOOLLIM</a>
 		</div>
 		<div class="collapse navbar-collapse" id="#bs-example-navbar-collapse-1">
-			<ul class="nav navbar-nav">
-				<li><a href="main.jsp">게시판</a></li>
-				<li class="active"><a href="bbs.jsp">마이페이지</a></li>
-			</ul>
+				<!-- <ul class="nav navbar-nav">
+					<li><a href="blist.kh">게시판</a></li>
+				</ul> -->
 
-			<ul class="nav navbar-nav navbar-right">
-				<li class="dropdown">
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-					aria-expanded="false">접속하기<span class="caret"></span></a>
-					<ul class="dropdown-menu">
-						<li><a href="login.jsp">로그인</a></li>
-						<li><a href="join.jsp">회원가입</a></li>
+			<ul class="nav navbar-nav navbar-right" style="font-size: 17px;">
+				<li class="dropdown" >
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false">접속하기<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu" style="font-size: 14px;">
+						<li><a href="bList.kh">로그인</a></li>
+						<li><a href="#">회원가입</a></li>
 					</ul>
 				</li>
 			</ul>
 
-			<ul class="nav navbar-nav navbar-right">
+			<ul class="nav navbar-nav navbar-right" style="font-size: 17px;">
 				<li class="dropdown">
-					<a href="#" class="dropdown-toggle"
-						data-toggle="dropdown" role="button" aria-haspopup="true"
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 						aria-expanded="false">회원관리<span class="caret"></span>
 					</a>
-					<ul class="dropdown-menu">
-						<li><a href="logoutAction.jsp">공지사항</a></li>
-						<li><a href="logoutAction.jsp">Q&A</a></li>
+					<ul class="dropdown-menu" style="font-size: 14px;">
+						<li><a href="#">공지사항</a></li>
+						<li><a href="#">Q&A</a></li>
 					</ul>
 				</li>
 			</ul>
 		</div>
 	</nav>
+	<!-- 상단 메뉴바 -->
 
 	
 	<div class="row">
 		<div class="col-md-2"></div>
 		<div class="col-md-8">
-			<h2 class="text-center">게시글 상세</h2>
+			<h2 class="text-center" style="color: white">게시글 상세</h2>
 			<form action="BoardReWriteProc.jsp" method="post">
 				<div class="table table-responsive">
-					<table class="table table-striped">
+					<table class="table table-striped" style="color: white">
 						<tr align="center" valign="middle">
 							<th colspan="2">${board.cBoardNo }번 글  상세보기</th>
 						</tr>
@@ -86,7 +91,15 @@ nav {
 							<td>${board.cBoardContent }</td>
 						</tr>
 						<tr>
-							<td colspan="2" class="text-center">
+							<td>사진</td>
+							<td>
+								<c:if test="${ !empty board.cBoardOriFilename }">
+									<a href="${ contextPath }/resources/buploadFiles/${ board.cBoardChaFilename }" download>${ board.cBoardOriFilename }</a>
+								</c:if>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2" class="text-center" style="color: white">
 								<c:url var="bupview" value="bupView.kh">
 									<c:param name="cBoardNo" value="${board.cBoardNo }" />
 									<c:param name="page" value="${currentPage }" />
@@ -98,7 +111,7 @@ nav {
 									<c:param name="page" value="${currentPage }" />
 								</c:url>
 								
-								<c:if test="${board.memberId; }">
+								<c:if test="${loginUser.id eq board.memberId }">
 									<a href="${bupview }">수정하기</a>&nbsp;
 									<a href="${bdelete }">삭제하기</a>&nbsp;
 								</c:if>
@@ -133,11 +146,15 @@ nav {
 		<tbody></tbody>
 	</table>
 	
-	<script>
+	<script>/* console창에 띄우기 */
+	$(function(){
+		var loginUser = '<c:out value="${board.memberId}"/>';
+		console.log(loginUser);
+	});
 		// 댓글 등록 ajax
 		$("#rSubmit").on("click", function(){
 			var cbReplyContent = $("#cbReplyContent").val();
-			var cboardNo = ${board.cboardNo};
+			var cboardNo = ${board.cBoardNo};
 			
 			if(cbReplyContent == ""){
 				alert("댓글을 입력하라우 간나쉐끼");

@@ -27,7 +27,7 @@
             <ul class="nav_ul">
                 <li><a href="${goMain }"><img src="${contextPath }/resources/images/main.png" width="135px" height="90px"></a></li>
                 <li><a href="${goProject }">작곡하기</a></li> 
-                <li><a href="${goBoard }">공유게시판</a></li>
+                <li><a href="${goBoard }">일반게시판</a></li>
                 <li><a href="#">공지사항</a></li>
                 <li><a href="#">문의하기</a></li>
                 <li>
