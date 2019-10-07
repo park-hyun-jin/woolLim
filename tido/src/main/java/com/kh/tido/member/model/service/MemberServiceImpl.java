@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.kh.tido.member.controller.MailHandler;
 import com.kh.tido.member.model.dao.MemberDao;
 import com.kh.tido.member.model.vo.Member;
+import com.kh.tido.member.model.vo.MemberAuth;
 import com.kh.tido.member.model.vo.TempKey;
 
 @Service("mService")
@@ -38,22 +39,35 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Transactional
 	@Override
-	public void create(Member mem) throws Exception {
+	public void insertAuth(String email) throws Exception {
 		String key = new TempKey().getKey(50, false); // 인증키 생성
-		mDao.createAuthKey(key); // 인증키 DB저장
+		System.out.println("key : " + key);
+		MemberAuth memberAuth = new MemberAuth(key, 0, email);
+		mDao.insertAuthKey(memberAuth); // 인증키 DB저장
 		MailHandler sendMail = new MailHandler(mailSender);
 		sendMail.setSubject("[WooLim 이메일 인증]"); // 메일제목
 		sendMail.setText( // 메일내용
-				new StringBuffer().append("<h1>메일인증</h1>").append("<a href='http://localhost:8080/tido/emailConfirm?memberId=")
-				.append(mem.getId()).append("&memberAuthKey=").append(key).append("' target='_blank'>이메일 인증 확인</a>").toString());
+				new StringBuffer().append("<h1>메일인증</h1>").append("<a href='http://localhost:8080/tido/emailConfirm.kh?memberId=")
+				.append(email).append("&memberAuthKey=").append(key).append("' target='_blank'>이메일 인증 확인</a>").toString());
 		sendMail.setFrom("falling710@gmail.com", "WooLim"); // 보낸이
-		sendMail.setTo(mem.getId()); // 받는이
+		sendMail.setTo(email); // 받는이
 		sendMail.send();
 	}
 
 	@Override
-	public void userAuth(String memberId, String memberAuthKey) throws Exception {
-		mDao.userAuth(memberId);
+	public int updateAuth(MemberAuth memberAuth) throws Exception {
+		int result = mDao.updateAuth(memberAuth);
+		return result;
+	}
+
+	@Override
+	public int insertMember(Member mem) {
+		return mDao.insertMember(mem);
+	}
+
+	@Override
+	public int selectId(String memberId) {
+		return mDao.selectId(memberId);
 	}
 
 }
