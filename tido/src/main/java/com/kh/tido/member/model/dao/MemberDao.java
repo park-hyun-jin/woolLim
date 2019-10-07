@@ -37,7 +37,11 @@ public class MemberDao {
 	}
 
 	public int selectId(String memberId) {
-		return sqlSession.selectOne("memberMapper.selectId");
+		return sqlSession.selectOne("memberMapper.selectId", memberId);
+	}
+
+	public int selectName(String name) {
+		return sqlSession.selectOne("memberMapper.selectName", name);
 	}
 	
 }

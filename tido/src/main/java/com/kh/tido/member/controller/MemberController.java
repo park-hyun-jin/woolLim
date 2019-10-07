@@ -90,14 +90,32 @@ public class MemberController {
 		}else {
 			check = "success";
 		} 
-		System.out.println("check : " + check);
+		return check;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="nameCheck.kh", method=RequestMethod.POST)
+	public String nameCheck(String name) {
+		int result = mService.selectName(name);
+		String check;
+		if(result == 0) {
+			check = "fail";
+		}else {
+			check = "success";
+		}
 		return check;
 	}
 	
 	@RequestMapping("minsert.kh")
-	public String InsertMember(Member mem) {
+	public String InsertMember(Member mem, Model model) {
 		int result = mService.insertMember(mem);
-		return "redirect:main.kh";
+		if(result == 1) {
+			model.addAttribute("loginUser", mem);
+			return "redirect:main.kh";
+		}else {
+			model.addAttribute("msg", "회원가입에 실패하였습니다.");
+			return "common/errorPage";
+		}
 	}
 	
 	

@@ -44,7 +44,7 @@
 	        </tr>
 	        <tr>
 	            <td colspan="2">
-	                <input type="button" value="보내기" onclick="return emailRegister()">
+	                <input type="submit" value="보내기" onclick="return emailRegister()">
 	                <input type="button" value="취소" onclick="window.close();">
 	            </td>
 	        </tr>
@@ -54,13 +54,12 @@
     
 		function emailRegister() {
 	        var emailVal = $("#email").val();
-	        console.log("?????????????");
 	        $.ajax({
 				url : "idCheck.kh",
 				type : "post",
 				data : { memberId : emailVal },
 				success : function(check) {
-					if(check == "fail") {
+					if(check == "success") {
 						alert("중복된 이메일이 존재합니다.");
 						console.log("ajax 들어옴");
 						return false;

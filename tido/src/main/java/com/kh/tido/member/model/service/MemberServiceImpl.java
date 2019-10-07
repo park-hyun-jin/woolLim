@@ -7,6 +7,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.tido.member.controller.MailHandler;
@@ -21,9 +23,8 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired
 	private MemberDao mDao;
 	
-	/*
-	 * @Autowired private BCryptPasswordEncoder bCryptPasswordEncoder;
-	 */
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	@Inject
     private JavaMailSender mailSender;
@@ -61,13 +62,24 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
+	@Transactional(propagation=Propagation.REQUIRED, isolation=Isolation.READ_COMMITTED, rollbackFor=Exception.class)
 	public int insertMember(Member mem) {
+		
+		String encPwd = bCryptPasswordEncoder.encode(mem.getPwd());
+		
+		mem.setPwd(encPwd);
+		
 		return mDao.insertMember(mem);
 	}
 
 	@Override
 	public int selectId(String memberId) {
 		return mDao.selectId(memberId);
+	}
+
+	@Override
+	public int selectName(String name) {
+		return mDao.selectName(name);
 	}
 
 }
