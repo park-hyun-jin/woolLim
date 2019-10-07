@@ -6,4 +6,8 @@ public interface MemberService {
 
 	Member loginMember(Member mem);
 
+	void create(Member mem) throws Exception;
+
+	void userAuth(String memberId, String memberAuthKey) throws Exception;
+
 }

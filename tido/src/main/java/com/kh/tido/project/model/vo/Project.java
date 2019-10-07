@@ -15,12 +15,13 @@ public class Project {
 	private Date pModifyDate;
 	private char pStatus;
 	private String projectFileName;
+	private String projectImagePath;
 	public Project() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public Project(int pNo, String projectTitle, String projectWriter, String projectPath, Date pCreateDate,
-			Date pModifyDate, char pStatus,String projectFileName) {
+			Date pModifyDate, char pStatus, String projectFileName, String projectImagePath) {
 		super();
 		this.pNo = pNo;
 		this.projectTitle = projectTitle;
@@ -29,9 +30,9 @@ public class Project {
 		this.pCreateDate = pCreateDate;
 		this.pModifyDate = pModifyDate;
 		this.pStatus = pStatus;
-		this.projectFileName=projectFileName;
+		this.projectFileName = projectFileName;
+		this.projectImagePath = projectImagePath;
 	}
-	
 	public int getpNo() {
 		return pNo;
 	}
@@ -80,12 +81,20 @@ public class Project {
 	public void setProjectFileName(String projectFileName) {
 		this.projectFileName = projectFileName;
 	}
+	public String getProjectImagePath() {
+		return projectImagePath;
+	}
+	public void setProjectImagePath(String projectImagePath) {
+		this.projectImagePath = projectImagePath;
+	}
 	@Override
 	public String toString() {
 		return "Project [pNo=" + pNo + ", projectTitle=" + projectTitle + ", projectWriter=" + projectWriter
 				+ ", projectPath=" + projectPath + ", pCreateDate=" + pCreateDate + ", pModifyDate=" + pModifyDate
-				+ ", pStatus=" + pStatus + ", projectFileName=" + projectFileName + "]";
+				+ ", pStatus=" + pStatus + ", projectFileName=" + projectFileName + ", projectImagePath="
+				+ projectImagePath + "]";
 	}
+	
 	
 	
 }

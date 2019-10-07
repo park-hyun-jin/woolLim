@@ -7,85 +7,56 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<%-- <link rel="styleSheet" href="${contextPath }/resources/css/project" > --%>
+<link rel="styleSheet" href="${contextPath }/resources/css/project/projectListView-style.css" > 
+<script>
+var pageCheck="projectListView";
+</script>
 <style>
-	
-	@import url('https://fonts.googleapis.com/css?family=Archivo+Black|Kanit:400,700i&display=swap');
-	*{
-		box-sizing: border-box;
-	}
-	section{
-		height:1000px;
-		width:60%;
-		background: rgba(200,200,200,0.8);
-		float:left;	
-	}
-	aside{
-		height:1000px;
-		width:300px;
-		background: rgba(0,0,0,0.7);
-		padding:0 10px 0 10px;
-		float: left;	
-	}
-	aside>.asidehead{
-		width:100%;
-		height: 80px;
-		text-align: center;
-		color:white;
-		border-bottom: 3px solid grey;
-		font-family:"Archivo Black",sans-serif;
-	}
-	.folderPath{
-		font-weight: bolder;
-		width:100%;
-		height: 5%;
-		margin:0;
-		padding:0;
-	
-	}
-	::-webkit-scrollbar {
-		display:none;
-	}
-	.projectArea{
-		width:100%;
-		height: 95%;
-		overflow: scroll;
-		
-	}
-	.projectArea>div{
-		margin:10px;
-		width:310px;
-		height:350px;
-		background:rgba(110,110,110,0.5);
-		border-radius: 10px;
-		display: inline-block;
-		
-	}
-	.projectArea>div:hover{
-		background:rgba(90,90,90,0.5);
-		cursor: pointer;
-	}
-	.projectArea>div>img{
-		margin:10px;
-		width:275px;
-		height:250px;
-	}
-	.projectArea>div>div{
-		margin:10px;
-		width:275px;
-		height:50px;
-		
-	}
+.createFolderBtn{
+	width:300px;
+	height: 120px;
+	position:absolute;
+	background: rgba(0,0,0,0.6);
+	left:0;
+	right:0;
+	top:300px;
+	margin: auto;
+	display:none;
+	border-radius: 10px;
+}
+.createFolderBtn div{
+	text-align: center;
+	color:white;
+	padding:5px;
+}
+.createFolderBtn div input{
+	width:90%;
+}
 </style>
 </head>
 <body>
 		<jsp:include page="../common/menubar.jsp"/>
 		
+		
+		<div id="createFolderBtn" class="createFolderBtn">
+			<div>
+				<h6 >새 폴더 추가</h6>
+			</div>
+			<div>
+				<input id="newFolderName">
+			</div>
+			<div>
+				<button id="addOk">확인</button>
+				<button id="addCancel">취소</button>
+			</div>
+		</div>			
+		
+		
 		<aside oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
 			<div class="asidehead">
 				<h3>내 프로젝트</h3>
 			</div>
-			<input class="projectSearch">
+			<input id="projectSearch" class="projectSearch">
 			<span class="imgbtns" id="folderAddBtn">
 			<img src="${contextPath }/resources/images/plus.png">
 			</span>
@@ -97,41 +68,61 @@
 			</div>
 		</section>
 		<jsp:include page="../common/footer.jsp"/>
-		
 		<script>
-			
 			$(function(){
 				selectProjectList(path);
 				
+				$("#folderAddBtn").on("click",function(){
+					$("#createFolderBtn").css("display","block");
+				});
+				
+				$("#addOk").on("click",function(){
+					if($("#newFolderName").val().trim()!=""){
+						var folderName = $("#newFolderName").val();
+						$.ajax({
+							url:"addFolder.kh",
+							data:{path:path+"\\"+folderName},
+							type:"post",
+							success:function(result){
+								
+							}
+						});
+						
+					}else{
+						$("#newFolderName").css({"border":"2px solid red"});
+					}	
+				});
 				
 			});
 			function selectProjectList(path){
 				$.ajax({
-						url:"selectPjt.kh",
-						type:"post",
-						data:{projectPath:path},
-						dataType:"json",
-						success:function(projectList){
-							$("#projectArea").text("");
-							if(projectList.length!=0){
-								for(var i in projectList){
-									var $div = $("<div class='project'>");
-									var $img=$("<img>").attr({"src":""});
-									var $path = $("<input type='hidden' value="+projectList[i].pNo+">");
-									var $info= $("<div>");
-								 	$info.append(projectList[i].projectTitle+" ");
-								 	$info.append(projectList[i].pCreateDate+"<br>");
-								 	$div.append($img);
-								 	$div.append($info);
-								 	$div.append($path);
-									openProject($div);
-									$("#projectArea").append($div);
-								}
-							}else{
-								$("#projectArea").text("프로젝트가 없습니다");
+					url:"selectPjt.kh",
+					type:"post",
+					data:{projectPath:path},
+					dataType:"json",
+					success:function(projectList){
+						var replacedPath=path.replace("${loginUser.name}","내 라이브러리");
+						replacedPath=replacedPath.replace("\\"," > ");
+						$(".folderPath").text(replacedPath) ;
+						$("#projectArea").text("");
+						if(projectList.length!=0){
+							for(var i in projectList){
+								var $div = $("<div class='project'>");
+								var $img=$("<img>").attr({"src":""});
+								var $path = $("<input type='hidden' value="+projectList[i].pNo+">");
+								var $info= $("<div>");
+							 	$info.append(projectList[i].projectTitle+" ");
+							 	$info.append(projectList[i].pCreateDate+"<br>");
+							 	$div.append($img);
+							 	$div.append($info);
+							 	$div.append($path);
+								openProject($div);
+								$("#projectArea").append($div);
 							}
+						}else{
+							$("#projectArea").text("프로젝트가 없습니다");
 						}
-						
+					}
 				});
 			}
 			function openProject(project){

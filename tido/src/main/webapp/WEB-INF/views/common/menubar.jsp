@@ -25,6 +25,7 @@
     	<c:url var="goNotice" value="nList.kh"></c:url>
     	<c:url var="goQna" value="Qna.kh"></c:url>
     	<c:url var="goLoginPage" value="loginPage.kh"></c:url>
+    	
         <nav class="header">
             <ul class="nav_ul">
                 <li><a href="${goMain }"><img src="${contextPath }/resources/images/main.png" width="135px" height="90px"></a></li>
