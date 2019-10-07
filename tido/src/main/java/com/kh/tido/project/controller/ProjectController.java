@@ -1,5 +1,6 @@
 package com.kh.tido.project.controller;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -39,6 +40,7 @@ public class ProjectController {
 		String projectWriter=((Member)request.getSession().getAttribute("loginUser")).getId();
 		int result= pService.saveProject(project,projectTitle,projectPath,request,projectWriter);
 		return result+"";
+	
 	}
 	
 	/*
@@ -84,5 +86,14 @@ public class ProjectController {
 		ArrayList<String> pathList = pService.getDirectory(request,path);
 		return new Gson().toJson(pathList);
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="addFolder.kh" ,produces="application/json; charset=utf-8 ")
+	public String createFolder(String path,HttpServletRequest request) {
+		System.out.println(path);
+		File result = pService.createFolder(path,request);
+		return null;
+	}
+	
 	
 }
