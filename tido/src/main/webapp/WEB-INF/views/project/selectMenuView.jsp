@@ -12,7 +12,6 @@
       box-sizing: border-box;
    }
    section{
-      
       width:95%;
       height:600px;
       margin:100px auto;

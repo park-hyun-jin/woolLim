@@ -68,8 +68,12 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	public String createFile(ProjectFile project, HttpServletRequest request, String projectPath) {
-		File folder = createFolder(projectPath,request);
-		if(folder!=null) {
+			String root = request.getSession().getServletContext().getRealPath("resources");
+			String savePath = root + "\\project\\" + projectPath;
+			File folder = new File(savePath);
+			if(!folder.exists()) {
+				folder.mkdir(); // 폴더 생성
+			}
 			String fileName = null;
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 		
@@ -100,9 +104,7 @@ public class ProjectServiceImpl implements ProjectService {
 				e.printStackTrace();
 				return null;
 			}
-		}else {
-			return null;
-		}
+		
 	}
 
 	@Override
@@ -138,12 +140,11 @@ public class ProjectServiceImpl implements ProjectService {
 	public File createFolder(String projectPath,HttpServletRequest request) {
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		String savePath = root + "\\project\\" + projectPath;
-		// 저장 폴더 선택
 		File folder = new File(savePath);
-		// 만약 해당 폴더가 없는 경우
-		if (!folder.exists()) {
-			System.out.println(folder);
+		if(!folder.exists()) {
 			folder.mkdir(); // 폴더 생성
+		}else {
+			folder=null;
 		}
 		return folder;
 	}

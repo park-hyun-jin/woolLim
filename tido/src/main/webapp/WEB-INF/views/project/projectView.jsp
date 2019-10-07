@@ -13,10 +13,20 @@
 	href="${ pageContext.servletContext.contextPath }/resources/css/project/projectView-style.css">
 <script>
 var pageCheck="projectView";
+
 </script>
+
+<style type="text/css">
+#saving{
+	pos
+}
+</style>
 </head>
 <body oncontextmenu="return false" onselectstart="return false"
 	ondragstart="return false">
+	
+	<c:set var="length" value="32" scope="application"/>
+	
 	<div id="saveModal">
 		<div>
 			<h5 align="center">프로젝트 저장</h5>
@@ -32,8 +42,17 @@ var pageCheck="projectView";
 			</div>
 		</div>
 	</div>
+	<div id="saving">
+		<h2 align="center" style="z-index:4; margin:auto;  margin-top:500px; color:white;">저장 중 입니다...</h2>
+	</div>
 
 	<jsp:include page="../common/menubar.jsp" />
+	<p >
+		<button id="savepop">새로 저장하기</button>
+		<c:if test="${!empty project}">
+		<button id="overwrite">덮어쓰기</button>
+		</c:if>
+	</p>
 	<div class="musicController">
 		<div>
 			<div>
@@ -43,29 +62,23 @@ var pageCheck="projectView";
 			</div>
 			
 			<div>
-				<!-- length<input id="length" type="number" value="32" min="4" max="32"step=4>  -->
+				<%-- length<input id="length" type="number" value="${length }" min="4" max="${length }"step=4> --%>
 				bpm <input id="bpm" type="number" value="120" min="30" max="300"> 
 			</div>
 			<div>	
 			    beat <input id="beat" type="number"value="8" min="4" max="16">
 			</div>
-			<div>
-				<button id="savepop">저장</button>
-				<button id="open">open</button>
-			</div>
+			
 		</div>
 		<div>
 			<img src="${contextPath }/resources/images/right-arrow.png">
 		</div>
 	</div>
-	<section>
-		
-		
+
 		<jsp:include page="piano.jsp" />
 		<jsp:include page="guitar.jsp" />
 		<jsp:include page="bass.jsp" />
 		<jsp:include page="drum.jsp" />
-	</section>
 
 	<c:forEach var="cList" items="${chord}">
 		<audio class="guitarAudio" id="${cList}guitar"
@@ -79,11 +92,12 @@ var pageCheck="projectView";
 	</c:forEach>
 	<input type="hidden" id="padCheck">
 	<script>
+	
 	var noteArr = '<c:out value="${note}"/>'.split(",");
     var bassNoteArr = '<c:out value="${note1}"/>'.split(",");
 	var chordArr = '<c:out value="${chord}"/>'.split(","); 
 	var drumArr = '<c:out value="${drum}"/>'.split(","); 
-
+	var maxlength = Number('<c:out value="${length}"/>');
 	$(function() {
 		var play;
 	    var instruments = ["piano","bass"];
@@ -95,12 +109,13 @@ var pageCheck="projectView";
 	    var length = $("#length").val();
 	    var beat = $("#beat").val();
 	    
-		
-
+	    
 			
 	   $("#length").on("change",function(){
-	  	 
-	       for(var i = 1; i <= $("#length").val(); i++) {
+		   for(var i =1; i <=length; i++) {
+		          $(".length"+i).hide();
+		       }
+	       for(var i = 1; i <= 32; i++) {
 	          $(".length"+i).show();
 	       }
 	   });
@@ -248,7 +263,7 @@ var pageCheck="projectView";
 	 	    } 
 	      
 	       	play=setTimeout(function(){
-	       		  if (idx >= 32) {
+	       		  if (idx >= length) {
 	                   idx = 1;
 	               }else{
 	          		  idx++;
@@ -295,8 +310,9 @@ var pageCheck="projectView";
 		var sound="";
 		var sounds="";
 		var projectTitle= $("#projectTitle").val();
-		if(projectTitle.trim()!=""){
-			for(var i =1; i<=32; i++){ 
+		if(projectTitle.trim()!="")
+		{
+			for(var i =1; i<=maxlength ; i++){ 
 		       for (var k = 1; k < 3; k++) {
 		          for(var j = 0; j < noteArr.length; j++) {
 		        	  sound=$(".piano ."+noteArr[j]+k+".length"+i).children().val();
@@ -314,7 +330,7 @@ var pageCheck="projectView";
 		   	  }
 		   	  sounds="";
 			}
-			for(var i =1; i<=32; i++){ 
+			for(var i =1; i<=maxlength ; i++){ 
 		      		 for (var k = 0; k < 2; k++) {
 		               	for(var j = 0; j < bassNoteArr.length; j++) {
 		               		sound=$(".bass ."+bassNoteArr[j]+k+".length"+i).children().val();
@@ -336,7 +352,7 @@ var pageCheck="projectView";
 				}
 			
 			
-			for(var i =1; i<=32; i++){ 
+			for(var i =1; i<=maxlength ; i++){ 
 		          for(var j = 0; j < chordArr.length; j++) {
 		          		sound=$(".guitar ."+chordArr[j]+".length"+i).children().val();
 		               	if(sound==""){
@@ -349,7 +365,7 @@ var pageCheck="projectView";
 		          sounds="";
 			}
 		
-			for(var i =1; i<=32; i++){ 
+			for(var i =1; i<=maxlength ; i++){ 
 		           for(var j = 0; j < drumArr.length; j++) {
 		          	    sound=$(".drum ."+drumArr[j]+".length"+i).children().val();
 		               	if(sound==""){
@@ -375,11 +391,16 @@ var pageCheck="projectView";
 					  projectPath:path},
 				type:"post",
 				success:function(result){
-					$("#projectTitle").val("");
-			 		$("#saveModal").css({"display":"none"});
-			 		$(".folders li").children("input:hidden").val(0);
-					$(".arrowimg").attr("src","${contextPath }/resources/images/right-arrow.png");
-					$(".folders li").children("ul").remove();
+					$("#saving").css("display","block");
+					
+					setTimeout(function(){
+						$("#saving").css("display","none");
+						$("#projectTitle").val("");
+				 		$("#saveModal").css({"display":"none"});
+				 		$(".folders li").children("input:hidden").val(0);
+						$(".arrowimg").attr("src","${contextPath }/resources/images/right-arrow.png");
+						$(".folders li").children("ul").remove();
+					},1500);
 					
 				}
 			});  
@@ -401,7 +422,7 @@ var pageCheck="projectView";
 			$("#beat").val('${project.beat}');
 			var beatArr = "<c:out value='${project.pianoSoundInfo}'/>".split("/");
 			var soundArr;
-	 		for(var i=0; i<32; i++){
+	 		for(var i=0; i<maxlength ; i++){
 	 			soundArr= $.trim(beatArr[i]).split(" ");
 	 			var sidx=0;
 	 			for(var octv=1; octv<3; octv++){
@@ -420,7 +441,7 @@ var pageCheck="projectView";
 	 		}
 	 		beatArr = "<c:out value='${project.bassSoundInfo}'/>".split("/");
 	 		console.log(beatArr);
-	 		for(var i=0; i<32; i++){
+	 		for(var i=0; i<maxlength ; i++){
 	 			soundArr= $.trim(beatArr[i]).split(" ");
 	 			var sidx=0;
 	 			for(var octv=0; octv<2; octv++){
@@ -439,7 +460,7 @@ var pageCheck="projectView";
 	 		}
  		   
  		   beatArr = "<c:out value='${project.guitarSoundInfo}'/>".split("/");
-	 	   for(var i=0; i<32; i++){
+	 	   for(var i=0; i<maxlength ; i++){
 	 			soundArr= $.trim(beatArr[i]).split(" ");
 	 			var sidx=0;	
   		 		for(var j=0; j<chordArr.length; j++){
@@ -452,7 +473,7 @@ var pageCheck="projectView";
 	 	   }
  		  
  		  beatArr = "<c:out value='${project.drumSoundInfo}'/>".split("/");
-	 	   for(var i=0; i<32; i++){
+	 	   for(var i=0; i<maxlength ; i++){
 	 			soundArr= $.trim(beatArr[i]).split(" ");
 	 			var sidx=0;	
 	 			for(var j=0; j<drumArr.length; j++){

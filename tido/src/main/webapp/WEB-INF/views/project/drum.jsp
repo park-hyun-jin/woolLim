@@ -13,7 +13,7 @@
 <c:forEach var="dList" items="${drum}">
 	<div class="sound ${dList } drum">
 		<div>${dList }</div>
-		<c:forEach var="dlength" varStatus="i" begin="1" end="32" step="1">
+		<c:forEach var="dlength" varStatus="i" begin="1" end="${length }" step="1">
 			<div class='pad ${dList} length${dlength}'>
 				<input type='hidden' value="">
 			</div>

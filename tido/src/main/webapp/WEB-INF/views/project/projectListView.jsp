@@ -12,11 +12,11 @@
 var pageCheck="projectListView";
 </script>
 <style>
-.createFolderBtn{
+.createFolderPop{
 	width:300px;
-	height: 120px;
+	height: 170px;
 	position:absolute;
-	background: rgba(0,0,0,0.6);
+	background: rgba(50,50,50);
 	left:0;
 	right:0;
 	top:300px;
@@ -24,27 +24,36 @@ var pageCheck="projectListView";
 	display:none;
 	border-radius: 10px;
 }
-.createFolderBtn div{
+.createFolderPop div h6{
+	padding:10px
+}
+
+.createFolderPop div{
 	text-align: center;
 	color:white;
 	padding:5px;
 }
-.createFolderBtn div input{
+.createFolderPop div input{
 	width:90%;
 }
+.createFolderPop>#message{
+	height:8px;
+}
+
 </style>
 </head>
 <body>
 		<jsp:include page="../common/menubar.jsp"/>
 		
 		
-		<div id="createFolderBtn" class="createFolderBtn">
+		<div id="createFolderPop" class="createFolderPop">
 			<div>
 				<h6 >새 폴더 추가</h6>
 			</div>
 			<div>
 				<input id="newFolderName">
 			</div>
+			<p id="message" align="center"></p>
 			<div>
 				<button id="addOk">확인</button>
 				<button id="addCancel">취소</button>
@@ -73,7 +82,7 @@ var pageCheck="projectListView";
 				selectProjectList(path);
 				
 				$("#folderAddBtn").on("click",function(){
-					$("#createFolderBtn").css("display","block");
+					$("#createFolderPop").css("display","block");
 				});
 				
 				$("#addOk").on("click",function(){
@@ -84,13 +93,27 @@ var pageCheck="projectListView";
 							data:{path:path+"\\"+folderName},
 							type:"post",
 							success:function(result){
-								
+								if(result=="1"){
+									$("#createFolderPop").css("display","none");
+									$("#message").text("").css({"border":""});
+									$("#newFolderName").val("").css({"border":""});
+								}else{
+									$("#message").text("같은 이름의 폴더가 존재합니다.").css({"color":"red"});
+									setTimeout(function(){
+										$("#message").text("").css({"color":""});
+									},1500);
+								}
 							}
 						});
 						
 					}else{
 						$("#newFolderName").css({"border":"2px solid red"});
 					}	
+				});
+				
+				$("#addCancel").on("click",function(){
+					$("#createFolderPop").css("display","none");
+					$("#newFolderName").text("").css({"border":""});
 				});
 				
 			});

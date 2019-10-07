@@ -15,7 +15,7 @@
 	
 	<div class="sound ${cList} guitar">
 		<div>${cList}</div>
-		<c:forEach var="glength" varStatus="i" begin="1" end="32" step="1">
+		<c:forEach var="glength" varStatus="i" begin="1" end="${length }" step="1">
 			<div class='pad ${cList} length${glength}'>
 				<input type='hidden' value="">
 			</div>

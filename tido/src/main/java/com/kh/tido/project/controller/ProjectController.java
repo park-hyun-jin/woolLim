@@ -90,10 +90,11 @@ public class ProjectController {
 	@ResponseBody
 	@RequestMapping(value="addFolder.kh" ,produces="application/json; charset=utf-8 ")
 	public String createFolder(String path,HttpServletRequest request) {
-		System.out.println(path);
-		File result = pService.createFolder(path,request);
-		return null;
+		int result =0;
+		File folder = pService.createFolder(path,request);
+		if(folder!=null) {
+			result=1;
+		}
+		return result+"";
 	}
-	
-	
 }

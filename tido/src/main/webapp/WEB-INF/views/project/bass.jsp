@@ -17,7 +17,7 @@
 
 <div class="sound C2 bass">
    	<div>C2</div>
-    <c:forEach var="blength" varStatus="i" begin="1" end="32" step="1">
+    <c:forEach var="blength" varStatus="i" begin="1" end="${length }" step="1">
 		<div class='pad C2 length${blength}'>
 			<input type='hidden' value="">
 		</div>
@@ -35,7 +35,7 @@
 <c:forEach var="bList" items="${note1}">
    <div class="sound ${bList}${1-boctv} bass">
       <div>${bList}${1-boctv}</div>
-      <c:forEach var="blength" varStatus="i" begin="1" end="32" step="1">
+      <c:forEach var="blength" varStatus="i" begin="1" end="${length }" step="1">
       <div class='pad ${bList}${1-boctv} length${blength}'>
       	<input type='hidden' value="">
       </div>
