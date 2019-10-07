@@ -12,6 +12,6 @@ public interface NoticeService {
 	 */
 	public abstract ArrayList<Notice> selectList(int currentPage);
 
-	public abstract int noticeList(Notice notice);
+	public abstract int insertNotice(Notice notice);
 
 }
