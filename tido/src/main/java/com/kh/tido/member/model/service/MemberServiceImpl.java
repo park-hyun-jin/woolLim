@@ -23,8 +23,8 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired
 	private MemberDao mDao;
 	
-	@Autowired
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
+// 	@Autowired
+// 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	@Inject
     private JavaMailSender mailSender;
@@ -65,9 +65,9 @@ public class MemberServiceImpl implements MemberService {
 	@Transactional(propagation=Propagation.REQUIRED, isolation=Isolation.READ_COMMITTED, rollbackFor=Exception.class)
 	public int insertMember(Member mem) {
 		
-		String encPwd = bCryptPasswordEncoder.encode(mem.getPwd());
+// 		String encPwd = bCryptPasswordEncoder.encode(mem.getPwd());
 		
-		mem.setPwd(encPwd);
+// 		mem.setPwd(encPwd);
 		
 		return mDao.insertMember(mem);
 	}
