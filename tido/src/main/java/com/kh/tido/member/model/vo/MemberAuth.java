@@ -6,21 +6,33 @@ public class MemberAuth {
 	private int memberAuthStatus;
 	private String memberId;
 	
+	public MemberAuth() {}
+	
+	public MemberAuth(String memberAuthKey, String memberId) {
+		super();
+		this.memberAuthKey = memberAuthKey;
+		this.memberId = memberId;
+	}
+	
 	public MemberAuth(String memberAuthKey, int memberAuthStatus, String memberId) {
 		super();
 		this.memberAuthKey = memberAuthKey;
 		this.memberAuthStatus = memberAuthStatus;
 		this.memberId = memberId;
 	}
+	
 	public String getMemberAuthKey() {
 		return memberAuthKey;
 	}
+	
 	public void setMemberAuthKey(String memberAuthKey) {
 		this.memberAuthKey = memberAuthKey;
 	}
+	
 	public int getMemberAuthStatus() {
 		return memberAuthStatus;
 	}
+	
 	public void setMemberAuthStatus(int memberAuthStatus) {
 		this.memberAuthStatus = memberAuthStatus;
 	}

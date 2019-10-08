@@ -10,6 +10,7 @@
 		<typeAlias type="com.kh.tido.board.model.vo.Board" alias="Board"/>
 		<typeAlias type="com.kh.tido.board.model.vo.Reply" alias="Reply"/>
 		<typeAlias type="com.kh.tido.member.model.vo.Member" alias="Member"/>
+		<typeAlias type="com.kh.tido.member.model.vo.MemberAuth" alias="MemberAuth"/>
 		<typeAlias type="com.kh.tido.notice.model.vo.Notice" alias="Notice"/>
 		<typeAlias type="com.kh.tido.inquiry.model.vo.Inquiry" alias="Inquiry"/>
 	</typeAliases>
