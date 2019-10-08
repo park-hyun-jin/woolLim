@@ -38,6 +38,8 @@ public class NoticeServiceImpl implements NoticeService {
 	@Override
 	public Notice selectOne(int nNo) {
 		
+		nDao.addpnoticeViewCount(nNo);
+		
 		return nDao.selectOne(nNo);
 	}
 

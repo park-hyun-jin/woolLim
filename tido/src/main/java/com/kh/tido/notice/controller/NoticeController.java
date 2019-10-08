@@ -25,7 +25,7 @@ public class NoticeController {
 	@Autowired
 	private NoticeService nService;
 	
-	@RequestMapping("nList.kh")
+	@RequestMapping("nlist.kh")
 	public ModelAndView noticeList(ModelAndView mv, Integer page) {
 		
 		int currentPage = page == null ? 1 : page;
@@ -59,7 +59,7 @@ public class NoticeController {
 		}
 		int result = nService.insertNotice(notice);
 		if(result > 0) {
-			return "redirect:nList.kh";
+			return "redirect:nlist.kh";
 		}else {
 			model.addAttribute("msg","공지사항 등록 실패");
 			return "common/errorPage";
@@ -120,7 +120,13 @@ public class NoticeController {
 		}
 		
 	}
+	
+	@RequestMapping(value="nupView.kh")
+	public String noticeUpdateView(int nNo, Model model) {
+		model.addAttribute("notice", nService.selectOne(nNo));
 		
+		return "notice/noticeUpdateView";
+	}
 	}
 		
 

@@ -215,7 +215,7 @@ to {
 							</c:url> 
 							<a href="${ ndetail }">${ n.pnoticeTitle }</a>
 						</td>
-						<td>${n.pmemberId}</td>
+						<td>${n.memberName}</td>
 						<td>${n.pnoticeCreateDate}</td>
 						<td>${n.pnoticeViewCount}</td>
 					

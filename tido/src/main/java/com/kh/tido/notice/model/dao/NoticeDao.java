@@ -38,6 +38,12 @@ public class NoticeDao {
 		return sqlSession.selectOne("noticeMapper.detailList", nNo);
 	}
 
+	public void addpnoticeViewCount(int nNo) {
+		
+		sqlSession.update("noticeMapper.addpnoticeViewCount", nNo);
+		
+	}
+
 	
 
 	
