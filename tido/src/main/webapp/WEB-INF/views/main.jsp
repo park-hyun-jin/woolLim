@@ -25,7 +25,7 @@
 	<script>
 		$(function(){
 			$.ajax({
-				url : "temp.kh",
+				url : "visitor.kh",
 				type : "POST",
 				success : function(result){
 					console.log(result);
