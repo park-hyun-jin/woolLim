@@ -14,4 +14,6 @@ public interface NoticeService {
 
 	public abstract int insertNotice(Notice notice);
 
+	public abstract Notice selectOne(int nNo);
+
 }

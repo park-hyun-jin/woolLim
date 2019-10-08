@@ -33,6 +33,11 @@ public class NoticeDao {
 		return sqlSession.insert("noticeMapper.insertList", notice);
 	}
 
+	public Notice selectOne(int nNo) {
+		
+		return sqlSession.selectOne("noticeMapper.detailList", nNo);
+	}
+
 	
 
 	
