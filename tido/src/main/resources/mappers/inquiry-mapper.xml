@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="inquiryMapper">
+
+	<resultMap id="inquiryResultSet" type="Inquiry">
+	<id property="iNo" column="INQUIRY_NO"/> <!-- 문의글 번호 -->
+		<result property="iInquiryTitle" column="INQUIRY_TITLE"/> <!-- 문의글 제목 -->
+		<result property="iInquiryContent" column="INQUIRY_CONTENT"/> <!-- 문의글 내용 -->
+		<result property="iInquiryDate" column="INQUIRY_DATE"/> <!-- 문의글 작성일 -->
+		<result property="iInquiryModifyDate" column="INQUIRY_MODIFY_DATE"/> <!-- 문의글 수정일 -->
+		<result property="iInquiryId" column="MEMBER_ID"/> <!-- 이메일 -->
+		<result property="iInquiryStatus" column="INQUIRY_STATUS"/> <!-- 문의글 상태 -->
+		<result property="iInquiryOriginFilename" column="INQUIRY_ORIGIN_FILENAME"/> <!-- 기존파일이름 -->
+		<result property="iInquiryChangeFilename" column="INQUIRY_CHANGE_FILENAME"/> <!-- 바뀐파일이름 -->
+	</resultMap>
+	
+	</mapper>
