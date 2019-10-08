@@ -29,10 +29,17 @@
 	
 	<insert id="insertList" parameterType="Notice">
 	INSERT INTO NOTICE
-	VALUES(SEQ_NOTICE_NO.NEXTVAL, #{pnoticeTitle},
+	VALUES(SEQ_NNO.NEXTVAL, #{pnoticeTitle},
 			#{pnoticeContent},
 			SYSDATE, SYSDATE,
 			DEFAULT, DEFAULT,
 			#{pmemberId}, #{pnoticeFilePath})
 	</insert>
+	
+	<select id="detailList" parameterType="_int" resultMap="noticeResultSet">
+	SELECT * 
+	FROM NOTICE
+	WHERE NOTICE_NO = #{nNo}
+	
+	</select>
 </mapper>
