@@ -88,7 +88,6 @@
                 <!-- nayoung -->
                 <div class="md-form">
                 <div>
-               		<c:set var="pnoticeContent" value="${fn:replace(notice.pnoticeContent,'<br>','') }"/>
                     <input type="text" id="materialRegisterFormPhone" class="form-control" aria-describedby="materialRegisterFormPhoneHelpBlock"
                     name="pnoticeContent" value="${ notice.pnoticeContent }">
                     </input>

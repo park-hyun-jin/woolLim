@@ -127,6 +127,8 @@ public class NoticeController {
 		
 		return "notice/noticeUpdateView";
 	}
+	
+	
 	}
 		
 
