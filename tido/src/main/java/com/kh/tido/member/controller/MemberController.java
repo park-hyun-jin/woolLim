@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.tido.member.model.service.MemberService;
@@ -107,10 +108,10 @@ public class MemberController {
 	}
 	
 	@RequestMapping("minsert.kh")
-	public String InsertMember(Member mem, Model model) {
-		int result = mService.insertMember(mem);
+	public String InsertMember(Member mem, MultipartFile uploadFile, HttpServletRequest request, Model model) {
+		int result = mService.insertMember(mem, uploadFile, request);
 		if(result == 1) {
-			model.addAttribute("loginUser", mem);
+			model.addAttribute("loginUser", mem).addAttribute("msg", "회원가입이 완료되었습니다!");
 			return "redirect:main.kh";
 		}else {
 			model.addAttribute("msg", "회원가입에 실패하였습니다.");

@@ -73,7 +73,7 @@
             cursor: pointer;
         }
 
-        #inputImg {
+        #uploadFile {
             width: min-content;
             margin-bottom: 5%;
             margin-left: 30%;
@@ -104,12 +104,12 @@
         <div class="titleArea">
             <h1>회원가입</h1>
         </div>
-        <form action="minsert.kh" method="POST" class="joinForm">
+        <form action="minsert.kh" method="POST" class="joinForm" enctype="Multipart/form-data">
             <div id="profileArea">
                 <img id="profileImg">
                 <h5>프로필 사진</h5>
             </div>
-            <input type="file" id="inputImg" name="inputImg" multiple="multiple" onchange="loadImg(this,1);">
+            <input type="file" id="uploadFile" name="uploadFile" multiple="multiple" onchange="loadImg(this,1);">
             <table class="insertTable">
                     <tr>
                         <td>
@@ -183,12 +183,12 @@
 			
 	        
 			// 업로드 버튼 숨김
-			$("#inputImg").hide();
+			$("#uploadFile").hide();
 			
 			// 이미지 영역 클릭 시 파일 업로드 버튼 동작
 			
 			$("#profileArea").click(function(){
-				$("#inputImg").click();
+				$("#uploadFile").click();
 			});
 	        
 			function loadImg(value, num) {

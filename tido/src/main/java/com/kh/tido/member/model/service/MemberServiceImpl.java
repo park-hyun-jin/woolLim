@@ -1,6 +1,7 @@
 package com.kh.tido.member.model.service;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.tido.member.controller.MailHandler;
 import com.kh.tido.member.model.dao.MemberDao;
@@ -23,8 +25,8 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired
 	private MemberDao mDao;
 	
-// 	@Autowired
-// 	private BCryptPasswordEncoder bCryptPasswordEncoder;
+ 	@Autowired
+ 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	@Inject
     private JavaMailSender mailSender;
@@ -63,11 +65,15 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED, isolation=Isolation.READ_COMMITTED, rollbackFor=Exception.class)
-	public int insertMember(Member mem) {
+	public int insertMember(Member mem, MultipartFile uploadFile, HttpServletRequest request) {
 		
-// 		String encPwd = bCryptPasswordEncoder.encode(mem.getPwd());
-		
-// 		mem.setPwd(encPwd);
+ 		String encPwd = bCryptPasswordEncoder.encode(mem.getPwd());
+	
+ 		mem.setPwd(encPwd);
+ 		
+ 		if(!uploadFile.equals("")) {
+ 			
+ 		}
 		
 		return mDao.insertMember(mem);
 	}
