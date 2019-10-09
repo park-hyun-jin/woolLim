@@ -10,16 +10,28 @@
 		<result property="visit_agent" column="VISIT_AGENT"/>
 	</resultMap>
 	
-	<insert id="insertVisitor" parameterType="VisitorCount" >
+	<insert id="insertVisitor" parameterType="VisitorCount">
 		INSERT INTO VISITOR 
         VALUES
         (
             SEQ_VNO.NEXTVAL,
             #{visit_ip},
-            SYSDATE,           
-        	DEFAULT,
+            SYSDATE,            
+            #{visit_refer},
             #{visit_agent}
         )
 	</insert>
+	
+	<select id="checkVisitor" parameterType="VisitorCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM VISITOR
+		WHERE VISIT_IP = #{visit_ip}
+		AND TO_CHAR(VISIT_TIME,'YYMMDD') = TO_CHAR(SYSDATE,'YYMMDD')
+	</select>
+	
+	<select id="selectVisitor" resultType="string">
+		SELECT COUNT(*)
+		FROM VISITOR
+	</select>
 	
 </mapper>

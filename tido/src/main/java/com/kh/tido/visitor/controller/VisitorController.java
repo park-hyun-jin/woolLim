@@ -2,22 +2,25 @@ package com.kh.tido.visitor.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.kh.tido.visitor.model.service.VisitorService;
 import com.kh.tido.visitor.model.vo.VisitorCount;
 
 @Controller
 public class VisitorController {
-
-	private VisitorCount vc;
+	
+	@Autowired
+	VisitorService vService;
 	
 	@ResponseBody
-	@RequestMapping(value="visitor.kh",method=RequestMethod.POST)
+	@RequestMapping(value="visitor.kh",method=RequestMethod.POST, produces="application/text; charset=utf8")
 	public String temp(HttpServletRequest request) {
-		vc = new VisitorCount();
+		VisitorCount vc = new VisitorCount();
 		String ip = request.getHeader("X-Forwarded-For");  
         if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
             ip = request.getHeader("Proxy-Client-IP");  
@@ -33,12 +36,15 @@ public class VisitorController {
         }  
         if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
             ip = request.getRemoteAddr();  
-        }  
+        }
 		vc.setVisit_agent(request.getHeader("User-Agent"));
 		vc.setVisit_refer(request.getHeader("referer"));
 		vc.setVisit_ip(ip);
-		String visitor = "hi";
-		System.out.println(vc);
+		System.out.println(ip);
+		int result = vService.insertVisitor(vc);
+		String visitor = vService.selectVisitor()+"";			
+	
+		
 		return visitor;
 	}
 	
