@@ -10,15 +10,17 @@ public class AdminController {
 	
 	
 	
-	
-	
-	
 	@RequestMapping("admin.kh")
 	public String compProjectView() {
 		return "admin/adminDashboard";
 	}
 	
 	
+	@RequestMapping("aManage.kh")
+	public String adminManageView() {
+		
+		return "admin/userManagement";
+	}
 	
 	
 }

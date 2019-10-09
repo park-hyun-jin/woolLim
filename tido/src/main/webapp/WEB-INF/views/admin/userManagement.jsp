@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>관리자페이지 userManagement</title>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" ></link>
 </head>
 <body>
 
@@ -17,24 +18,14 @@
       
       <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 class="h2">Dashboard</h1>
-            <div class="btn-toolbar mb-2 mb-md-0">
-              <div class="btn-group mr-2">
-                <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-                <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
-              </div>
-              <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                <span data-feather="calendar"></span>
-                This week
-              </button>
-            </div>
+            <h1 class="h2">유저 관리 페이지</h1>
+            
           </div>
-    
-          <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
-    
-          <h2>Section title</h2>
+    	<br>
+              
+          <h2>유저 목록</h2>
           <div class="table-responsive">
-            <table class="table table-striped table-sm">
+            <table class="table table-striped table-sm" id="myTable">
               <thead>
                 <tr>
                   <th>#</th>
@@ -163,6 +154,13 @@
         </main>
       </div>
     </div>
-	<script type="text/javascript" src="${contextPath }/resources/js/admin/dashboard.js"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+	
+	<script>
+		$(document).ready(function(){
+			$(".users").addClass("active");
+			$('#myTable').DataTable();
+		});
+	</script>
 </body>
 </html>
