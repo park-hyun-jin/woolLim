@@ -89,6 +89,10 @@ tbody {
 #thead tr th {
 	text-align: center;
 }
+
+.btn{
+	font-size: 20px !important;
+}
 </style>
 </head>
 <body>
@@ -98,45 +102,9 @@ tbody {
 	<div></div>
 
 	<!-- 상단 메뉴바 -->
-	<nav class="navbar navbar-default">
+	<nav class="navbar navbar-default" style="background-color: #212529;">
 		<div class="navbar-header">
-			<button type="button" class="navbar-toggle collapsed"
-				data-toggle="collapse" data-target="bs-example-navbar-collapse-1"
-				aria-expaned="false">
-				<span class="icon-bar"></span> 
-				<span class="icon-bar"></span> 
-				<span class="icon-bar"></span>
-			</button>
 			<a class="navbar-brand" href="${contextPath }" style="font-size: 22px; float: left;">WOOLLIM</a>
-		</div>
-		<div class="collapse navbar-collapse" id="#bs-example-navbar-collapse-1">
-				<!-- <ul class="nav navbar-nav">
-					<li><a href="blist.kh">게시판</a></li>
-				</ul> -->
-
-			<ul class="nav navbar-nav navbar-right" style="font-size: 17px;">
-				<li class="dropdown" >
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false">접속하기<span class="caret"></span>
-					</a>
-					<ul class="dropdown-menu" style="font-size: 14px;">
-						<li><a href="bList.kh">로그인</a></li>
-						<li><a href="#">회원가입</a></li>
-					</ul>
-				</li>
-			</ul>
-
-			<ul class="nav navbar-nav navbar-right" style="font-size: 17px;">
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false">회원관리<span class="caret"></span>
-					</a>
-					<ul class="dropdown-menu" style="font-size: 14px;">
-						<li><a href="#">공지사항</a></li>
-						<li><a href="#">Q&A</a></li>
-					</ul>
-				</li>
-			</ul>
 		</div>
 	</nav>
 	<!-- 상단 메뉴바 -->
@@ -144,12 +112,12 @@ tbody {
 	<!-- <div style="margin: 70px;"></div> -->
 
 	<div id="wr" style="text-align: right;">
-		<button onClick="location.href='binsertView.kh'" class="btn btn-primary">글쓰기</button>
+		<button onClick="location.href='binsertView.kh'" class="btn btn-primary" style="background-color: #4B0082">글쓰기</button>
 	</div>
 
 	<div style="margin: 10px;"></div>
 
-	<table class="sub_news" border="1" cellspacing="0" summary="게시판의 글제목 리스트" style="width: 70%;">
+	<table class="sub_news" border="1" cellspacing="0" summary="게시판의 글제목 리스트" style="width: 70%; background-color: #343a40;">
 		<caption>게시판 리스트</caption>
 		<colgroup> 
 			<col width="5%;">
@@ -158,13 +126,13 @@ tbody {
 			<col width="15%;">
 			<col width="10%;">
 		</colgroup>
-		<thead>
-			<tr>
-				<th scope="col" style="text-align: center;">번호</th> <!-- cBoardNo -->
-				<th scope="col" style="text-align: center;">제목</th> <!-- cBoardTitle -->
-				<th scope="col" style="text-align: center;">글쓴이</th> <!-- memberId -->
-				<th scope="col" style="text-align: center;">날짜</th> <!-- cBoardCreateDate -->
-				<th scope="col" style="text-align: center;">조회수</th> <!-- cBoardViewCount -->
+		<thead style="background: linear-gradient(to bottom, grey, black);">
+			<tr style="height: 50px;"> <!-- #F8F8FF -->
+				<th scope="col" style="color:white; vertical-align: middle; background-color: #212529; font-size: 17px; vertical-align: middle;">번호</th> <!-- cBoardNo -->
+				<th scope="col" style="color:white; text-align: center; background-color: #212529; font-size: 17px; vertical-align: middle;">제목</th> <!-- cBoardTitle -->
+				<th scope="col" style="color:white; text-align: center; background-color: #212529; font-size: 17px; vertical-align: middle;">글쓴이</th> <!-- memberId -->
+				<th scope="col" style="color:white; text-align: center; background-color: #212529; font-size: 17px; vertical-align: middle;">날짜</th> <!-- cBoardCreateDate -->
+				<th scope="col" style="color:white; text-align: center; background-color: #212529; font-size: 17px; vertical-align: middle;">조회수</th> <!-- cBoardViewCount -->
 			</tr>
 		</thead>
 		
@@ -179,18 +147,18 @@ tbody {
 								<c:param name="cBoardNo" value="${b.cBoardNo }" />
 								<c:param name="page" value="${pi.currentPage }" />
 							</c:url>
-							<a href="${bdetail}">${b.cBoardTitle}</a>
+							<a href="${bdetail}" style="color: snow;">${b.cBoardTitle}</a>
 						</c:if>
 						<c:if test="${empty loginUser }">${b.cBoardTitle }</c:if>
 					</td>
 					
-					<td align="center">${b.memberId }</td>
+					<td align="center">${b.memberName }</td>
 					<td align="center">${b.cBoardCreateDate }</td>
 					<td align="center">${b.cBoardViewCount }</td>
 				</tr>
 			</c:forEach>
 			
-			<tr align="center" height="20" >
+			<tr align="center" height="20" style="background-color: #212529;">
 				<td colspan="6">
 					<c:if test="${pi.currentPage <= 1 }">[이전]&nbsp;</c:if>
 					<c:if test="${ pi.currentPage > 1 }">

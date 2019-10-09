@@ -28,7 +28,7 @@ public class BoardDao {
 	}
 
 	public int insertBoard(Board board) {
-		return sqlSession.insert("boardMapper.insetBoard", board);
+		return sqlSession.insert("boardMapper.insertBoard", board);
 	}
 
 	public void addReadCount(int cBoardNo) {

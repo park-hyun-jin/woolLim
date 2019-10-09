@@ -7,67 +7,52 @@
 <meta charset="UTF-8">
 <title>게시판 상세</title>
 <style>
-nav {
-	width: 70%;
-	margin: auto;
+.col-md-8 {
+	background: linear-gradient(to bottom, grey, black);
+}
+table.type09 {
+    border-collapse: collapse;
+    text-align: left;
+    line-height: 1.5;
+
+}
+table.type09 thead th {
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    color: #369;
+    border-bottom: 3px solid #036;
+   	/* background: white; */
+   	color: #99FF99;
+}
+table.type09 tbody th {
+    width: 150px;
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+    /* background: grey; */
+    color: white;
+}
+table.type09 tbody td  {
+    width: 350px;
+    padding: 10px;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+    /* background: snow; */
+    color: white;
 }
 </style>
 </head>
 <body>
 	<jsp:include page="../common/menubar.jsp"/>
-	<div style="margin: 50px;"></div>
-	<h1 class="page-header" style="color: white; font-weight: bold;">게시판 목록</h1>
-	<div></div>
-
-	<!-- 상단 메뉴바 -->
-	<nav class="navbar navbar-default">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle collapsed"
-				data-toggle="collapse" data-target="bs-example-navbar-collapse-1"
-				aria-expaned="false">
-				<span class="icon-bar"></span> 
-				<span class="icon-bar"></span> 
-				<span class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="${contextPath }" style="font-size: 22px; float: left;">WOOLLIM</a>
-		</div>
-		<div class="collapse navbar-collapse" id="#bs-example-navbar-collapse-1">
-				<!-- <ul class="nav navbar-nav">
-					<li><a href="blist.kh">게시판</a></li>
-				</ul> -->
-
-			<ul class="nav navbar-nav navbar-right" style="font-size: 17px;">
-				<li class="dropdown" >
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false">접속하기<span class="caret"></span>
-					</a>
-					<ul class="dropdown-menu" style="font-size: 14px;">
-						<li><a href="bList.kh">로그인</a></li>
-						<li><a href="#">회원가입</a></li>
-					</ul>
-				</li>
-			</ul>
-
-			<ul class="nav navbar-nav navbar-right" style="font-size: 17px;">
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false">회원관리<span class="caret"></span>
-					</a>
-					<ul class="dropdown-menu" style="font-size: 14px;">
-						<li><a href="#">공지사항</a></li>
-						<li><a href="#">Q&A</a></li>
-					</ul>
-				</li>
-			</ul>
-		</div>
-	</nav>
-	<!-- 상단 메뉴바 -->
-
 	
+	<div style="margin: 50px;"></div>
+
 	<div class="row">
 		<div class="col-md-2"></div>
-		<div class="col-md-8">
-			<h2 class="text-center" style="color: white">게시글 상세</h2>
+		<div class="col-md-8" >
+			<h2 class="text-center" style="color: white; height: 100px; margin: auto; line-height: 320%;">게시글 상세</h2>
 			<form action="BoardReWriteProc.jsp" method="post">
 				<div class="table table-responsive">
 					<table class="table table-striped" style="color: white">
@@ -80,7 +65,7 @@ nav {
 						</tr>
 						<tr>
 							<td>작성자</td>
-							<td>${board.memberId }</td>
+							<td>${board.memberName }</td>
 						</tr>
 						<tr>
 							<td>작성일</td>
@@ -88,7 +73,7 @@ nav {
 						</tr>
 						<tr>
 							<td>글내용</td>
-							<td>${board.cBoardContent }</td>
+							<td style="height: 370px;">${board.cBoardContent }</td>
 						</tr>
 						<tr>
 							<td>사진</td>
@@ -100,19 +85,19 @@ nav {
 						</tr>
 						<tr>
 							<td colspan="2" class="text-center" style="color: white">
-								<c:url var="bupview" value="bupView.kh">
+								<c:url var="bupView" value="bupView.kh">
 									<c:param name="cBoardNo" value="${board.cBoardNo }" />
 									<c:param name="page" value="${currentPage }" />
 								</c:url>
 								<c:url var="bdelete" value="bdelete.kh">
 									<c:param name="cBoardNo" value="${board.cBoardNo }" />
 								</c:url>
-								<c:url var="blist" value="blist.kh">
+								<c:url var="blist" value="bList.kh">
 									<c:param name="page" value="${currentPage }" />
 								</c:url>
-								
+
 								<c:if test="${loginUser.id eq board.memberId }">
-									<a href="${bupview }">수정하기</a>&nbsp;
+									<a href="${bupView }">수정하기</a>&nbsp;
 									<a href="${bdelete }">삭제하기</a>&nbsp;
 								</c:if>
 								<a href="${blist }">목록으로</a>
@@ -124,43 +109,57 @@ nav {
 		</div>
 	</div>
 
+	<div style="margin: 50px;"></div>
+
+	<!-- 댓글 목록  -->
+	<table id="rtb" align="center" width="65%;" cellspacing="0" class="type09">
+		<thead>
+			<tr>
+				<th colspan="1">
+					<b id="rCount">작성자</b>
+				</th>
+				<th colspan="1">
+					<b id="rCount">내용</b>
+				</th>
+				<th colspan="1">
+					<b id="rCount">작성날짜</b>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+
+		</tbody>
+	</table>
+
+	<div style="margin: 20px;"></div>
 
 	<!-- 댓글 등록  -->
-	<table align="center" width="500" border="1" cellspacing="0">
+	<table align="center" width="65%;" cellspacing="0">
 		<tr>
-			<td><textarea cols="55" rows="3" id="rContent"></textarea></td>
+			<td><textarea cols="157" rows="3" id="cbReplyContent"></textarea></td>
 			<td>
-				<button id="rSubmit">등록하기</button>
+				<button id="rSubmit" class="btn btn-primary" style="background-color: #4B0082; border-radius: 10%">등록하기</button>
 			</td>
 		</tr>
 	</table>
-	
-	
-	<!-- 댓글 목록  -->
-	<table id="rtb" align="center" width="500" border="1" cellspacing="0">
-		<thead>
-			<tr>
-				<td colspan="2"><b id="rCount"></b></td>
-			</tr>
-		</thead>
-		<tbody></tbody>
-	</table>
-	
-	<script>/* console창에 띄우기 */
-	$(function(){
+	<script>
+
+	/* console창에 띄우기 */
+	/* $(function(){
 		var loginUser = '<c:out value="${board.memberId}"/>';
 		console.log(loginUser);
-	});
-		// 댓글 등록 ajax
+	}); */
+
+	// 댓글 등록 ajax
 		$("#rSubmit").on("click", function(){
 			var cbReplyContent = $("#cbReplyContent").val();
 			var cboardNo = ${board.cBoardNo};
-			
+
 			if(cbReplyContent == ""){
-				alert("댓글을 입력하라우 간나쉐끼");
+				alert("댓글을 입력하세요를레이요 구르트아줌마 징가제트 와이스가짱!");
 				return false;
 			}
-			
+
 			$.ajax({
 				url : "addReply.kh",
 				data : {cbReplyContent:cbReplyContent, cboardNo:cboardNo},
@@ -168,13 +167,13 @@ nav {
 				success:function(data){
 					if(data == "success"){
 						// 댓글 작성 부분 초기화
-						$("#cbReplyContent").val("");						
+						$("#cbReplyContent").val("");
 					}
 				}
 			});	
 			getReplyList();
 		});
-	
+
 		getReplyList();
 		// 댓글 리스트 조회 함수
 		function getReplyList(){
@@ -185,45 +184,41 @@ nav {
 				data : {cBoardNo : cBoardNo},
 				dataType : "json",
 				success:function(list){
-					
-					 var $tableBody = $("#rtb tbody");
+
+					 var $tableBody = $(".type09 tbody");
 					 $tableBody.html("");
-					 
-					 $("#cbReplyContent").text("댓글(" + list.length + ")");
-					 
+
+					 $("#cBoardViewCount").text("댓글(" + list.length + ")");
+
 					 var $tr;
 					 var $memberId;
-					 var $cbRContent;
+					 var $cbReplyContent;
 					 var $cbReplyCreateDate;
-					 
-					 
+
+
 					 if(list.length > 0){ 
 						 $.each(list, function(i){
 							 $tr = $("<tr>");
-							 $memberId = $("<td>").text(list[i].memberId).css("width","100px");
-							 $cbRContent = $("<td>").html(list[i].cbRContent);
+							 $memberId = $("<th>").text(list[i].memberName).css("width","100px");
+							 $cbReplyContent = $("<td>").html(list[i].cbReplyContent);
 							 $cbReplyCreateDate = $("<td>").text(list[i].cbReplyCreateDate).css("width","100px");
-							 
+
 							 $tr.append($memberId);
-							 $tr.append($cbRContent);
+							 $tr.append($cbReplyContent);
 							 $tr.append($cbReplyCreateDate);
 							 $tableBody.append($tr);
 						 })
-						 
+
 					 }else{
 						 $tr = $("<tr>");
-						 $cbRContent = $("<td colspan='3'>").text("등록된 댓글이 없습니다.");
-						 
-						 $tr.append($cbRContent);
+						 $cbReplyContent = $("<td colspan='3'>").text("등록된 댓글이 없습니다.");
+
+						 $tr.append($cbReplyContent);
 						 $tableBody.append($tr);
-					 }				 
-					 
+					 }
 				}
-				
 			});
 		}
-		
 	</script>
-
 </body>
 </html>
