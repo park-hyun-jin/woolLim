@@ -56,11 +56,16 @@
 	</update>
 	
 	<update id="updateNotice" parameterType="Notice">
-		UPDATE NOTICE
-		SET NOTICE_TITLE=#{pnoticeTitle},
-			NOTICE_CONTENT=#{pnoticeContent},
-			NOTICE_FILE_PATH=#{pnoticeFilePath},
-			NOTICE_MODIFY_DATE = SYSDATE
-		WHERE NOTICE_NO=#{nNo}
+	UPDATE NOTICE
+	SET NOTICE_TITLE=#{pnoticeTitle},
+	NOTICE_CONTENT=#{pnoticeContent},
+	NOTICE_FILE_PATH=#{pnoticeFilePath},
+	NOTICE_MODIFY_DATE = SYSDATE
+	WHERE NOTICE_NO=#{nNo}
 	</update> 
+	
+	<delete id="deleteNotice" parameterType="_int">
+	DELETE FROM NOTICE
+	WHERE NOTICE_NO=#{nNo}
+	</delete>
 </mapper>

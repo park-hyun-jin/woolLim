@@ -38,7 +38,9 @@
             float: right;
         }
       
-        
+        #browse{
+       background-color: black;
+        }
         </style>
     </head>
     <body>
@@ -85,36 +87,64 @@
                     <label for="materialRegisterFormEmail"></label>
                 </div>
     </div>
-                <!-- nayoung -->
-                <div class="md-form">
+    <div class="md-form mt-0">
                 <div>
-                    <input type="text" id="materialRegisterFormPhone" class="form-control" aria-describedby="materialRegisterFormPhoneHelpBlock"
-                    name="pnoticeContent" value="${ notice.pnoticeContent }">
-                    </input>
-                    </div>
-                    <label for="materialRegisterFormPhone">내용</label>
-                    <small id="materialRegisterFormPhoneHelpBlock" class="form-text text-muted mb-4">
-                        Optional - for two step authentication
-                    </small>
-
-                    <div class="custom-file" id="file">
-                            <input type="file" class="custom-file-input">
-                            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-                          </div>
+                	
+                    <input type="text" id="materialRegisterFormEmail" class="form-control" name="pnoticeTitle" value="${ notice.pnoticeModifyDate }">
+                 
+                    <label for="materialRegisterFormEmail"></label>
                 </div>
-                <br>
-                <br>
-    
-                <!-- Newsletter -->
+    </div>
+                <!-- nayoung -->
+				<div class="md-form">
+					<div>
+						<c:set var="pnoticeContent"
+							value="${fn:replace(notice.pnoticeContent,'<br>','') }" />
+						<textarea type="text" id="materialRegisterFormPhone"
+							class="form-control"
+							aria-describedby="materialRegisterFormPhoneHelpBlock"
+							name="pnoticeContent" value="${ notice.pnoticeContent }">${pnoticeContent}
+                    </textarea>
+					</div>
+					<label for="materialRegisterFormPhone"></label> <small
+						id="materialRegisterFormPhoneHelpBlock"
+						class="form-text text-muted mb-4"> Optional - for two step
+						authentication </small>
+					<div>
+
+					
+						<div class="custom-file" id="file">
+							<input type="file" class="custom-file-input" name="reloadFile">
+							<%-- <c:if test="${ !empty notice.pnoticeFilePath }">
+									
+						<a href="${ contextPath }/resources/nuploadFiles/${ notice.pnoticeFilePath }"download>${ notice.pnoticeFilePath }</a>
+							</c:if> --%>
+							<label id="browse" class="custom-file-label" for="inputGroupFile01"><a href="${ contextPath }/resources/nuploadFiles/${ notice.pnoticeFilePath }"download>${ notice.pnoticeFilePath }</a></label>
+						</div>
+							
+					</div>
+				</div>
+				<br> <br>
+
+				<!-- Newsletter -->
                
     
                 <!-- Sign up button -->
-             
-                <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0">Aqua</button>
-                <button class="btn btn-outline-red btn-rounded btn-block my-4 waves-effect z-depth-0">Aqua</button>
-                
-    
-                <!-- Terms of service -->
+            
+
+
+
+				<p align="center">
+					<c:url var="updateNotice" value="nupdate.kh" />
+					<c:url var="back" value="${header.referer }" />
+					
+					<button
+						class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" onclick="location.href='${updateNotice}'">Aqua</button>
+					<button
+						class="btn btn-outline-red btn-rounded btn-block my-4 waves-effect z-depth-0" onclick="location.href='${back}'">Aqua</button>
+
+				</p>
+				<!-- Terms of service -->
                 <p>By clicking
                     <em>notice up</em> you agree to our
                     <a href="" target="_blank">terms of service</a>
