@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import com.kh.tido.admin.model.service.AdminService;
 import com.kh.tido.board.model.service.BoardService;
 import com.kh.tido.board.model.vo.Board;
 import com.kh.tido.board.model.vo.Search;
@@ -26,16 +27,13 @@ public class AdminController {
 	@Autowired
 	private BoardService bService;
 	@Autowired
-	private NoticeService nService;
-	
-	
+	private AdminService aService;
 	
 	
 	@RequestMapping("admin.kh")
 	public String compProjectView() {
 		return "admin/adminDashboard";
 	}
-	
 	
 	
 	// 게시판 관리 STATUS Y만
@@ -45,7 +43,7 @@ public class AdminController {
 		int currentPage = page == null ? 1 : page;
 		
 		
-		ArrayList<Board> list = bService.selectList(currentPage);
+		ArrayList<Board> list = aService.selectList(currentPage);
 		
 		System.out.println(list);
 		
@@ -66,7 +64,7 @@ public class AdminController {
 		int currentPage = page == null ? 1 : page;
 		
 		
-		ArrayList<Board> list = bService.selectListN(currentPage);
+		ArrayList<Board> list = aService.selectListN(currentPage);
 		
 		System.out.println(list);
 		
@@ -87,7 +85,7 @@ public class AdminController {
 		int currentPage = page == null ? 1 : page;
 		
 		
-		ArrayList<Board> list = bService.selectListAll(currentPage);
+		ArrayList<Board> list = aService.selectListAll(currentPage);
 		
 		System.out.println(list);
 		
@@ -110,7 +108,7 @@ public class AdminController {
 	@RequestMapping("deleteBoard.kh")
 	public String deleteBoard(@RequestParam(value="checkArray[]") ArrayList<Integer> deleteList) {
 		
-		int result = bService.deleteBoard(deleteList);
+		int result = aService.deleteBoard(deleteList);
 		return new Gson().toJson(result);
 	}
 	
@@ -119,11 +117,9 @@ public class AdminController {
 	@RequestMapping("reviveCBoard.kh")
 	public String reviveCBoard(@RequestParam(value="checkArray[]") ArrayList<Integer> reviveList) {
 		
-		int result = bService.reviveBoard(reviveList);
+		int result = aService.reviveBoard(reviveList);
 		return new Gson().toJson(result);
 	}
-	
-	
 	
 	
 	
@@ -139,7 +135,7 @@ public class AdminController {
 		// 체크 X : null
 		
 		ArrayList<Board> searchList 
-			= bService.searchList(search);
+			= aService.searchList(search);
 		
 		for(Board b : searchList) {
 			System.out.println(b);
@@ -160,7 +156,7 @@ public class AdminController {
 		int currentPage = page == null ? 1 : page;
 		
 		
-		ArrayList<Notice> list = nService.selectList(currentPage);
+		ArrayList<Notice> list = aService.noticeSelectList(currentPage);
 		
 		System.out.println(list);
 		
@@ -181,7 +177,7 @@ public class AdminController {
 		int currentPage = page == null ? 1 : page;
 		
 		
-		ArrayList<Notice> list = nService.selectListN(currentPage);
+		ArrayList<Notice> list = aService.noticeSelectListN(currentPage);
 		
 		System.out.println(list);
 		
@@ -202,7 +198,7 @@ public class AdminController {
 		int currentPage = page == null ? 1 : page;
 		
 		
-		ArrayList<Notice> list = nService.selectListAll(currentPage);
+		ArrayList<Notice> list = aService.noticeSelectListAll(currentPage);
 		
 		System.out.println(list);
 		
@@ -218,10 +214,6 @@ public class AdminController {
 	
 	
 	
-	
-	
-	
-	
 	// 공지사항 검색
 	@RequestMapping("nsearch.kh")
 	public String noticeSearch(Search search, Model model){
@@ -233,7 +225,7 @@ public class AdminController {
 		// 체크 X : null
 		
 		ArrayList<Notice> searchList 
-			= nService.searchList(search);
+			= aService.noticeSearchList(search);
 		
 		for(Notice n : searchList) {
 			System.out.println(n);
@@ -250,7 +242,7 @@ public class AdminController {
 	@RequestMapping("deleteNBoard.kh")
 	public String deleteNBoard(@RequestParam(value="checkArray[]") ArrayList<Integer> deleteList) {
 		
-		int result = nService.deleteBoard(deleteList);
+		int result = aService.noticeDeleteBoard(deleteList);
 		return new Gson().toJson(result);
 	}
 	
@@ -259,7 +251,7 @@ public class AdminController {
 	@RequestMapping("reviveNBoard.kh")
 	public String reviveNBoard(@RequestParam(value="checkArray[]") ArrayList<Integer> reviveList) {
 		
-		int result = nService.reviveNBoard(reviveList);
+		int result = aService.reviveNBoard(reviveList);
 		return new Gson().toJson(result);
 	}
 	

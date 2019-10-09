@@ -39,18 +39,7 @@
 		ORDER BY CBOARD_NO DESC
 	</select>
 	
-	<select id="selectListN" resultMap="boardResultSet">
-		SELECT *
-		FROM CBOARD
-		WHERE CBOARD_STATUS='N'
-		ORDER BY CBOARD_NO DESC
-	</select>
 	
-	<select id="selectListAll" resultMap="boardResultSet">
-		SELECT *
-		FROM CBOARD
-		ORDER BY CBOARD_NO DESC
-	</select>
 	
 	
 	<insert id="insertBoard" parameterType="Board">
@@ -103,60 +92,6 @@
 		ORDER BY CB_REPLY_NO DESC
 	</select>
 	
-	<update id="updateBoardAdmin" parameterType="map">
-		
-		UPDATE CBOARD
-		SET CBOARD_STATUS ='N'
-		WHERE CBOARD_NO IN
-		<foreach collection="deleteList" item="deleteList" open="(" close=")" separator="," >
-			#{deleteList}
-		</foreach>
-		
-	</update>
-	
-	<update id="reviveBoardAdmin" parameterType="map">
-		
-		UPDATE CBOARD
-		SET CBOARD_STATUS ='Y'
-		WHERE CBOARD_NO IN
-		<foreach collection="reviveList" item="reviveList" open="(" close=")" separator="," >
-			#{reviveList}
-		</foreach>
-		
-	</update>
-	
-	
-	
-	<select id="searchList" parameterType="Search"
-			resultMap="boardResultSet">
-		<bind name="sv" 
-			value="'%'+ _parameter.getSearchValue() +'%'" />	
-			
-		SELECT * FROM CBOARD
-		<where>
-			<if test="existFile != null">
-				FILE_PATH IS NOT NULL
-			</if>
-			
-			<choose>
-				<when test="searchCondition == 'title'">
-					AND CBOARD_TITLE LIKE #{sv}
-				</when>
-				<when test="searchCondition == 'writer'">
-					AND MEMBER_ID LIKE #{sv}
-				</when>
-				<when test="searchCondition == 'content'">
-					AND CBOARD_CONTENT LIKE #{sv}
-				</when>
-				<otherwise>
-					AND (MEMBER_ID LIKE #{sv}
-					OR CBOARD_TITLE LIKE #{sv}
-					OR CBOARD_CONTENT LIKE #{sv})
-				</otherwise>
-			</choose>
-		</where>
-		ORDER BY CBOARD_CREATE_DATE DESC	
-	</select>
 	
 	
 </mapper>

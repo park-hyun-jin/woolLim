@@ -11,6 +11,9 @@
 	rel="stylesheet">
 <link rel="stylesheet"
 	href="${ pageContext.servletContext.contextPath }/resources/css/project/projectView-style.css">
+<script>
+var pageCheck="projectView";
+</script>
 </head>
 <body oncontextmenu="return false" onselectstart="return false"
 	ondragstart="return false">
@@ -80,6 +83,7 @@
     var bassNoteArr = '<c:out value="${note1}"/>'.split(",");
 	var chordArr = '<c:out value="${chord}"/>'.split(","); 
 	var drumArr = '<c:out value="${drum}"/>'.split(","); 
+
 	$(function() {
 		var play;
 	    var instruments = ["piano","bass"];
@@ -222,7 +226,7 @@
 		            if(sound!="")playSound(sound);
 		        } 
 	        }
-	        
+	        playSound($(".piano>.C3" + ".length" + idx).children().val());
 	        for (var i = 0; i < 2; i++) {
 		        for(var j = 0; j < noteArr.length; j++) {
 		            var sound =$(".bass>."+noteArr[j]+i+".length" + idx).children().val();
@@ -230,7 +234,7 @@
 		        } 
 	        }
 	        
-	       playSound($(".C3 " + ".length" + idx).children().val());
+	       playSound($(".bass>.C2" + ".length" + idx).children().val());
 	       
 	   	   for(var i = 0; i < drumArr.length; i++) { 
 	   			var sound =$("."+drumArr[i]+".length" + idx).children().val();

@@ -19,7 +19,7 @@ public class NoticeServiceImpl implements NoticeService {
 	
 	@Autowired
 	private NoticeDao nDao;
-
+	
 	@Override
 	public ArrayList<Notice> selectList(int currentPage) {
 		
@@ -32,28 +32,17 @@ public class NoticeServiceImpl implements NoticeService {
 
 	}
 	
-	@Override
-	public ArrayList<Notice> selectListN(int currentPage) {
-		
-		int listCount = nDao.getListCount();
-		
-		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-		
-	
-		return nDao.selectListN(pi);
-	}
 	
 	@Override
-	public ArrayList<Notice> selectListAll(int currentPage) {
-		int listCount = nDao.getListCount();
-		
-		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-		
-	
-		return nDao.selectListAll(pi);
+	public int insertNotice(Notice notice) {
+		notice.setPnoticeContent(notice.getPnoticeContent().replace("\n", "<br>"));
+		return nDao.insertNotice(notice);
 	}
-	
-	
+
+	public Notice selectOne(int nNo) {
+		
+		return nDao.selectOne(nNo);
+	}
 
 	@Override
 	public int noticeList(Notice notice) {
@@ -63,31 +52,7 @@ public class NoticeServiceImpl implements NoticeService {
 
 	}
 
-	@Override
-	public ArrayList<Notice> searchList(Search search) {
-		return nDao.searchList(search);
-	}
 
-	@Override
-	public int deleteBoard(ArrayList<Integer> deleteList) {
-		Map<String,Object> cNo = new HashMap<String,Object>();
-		cNo.put("deleteList",deleteList);
-				
-		return nDao.updateBoard(cNo);
-	}
 
-	@Override
-	public int reviveNBoard(ArrayList<Integer> reviveList) {
-		Map<String,Object> cNo = new HashMap<String,Object>();
-		cNo.put("reviveList",reviveList);
-				
-		return nDao.reviveBoard(cNo);
-	}
-
-	
-
-	
-	
-	
 
 }

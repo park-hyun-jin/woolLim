@@ -53,7 +53,7 @@ public class LoadCalendarServlet extends HttpServlet {
 			cal.put("title", tmp.getTitle());
 			cal.put("url", tmp.getUrl());
 			cal.put("date", ft.format(tmp.getDate()));
-			cal.put("status", tmp.getStatus());s
+			cal.put("status", tmp.getStatus());
 			map.put(i, cal);
 		}
 		

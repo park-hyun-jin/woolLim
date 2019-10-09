@@ -1,6 +1,5 @@
 package com.kh.tido.project.model.service;
 
-import java.awt.print.Pageable;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -15,8 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kh.tido.board.model.vo.PageInfo;
-import com.kh.tido.common.Pagination2;
 import com.kh.tido.project.model.dao.ProjectDao;
 import com.kh.tido.project.model.vo.Project;
 import com.kh.tido.project.model.vo.ProjectFile;
@@ -71,46 +68,39 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	public String createFile(ProjectFile project, HttpServletRequest request, String projectPath) {
-		// 파일 객체 생성
-		String root = request.getSession().getServletContext().getRealPath("resources");
-		String savePath = root + "\\project\\" + projectPath;
-
-		// 저장 폴더 선택
-		File folder = new File(savePath);
-
-		// 만약 해당 폴더가 없는 경우
-		if (!folder.exists()) {
-			folder.mkdir(); // 폴더 생성
-		}
-
-		String fileName = null;
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-
-		fileName = sdf.format(new Date()) + (int) (Math.random() * 100) + ".properties";
-
-		String filePath = folder + "\\" + fileName;
-
-		File file = new File(filePath);
-
-		try {
-			if (file.createNewFile()) {
-				System.out.println("File is created!");
-
-				FileWriter writer = new FileWriter(file);
-				writer.write("bpm = " + project.getBpm() + "\n" + 
-						     "beat = " + project.getBeat() + "\n"+ 
-							 "pianoSoundInfo = " + project.getPianoSoundInfo() + "\n" + 
-						     "bassSoundInfo = " + project.getBassSoundInfo() + "\n" + 
-							 "guitarSoundInfo = " + project.getGuitarSoundInfo() + "\n" + 
-						     "drumSoundInfo = " + project.getDrumSoundInfo());
-				writer.close();
-				return fileName;
-			} else {
-				System.out.println("File already exists.");
+		File folder = createFolder(projectPath,request);
+		if(folder!=null) {
+			String fileName = null;
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		
+				fileName = sdf.format(new Date()) + (int) (Math.random() * 100) + ".properties";
+		
+				String filePath = folder + "\\" + fileName;
+		
+				File file = new File(filePath);
+			
+			try {
+				if (file.createNewFile()) {
+					System.out.println("File is created!");
+	
+					FileWriter writer = new FileWriter(file);
+					writer.write("bpm = " + project.getBpm() + "\n" + 
+							     "beat = " + project.getBeat() + "\n"+ 
+								 "pianoSoundInfo = " + project.getPianoSoundInfo() + "\n" + 
+							     "bassSoundInfo = " + project.getBassSoundInfo() + "\n" + 
+								 "guitarSoundInfo = " + project.getGuitarSoundInfo() + "\n" + 
+							     "drumSoundInfo = " + project.getDrumSoundInfo());
+					writer.close();
+					return fileName;
+				} else {
+					System.out.println("File already exists.");
+					return null;
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
 				return null;
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
+		}else {
 			return null;
 		}
 	}
@@ -130,10 +120,7 @@ public class ProjectServiceImpl implements ProjectService {
 		if (fileList != null) {
 			for (int i = 0; i < fileList.length; i++) {
 
-				/*
-				 * if (fileList[i].isFile()) { pathList.add(path+"\\"+fileList[i].getName());
-				 * }else
-				 */
+				
 				if (fileList[i].isDirectory()) {
 					pathList.add(path + "\\" + fileList[i].getName());
 				}
@@ -145,6 +132,20 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public ArrayList<Project> selectProjectList(Project project,HttpServletRequest request) {
 		return pDao.selectProjectList(project);
+	}
+
+	@Override
+	public File createFolder(String projectPath,HttpServletRequest request) {
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		String savePath = root + "\\project\\" + projectPath;
+		// 저장 폴더 선택
+		File folder = new File(savePath);
+		// 만약 해당 폴더가 없는 경우
+		if (!folder.exists()) {
+			System.out.println(folder);
+			folder.mkdir(); // 폴더 생성
+		}
+		return folder;
 	}
 
 }

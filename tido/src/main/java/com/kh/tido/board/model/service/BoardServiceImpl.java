@@ -35,19 +35,7 @@ public class BoardServiceImpl implements BoardService{
 		return bDao.selectList(pi);
 	}
 	
-	@Override
-	public ArrayList<Board> selectListN(int currentPage) {
-		int listCount = bDao.getListCount();
-		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-		return bDao.selectListN(pi);
-	}
 	
-	@Override
-	public ArrayList<Board> selectListAll(int currentPage) {
-		int listCount = bDao.getListCount();
-		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-		return bDao.selectListAll(pi);
-	}
 
 	@Override
 	public int insertBoard(Board board, MultipartFile uploadFile, HttpServletRequest request) {
@@ -154,26 +142,7 @@ public class BoardServiceImpl implements BoardService{
 		return bDao.selectReply(bNo);
 	}
 
-	@Override
-	public int deleteBoard(ArrayList<Integer> deleteList) {
-		Map<String,Object> bNo = new HashMap<String,Object>();
-		bNo.put("deleteList",deleteList);
-				
-		return bDao.updateBoard(bNo);
-	}
 	
-	@Override
-	public int reviveBoard(ArrayList<Integer> reviveList) {
-		Map<String,Object> bNo = new HashMap<String,Object>();
-		bNo.put("reviveList",reviveList);
-				
-		return bDao.reviveBoard(bNo);
-	}
-	
-	@Override
-	public ArrayList<Board> searchList(Search search) {
-		return bDao.searchList(search);
-	}
 
 	
 

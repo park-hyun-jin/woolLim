@@ -11,24 +11,14 @@ public interface NoticeService {
 	 * @param currentPage
 	 * @return list
 	 */
-	public abstract ArrayList<Notice> selectList(int currentPage);
-
-	public abstract ArrayList<Notice> selectListN(int currentPage);
 	
-	public abstract ArrayList<Notice> selectListAll(int currentPage);
+	public abstract ArrayList<Notice> selectList(int currentPage);
 	
 	public abstract int noticeList(Notice notice);
 	
-	public abstract ArrayList<Notice> searchList(Search search);
+	public abstract int insertNotice(Notice notice);
 
-	public abstract int deleteBoard(ArrayList<Integer> deleteList);
+	public abstract Notice selectOne(int nNo);
 
-	public abstract int reviveNBoard(ArrayList<Integer> reviveList);
-
-
-
-	
-	
-	
 
 }

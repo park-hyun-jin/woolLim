@@ -40,63 +40,20 @@
 	
 	<insert id="insertList" parameterType="Notice">
 	INSERT INTO NOTICE
-	VALUES(SEQ_NOTICE_NO.NEXTVAL, #{pnoticeTitle},
+	VALUES(SEQ_NNO.NEXTVAL, #{pnoticeTitle},
 			#{pnoticeContent},
 			SYSDATE, SYSDATE,
 			DEFAULT, DEFAULT,
 			#{pmemberId}, #{pnoticeFilePath})
 	</insert>
 	
-	<select id="searchList" parameterType="Search"
-			resultMap="noticeResultSet">
-		<bind name="sv" 
-			value="'%'+ _parameter.getSearchValue() +'%'" />	
-			
-		SELECT * FROM NOTICE
-		<where>
-			<if test="existFile != null">
-				FILE_PATH IS NOT NULL
-			</if>
-			
-			<choose>
-				<when test="searchCondition == 'title'">
-					AND NOTICE_TITLE LIKE #{sv}
-				</when>
-				<when test="searchCondition == 'content'">
-					AND NOTICE_CONTENT LIKE #{sv}
-				</when>
-				<otherwise>
-					AND (MEMBER_ID LIKE #{sv}
-					OR NOTICE_TITLE LIKE #{sv}
-					OR NOTICE_CONTENT LIKE #{sv})
-				</otherwise>
-			</choose>
-		</where>
-		ORDER BY NOTICE_CREATE_DATE DESC	
+
+	
+	<select id="detailList" parameterType="_int" resultMap="noticeResultSet">
+	SELECT * 
+	FROM NOTICE
+	WHERE NOTICE_NO = #{nNo}
+	
 	</select>
-	
-	<update id="updateBoardAdmin" parameterType="map">
-		
-		UPDATE NOTICE
-		SET NOTICE_STATUS ='N'
-		WHERE NOTICE_NO IN
-		<foreach collection="deleteList" item="deleteList" open="(" close=")" separator="," >
-			#{deleteList}
-		</foreach>
-		
-	</update>
-	
-	<update id="reviveBoardAdmin" parameterType="map">
-		
-		UPDATE NOTICE
-		SET NOTICE_STATUS ='Y'
-		WHERE NOTICE_NO IN
-		<foreach collection="reviveList" item="reviveList" open="(" close=")" separator="," >
-			#{reviveList}
-		</foreach>
-		
-	</update>
-	
-	
-	
+
 </mapper>
