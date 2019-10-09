@@ -1,11 +1,19 @@
 package com.kh.tido.member.model.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Service;
+import javax.inject.Inject;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.kh.tido.member.controller.MailHandler;
 import com.kh.tido.member.model.dao.MemberDao;
 import com.kh.tido.member.model.vo.Member;
+import com.kh.tido.member.model.vo.MemberAuth;
+import com.kh.tido.member.model.vo.TempKey;
 
 @Service("mService")
 public class MemberServiceImpl implements MemberService {
@@ -16,6 +24,9 @@ public class MemberServiceImpl implements MemberService {
 	/*
 	 * @Autowired private BCryptPasswordEncoder bCryptPasswordEncoder;
 	 */
+	
+	@Inject
+    private JavaMailSender mailSender;
 
 	@Override
 	public Member loginMember(Member mem) {
@@ -24,6 +35,39 @@ public class MemberServiceImpl implements MemberService {
 		Member loginUser = mDao.selectMember(mem);
 		
 		return loginUser;
+	}
+	
+	@Transactional
+	@Override
+	public void insertAuth(String email) throws Exception {
+		String key = new TempKey().getKey(50, false); // 인증키 생성
+		System.out.println("key : " + key);
+		MemberAuth memberAuth = new MemberAuth(key, 0, email);
+		mDao.insertAuthKey(memberAuth); // 인증키 DB저장
+		MailHandler sendMail = new MailHandler(mailSender);
+		sendMail.setSubject("[WooLim 이메일 인증]"); // 메일제목
+		sendMail.setText( // 메일내용
+				new StringBuffer().append("<h1>메일인증</h1>").append("<a href='http://localhost:8080/tido/emailConfirm.kh?memberId=")
+				.append(email).append("&memberAuthKey=").append(key).append("' target='_blank'>이메일 인증 확인</a>").toString());
+		sendMail.setFrom("falling710@gmail.com", "WooLim"); // 보낸이
+		sendMail.setTo(email); // 받는이
+		sendMail.send();
+	}
+
+	@Override
+	public int updateAuth(MemberAuth memberAuth) throws Exception {
+		int result = mDao.updateAuth(memberAuth);
+		return result;
+	}
+
+	@Override
+	public int insertMember(Member mem) {
+		return mDao.insertMember(mem);
+	}
+
+	@Override
+	public int selectId(String memberId) {
+		return mDao.selectId(memberId);
 	}
 
 }

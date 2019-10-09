@@ -4,7 +4,6 @@ import org.springframework.stereotype.Component;
 
 @Component("projectFile")
 public class ProjectFile {
-	private String projectTitle;
 	private int bpm;
 	private int beat;
 	private String pianoSoundInfo;
@@ -16,10 +15,9 @@ public class ProjectFile {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ProjectFile(String projectTitle,int bpm, int beat, String pianoSoundInfo, String bassSoundInfo, String guitarSoundInfo,
+	public ProjectFile(int bpm, int beat, String pianoSoundInfo, String bassSoundInfo, String guitarSoundInfo,
 			String drumSoundInfo) {
 		super();
-		this.projectTitle=projectTitle;
 		this.bpm = bpm;
 		this.beat = beat;
 		this.pianoSoundInfo = pianoSoundInfo;
@@ -28,13 +26,6 @@ public class ProjectFile {
 		this.drumSoundInfo = drumSoundInfo;
 	}
 	
-	public String getProjectTitle() {
-		return projectTitle;
-	}
-
-	public void setProjectTitle(String projectTitle) {
-		this.projectTitle = projectTitle;
-	}
 
 	public int getBpm() {
 		return bpm;
@@ -86,7 +77,7 @@ public class ProjectFile {
 
 	@Override
 	public String toString() {
-		return "ProjectFile [projectTitle=" + projectTitle + ", bpm=" + bpm + ", beat=" + beat + ", pianoSoundInfo="
+		return "ProjectFile [bpm=" + bpm + ", beat=" + beat + ", pianoSoundInfo="
 				+ pianoSoundInfo + ", bassSoundInfo=" + bassSoundInfo + ", guitarSoundInfo=" + guitarSoundInfo
 				+ ", drumSoundInfo=" + drumSoundInfo + "]";
 	}

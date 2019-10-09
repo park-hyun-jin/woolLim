@@ -10,13 +10,14 @@
 		<result property="pModifyDate" column="PROJECT_MODIFY_DATE"/>
 		<result property="pStatus" column="PROJECT_STATUS"/>
 		<result property="projectFileName" column="PROJECT_FILE_NAME"/>
+		<result property="projectImagePath" column="PROJECT_IMAGE_PATH"/>
 	</resultMap>
 	
 	
 	<insert id="saveProject" parameterType="Project">
 		INSERT INTO PROJECT
 		VALUES 
-		(SEQ_PNO.NEXTVAL,#{projectTitle},SYSDATE,SYSDATE,#{projectPath},DEFAULT,#{projectWriter},#{projectFileName})
+		(SEQ_PNO.NEXTVAL,#{projectTitle},SYSDATE,SYSDATE,#{projectPath},DEFAULT,#{projectWriter},#{projectFileName},#{projectImagePath})
 	</insert>
  	<select id="openProject" resultMap="projectResultSet" parameterType="_int">
 		SELECT *
@@ -26,7 +27,7 @@
 	</select>
 	
 	<select id="selectProjectList" parameterType="Project" resultMap="projectResultSet">
-		SELECT *
+		SELECT PROJECT_NO,PROJECT_TITLE,PROJECT_CREATE_DATE
 		FROM PROJECT
 		WHERE PROJECT_WRITER = #{projectWriter} AND
 		      PROJECT_PATH = #{projectPath} AND
