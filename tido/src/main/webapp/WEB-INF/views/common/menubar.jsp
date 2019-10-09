@@ -14,6 +14,7 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="${contextPath }/resources/css/common/menubar-style.css">
+        
       
     </head>
 
@@ -21,7 +22,7 @@
     	<c:url var="goMain" value="main.kh"></c:url>
     	<c:url var="goProject" value="compPjtView.kh"></c:url>
     	<c:url var="goBoard" value="bList.kh"></c:url>
-    	<c:url var="goNotice" value="nList.kh"></c:url>
+    	<c:url var="goNotice" value="nlist.kh"></c:url>
     	<c:url var="goQna" value="Qna.kh"></c:url>
     	<c:url var="goLoginPage" value="loginPage.kh"></c:url>
     	

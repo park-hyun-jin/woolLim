@@ -41,10 +41,16 @@
 		)
 	</insert>
 	
-	<select id="selectId" parameterType="String">
+	<select id="selectId" parameterType="string" resultType="_int">
 		SELECT COUNT(*)
 		FROM MEMBER
 		WHERE MEMBER_ID = #{memberId}
+	</select>
+	
+	<select id="selectName" parameterType="string" resultType="_int">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE MEMBER_NAME = #{name}
 	</select>
 	
 </mapper>

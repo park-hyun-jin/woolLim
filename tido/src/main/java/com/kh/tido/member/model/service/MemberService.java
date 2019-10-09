@@ -15,4 +15,6 @@ public interface MemberService {
 
 	int selectId(String memberId);
 
+	int selectName(String name);
+
 }
