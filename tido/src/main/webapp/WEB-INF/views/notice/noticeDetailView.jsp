@@ -55,7 +55,7 @@
             </div>
             <div class="form-group" >
               <label for="inputAddress2">내용</label>
-            	<c:set var="nContent" value="${fn:replace(notice.nContent,'<br>','') }"/>
+            	
               <div type="text" class="form-control" id="inputAddress2">ㅁㄴㅇㄴㅁㅇ</div>
             </div>
             <div class="form-row">

@@ -129,12 +129,12 @@ to {
 	<c:import url="../common/menubar.jsp" />
 
 	<div id="container" cellspacing="">
-
-		<div align="center">
-			<button type="button" class="btn btn-primary" id="modal_show">
-				글쓰기</button>
-		</div>
-
+		<c:if test="${ loginUser.id == 'admin' }">
+			<div align="center">
+				<button type="button" class="btn btn-primary" id="modal_show">
+					글쓰기</button>
+			</div>
+		</c:if>
 
 		<!-- Modal -->
 		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -161,10 +161,11 @@ to {
 							<div class="form-grouwp">
 								<label for="content">내용</label>
 								<textarea class="form-control" id="content" name="pnoticeContent" rows="3"></textarea>
+								<img id="foo"src="#" />
 							</div>
 							<div class="form-group">
 								<label for="exampleInputFile">파일 업로드</label>
-								<input type="file" id="exampleInputFile" name="pnoticeFile">
+								<input type="file" id="imgInp" name="pnoticeFile">
 							</div>
 
 
@@ -188,8 +189,21 @@ to {
 					$("#exampleModal").modal("hide");
 				});
 			});
-			
-		
+
+			function readURL(input) {
+		        if (input.files && input.files[0]) {
+		            var reader = new FileReader();
+		            reader.onload = function(e) {
+		                $('#foo').attr('src', e.target.result);
+		            }
+		            reader.readAsDataURL(input.files[0]);
+		        }
+		    }
+
+		    $("#imgInp").change(function() {
+		        readURL(this);
+		    });
+			    
 		</script>
 		
 		
