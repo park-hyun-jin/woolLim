@@ -23,21 +23,21 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="file-text"></span>
+                <a class="nav-link" href="cboardListAll.kh">
+                  <span data-feather="clipboard"></span>
                   Board Management
                 </a>
               </li>             
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="chatting.do">
                   <span data-feather="bar-chart-2"></span>
                   Reports & QnA
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="nboardListAll.kh">
                   <span data-feather="layers"></span>
-                  Integrations
+                  Notice
                 </a>
               </li>
             </ul>

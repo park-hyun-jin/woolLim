@@ -35,6 +35,10 @@
 			<artifactId>ojdbc6</artifactId>
 			<version>11.2.0.3</version>
 		</dependency>
+		
+	
+		
+	
 
 		<!-- 순수 Mybatis -->
 		<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
@@ -136,6 +140,16 @@
 			<artifactId>spring-context-support</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
+		
+		<!-- 웹소켓-->
+		<dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-websocket</artifactId>
+            <version>${org.springframework-version}</version>
+		</dependency>
+
+
+
         
         
 
@@ -234,6 +248,8 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
+		
+		
 
 		<!-- Test -->
 		<dependency>

@@ -18,6 +18,9 @@
       <property name="defaultAutoCommit" value="false"/>
    </bean>
    
+  
+	
+   
    <bean id="sqlSession" 
          class="org.mybatis.spring.SqlSessionFactoryBean">
       <property name="configLocation" 

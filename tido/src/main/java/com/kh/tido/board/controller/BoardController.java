@@ -18,6 +18,7 @@ import com.google.gson.GsonBuilder;
 import com.kh.tido.board.model.service.BoardService;
 import com.kh.tido.board.model.vo.Board;
 import com.kh.tido.board.model.vo.Reply;
+import com.kh.tido.board.model.vo.Search;
 import com.kh.tido.common.Pagination;
 import com.kh.tido.member.model.vo.Member;
 
@@ -128,5 +129,7 @@ public class BoardController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		return gson.toJson(list);
 	}
+	
+	
 	
 }

@@ -1,8 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>  
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
+
+<link rel="icon" type="image/png"  href="resources/images/svnicon.png"/> <!-- favicon fix -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- jQuery, bootstrap CDN -->
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script> <!-- msie 문제 해결 -->
+	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+	<!-- Zebra-Dialog CDN -->
+	<script src="resources/js/dialog/zebra_dialog.src.js"></script>
+	<link rel="stylesheet" href="resources/css/dialog/zebra_dialog.css" type="text/css"/>
+	<!-- SocketJS CDN -->
+	<script src="https://cdn.jsdelivr.net/sockjs/1/sockjs.min.js"></script>
+	
 <meta charset="UTF-8">
 <title>관리자페이지 Dashboard</title>
 </head>
@@ -30,7 +48,10 @@
             </div>
           </div>
     
-          <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+	         
+
+
+
     
           <h2>Section title</h2>
           <div class="table-responsive">
@@ -163,6 +184,12 @@
         </main>
       </div>
     </div>
-	<script type="text/javascript" src="${contextPath }/resources/js/admin/dashboard.js"></script>
+
+
+
+
+	
+</html>
+	
 </body>
 </html>

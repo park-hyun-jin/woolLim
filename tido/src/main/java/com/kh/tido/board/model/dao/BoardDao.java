@@ -1,6 +1,7 @@
 package com.kh.tido.board.model.dao;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.tido.board.model.vo.Board;
 import com.kh.tido.board.model.vo.PageInfo;
 import com.kh.tido.board.model.vo.Reply;
+import com.kh.tido.board.model.vo.Search;
 
 @Repository("bDao")
 public class BoardDao {
@@ -26,6 +28,20 @@ public class BoardDao {
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
 		return (ArrayList)sqlSession.selectList("boardMapper.selectList", null, rowBounds);
 	}
+	
+	public ArrayList<Board> selectListN(PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		return (ArrayList)sqlSession.selectList("boardMapper.selectListN", null, rowBounds);
+	}
+	
+	public ArrayList<Board> selectListAll(PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		return (ArrayList)sqlSession.selectList("boardMapper.selectListAll", null, rowBounds);
+
+	}
+
 
 	public int insertBoard(Board board) {
 		return sqlSession.insert("boardMapper.insetBoard", board);
@@ -54,4 +70,22 @@ public class BoardDao {
 	public ArrayList<Reply> selectReply(int bNo) {
 		return (ArrayList)sqlSession.selectList("boardMapper.selectReply", bNo);
 	}
+
+	public int updateBoard(Map bNo) {
+		return sqlSession.update("boardMapper.updateBoardAdmin",bNo);
+	}
+	
+	public int reviveBoard(Map bNo) {
+		return sqlSession.update("boardMapper.reviveBoardAdmin",bNo);
+	}
+
+	public ArrayList<Board> searchList(Search search) {
+		return (ArrayList)sqlSession
+				.selectList("boardMapper.searchList",search);
+	}
+
+	
+
+	
+	
 }

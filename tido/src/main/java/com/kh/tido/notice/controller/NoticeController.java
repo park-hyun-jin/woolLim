@@ -26,7 +26,7 @@ public class NoticeController {
 	@Autowired
 	private NoticeService nService;
 	
-	@RequestMapping("nList.kh")
+	@RequestMapping("List.kh")
 	public ModelAndView noticeList(ModelAndView mv, Integer page) {
 		
 		int currentPage = page == null ? 1 : page;
