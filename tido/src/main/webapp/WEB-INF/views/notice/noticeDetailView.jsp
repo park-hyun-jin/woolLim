@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+ <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,12 +19,10 @@
 		#inputAddress2{
 			height: 400px;
 		}
-		button{
+		#button{
 			float : right;
 		}
-		#toptoptop{
-			
-		}
+		
 
         </style>
         
@@ -43,7 +42,7 @@
             
               <div class="form-group col-md-6">
                 <label for="inputEmail4">Email</label>
-                <div type="text" class="form-control" id="inputEmail4" >${ notice.pmemberId }</div>
+                <div type="text" class="form-control" id="inputEmail4" >${ notice.memberName }</div>
               </div>
               <div class="form-group col-md-6">
                 <label for="inputPassword4">SYSDATE</label>
@@ -56,6 +55,7 @@
             </div>
             <div class="form-group" >
               <label for="inputAddress2">내용</label>
+            	<c:set var="nContent" value="${fn:replace(notice.nContent,'<br>','') }"/>
               <div type="text" class="form-control" id="inputAddress2">ㅁㄴㅇㄴㅁㅇ</div>
             </div>
             <div class="form-row">
@@ -68,20 +68,33 @@
                 </c:if>
               </div>
 			  
-              
+              <c:url var="nupView" value="nupView.kh">
+			<c:param name="nNo" value="${ notice.nNo }"/>
+		</c:url>
+		<c:url var="ndelete" value="ndelete.kh">
+			<c:param name="nNo" value="${ notice.nNo }"/>
+		</c:url>
+		
+		
+		<tr>
+			<td colspan="2" align="center">
+				<div class="form-group col-md-6" > 
+                    <div class="form-group text-center" id="button">
+                        <a  href="${ ndelete }" type="submit" id="join-submit" class="btn btn-info">
+                            삭제하기<i class="fa fa-check spaceLeft"></i>
+                        </a>
+                        <a type="submit" class="btn btn-primary" href="${ nupView }">
+                            수정하기<i class="fa fa-times spaceLeft"></i>
+                        </a>
+                    </div>
+                </div>
+			</td>
+		</tr>
+		
 		   
 			
 			
-              <div class="form-group col-md-6" > 
-                    <div class="form-group text-center"></div>
-                        <button type="submit" id="join-submit" class="btn btn-info">
-                            삭제하기<i class="fa fa-check spaceLeft"></i>
-                        </button>
-                        <button type="submit" class="btn btn-primary">
-                            수정하기<i class="fa fa-times spaceLeft"></i>
-                        </button>
-                    </div>
-                </div>
+              
 		  
 		</div>
     </body>

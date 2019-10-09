@@ -13,6 +13,7 @@ public class Notice {
 		private String pnoticeStatus;
 		private String pmemberId;
 		private String pnoticeFilePath;
+		private String memberName;
 		
 		public Notice() {}
 
@@ -31,6 +32,36 @@ public class Notice {
 			this.pnoticeStatus = pnoticeStatus;
 			this.pmemberId = pmemberId;
 			this.pnoticeFilePath = pnoticeFilePath;
+		}
+
+
+
+		public Notice(int nNo, String pnoticeTitle, String pnoticeContent, Date pnoticeCreateDate,
+				Date pnoticeModifyDate, int pnoticeViewCount, String pnoticeStatus, String pmemberId,
+				String pnoticeFilePath, String memberName) {
+			super();
+			this.nNo = nNo;
+			this.pnoticeTitle = pnoticeTitle;
+			this.pnoticeContent = pnoticeContent;
+			this.pnoticeCreateDate = pnoticeCreateDate;
+			this.pnoticeModifyDate = pnoticeModifyDate;
+			this.pnoticeViewCount = pnoticeViewCount;
+			this.pnoticeStatus = pnoticeStatus;
+			this.pmemberId = pmemberId;
+			this.pnoticeFilePath = pnoticeFilePath;
+			this.memberName = memberName;
+		}
+
+
+
+		public String getMemberName() {
+			return memberName;
+		}
+
+
+
+		public void setMemberName(String memberName) {
+			this.memberName = memberName;
 		}
 
 
@@ -114,8 +145,11 @@ public class Notice {
 			return "Notice [nNo=" + nNo + ", pnoticeTitle=" + pnoticeTitle + ", pnoticeContent=" + pnoticeContent
 					+ ", pnoticeCreateDate=" + pnoticeCreateDate + ", pnoticeModifyDate=" + pnoticeModifyDate
 					+ ", pnoticeViewCount=" + pnoticeViewCount + ", pnoticeStatus=" + pnoticeStatus + ", pmemberId="
-					+ pmemberId + ", pnoticeFilePath=" + pnoticeFilePath + "]";
+					+ pmemberId + ", pnoticeFilePath=" + pnoticeFilePath + ", memberName=" + memberName + "]";
 		}
+
+
+
 		
 		
 		
