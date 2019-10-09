@@ -74,9 +74,16 @@ public class MemberController {
 
 	@RequestMapping(value = "emailConfirm.kh")
 	public String emailConfirm(MemberAuth memberAuth, Model model) throws Exception { // 이메일 인증 확인
-		int result = mService.updateAuth(memberAuth);
-		model.addAttribute("result", result);
-		model.addAttribute("memberId", memberAuth.getMemberId());
+		if((mService.selectId(memberAuth.getMemberId()) == 1)) {
+			model.addAttribute("emailMsg", "이미 등록된 이메일입니다.");
+		}else {
+			int result = mService.updateAuth(memberAuth);
+			if(result == 1) {
+				model.addAttribute("memberId", memberAuth.getMemberId());			
+			}else {
+				model.addAttribute("emailMsg", "메일이 인증되지 않았습니다.");
+			}
+		}
 		return "/member/joinPage";
 	}
 	
@@ -113,9 +120,12 @@ public class MemberController {
 		if(result == 1) {
 			model.addAttribute("loginUser", mem).addAttribute("msg", "회원가입이 완료되었습니다!");
 			return "redirect:main.kh";
-		}else {
+		}else if(result == 0) {
 			model.addAttribute("msg", "회원가입에 실패하였습니다.");
 			return "common/errorPage";
+		}else {
+			model.addAttribute("msg", "프로필 사진 등록에 실패하였습니다. 회원 정보 수정에서 다시 등록해주세요.");
+			return "redirect:main.kh";
 		}
 	}
 	

@@ -116,17 +116,26 @@
                             <label for="inputEmail" >이메일 *</label>
                         </td>
                         <td>
-                        	<c:if test="${!empty memberId && result == 1}">
+                        	<c:if test="${empty emailMsg}">
                         		<input type="email" class="insertInput" id="inputEmail" placeholder="Email" name="id" value="${memberId}" readonly required>
                         	</c:if>
-                        	<c:if test="${empty memberId}">
+                        	<c:if test="${!empty emailMsg}">
                             	<input type="email" class="insertInput" id="inputEmail" placeholder="Email" name="id" readonly required>
+                            	<script>alert("${emailMsg}")</script>
                         	</c:if>
                         </td>
                         <td>
-                        	<c:if test="${!empty memberId && result == 1}">
-                            	<h6 id="emailText" style="color:green">이메일이 인증되었습니다.</h6>
-                            </c:if>
+                        	<c:choose>
+                        		<c:when test="${empty emailMsg && !empty memberId}">
+                        			<h6 id="emailText" style="color:green">이메일이 인증되었습니다.</h6>
+                        		</c:when>
+                        		<c:when test="${!empty emailMsg && empty memberId}">
+                        			<h6 id="emailText" style="color:red">이메일이 인증되지 않았습니다. 다시 인증해주세요</h6>
+                        		</c:when>
+                        		<c:otherwise>
+                        			<h6 id="emailText" style="color:red">이메일을 인증해주세요.</h6>
+                        		</c:otherwise>
+                        	</c:choose>
                         </td>
                     </tr>
                     <tr>
@@ -180,7 +189,6 @@
 		var nickNameCheck = false;
 		
 		$(function(){
-			
 	        
 			// 업로드 버튼 숨김
 			$("#uploadFile").hide();
@@ -191,23 +199,7 @@
 				$("#uploadFile").click();
 			});
 	        
-			function loadImg(value, num) {
-				var reader = new FileReader();
-				
-				// reader.onload : reader 객체가 생성된 경우 이벤트 발생
-				reader.onload = function(e){
-					$("#profileImg").attr("src", e.target.result); // e.target -> this랑 같은것(위에 있는 input:type:File), 해당 파일의 이름이 나온다
-				}
-		
-		           console.log(value.files[0].name);
-				
-				// 보안처리(Data URL)
-				// RFC 2397 정의되어 있는 개발 규약
-				// ex) jspProject/Webcontent/uploadImages~~~
-				// 파일의 직접적인 경로 노출 방지
-				reader.readAsDataURL(value.files[0]);
-				// ex) data:img/jpg:base64/
-			}
+			
 			
 			// 패스워드가 일치하는지 검사
 			$("#inputPassword").on("input", function(){
@@ -236,7 +228,7 @@
 			// 닉네임 검사
 			$("#inputNickName").on("input", function(){
 				var nameVal = $(this).val();
-				var regExp = /^[A-z0-9가-힣]{2,8}$/;
+				var regExp = /^[A-z0-9가-힣]{2,10}$/;
 				$.ajax({
 					url : "nameCheck.kh",
 					type : "post",
@@ -247,7 +239,7 @@
 								$("#nickNameText").text("사용 가능한 닉네임입니다.").css("color", "green");
 								nickNameCheck = true;
 							}else {
-								$("#nickNameText").text("한글,영문,숫자 포함 최소 2글자 최대 8글자만 가능합니다.").css("color", "red");
+								$("#nickNameText").text("한글,영문,숫자 포함 최소 2글자 최대 10글자만 가능합니다.").css("color", "red");
 								nickNameCheck = false;
 							}
 						}else {
@@ -272,6 +264,25 @@
 	            }
 	        });
 		});
+		
+		function loadImg(value, num) {
+			var reader = new FileReader();
+			
+			// reader.onload : reader 객체가 생성된 경우 이벤트 발생
+			reader.onload = function(e){
+				$("#profileImg").attr("src", e.target.result); // e.target -> this랑 같은것(위에 있는 input:type:File), 해당 파일의 이름이 나온다
+			}
+	
+	           console.log(value.files[0].name);
+			
+			// 보안처리(Data URL)
+			// RFC 2397 정의되어 있는 개발 규약
+			// ex) jspProject/Webcontent/uploadImages~~~
+			// 파일의 직접적인 경로 노출 방지
+			reader.readAsDataURL(value.files[0]);
+			// ex) data:img/jpg:base64/
+		}
+		
 		
 		// 가입하기 눌렀을 때 처리
 		function insertBtn() {

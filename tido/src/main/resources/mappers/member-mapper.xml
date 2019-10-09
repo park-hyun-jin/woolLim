@@ -37,7 +37,7 @@
 	<insert id="insertMember" parameterType="Member">
 		INSERT INTO MEMBER
 		VALUES(
-			#{id}, #{name}, #{pwd}, SYSDATE, SYSDATE, DEFAULT, DEFAULT, DEFAULT, NULL
+			#{id}, #{name}, #{pwd}, SYSDATE, SYSDATE, DEFAULT, DEFAULT, DEFAULT, #{imagePath}
 		)
 	</insert>
 	
