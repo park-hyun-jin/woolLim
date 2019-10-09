@@ -11,10 +11,12 @@
 <style>
 /* 게시판 리스트 목록 */
 body {
-	width: 75%;
 	margin: auto;
 }
-
+nav, table, #wr{
+	width: 70%;
+	margin: auto;
+}
 tbody {
 	text-align: center;
 }
@@ -28,11 +30,12 @@ tbody {
 	text-decoration: none
 }
 
+/* 게시판 리스트 글씨 */
 .sub_news {
 	width: 100%;
 	border-bottom: 1px solid #999;
 	color: #666;
-	font-size: 12px;
+	font-size: 16px;
 	table-layout: fixed
 }
 
@@ -68,86 +71,53 @@ tbody {
 .sub_news .title {
 	text-align: left;
 	padding-left: 15px;
-	font-size: 13px;
+	font-size: 15px;
 }
 
 .sub_news .title .pic, .sub_news .title .new {
 	margin: 0 0 2px;
-	vertical-align: middle
+	vertical-align: middle;
 }
 
 .sub_news .title a.comment {
 	padding: 0;
 	background: none;
 	color: #f00;
-	font-size: 12px;
+	font-size: 15px;
 	font-weight: bold
 }
 #thead tr th {
 	text-align: center;
 }
+
+.btn{
+	font-size: 20px !important;
+}
 </style>
 </head>
 <body>
+<jsp:include page="../common/menubar.jsp"/>
 	<div style="margin: 50px;"></div>
-	<h1 class="page-header">게시판 목록</h1>
-	<div style="margin: 20px;"></div>
+	<h1 class="page-header" style="color: white; font-weight: bold;">게시판 목록</h1>
+	<div></div>
 
 	<!-- 상단 메뉴바 -->
-	<nav class="navbar navbar-default">
+	<nav class="navbar navbar-default" style="background-color: #212529;">
 		<div class="navbar-header">
-			<button type="button" class="navbar-toggle collapsed"
-				data-toggle="collapse" data-target="bs-example-navbar-collapse-1"
-				aria-expaned="false">
-				<span class="icon-bar"></span> 
-				<span class="icon-bar"></span> 
-				<span class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="main.jsp">WOOLLIM</a>
-		</div>
-		<div class="collapse navbar-collapse" id="#bs-example-navbar-collapse-1">
-			<ul class="nav navbar-nav">
-				<li class="active">
-					<a href="#">마이페이지</a>
-				</li>
-			</ul>
-
-			<ul class="nav navbar-nav navbar-right">
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false">접속하기<span class="caret"></span>
-					</a>
-					<ul class="dropdown-menu">
-						<li><a href="#">로그인</a></li>
-						<li><a href="#">회원가입</a></li>
-					</ul>
-				</li>
-			</ul>
-
-			<ul class="nav navbar-nav navbar-right">
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false">회원관리<span class="caret"></span>
-					</a>
-					<ul class="dropdown-menu">
-						<li><a href="#">공지사항</a></li>
-						<li><a href="#">Q&A</a></li>
-					</ul>
-				</li>
-			</ul>
+			<a class="navbar-brand" href="${contextPath }" style="font-size: 22px; float: left;">WOOLLIM</a>
 		</div>
 	</nav>
 	<!-- 상단 메뉴바 -->
 	
-	<div style="margin: 70px;"></div>
+	<!-- <div style="margin: 70px;"></div> -->
 
-	<div style="text-align: right;">
-		<button onClick="location.href='binsertView.kh';" class="btn btn-primary">글쓰기</button>
+	<div id="wr" style="text-align: right;">
+		<button onClick="location.href='binsertView.kh'" class="btn btn-primary" style="background-color: #4B0082">글쓰기</button>
 	</div>
 
 	<div style="margin: 10px;"></div>
 
-	<table class="sub_news" border="1" cellspacing="0" summary="게시판의 글제목 리스트">
+	<table class="sub_news" border="1" cellspacing="0" summary="게시판의 글제목 리스트" style="width: 70%; background-color: #343a40;">
 		<caption>게시판 리스트</caption>
 		<colgroup> 
 			<col width="5%;">
@@ -156,17 +126,17 @@ tbody {
 			<col width="15%;">
 			<col width="10%;">
 		</colgroup>
-		<thead>
-			<tr>
-				<th scope="col" style="text-align: center;">번호</th> <!-- cBoardNo -->
-				<th scope="col" style="text-align: center;">제목</th> <!-- cBoardTitle -->
-				<th scope="col" style="text-align: center;">글쓴이</th> <!-- memberId -->
-				<th scope="col" style="text-align: center;">날짜</th> <!-- cBoardCreateDate -->
-				<th scope="col" style="text-align: center;">조회수</th> <!-- cBoardViewCount -->
+		<thead style="background: linear-gradient(to bottom, grey, black);">
+			<tr style="height: 50px;"> <!-- #F8F8FF -->
+				<th scope="col" style="color:white; vertical-align: middle; background-color: #212529; font-size: 17px; vertical-align: middle;">번호</th> <!-- cBoardNo -->
+				<th scope="col" style="color:white; text-align: center; background-color: #212529; font-size: 17px; vertical-align: middle;">제목</th> <!-- cBoardTitle -->
+				<th scope="col" style="color:white; text-align: center; background-color: #212529; font-size: 17px; vertical-align: middle;">글쓴이</th> <!-- memberId -->
+				<th scope="col" style="color:white; text-align: center; background-color: #212529; font-size: 17px; vertical-align: middle;">날짜</th> <!-- cBoardCreateDate -->
+				<th scope="col" style="color:white; text-align: center; background-color: #212529; font-size: 17px; vertical-align: middle;">조회수</th> <!-- cBoardViewCount -->
 			</tr>
 		</thead>
-		<tbody>
 		
+		<tbody style="color: white;">		
 			<c:forEach var="b" items="${ list }">
 				<tr>
 					<td align="center">${b.cBoardNo }</td>
@@ -177,65 +147,57 @@ tbody {
 								<c:param name="cBoardNo" value="${b.cBoardNo }" />
 								<c:param name="page" value="${pi.currentPage }" />
 							</c:url>
-							<a href="${bdetail}">${b.cBoardTitle}</a>
+							<a href="${bdetail}" style="color: snow;">${b.cBoardTitle}</a>
 						</c:if>
 						<c:if test="${empty loginUser }">${b.cBoardTitle }</c:if>
 					</td>
 					
-					<td align="center">${b.memberId }</td>
+					<td align="center">${b.memberName }</td>
 					<td align="center">${b.cBoardCreateDate }</td>
 					<td align="center">${b.cBoardViewCount }</td>
 				</tr>
 			</c:forEach>
 			
-			<tr align="center" height="20">
+			<tr align="center" height="20" style="background-color: #212529;">
 				<td colspan="6">
 					<c:if test="${pi.currentPage <= 1 }">[이전]&nbsp;</c:if>
 					<c:if test="${ pi.currentPage > 1 }">
-					<c:url var="before" value="blist.kh">
-						<c:param name="page" value="${ pi.currentPage - 1 }"/>
-					</c:url>
-					<a href="${ before }">[이전]</a> &nbsp;
-				</c:if>
-				
-				<!-- 페이지 -->
-				<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-					<c:if test="${ p eq currentPage }">
-						<font color="red" size="4"><b>[${ p }]</b></font>
+						<c:url var="before" value="bList.kh">
+							<c:param name="page" value="${ pi.currentPage - 1 }"/>
+						</c:url>
+						<a href="${ before }" style="color: white;">[이전]</a> &nbsp;
 					</c:if>
 					
-					<c:if test="${ p ne currentPage }">
-						<c:url var="pagination" value="blist.kh">
-							<c:param name="page" value="${ p }"/>
-						</c:url>
-						<a href="${ pagination }">${ p }</a> &nbsp;
+					<!-- 페이지 -->
+					<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+						<c:if test="${ p eq currentPage }">
+							<font color="red" size="5"><b>[${ p }]</b></font>
+						</c:if>
+						
+						<c:if test="${ p ne currentPage }">
+							<c:url var="pagination" value="bList.kh">
+								<c:param name="page" value="${ p }"/>
+							</c:url>
+							<a href="${ pagination }" style="color: white;">${ p }</a> &nbsp;
+						</c:if>
+					</c:forEach>
+					
+					<!-- [다음] -->
+					<c:if test="${ pi.currentPage >= pi.maxPage }">[다음]</c:if>
+					<c:if test="${ pi.currentPage < pi.maxPage }">
+						<c:url var="after" value="bList.kh">
+							<c:param name="page" value="${ pi.currentPage + 1 }"/>
+						</c:url> 
+						<a href="${ after }" style="color: white;">[다음]</a>
 					</c:if>
-				</c:forEach>
-				
-				<!-- [다음] -->
-				<c:if test="${ pi.currentPage >= pi.maxPage }">
-					[다음]
-				</c:if>
-				<c:if test="${ pi.currentPage < pi.maxPage }">
-					<c:url var="after" value="blist.kh">
-						<c:param name="page" value="${ pi.currentPage + 1 }"/>
-					</c:url> 
-					<a href="${ after }">[다음]</a>
-				</c:if>
-				
-				
-				</td>
-			</tr>
+					</td>
+				</tr>
+			</tbody>
+		</table>
 		
-		
-			
-		</tbody>
-	</table>
-	
-	 <script src="https://ajax.googlepis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-     <script type="text/javascript" src="${contextPath }/resources/js/board/bootstrap.js"></script>
-     <!-- 애니매이션 담당 JQUERY -->
-     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-</body>
+		 <script src="https://ajax.googlepis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	     <script type="text/javascript" src="${contextPath }/resources/js/board/bootstrap.js"></script>
+	     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	</body>
 </html>
 

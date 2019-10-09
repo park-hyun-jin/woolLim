@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 
 @Component("board")
 public class Board {
-	
 	private int cBoardNo; // 게시글 번호
 	private String cBoardTitle; // 게시글 제목
 	private String cBoardContent; // 게시글 내용
@@ -17,7 +16,7 @@ public class Board {
 	private String memberId;
 	private String cBoardOriFilename; // 기존 파일 이름
 	private String cBoardChaFilename; // 바뀐 파일 이름
-	
+	private String memberName; // 닉네임
 	public Board() {
 		
 	}
@@ -36,6 +35,32 @@ public class Board {
 		this.memberId = memberId;
 		this.cBoardOriFilename = cBoardOriFilename;
 		this.cBoardChaFilename = cBoardChaFilename;
+	}
+	
+
+	public String getMemberName() {
+		return memberName;
+	}
+
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
+
+	public Board(int cBoardNo, String cBoardTitle, String cBoardContent, Date cBoardCreateDate, Date cBoardModifyDate,
+			int cBoardViewCount, String cBoardStatus, String memberId, String cBoardOriFilename,
+			String cBoardChaFilename, String memberName) {
+		super();
+		this.cBoardNo = cBoardNo;
+		this.cBoardTitle = cBoardTitle;
+		this.cBoardContent = cBoardContent;
+		this.cBoardCreateDate = cBoardCreateDate;
+		this.cBoardModifyDate = cBoardModifyDate;
+		this.cBoardViewCount = cBoardViewCount;
+		this.cBoardStatus = cBoardStatus;
+		this.memberId = memberId;
+		this.cBoardOriFilename = cBoardOriFilename;
+		this.cBoardChaFilename = cBoardChaFilename;
+		this.memberName = memberName;
 	}
 
 	public int getcBoardNo() {
@@ -123,7 +148,8 @@ public class Board {
 		return "Board [cBoardNo=" + cBoardNo + ", cBoardTitle=" + cBoardTitle + ", cBoardContent=" + cBoardContent
 				+ ", cBoardCreateDate=" + cBoardCreateDate + ", cBoardModifyDate=" + cBoardModifyDate
 				+ ", cBoardViewCount=" + cBoardViewCount + ", cBoardStatus=" + cBoardStatus + ", memberId=" + memberId
-				+ ", cBoardOriFilename=" + cBoardOriFilename + ", cBoardChaFilename=" + cBoardChaFilename + "]";
+				+ ", cBoardOriFilename=" + cBoardOriFilename + ", cBoardChaFilename=" + cBoardChaFilename
+				+ ", memberName=" + memberName + "]";
 	}
 
 	
