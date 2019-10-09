@@ -45,7 +45,6 @@
 			<th><input type="checkbox" name="checkAll" id="th_checkAll"/></th>
 			<th>번호</th>
 			<th>제목</th>
-			<th>내용</th>
 			<th>날짜</th>
 			<th>조회수</th>
 			<th>status</th>
@@ -59,7 +58,7 @@
 			<td align="center">${ n.nNo }</td>
 				
 			<td align="center">	${ n.pnoticeTitle }</td>
-			<td align="center">	${ n.pnoticeContent }</td>
+			
 			
 			<td align="center">${ n.pnoticeCreateDate }</td>
 			
