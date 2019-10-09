@@ -116,7 +116,7 @@ public class MemberServiceImpl implements MemberService {
 			try {
 				uploadFile.transferTo(new File(filePath));
 				// 업로드된 파일을 filePath에 지정된
-				// 경로 + 파일명으로 저장하겠다.
+				// 경로 + 파일명으로 저장하겠다. 
 				// -> IOException 예외 처리 필요
 				result = 1;
 			}catch(Exception e) {
