@@ -14,11 +14,43 @@
 		<result property="imagePath" column="MEMBER_IMAGE_PATH"/>
 	</resultMap>
 	
+	
 	<select id="selectOne" parameterType="Member" resultMap="memberResultSet">
 		SELECT * FROM MEMBER 
 		WHERE MEMBER_ID = #{id} 
 		AND MEMBER_PWD = #{pwd} 
 		AND MEMBER_STATUS = 'Y'
+	</select>
+	
+	<insert id="insertAuthKey" parameterType="MemberAuth">
+		INSERT INTO MEMBER_AUTH
+		VALUES(#{memberAuthKey}, #{memberAuthStatus}, #{memberId})
+	</insert>
+	
+	<update id="updateAuth" parameterType="MemberAuth">
+		UPDATE MEMBER_AUTH
+		SET MEMBER_AUTH_STATUS = 1
+		WHERE MEMBER_ID = #{memberId}
+		AND MEMBER_AUTHKEY = #{memberAuthKey}
+	</update>
+	
+	<insert id="insertMember" parameterType="Member">
+		INSERT INTO MEMBER
+		VALUES(
+			#{id}, #{name}, #{pwd}, SYSDATE, SYSDATE, DEFAULT, DEFAULT, DEFAULT, NULL
+		)
+	</insert>
+	
+	<select id="selectId" parameterType="string" resultType="_int">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE MEMBER_ID = #{memberId}
+	</select>
+	
+	<select id="selectName" parameterType="string" resultType="_int">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE MEMBER_NAME = #{name}
 	</select>
 	
 </mapper>
