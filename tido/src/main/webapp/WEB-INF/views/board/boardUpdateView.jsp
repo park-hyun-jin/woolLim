@@ -1,77 +1,40 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>   
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>게시판 수정페이지</title>
 </head>
 <body>
-
-	<!-- 네비게이션  -->
-	<nav class="navbar navbar-default">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle collapsed"
-				data-toggle="collapse" data-target="bs-example-navbar-collapse-1"
-				aria-expaned="false">
-				<span class="icon-bar"></span> 
-				<span class="icon-bar"></span> 
-				<span class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="main.jsp">WOOLLIM</a>
-		</div>
-		<div class="collapse navbar-collapse" id="#bs-example-navbar-collapse-1">
-			<ul class="nav navbar-nav">
-				<li><a href="main.jsp">게시판</a></li>
-				<li class="active"><a href="bbs.jsp">마이페이지</a></li>
-			</ul>
-
-			<ul class="nav navbar-nav navbar-right">
-				<li class="dropdown">
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-					aria-expanded="false">접속하기<span class="caret"></span></a>
-					<ul class="dropdown-menu">
-						<li><a href="login.jsp">로그인</a></li>
-						<li><a href="join.jsp">회원가입</a></li>
-					</ul>
-				</li>
-			</ul>
-
-			<ul class="nav navbar-nav navbar-right">
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle"
-						data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false">회원관리<span class="caret"></span>
-					</a>
-					<ul class="dropdown-menu">
-						<li><a href="logoutAction.jsp">공지사항</a></li>
-						<li><a href="logoutAction.jsp">Q&A</a></li>
-					</ul>
-				</li>
-			</ul>
-		</div>
-	</nav>
-
+	<jsp:include page="../common/menubar.jsp"/>
+	
+	<h1 align="center">${board.cBoardNo }번 게시글 수정하기</h1>
+	
+	<div style="margin: 50px;"></div>
 
 	<form action="bupdate.kh" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="page" value="${ currentPage }">
-		<input type="hidden" name="bId" value="${ board.cBoardNo }">
-		<input type="hidden" name="cBoardChaFilename; " value="${ board.cBoardChaFilename;  }">
+		<input type="hidden" name="cBoardNo" value="${ board.cBoardNo }">
+		<input type="hidden" name="cBoardChaFilename" value="${ board.cBoardChaFilename  }">
 		
 		<table align="center" id="tb" border="1" cellspacing="0">
 			<tr>
 				<td>제목</td>
-				<td><input type="text" name="cBoardTitle; " value="${ board.cBoardTitle;  }"></td>
+				<td><input type="text" name="cBoardTitle" value="${ board.cBoardTitle  }"></td>
 			</tr>
 			<tr>
+			
 				<td>작성자</td>
-				<td><input type="text" readonly name="memberId;" value="${ board.memberId; }"></td>
+				<td><input type="text" readonly name="memberName" value="${ board.memberName }"></td>
 			</tr>		
 			<tr>
 				<td>내용</td>
 				<td>
-					<c:set var="cBoardContent " value="${fn:replace(board.cBoardContent; ,'<br>','') }"/>
-					<textarea cols="50" rows="7" name="cBoardContent ">${ cBoardContent;  }</textarea>
+					<c:set var="cBoardContent" value="${fn:replace(board.cBoardContent,'<br>','') }"/>
+					<textarea cols="50" rows="7" name="cBoardContent ">${ cBoardContent }</textarea>
 				</td>
 			</tr>
 			<tr>
@@ -87,10 +50,10 @@
 			<tr>
 				<td colspan="2" align="center">
 					<input type="submit" value="수정하기"> &nbsp;
-					<c:url var="blist" value="blist.kh">
+					<c:url var="bList" value="bList.kh">
 						<c:param name="page" value="${ currentPage }"/>
 					</c:url>
-					<a href="${ blist }">목록으로</a>
+					<a href="${ bList }">목록으로</a>
 					<a href="javascript:history.go(-1);">이전페이지로</a>
 				</td>
 			</tr>
