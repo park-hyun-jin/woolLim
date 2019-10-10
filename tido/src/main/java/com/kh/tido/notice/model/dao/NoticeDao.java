@@ -38,6 +38,21 @@ public class NoticeDao {
 		return sqlSession.selectOne("noticeMapper.detailList", nNo);
 	}
 
+	public void addpnoticeViewCount(int nNo) {
+		
+		sqlSession.update("noticeMapper.addpnoticeViewCount", nNo);
+		
+	}
+
+	public int deleteNotice(int nNo) {
+		return sqlSession.delete("noticeMapper.deleteNotice", nNo);
+	}
+
+	public int updateNotice(Notice notice) {
+		
+		return sqlSession.update("noticeMapper.updateNotice", notice);
+	}
+
 	
 
 	

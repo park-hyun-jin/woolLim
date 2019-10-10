@@ -26,7 +26,7 @@
     	<c:url var="goMain" value="main.kh"></c:url>
     	<c:url var="goProject" value="compPjtView.kh"></c:url>
     	<c:url var="goBoard" value="bList.kh"></c:url>
-    	<c:url var="goNotice" value="nList.kh"></c:url>
+    	<c:url var="goNotice" value="nlist.kh"></c:url>
     	<c:url var="goQna" value="Qna.kh"></c:url>
     	<c:url var="goLoginPage" value="loginPage.kh"></c:url>
     	
@@ -54,4 +54,5 @@
             </ul>
         </nav>
     </body>
+
 </html>

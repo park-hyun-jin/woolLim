@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.tido.common.Pagination;
 import com.kh.tido.notice.model.service.NoticeService;
@@ -25,7 +26,7 @@ public class NoticeController {
 	@Autowired
 	private NoticeService nService;
 	
-	@RequestMapping("nList.kh")
+	@RequestMapping("nlist.kh")
 	public ModelAndView noticeList(ModelAndView mv, Integer page) {
 		
 		int currentPage = page == null ? 1 : page;
@@ -59,7 +60,7 @@ public class NoticeController {
 		}
 		int result = nService.insertNotice(notice);
 		if(result > 0) {
-			return "redirect:nList.kh";
+			return "redirect:nlist.kh";
 		}else {
 			model.addAttribute("msg","공지사항 등록 실패");
 			return "common/errorPage";
@@ -120,7 +121,94 @@ public class NoticeController {
 		}
 		
 	}
+
+	public void deleteFile(String fileName, HttpServletRequest request) {
+
+		String root = request.getSession().getServletContext().getRealPath("resources");
+
+		String savePath = root + "\\nuploadFiles";
+
+
+		File deleteFile = new File(savePath + "\\" + fileName);
+
+
+		if (deleteFile.exists()) {
+			deleteFile.delete();
+		}
+
+	}
+	
+	@RequestMapping(value="nupView.kh")
+	public String noticeUpdateView(int nNo, Model model) {
+		model.addAttribute("notice", nService.selectOne(nNo));
 		
+		return "notice/noticeUpdateView";
+	}
+	
+	@RequestMapping(value="nupdate.kh", method=RequestMethod.POST)
+	public String noticeUpdate(Notice notice, Model model,
+							   HttpServletRequest request,
+							   MultipartFile reloadFile) {
+		
+		// 새로 업로드된 파일이 있을 경우
+		if(reloadFile != null && !reloadFile.isEmpty()) {
+			
+			// 기존 업로드 파일이 있을 경우
+			if(notice.getPnoticeFilePath() != null) { 
+
+				// 기존 파일 삭제
+				deleteFile(notice.getPnoticeFilePath(), request);
+			}
+			
+			// 새로 업로드된 파일 저장
+			String savePath = saveFile(reloadFile, request);
+			
+			// 새로운 파일이 잘 저장이 되었다면
+			if(savePath != null) {
+				notice.setPnoticeFilePath(reloadFile.getOriginalFilename());
+			}else {
+				notice.setPnoticeFilePath(null);
+			}
+			
+		}
+			
+		int result = nService.updateNotice(notice);
+			
+		if (result > 0) {
+			return "redirect:ndetail.kh?nNo="+notice.getnNo();
+		} else {
+			model.addAttribute("msg", "공지사항 수정 실패");
+			return "common/errorPage";
+		}	
+	}
+	
+	// 삭제
+	@RequestMapping("ndelete.kh")
+	public String noticeDelete(int nNo, Model model, 
+								HttpServletRequest request,
+								RedirectAttributes rd) {
+
+		// 파일 지우기 위해 nId의 공지사항 조회
+		Notice notice = nService.selectOne(nNo); 
+		
+		int result = nService.deleteNotice(nNo); 
+
+		
+		if (result > 0) {
+			// 해당 공지사항에 첨부파일이 존재했을 경우
+			if (notice.getPnoticeFilePath() != null) { 
+				deleteFile(notice.getPnoticeFilePath(), request);
+			}
+
+			rd.addFlashAttribute("msg", "게시글 삭제 성공");
+			return "redirect:nlist.kh";
+		} else {
+			model.addAttribute("msg", "공지사항 수정 실패");
+			return "common/errorPage";
+		}
+	}
+	
+	
 	}
 		
 

@@ -3983,7 +3983,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .nav > li > a {
   position: relative;
-  display: block;
+  /* display: block; */ /* 해도 안해도 그만 */
   padding: 10px 15px;
 }
 .nav > li > a:hover,
@@ -4274,7 +4274,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .navbar-brand {
   float: left;
-  height: 50px;
+  /* height: 50px; */
   padding: 15px 15px;
   font-size: 18px;
   line-height: 20px;
@@ -4327,7 +4327,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-nav > li > a {
   padding-top: 10px;
   padding-bottom: 10px;
-  line-height: 20px;
+  /* line-height: 20px; */
 }
 @media (max-width: 767px) {
   .navbar-nav .open .dropdown-menu {
@@ -5873,7 +5873,7 @@ button.close {
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 1050;
+  z-index: 1000000;
   display: none;
   overflow: hidden;
   -webkit-overflow-scrolling: touch;

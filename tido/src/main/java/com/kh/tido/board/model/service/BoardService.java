@@ -15,13 +15,16 @@ public interface BoardService {
 	
 	public abstract int insertBoard(Board board, MultipartFile uploadFile, HttpServletRequest request);
 	
-	public abstract Board selectBoard(int bNo);
-	
-	public abstract int deleteBoard(int bNo);
+	public abstract Board selectBoard(int cBoardNo);
+		
+	public abstract int deleteBoard(int cBoardNo);
 	
 	public abstract int updateBoard(Board board, MultipartFile reloadFile, HttpServletRequest request);
 	
 	public abstract int insertReply(Reply reply);
 	
-	public abstract ArrayList<Reply> selectReply(int bId);
+	public abstract ArrayList<Reply> selectReply(int cBoardNo);
+
+	
+
 }
