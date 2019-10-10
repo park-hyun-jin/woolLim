@@ -96,7 +96,7 @@ public class MemberServiceImpl implements MemberService {
 			savePath = root + "\\muploadFiles" + "\\" + mem.getId();
 			filePath = savePath + "\\" + fileName;
 			
- 			mem.setImagePath(filePath);
+ 			mem.setImagePath(fileName);
  		}
  		
  		int result = mDao.insertMember(mem);

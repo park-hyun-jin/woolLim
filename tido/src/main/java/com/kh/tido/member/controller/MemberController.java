@@ -116,6 +116,7 @@ public class MemberController {
 	
 	@RequestMapping("minsert.kh")
 	public String InsertMember(Member mem, MultipartFile uploadFile, HttpServletRequest request, Model model) {
+		System.out.println("mem : " + mem);
 		int result = mService.insertMember(mem, uploadFile, request);
 		if(result == 1) {
 			model.addAttribute("loginUser", mem).addAttribute("msg", "회원가입이 완료되었습니다!");

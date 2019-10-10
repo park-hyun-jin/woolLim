@@ -154,7 +154,7 @@
                             <label for="inputPasswordConfirm">비밀번호 확인 *</label>
                         </td>
                         <td>
-                            <input type="password" class="insertInput" id="inputPasswordConfirm" placeholder="Password Confirm" name="pwd" required>
+                            <input type="password" class="insertInput" id="inputPasswordConfirm" placeholder="Password Confirm" required>
                         </td>
                         <td>
                             <h6 id="pwdConfirmText"></h6>

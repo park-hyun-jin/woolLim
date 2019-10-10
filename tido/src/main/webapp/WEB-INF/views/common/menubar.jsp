@@ -30,6 +30,7 @@
     	<c:url var="goNotice" value="nlist.kh"></c:url>
     	<c:url var="goQna" value="Qna.kh"></c:url>
     	<c:url var="goLoginPage" value="loginPage.kh"></c:url>
+    	<c:url var="goMyPage" value="myPage.kh"></c:url>
     	
         <nav class="header">
             <ul class="nav_ul">
@@ -45,9 +46,10 @@
 	                	</c:when>
 	                	<c:otherwise>
 	           				<div class="userProfile">
-		           				<img id="user_after" src="${contextPath }/resources/images/user.png">
+		           				<%-- <img id="user_after" src="${contextPath }/resources/images/user.png"> --%>
+		           				<img id="user_after" src="${contextPath}/resources/muploadFiles/${loginUser.id}/${loginUser.imagePath}">
 		           			</div>
-		           			<div class="nickname">${loginUser.name } 님</div>
+		           			<div class="nickname"><a href="">${loginUser.name} 님</a></div>
 		           			<a href="logout.kh">로그아웃</a>
 	                	</c:otherwise>
                 	</c:choose>
