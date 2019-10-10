@@ -15,9 +15,11 @@
 <input type="range" name="volume" class="bass" min="0" max="10">
 </div>
 
+<div style="white-space:nowrap; overflow-y:hidden; width:80%;">
+<div class="padBox" style="width: 1280">
 <div class="sound C2 bass">
    	<div>C2</div>
-    <c:forEach var="blength" varStatus="i" begin="1" end="32" step="1">
+    <c:forEach var="blength" varStatus="i" begin="1" end="64" step="1">
 		<div class='pad C2 length${blength}'>
 			<input type='hidden' value="">
 		</div>
@@ -34,8 +36,8 @@
 <c:forEach var="boctv" varStatus="j" begin="0" end="1" step="1">
 <c:forEach var="bList" items="${note1}">
    <div class="sound ${bList}${1-boctv} bass">
-      <div>${bList}${1-boctv}</div>
-      <c:forEach var="blength" varStatus="i" begin="1" end="32" step="1">
+      <div>${fn:replace(bList,'S','#')}${3-boctv}</div>
+      <c:forEach var="blength" varStatus="i" begin="1" end="64" step="1">
       <div class='pad ${bList}${1-boctv} length${blength}'>
       	<input type='hidden' value="">
       </div>
@@ -43,3 +45,5 @@
    </div>
 </c:forEach>
 </c:forEach>
+</div>
+</div>
