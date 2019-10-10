@@ -13,6 +13,8 @@
 		<typeAlias type="com.kh.tido.member.model.vo.MemberAuth" alias="MemberAuth"/>
 		<typeAlias type="com.kh.tido.notice.model.vo.Notice" alias="Notice"/>
 		<typeAlias type="com.kh.tido.inquiry.model.vo.Inquiry" alias="Inquiry"/>
+		<typeAlias type="com.kh.tido.report.model.vo.Report" alias="Report"/>
+		<typeAlias type="com.kh.tido.report.model.vo.ReportReason" alias="ReportReason"/>
 	</typeAliases>
 	
 	<mappers>
@@ -21,6 +23,7 @@
 		<mapper resource="mappers/member-mapper.xml"/>
 		<mapper resource="mappers/notice-mapper.xml"/>
 		<mapper resource="mappers/inquiry-mapper.xml"/>
+		<mapper resource="mappers/report-mapper.xml"/>
  	</mappers>
 
 </configuration>
