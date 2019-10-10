@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.tido.member.model.service.MemberService;
@@ -73,9 +74,16 @@ public class MemberController {
 
 	@RequestMapping(value = "emailConfirm.kh")
 	public String emailConfirm(MemberAuth memberAuth, Model model) throws Exception { // 이메일 인증 확인
-		int result = mService.updateAuth(memberAuth);
-		model.addAttribute("result", result);
-		model.addAttribute("memberId", memberAuth.getMemberId());
+		if((mService.selectId(memberAuth.getMemberId()) == 1)) {
+			model.addAttribute("emailMsg", "이미 등록된 이메일입니다.");
+		}else {
+			int result = mService.updateAuth(memberAuth);
+			if(result == 1) {
+				model.addAttribute("memberId", memberAuth.getMemberId());			
+			}else {
+				model.addAttribute("emailMsg", "메일이 인증되지 않았습니다.");
+			}
+		}
 		return "/member/joinPage";
 	}
 	
@@ -107,14 +115,17 @@ public class MemberController {
 	}
 	
 	@RequestMapping("minsert.kh")
-	public String InsertMember(Member mem, Model model) {
-		int result = mService.insertMember(mem);
+	public String InsertMember(Member mem, MultipartFile uploadFile, HttpServletRequest request, Model model) {
+		int result = mService.insertMember(mem, uploadFile, request);
 		if(result == 1) {
-			model.addAttribute("loginUser", mem);
+			model.addAttribute("loginUser", mem).addAttribute("msg", "회원가입이 완료되었습니다!");
 			return "redirect:main.kh";
-		}else {
+		}else if(result == 0) {
 			model.addAttribute("msg", "회원가입에 실패하였습니다.");
 			return "common/errorPage";
+		}else {
+			model.addAttribute("msg", "프로필 사진 등록에 실패하였습니다. 회원 정보 수정에서 다시 등록해주세요.");
+			return "redirect:main.kh";
 		}
 	}
 	

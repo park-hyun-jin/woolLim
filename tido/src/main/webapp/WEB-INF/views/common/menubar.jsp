@@ -17,8 +17,13 @@
         
       
     </head>
-
+	
     <body>
+    	<c:if test="${!empty msg}">
+			<script>alert("${msg}")</script>
+			${ session.removeAttribute("msg") }
+		</c:if>
+    
     	<c:url var="goMain" value="main.kh"></c:url>
     	<c:url var="goProject" value="compPjtView.kh"></c:url>
     	<c:url var="goBoard" value="bList.kh"></c:url>
@@ -43,6 +48,7 @@
 		           				<img id="user_after" src="${contextPath }/resources/images/user.png">
 		           			</div>
 		           			<div class="nickname">${loginUser.name } 님</div>
+		           			<a href="logout.kh">로그아웃</a>
 	                	</c:otherwise>
                 	</c:choose>
                 </li>
