@@ -21,6 +21,7 @@
     <body>
     	<c:if test="${!empty msg}">
 			<script>alert("${msg}")</script>
+			${ session.removeAttribute("msg") }
 		</c:if>
     
     	<c:url var="goMain" value="main.kh"></c:url>

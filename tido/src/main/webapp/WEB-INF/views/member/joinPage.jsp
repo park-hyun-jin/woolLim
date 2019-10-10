@@ -176,7 +176,7 @@
             <div>
                 <ul class="join_ul">
                     <li><button type="submit" class="btn btn-success" onclick="return insertBtn();">가입하기</button></li>
-                    <li><button type="button" class="btn btn-secondary">취소하기</button></a></li>
+                    <li><button type="button" class="btn btn-secondary" onclick="location.href='history.back()'">취소하기</button></a></li>
                 </ul>
             </div>
         </form>
