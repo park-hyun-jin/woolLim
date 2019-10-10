@@ -6,6 +6,23 @@
 <head>
 <meta charset="UTF-8">
 <title>게시판 상세</title>
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+<!-- Bootstrap core CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+<!-- Material Design Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/css/mdb.min.css" rel="stylesheet">
+
+<!-- JQuery -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/js/mdb.min.js"></script>
+
 <style>
 .col-md-8 {
 	background: linear-gradient(to bottom, grey, black);
@@ -42,17 +59,26 @@ table.type09 tbody td  {
     /* background: snow; */
     color: white;
 }
+.text-center{
+color: white; width:80% height: 100px; margin: auto; line-height: 320%;
+}
 </style>
 </head>
 <body>
+
 	<jsp:include page="../common/menubar.jsp"/>
-	
+
 	<div style="margin: 50px;"></div>
 
 	<div class="row">
 		<div class="col-md-2"></div>
 		<div class="col-md-8" >
-			<h2 class="text-center" style="color: white; height: 100px; margin: auto; line-height: 320%;">게시글 상세</h2>
+			<h2 class="text-center" >
+			게시글 상세
+			</h2>
+			<h2  class="reportButtonArea">
+	
+			</h2>
 			<form action="BoardReWriteProc.jsp" method="post">
 				<div class="table table-responsive">
 					<table class="table table-striped" style="color: white">
@@ -83,6 +109,7 @@ table.type09 tbody td  {
 								</c:if>
 							</td>
 						</tr>
+						<jsp:include page="../Report/reportModal.jsp"/>						
 						<tr>
 							<td colspan="2" class="text-center" style="color: white">
 								<c:url var="bupView" value="bupView.kh">
@@ -124,6 +151,8 @@ table.type09 tbody td  {
 				<th colspan="1">
 					<b id="rCount">작성날짜</b>
 				</th>
+				
+				
 			</tr>
 		</thead>
 		<tbody>
@@ -203,6 +232,7 @@ table.type09 tbody td  {
 							 $cbReplyContent = $("<td>").html(list[i].cbReplyContent);
 							 $cbReplyCreateDate = $("<td>").text(list[i].cbReplyCreateDate).css("width","100px");
 
+							 	
 							 $tr.append($memberId);
 							 $tr.append($cbReplyContent);
 							 $tr.append($cbReplyCreateDate);
