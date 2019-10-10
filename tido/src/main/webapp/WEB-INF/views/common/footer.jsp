@@ -5,8 +5,8 @@
 	footer{
 		clear:both;
 		background:#242323;
-		height: 150px;
-	}
+		height: 100px;
+	}	
 </style>
 
 <footer>
