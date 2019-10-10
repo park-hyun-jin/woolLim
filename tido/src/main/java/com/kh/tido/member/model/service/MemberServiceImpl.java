@@ -35,7 +35,13 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public Member loginMember(Member mem) {
+		
 		Member loginUser = mDao.selectMember(mem);
+		
+
+		if(!bCryptPasswordEncoder.matches(mem.getPwd(), loginUser.getPwd())) {
+			loginUser = null;
+		}
 		
 		return loginUser;
 	}
