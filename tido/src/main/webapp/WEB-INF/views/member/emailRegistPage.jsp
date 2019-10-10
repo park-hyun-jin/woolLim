@@ -61,18 +61,16 @@
 				success : function(check) {
 					if(check == "success") {
 						alert("중복된 이메일이 존재합니다.");
-						console.log("ajax 들어옴");
-						return false;
 					}else {
 						alert("사용가능한 이메일 입니다.");
 				        window.close();
-						return true;
 					}
 				},
 				error : function(e) {
 					console.log("통신실패");
 				}
 			});
+	        return false;
 		}
     </script>
 </body>

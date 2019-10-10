@@ -35,8 +35,6 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public Member loginMember(Member mem) {
-		
-		
 		Member loginUser = mDao.selectMember(mem);
 		
 		return loginUser;
@@ -75,7 +73,7 @@ public class MemberServiceImpl implements MemberService {
 	
  		mem.setPwd(encPwd);
  		
- 		String fileName = "";
+ 		String fileName = null;
  		
  		// 업로드 된 파일이 있을 경우 멤버 프로필 사진 경로 저장
  		if(!uploadFile.getOriginalFilename().equals("")) {
