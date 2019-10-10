@@ -3,6 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
+<script>
+var contentsNo;
+var reportType;
+</script>
 <head>
 <meta charset="UTF-8">
 <title>게시판 상세</title>
@@ -80,9 +84,11 @@ color: white; width:80% height: 100px; margin: auto; line-height: 320%;
 	
 			</h2>
 			<form action="BoardReWriteProc.jsp" method="post">
+				
 				<div class="table table-responsive">
 					<table class="table table-striped" style="color: white">
 						<tr align="center" valign="middle">
+						   
 							<th colspan="2">${board.cBoardNo }번 글  상세보기</th>
 						</tr>
 						<tr>
@@ -109,7 +115,14 @@ color: white; width:80% height: 100px; margin: auto; line-height: 320%;
 								</c:if>
 							</td>
 						</tr>
-						<jsp:include page="../Report/reportModal.jsp"/>						
+						 
+						<button type="button" class="btn btn-outline-danger waves-effect reportPopBtn" data-toggle="modal" data-target="#centralModalDanger">
+						신고하기
+						<input type="hidden" value="${board.cBoardNo}">
+						</button>
+					
+						<jsp:include page="../Report/reportCBoardModal.jsp"/>		
+										
 						<tr>
 							<td colspan="2" class="text-center" style="color: white">
 								<c:url var="bupView" value="bupView.kh">
@@ -223,32 +236,57 @@ color: white; width:80% height: 100px; margin: auto; line-height: 320%;
 					 var $memberId;
 					 var $cbReplyContent;
 					 var $cbReplyCreateDate;
-
+					 var $bNo; 
+					 var $btn;
+					 var $reportType;
 
 					 if(list.length > 0){ 
 						 $.each(list, function(i){
+							 $reportType=$("<input type='hidden'>").val(list[i].reportType);
+							 $bNo=$("<input type='hidden'>").val(list[i].cbReplyNo);
+							 $btn=$("<button type='button' class='btn btn-outline-danger waves-effect reportPopBtn' data-toggle='modal' data-target='#centralModalDanger'>");
+							 $btn.append("신고");
+							 $btn.append($bNo);
+							 $btn.append($reportType);
 							 $tr = $("<tr>");
-							 $memberId = $("<th>").text(list[i].memberName).css("width","100px");
-							 $cbReplyContent = $("<td>").html(list[i].cbReplyContent);
+							 $memberId = $("<th>").text(list[i].memberName).css("width","200px");
+							 $cbReplyContent = $("<td>").html(list[i].cbReplyContent).css("width","700px");
 							 $cbReplyCreateDate = $("<td>").text(list[i].cbReplyCreateDate).css("width","100px");
-
-							 	
 							 $tr.append($memberId);
 							 $tr.append($cbReplyContent);
 							 $tr.append($cbReplyCreateDate);
+							 $tr.append($btn);
+							 
 							 $tableBody.append($tr);
-						 })
+							 reportButtonclick($btn);
+							 
+						 });
 
 					 }else{
 						 $tr = $("<tr>");
 						 $cbReplyContent = $("<td colspan='3'>").text("등록된 댓글이 없습니다.");
-
 						 $tr.append($cbReplyContent);
 						 $tableBody.append($tr);
 					 }
 				}
 			});
 		}
+		$(".reportPopBtn").on("click",function(){
+			contentsNo=$(this).children("input").val().trim();
+			$("#contentsNo").val(contentsNo);
+			$("#reportType").val(${board.reportType});
+		});
+		
+		function reportButtonclick(btn){
+			btn.on("click",function(){
+				contentsNo=$(this).children("input").eq(0).val().trim();
+				reportType=$(this).children("input").eq(1).val().trim();
+				$("#contentsNo").val(contentsNo);
+				$("#reportType").val(reportType);
+			});
+			
+		}
+		
 	</script>
 </body>
 </html>
