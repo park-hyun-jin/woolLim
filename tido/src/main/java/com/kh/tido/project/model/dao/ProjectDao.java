@@ -2,6 +2,7 @@ package com.kh.tido.project.model.dao;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -23,8 +24,14 @@ public class ProjectDao {
 		return sqlSession.selectOne("projectMapper.openProject", pNo);
 	}
 
-	public ArrayList<Project> selectProjectList(Project project) {
-		return (ArrayList)sqlSession.selectList("projectMapper.selectProjectList",project);
+	public ArrayList<Project> selectProjectList(Project project,int begin,int limit) {
+		System.out.println(begin);
+		RowBounds rowBounds = new RowBounds(begin,limit);
+		return (ArrayList)sqlSession.selectList("projectMapper.selectProjectList",project,rowBounds);
+	}
+
+	public int getProjectCount(Project project) {
+		return sqlSession.selectOne("projectMapper.getProjectCount",project);
 	}
 	
 	

@@ -54,16 +54,28 @@ public class ProjectController {
 	
 	@ResponseBody
 	@RequestMapping(value="selectPjt.kh",produces="application/json; charset=utf-8 ")
-	public String selectProjectList(String projectPath,HttpServletRequest request) {
+	public String selectProjectList(String projectPath,HttpServletRequest request,int begin,int lim) {
+		System.out.println(begin);
+		System.out.println(lim);
+		System.out.println(projectPath);
 		String projectWriter = ((Member)request.getSession().getAttribute("loginUser")).getId();
 		Project project = new Project();
 		project.setProjectWriter(projectWriter);
 		project.setProjectPath(projectPath);
-		ArrayList<Project> projectList = pService.selectProjectList(project,request); 
+		ArrayList<Project> projectList = pService.selectProjectList(project,request,begin,lim); 
 		return new Gson().toJson(projectList);
 	}
 	
-	
+	@ResponseBody
+	@RequestMapping(value="getPjtCount.kh",produces="application/json; charset=utf-8 ")
+	public String getProjectCount(String path,HttpServletRequest request) {
+		String projectWriter = ((Member)request.getSession().getAttribute("loginUser")).getId();
+		Project project = new Project();
+		project.setProjectWriter(projectWriter);
+		project.setProjectPath(path);
+		int count = pService.getProjectCount(project,request); 
+		return count+"";
+	}
 	
 	@RequestMapping("compPjtView.kh")
 	public String compProjectView() {
@@ -92,8 +104,10 @@ public class ProjectController {
 	public String createFolder(String path,HttpServletRequest request) {
 		System.out.println(path);
 		File result = pService.createFolder(path,request);
-		return null;
+		return result+"";
 	}
+	
+	
 	
 	
 }

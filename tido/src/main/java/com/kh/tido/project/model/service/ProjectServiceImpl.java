@@ -130,8 +130,8 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	@Override
-	public ArrayList<Project> selectProjectList(Project project,HttpServletRequest request) {
-		return pDao.selectProjectList(project);
+	public ArrayList<Project> selectProjectList(Project project,HttpServletRequest request,int begin,int limit) {
+		return pDao.selectProjectList(project,begin,limit);
 	}
 
 	@Override
@@ -146,6 +146,12 @@ public class ProjectServiceImpl implements ProjectService {
 			folder.mkdir(); // 폴더 생성
 		}
 		return folder;
+	}
+
+	@Override
+	public int getProjectCount(Project project, HttpServletRequest request) {
+		
+		return pDao.getProjectCount(project);
 	}
 
 }
