@@ -101,6 +101,8 @@
 
     </style>
     <body>
+    	<jsp:include page="../common/menubar.jsp"></jsp:include>
+    	
         <div class="titleArea">
             <h1>회원가입</h1>
         </div>
@@ -154,7 +156,7 @@
                             <label for="inputPasswordConfirm">비밀번호 확인 *</label>
                         </td>
                         <td>
-                            <input type="password" class="insertInput" id="inputPasswordConfirm" placeholder="Password Confirm" name="pwd" required>
+                            <input type="password" class="insertInput" id="inputPasswordConfirm" placeholder="Password Confirm" required>
                         </td>
                         <td>
                             <h6 id="pwdConfirmText"></h6>
@@ -176,7 +178,7 @@
             <div>
                 <ul class="join_ul">
                     <li><button type="submit" class="btn btn-success" onclick="return insertBtn();">가입하기</button></li>
-                    <li><button type="button" class="btn btn-secondary" onclick="location.href='history.back()'">취소하기</button></a></li>
+                    <li><button type="button" class="btn btn-secondary" onclick="history.back();">취소하기</button></a></li>
                 </ul>
             </div>
         </form>
