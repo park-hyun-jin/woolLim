@@ -110,30 +110,31 @@
         <div class="container">
             <div class="menu">
                 <ul>
-                    <li><a href="#" style="color: black">회원정보</a></li>
-                    <li><a href="#">작곡 프로젝트 관리</a></li>
-                    <li><a href="#">작성 글</a></li>
+                    <li><a href="myPageInfo.kh" style="color: black">회원정보</a></li>
+                    <li><a href="myPageProject.kh">작곡 프로젝트 관리</a></li>
+                    <li><a href="myPageBoard.kh">작성 글</a></li>
                     <li><a href="#">작성 댓글</a></li>
                     <li><a href="#">신고 및 문의 내역</a></li>
                 </ul>
             </div>
             <div class="content">
                 <div class="content-1">
-                    <img src="gauss.jpg">
+                    <img src="${contextPath}/resources/muploadFiles/${loginUser.id}/${loginUser.imagePath}"
+                    onerror="this.src='${contextPath}/resources/images/noimage.png'">
                 </div>
                 <div class="content-2">
                     <table id="memberTable">
                         <tr>
                             <td>아이디 :</td>
-                            <td>sundown710</td>
+                            <td>${loginUser.id}</td>
                         </tr>
                         <tr>
                             <td>닉네임 :</td>
-                            <td>쏭싹</td>
+                            <td>${loginUser.name}</td>
                         </tr>
                         <tr>
                             <td>가입일 :</td>
-                            <td>2019-09-20</td>
+                            <td>${loginUser.enrollDate }</td>
                         </tr>
                     </table>
                 </div>

@@ -101,6 +101,8 @@
 
     </style>
     <body>
+    	<jsp:include page="../common/menubar.jsp"></jsp:include>
+    	
         <div class="titleArea">
             <h1>회원가입</h1>
         </div>

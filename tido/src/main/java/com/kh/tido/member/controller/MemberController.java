@@ -43,6 +43,22 @@ public class MemberController {
 		return "member/emailRegistPage";
 	}
 	
+	@RequestMapping("myPageInfo.kh")
+	public String myPageInfo() {
+		return "member/mypage_info";
+	}
+	
+	@RequestMapping("myPageProject.kh")
+	public String myPageProject() {
+		return "member/mypage_project";
+	}
+	
+	@RequestMapping("myPageBoard.kh")
+	public String myPageBoard() {
+		return "member/mypage_board";
+	}
+	
+	
 	@RequestMapping(value="login.kh", method=RequestMethod.POST)
 	public String loginMember(Member mem, Model model) {
 		
