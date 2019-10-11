@@ -26,10 +26,11 @@ var pageCheck="projectView";
 			<div class="textarea">
 				<label>저장할 이름</label><br> <input type="text" id="projectTitle">
 			</div>
-			<div class="btnarea">
-				<button id="save">저장</button>
-				<button id="cancel">취소</button>
-			</div>
+			
+				<div class="btnarea">
+					<button id="save">저장</button>
+					<button id="cancel">취소</button>
+				</div>
 		</div>
 	</div>
 
@@ -52,10 +53,12 @@ var pageCheck="projectView";
 			<div>	
 			    length <input id="length" type="number"value="32" min="4" max="64">
 			</div>
+			<c:if test="${loginUser!=null }">
 			<div>
 				<button id="savepop">저장</button>
 				<button id="open">open</button>
 			</div>
+			</c:if>
 		</div>
 		<div>
 			<img src="${contextPath }/resources/images/right-arrow.png">
@@ -95,14 +98,20 @@ var pageCheck="projectView";
 	    var guitarSoundInfo="";
 	    var drumSoundInfo="";
 	    var bpm = $("#bpm").val();
-	   
 	    var beat = $("#beat").val();
 	    
 	    
 	   for(var i = 1; i <= 64; i++) {
 		   $(".length"+i).hide(); 
+		   
 	   }
        for(var i = 1; i <= length; i++) {
+	    	   if(i%4==0){
+			         $(".length"+i).css("border-right","2px solid grey");
+		          }
+		       if(i==length){
+		             $(".length"+i).css("border-right","1px solid lightgrey");
+		       }
 	          $(".length"+i).show();
 	   }
        $(".padBox").width(40*length + 100);
