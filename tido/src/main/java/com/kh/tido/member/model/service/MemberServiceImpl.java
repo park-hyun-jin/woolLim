@@ -101,7 +101,7 @@ public class MemberServiceImpl implements MemberService {
  		
  		int result = mDao.insertMember(mem);
  		
- 		if(!fileName.equals("") && result == 1) {
+ 		if(fileName != null && result == 1) {
  			result = saveFile(savePath, filePath, uploadFile);
  		}
  		

@@ -13,6 +13,7 @@
                 margin: 0;
                 padding: 0;
                 box-sizing: border-box;
+                color: white;
             }
 
             .container {
@@ -42,7 +43,7 @@
 
             .menu li a {
                 text-decoration: none;
-                color: gray;
+                color: white;
                 font-size: 25px;
                 font-weight: bold;
             }
@@ -107,6 +108,7 @@
         </style>
     </head>
     <body>
+    	<jsp:include page="../common/menubar.jsp"></jsp:include>
         <div class="container">
             <div class="menu">
                 <ul>

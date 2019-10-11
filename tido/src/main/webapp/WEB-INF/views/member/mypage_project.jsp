@@ -13,6 +13,7 @@
                 margin: 0;
                 padding: 0;
                 box-sizing: border-box;
+                color: white;
             }
 
             .container {
@@ -42,7 +43,7 @@
 
             .menu li a {
                 text-decoration: none;
-                color: gray;
+                color: white;
                 font-size: 25px;
                 font-weight: bold;
             }
@@ -104,12 +105,13 @@
         </style>
     </head>
     <body>
+    	<jsp:include page="../common/menubar.jsp"></jsp:include>
         <div class="container">
             <div class="menu">
                 <ul>
-                    <li><a href="#">회원정보</a></li>
-                    <li><a href="#" style="color: black">작곡 프로젝트 관리</a></li>
-                    <li><a href="#">작성 글</a></li>
+                    <li><a href="myPageInfo.kh">회원정보</a></li>
+                    <li><a href="myPageProject.kh" style="color: black">작곡 프로젝트 관리</a></li>
+                    <li><a href="myPageBoard.kh">작성 글</a></li>
                     <li><a href="#">작성 댓글</a></li>
                     <li><a href="#">신고 및 문의 내역</a></li>
                 </ul>
