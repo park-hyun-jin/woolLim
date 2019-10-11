@@ -12,7 +12,7 @@
 var pageCheck="projectListView";
 </script>
 <style>
-.createFolderBtn{
+.createFolderPop{
 	width:300px;
 	height: 120px;
 	position:absolute;
@@ -24,12 +24,12 @@ var pageCheck="projectListView";
 	display:none;
 	border-radius: 10px;
 }
-.createFolderBtn div{
+.createFolderPop div{
 	text-align: center;
 	color:white;
 	padding:5px;
 }
-.createFolderBtn div input{
+.createFolderPop div input{
 	width:90%;
 }
 </style>
@@ -38,7 +38,7 @@ var pageCheck="projectListView";
 		<jsp:include page="../common/menubar.jsp"/>
 		
 		
-		<div id="createFolderBtn" class="createFolderBtn">
+		<div id="createFolderPop" class="createFolderPop">
 			<div>
 				<h6 >새 폴더 추가</h6>
 			</div>
@@ -76,7 +76,7 @@ var pageCheck="projectListView";
 				selectProjectList(path);
 				
 				$("#folderAddBtn").on("click",function(){
-					$("#createFolderBtn").css("display","block");
+					$("#createFolderPop").css("display","block");
 				});
 				
 				$("#addOk").on("click",function(){
@@ -87,15 +87,17 @@ var pageCheck="projectListView";
 							data:{path:path+"\\"+folderName},
 							type:"post",
 							success:function(result){
-								$("#createFolderBtn").css("display","none");
+								console.log(result);
 							}
 						});
-						
+						$("#createFolderPop").css("display","none");
 					}else{
 						$("#newFolderName").css({"border":"2px solid red"});
 					}	
 				});
-				
+				$("#addCancel").on("click",function(){
+					$("#createFolderPop").css("display","none");
+				});
 				
 			
 				$("#projectArea").mouseover(function(){ 

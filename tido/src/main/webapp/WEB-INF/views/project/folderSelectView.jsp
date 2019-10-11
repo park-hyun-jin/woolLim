@@ -66,13 +66,15 @@
 	<script>
 	var path;
 	var projectCount=0;
-	var begin =1;
+	var begin =0;
 	var lim =16;
 			$(function(){
 				
 				$(".depth1 li p").css("background","rgba(255,255,255,0.2)");
 				path="${loginUser.name}";
-				getProjectCount();
+				if(pageCheck=="projectListView"){
+					getProjectCount();
+				}
 				var $folder,$p,$ul,$li,$arrowimg,$folderimg,$span,depth,folderName;
 				var lv=1;
 				var pathList=new Array();
@@ -92,7 +94,9 @@
 					begin=0;
 					lim=16;
 					if(folder.siblings("input:hidden").val()==0){
-						getProjectCount();
+						if(pageCheck=="projectListView"){
+							getProjectCount();
+						}
 						var prevlv=lv;
 						lv = folder.parent().children("span").attr("class");
 						lv=Number(lv.substring(5));

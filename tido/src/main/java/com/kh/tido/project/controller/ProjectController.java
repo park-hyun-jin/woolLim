@@ -104,7 +104,7 @@ public class ProjectController {
 	public String createFolder(String path,HttpServletRequest request) {
 		System.out.println(path);
 		File result = pService.createFolder(path,request);
-		return result+"";
+		return result.toString();
 	}
 	
 	

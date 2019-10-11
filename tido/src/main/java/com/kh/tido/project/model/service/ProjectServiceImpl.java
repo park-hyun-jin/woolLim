@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kh.tido.member.model.vo.Member;
 import com.kh.tido.project.model.dao.ProjectDao;
 import com.kh.tido.project.model.vo.Project;
 import com.kh.tido.project.model.vo.ProjectFile;
@@ -138,16 +137,13 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public File createFolder(String projectPath,HttpServletRequest request) {
 		String root = request.getSession().getServletContext().getRealPath("resources");
-		String savePath = root + "\\project\\" + projectPath.split("\\")[0];
+		String savePath = root + "\\project\\" + projectPath;
+		// 저장 폴더 선택
 		File folder = new File(savePath);
+		// 만약 해당 폴더가 없는 경우
 		if (!folder.exists()) {
 			System.out.println(folder);
-			folder.mkdir();
-		}
-		savePath = root + "\\project\\" + projectPath;
-		folder = new File(savePath);
-		if (!folder.exists()) {
-			folder.mkdir(); 
+			folder.mkdir(); // 폴더 생성
 		}
 		return folder;
 	}
