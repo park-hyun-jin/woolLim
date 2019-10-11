@@ -34,7 +34,7 @@ var pageCheck="projectListView";
 }
 </style>
 </head>
-<body>
+	<body>
 		<jsp:include page="../common/menubar.jsp"/>
 		
 		

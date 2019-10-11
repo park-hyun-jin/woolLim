@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 import com.kh.tido.board.model.vo.Board;
 import com.kh.tido.board.model.vo.PageInfo;
 import com.kh.tido.board.model.vo.Reply;
+import com.kh.tido.board.model.vo.Search;
+import com.kh.tido.notice.model.vo.Notice;
 
 @Repository("bDao")
 public class BoardDao {
@@ -53,5 +55,9 @@ public class BoardDao {
 
 	public ArrayList<Reply> selectReply(int cBoardNo) {
 		return (ArrayList)sqlSession.selectList("boardMapper.selectReply", cBoardNo);
+	}
+
+	public ArrayList<Board> searchList(Search search) {
+		return (ArrayList)sqlSession.selectList("boardMapper.searchList", search);
 	}
 }

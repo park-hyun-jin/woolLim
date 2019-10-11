@@ -81,7 +81,11 @@
 	            <div >내 프로젝트</div>
 	         </div>
 	      </div>
-	      <div class="area area3"></div>
+	      <div class="area area3" onclick="">
+	      	<div>
+	      		<img src="${contextPath }/"
+	      	</div>
+	      </div>
 	   </div>
    </section>
    <jsp:include page="../common/footer.jsp"/>

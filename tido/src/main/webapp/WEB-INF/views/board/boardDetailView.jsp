@@ -51,32 +51,32 @@ table.type09 tbody td  {
 
 	<div class="row">
 		<div class="col-md-2"></div>
-		<div class="col-md-8" >
+		<div class="col-md-8" style="border-radius: 5%;">
 			<h2 class="text-center" style="color: white; height: 100px; margin: auto; line-height: 320%;">게시글 상세</h2>
 			<form action="BoardReWriteProc.jsp" method="post">
 				<div class="table table-responsive">
-					<table class="table table-striped" style="color: white">
+					<table class="table table-striped" style="color: white;">
 						<tr align="center" valign="middle">
 							<th colspan="2">${board.cBoardNo }번 글  상세보기</th>
 						</tr>
 						<tr>
-							<td>제목</td>
+							<td style="width: 15%; color: #dcdcdc;">제목</td>
 							<td>${board.cBoardTitle }</td>
 						</tr>
 						<tr>
-							<td>작성자</td>
+							<td style="color: #dcdcdc;">작성자</td>
 							<td>${board.memberName }</td>
 						</tr>
 						<tr>
-							<td>작성일</td>
+							<td style="color: #dcdcdc;">작성일</td>
 							<td>${board.cBoardCreateDate }</td>
 						</tr>
 						<tr>
-							<td>글내용</td>
+							<td style="color: #dcdcdc;">글내용</td>
 							<td style="height: 370px;">${board.cBoardContent }</td>
 						</tr>
 						<tr>
-							<td>사진</td>
+							<td style="color: #dcdcdc;">첨부파일</td>
 							<td>
 								<c:if test="${ !empty board.cBoardOriFilename }">
 									<a href="${ contextPath }/resources/buploadFiles/${ board.cBoardChaFilename }" download>${ board.cBoardOriFilename }</a>
@@ -97,10 +97,10 @@ table.type09 tbody td  {
 								</c:url>
 
 								<c:if test="${loginUser.id eq board.memberId }">
-									<a href="${bupView }">수정하기</a>&nbsp;
-									<a href="${bdelete }">삭제하기</a>&nbsp;
+									<a href="${bupView }" class="btn btn-outline-primary waves-effect">수정하기</a>&nbsp;
+									<a href="${bdelete }" class="btn btn-outline-danger waves-effect">삭제하기</a>&nbsp;
 								</c:if>
-								<a href="${blist }">목록으로</a>
+								<a href="${blist }" class="btn btn-outline-warning waves-effect">목록으로</a>
 							</td>
 						</tr>
 					</table>
@@ -136,7 +136,7 @@ table.type09 tbody td  {
 	<!-- 댓글 등록  -->
 	<table align="center" width="65%;" cellspacing="0">
 		<tr>
-			<td><textarea cols="157" rows="3" id="cbReplyContent"></textarea></td>
+			<td ><textarea cols="157" rows="3" id="cbReplyContent"></textarea></td>
 			<td>
 				<button id="rSubmit" class="btn btn-primary" style="background-color: #4B0082; border-radius: 10%">등록하기</button>
 			</td>
