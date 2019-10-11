@@ -28,11 +28,11 @@
             <table class="table table-striped table-sm" id="myTable">
               <thead>
                 <tr>
-                  <th>#</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                  <th>Header</th>
+                  <th>아이디</th>
+                  <th>닉네임</th>
+                  <th>신고횟수</th>
+                  <th>제제횟수</th>
+                  <th>가입일</th>
                 </tr>
               </thead>
               <tbody>
