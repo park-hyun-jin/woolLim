@@ -10,10 +10,13 @@
 <label for="dVolume"><img  src="${contextPath}/resources/images/unmute.png"/></label>
 <input type="range" name="volume" class="drum" min="0" max="10">
 </div>
+
+<div style="white-space:nowrap; overflow-y:hidden; width:80%;">
+<div class="padBox" style="width: 1280">
 <c:forEach var="dList" items="${drum}">
 	<div class="sound ${dList } drum">
 		<div>${dList }</div>
-		<c:forEach var="dlength" varStatus="i" begin="1" end="32" step="1">
+		<c:forEach var="dlength" varStatus="i" begin="1" end="64" step="1">
 			<div class='pad ${dList} length${dlength}'>
 				<input type='hidden' value="">
 			</div>
@@ -21,5 +24,5 @@
 		<!--  -->
 	</div>
 </c:forEach>
-
-
+</div>
+</div>
