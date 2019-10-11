@@ -16,6 +16,7 @@
             width: 1200px;
             height: 1000px;
             margin: auto;
+            color: white;
         }
 
         .joinForm {

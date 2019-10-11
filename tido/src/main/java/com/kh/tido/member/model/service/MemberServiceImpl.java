@@ -79,8 +79,10 @@ public class MemberServiceImpl implements MemberService {
 	public int insertMember(Member mem, MultipartFile uploadFile, HttpServletRequest request) {
 		
  		String encPwd = bCryptPasswordEncoder.encode(mem.getPwd());
+ 		String root = request.getSession().getServletContext().getRealPath("resources");
  		String savePath = "";
  		String filePath = "";
+ 		String projectFilePath = "";
 	
  		mem.setPwd(encPwd);
  		
@@ -92,7 +94,6 @@ public class MemberServiceImpl implements MemberService {
  			
 	 		// 파일 저장 경로 설정
  			// 각 멤버마다 이름이 멤버 아이디인 폴더 안에 원본파일을 가입하는 회원의 닉네임을 붙인 이름으로 저장한다
-			String root = request.getSession().getServletContext().getRealPath("resources");
 			savePath = root + "\\muploadFiles" + "\\" + mem.getId();
 			filePath = savePath + "\\" + fileName;
 			
@@ -101,7 +102,16 @@ public class MemberServiceImpl implements MemberService {
  		
  		int result = mDao.insertMember(mem);
  		
- 		if(!fileName.equals("") && result == 1) {
+ 		if(result > 1) {
+ 			projectFilePath = root + "\\project" + "\\" + mem.getName();
+ 			File folder = new File(projectFilePath);
+ 			
+ 			if(!folder.exists()) {
+ 				folder.mkdir();
+ 			}
+ 		}
+ 		
+ 		if(fileName != null && result == 1) {
  			result = saveFile(savePath, filePath, uploadFile);
  		}
  		
@@ -111,32 +121,32 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	// 파일 저장 메소드
-		public int saveFile(String savePath, String filePath, MultipartFile uploadFile) {
-			
-			// 저장 폴더 선택
-			File folder = new File(savePath);
-			
-			// 만약 해당 폴더가 없는 경우
-			if(!folder.exists()) {
-				folder.mkdir(); // 폴더 생성
-			}
-			
-			// 파일 저장 성공 여부( 성공 1, 실패 0	)
-			int result = 0;
-			
-			try {
-				uploadFile.transferTo(new File(filePath));
-				// 업로드된 파일을 filePath에 지정된
-				// 경로 + 파일명으로 저장하겠다. 
-				// -> IOException 예외 처리 필요
-				result = 1;
-			}catch(Exception e) {
-				result = 2;
-				System.out.println("파일 전송 에러 : " + e.getMessage());
-			}
-			
-			return result;
+	public int saveFile(String savePath, String filePath, MultipartFile uploadFile) {
+		
+		// 저장 폴더 선택
+		File folder = new File(savePath);
+		
+		// 만약 해당 폴더가 없는 경우
+		if(!folder.exists()) {
+			folder.mkdir(); // 폴더 생성
 		}
+		
+		// 파일 저장 성공 여부( 성공 1, 실패 0	)
+		int result = 0;
+		
+		try {
+			uploadFile.transferTo(new File(filePath));
+			// 업로드된 파일을 filePath에 지정된
+			// 경로 + 파일명으로 저장하겠다. 
+			// -> IOException 예외 처리 필요
+			result = 1;
+		}catch(Exception e) {
+			result = 2;
+			System.out.println("파일 전송 에러 : " + e.getMessage());
+		}
+		
+		return result;
+	}
 
 	@Override
 	public int selectId(String memberId) {
