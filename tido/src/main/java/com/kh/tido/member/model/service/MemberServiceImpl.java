@@ -36,8 +36,17 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public Member loginMember(Member mem) {
 		
-		
 		Member loginUser = mDao.selectMember(mem);
+		
+		if(loginUser.getId().equals("admin@admin.com")) {
+			if(!mem.getPwd().equals("1234")) {
+				loginUser = null;
+			}
+		}else {
+			if(!bCryptPasswordEncoder.matches(mem.getPwd(), loginUser.getPwd())) {
+				loginUser = null;
+			}
+		}
 		
 		return loginUser;
 	}
@@ -75,7 +84,7 @@ public class MemberServiceImpl implements MemberService {
 	
  		mem.setPwd(encPwd);
  		
- 		String fileName = "";
+ 		String fileName = null;
  		
  		// 업로드 된 파일이 있을 경우 멤버 프로필 사진 경로 저장
  		if(!uploadFile.getOriginalFilename().equals("")) {
@@ -87,7 +96,7 @@ public class MemberServiceImpl implements MemberService {
 			savePath = root + "\\muploadFiles" + "\\" + mem.getId();
 			filePath = savePath + "\\" + fileName;
 			
- 			mem.setImagePath(filePath);
+ 			mem.setImagePath(fileName);
  		}
  		
  		int result = mDao.insertMember(mem);
@@ -95,6 +104,8 @@ public class MemberServiceImpl implements MemberService {
  		if(!fileName.equals("") && result == 1) {
  			result = saveFile(savePath, filePath, uploadFile);
  		}
+ 		
+ 		int authCheck = mDao.deleteMemberAuth(mem.getId());
 		
 		return result;
 	}
