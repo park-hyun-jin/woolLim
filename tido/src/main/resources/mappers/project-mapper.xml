@@ -33,7 +33,15 @@
 		      PROJECT_PATH = #{projectPath} AND
 		      PROJECT_STATUS ='Y'
 		ORDER BY PROJECT_NO DESC
-		
 	</select>
+	
+	<select id="getProjectCount" parameterType="Project" resultType="_int">
+		SELECT COUNT(*)
+		FROM PROJECT
+			WHERE PROJECT_WRITER = #{projectWriter} AND
+		      PROJECT_PATH = #{projectPath} AND
+		      PROJECT_STATUS ='Y'
+	</select>
+	
 	
 </mapper>

@@ -12,7 +12,7 @@
 var pageCheck="projectListView";
 </script>
 <style>
-.createFolderBtn{
+.createFolderPop{
 	width:300px;
 	height: 120px;
 	position:absolute;
@@ -24,12 +24,12 @@ var pageCheck="projectListView";
 	display:none;
 	border-radius: 10px;
 }
-.createFolderBtn div{
+.createFolderPop div{
 	text-align: center;
 	color:white;
 	padding:5px;
 }
-.createFolderBtn div input{
+.createFolderPop div input{
 	width:90%;
 }
 </style>
@@ -38,7 +38,7 @@ var pageCheck="projectListView";
 		<jsp:include page="../common/menubar.jsp"/>
 		
 		
-		<div id="createFolderBtn" class="createFolderBtn">
+		<div id="createFolderPop" class="createFolderPop">
 			<div>
 				<h6 >새 폴더 추가</h6>
 			</div>
@@ -62,18 +62,21 @@ var pageCheck="projectListView";
 			</span>
 			<jsp:include page="folderSelectView.jsp"/>
 		</aside>
-		<section>
+		<section id="projectWrapper">
 			<h3  id="folderPath" class="folderPath">내 라이브러리</h3>
 			<div id="projectArea" class="projectArea">
 			</div>
 		</section>
 		<jsp:include page="../common/footer.jsp"/>
 		<script>
+			var check=true;
+		
 			$(function(){
+				getProjectCount();
 				selectProjectList(path);
 				
 				$("#folderAddBtn").on("click",function(){
-					$("#createFolderBtn").css("display","block");
+					$("#createFolderPop").css("display","block");
 				});
 				
 				$("#addOk").on("click",function(){
@@ -84,53 +87,110 @@ var pageCheck="projectListView";
 							data:{path:path+"\\"+folderName},
 							type:"post",
 							success:function(result){
-								
+								console.log(result);
 							}
 						});
-						
+						$("#createFolderPop").css("display","none");
 					}else{
 						$("#newFolderName").css({"border":"2px solid red"});
 					}	
 				});
+				$("#addCancel").on("click",function(){
+					$("#createFolderPop").css("display","none");
+				});
+				
+			
+				$("#projectArea").mouseover(function(){ 
+					$("#projectArea").scroll(function(){
+						 var scrollT = $(this).scrollTop();
+     					 var scrollH = $(this).height();
+        				 var contentH = $('#projectArea').height(); 
+        			
+       					 if(scrollT + scrollH +1 >= contentH) {
+							if(check){
+							console.log("Asd");
+							setTimeout(function(){
+								selectProjectList(path);
+							},1500);
+								check=false;
+							}
+						}
+					});
+			 	});
+				
 				
 			});
-			function selectProjectList(path){
+			  
+		
+			function selectProjectList(){
+				
+				
+				console.log("begin:"+begin);
+				console.log("lim:"+lim);
 				$.ajax({
 					url:"selectPjt.kh",
 					type:"post",
-					data:{projectPath:path},
+					data:{projectPath:path,begin:begin,lim:lim},
 					dataType:"json",
 					success:function(projectList){
 						var replacedPath=path.replace("${loginUser.name}","내 라이브러리");
 						replacedPath=replacedPath.replace("\\"," > ");
 						$(".folderPath").text(replacedPath) ;
-						$("#projectArea").text("");
+				
 						if(projectList.length!=0){
 							for(var i in projectList){
 								var $div = $("<div class='project'>");
 								var $img=$("<img>").attr({"src":""});
 								var $path = $("<input type='hidden' value="+projectList[i].pNo+">");
 								var $info= $("<div>");
-							 	$info.append(projectList[i].projectTitle+" ");
-							 	$info.append(projectList[i].pCreateDate+"<br>");
+							 	$info.append(projectList[i].projectTitle+"<br>");
+							 	$info.append(projectList[i].pCreateDate);
 							 	$div.append($img);
 							 	$div.append($info);
 							 	$div.append($path);
 								openProject($div);
 								$("#projectArea").append($div);
+							
 							}
+							begin=begin+16;
+							lim=lim+16;
+							if(lim>=projectCount){
+								lim=projectCount;
+								
+							} 
 						}else{
 							$("#projectArea").text("프로젝트가 없습니다");
+						}
+
+						if(begin<=projectCount){
+							check=true;
 						}
 					}
 				});
 			}
+			
+			
+			
 			function openProject(project){
 				project.on("click",function(){
 					var pNo=Number($(this).children("input:hidden").val());
 					location.href="openPjt.kh?pNo="+pNo;
 				});
 			}
+			
+			function getProjectCount(){
+				$.ajax({
+					url:"getPjtCount.kh",
+					data:{path:path},
+					type:"post",
+					success:function(count){
+						console.log("ASdasdasd");
+						projectCount=count;
+					}
+				});
+			}
+			
+			
 		</script>
 	
 </body>

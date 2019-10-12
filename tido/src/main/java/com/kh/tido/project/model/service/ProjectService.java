@@ -16,9 +16,11 @@ public interface ProjectService {
 
 	public abstract ArrayList<String> getDirectory(HttpServletRequest request,String projectWriter);
 
-	public abstract ArrayList<Project> selectProjectList(Project project,HttpServletRequest request);
+	public abstract ArrayList<Project> selectProjectList(Project project,HttpServletRequest request,int begin,int limit);
 
 	public abstract File createFolder(String path,HttpServletRequest request);
+
+	public abstract int getProjectCount(Project project, HttpServletRequest request);
 	
 	
 	
