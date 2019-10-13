@@ -28,7 +28,8 @@ public class ProjectServiceImpl implements ProjectService {
 	ProjectFile projectFile;
 
 	@Override
-	public int saveProject(ProjectFile projectFile,String projectTitle,String projectPath, HttpServletRequest request, String projectWriter) {
+	public int saveProject(ProjectFile projectFile,String projectTitle,String projectPath, 
+			HttpServletRequest request, String projectWriter,String projectImagePath) {
 
 		String fileName = createFile(projectFile, request, projectPath);
 
@@ -37,6 +38,7 @@ public class ProjectServiceImpl implements ProjectService {
 			project.setProjectPath(projectPath);
 			project.setProjectFileName(fileName);
 			project.setProjectTitle(projectTitle);
+			project.setProjectImagePath(projectImagePath);
 			int result = pDao.saveProject(project);
 			return result;
 		}
@@ -48,7 +50,7 @@ public class ProjectServiceImpl implements ProjectService {
 		Project project=pDao.openProject(pNo);
 		String filePath = request.getSession().getServletContext().getRealPath("resources\\project") + 
 				"/" + project.getProjectPath()+"/"+project.getProjectFileName();
-
+		projectFile.setProjectTitle(project.getProjectTitle());
 		try {
 			Properties prop = new Properties();
 			prop.load(new FileReader(filePath));
@@ -152,6 +154,16 @@ public class ProjectServiceImpl implements ProjectService {
 	public int getProjectCount(Project project, HttpServletRequest request) {
 		
 		return pDao.getProjectCount(project);
+	}
+
+	@Override
+	public int updateProjectTitle(Project project) {
+		return pDao.updateProjectTitle(project);
+	}
+
+	@Override
+	public int deleteProject(int pNo) {
+		return pDao.deleteProject(pNo);
 	}
 
 }

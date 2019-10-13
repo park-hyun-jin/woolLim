@@ -35,10 +35,10 @@ public class ProjectController {
 	
 	@ResponseBody
 	@RequestMapping(value="savePjt.kh",produces="application/json; charset=utf-8 ")
-	public String saveProject(ProjectFile project,String projectTitle,String projectPath,HttpServletRequest request) {
-		System.out.println(projectPath);
+	public String saveProject(ProjectFile project,String projectTitle,String projectPath,
+							  String projectImagePath,HttpServletRequest request) {
 		String projectWriter=((Member)request.getSession().getAttribute("loginUser")).getId();
-		int result= pService.saveProject(project,projectTitle,projectPath,request,projectWriter);
+		int result= pService.saveProject(project,projectTitle,projectPath,request,projectWriter,projectImagePath);
 		return result+"";
 	
 	}
@@ -55,9 +55,6 @@ public class ProjectController {
 	@ResponseBody
 	@RequestMapping(value="selectPjt.kh",produces="application/json; charset=utf-8 ")
 	public String selectProjectList(String projectPath,HttpServletRequest request,int begin,int lim) {
-		System.out.println(begin);
-		System.out.println(lim);
-		System.out.println(projectPath);
 		String projectWriter = ((Member)request.getSession().getAttribute("loginUser")).getId();
 		Project project = new Project();
 		project.setProjectWriter(projectWriter);
@@ -94,7 +91,6 @@ public class ProjectController {
 	@ResponseBody
 	@RequestMapping(value="getFolder.kh" ,produces="application/json; charset=utf-8 ")
 	public String getFolder(HttpServletRequest request,String path) {
-		System.out.println(path);
 		ArrayList<String> pathList = pService.getDirectory(request,path);
 		return new Gson().toJson(pathList);
 	}
@@ -102,10 +98,23 @@ public class ProjectController {
 	@ResponseBody
 	@RequestMapping(value="addFolder.kh" ,produces="application/json; charset=utf-8 ")
 	public String createFolder(String path,HttpServletRequest request) {
-		System.out.println(path);
 		File result = pService.createFolder(path,request);
 		return result.toString();
 	}
+	@ResponseBody
+	@RequestMapping(value="updatePjtName.kh" ,produces="application/json; charset=utf-8 ")
+	public String updateProjectTitle(Project project) {
+		int result = pService.updateProjectTitle(project);
+		return result+"";
+	}
+	@ResponseBody
+	@RequestMapping(value="deletePjt.kh" ,produces="application/json; charset=utf-8 ")
+	public String deleteProject(int pNo) {
+		int result = pService.deleteProject(pNo);
+		return result+"";
+	}
+	
+	
 	
 	
 	

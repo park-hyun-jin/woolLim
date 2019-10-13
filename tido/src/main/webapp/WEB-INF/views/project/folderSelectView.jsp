@@ -66,8 +66,9 @@
 	<script>
 	var path;
 	var projectCount=0;
+	var selectCount=12;
 	var begin =0;
-	var lim =16;
+	var lim =selectCount;
 			$(function(){
 				
 				$(".depth1 li p").css("background","rgba(255,255,255,0.2)");
@@ -90,10 +91,13 @@
 				});
 			
 				function clickFolder(folder){
-					$("#projectArea").html("");
+					$("#projectArea").children("p").remove();
 					begin=0;
-					lim=16;
+					lim=selectCount;
+					$("#projectArea").html("");
+					$("#loadingMessage").show();
 					if(folder.siblings("input:hidden").val()==0){
+						
 						if(pageCheck=="projectListView"){
 							getProjectCount();
 						}
