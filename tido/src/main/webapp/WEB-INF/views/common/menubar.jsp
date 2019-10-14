@@ -14,16 +14,23 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="${contextPath }/resources/css/common/menubar-style.css">
+        
       
     </head>
-
+	
     <body>
+    	<c:if test="${!empty msg}">
+			<script>alert("${msg}")</script>
+			<c:remove var="msg" scope="session"/>
+		</c:if>
+    
     	<c:url var="goMain" value="main.kh"></c:url>
     	<c:url var="goProject" value="compPjtView.kh"></c:url>
     	<c:url var="goBoard" value="bList.kh"></c:url>
-    	<c:url var="goNotice" value="nList.kh"></c:url>
+    	<c:url var="goNotice" value="nlist.kh"></c:url>
     	<c:url var="goQna" value="Qna.kh"></c:url>
     	<c:url var="goLoginPage" value="loginPage.kh"></c:url>
+    	<c:url var="goMyPageInfo" value="myPageInfo.kh"></c:url>
     	
         <nav class="header">
             <ul class="nav_ul">
@@ -39,9 +46,13 @@
 	                	</c:when>
 	                	<c:otherwise>
 	           				<div class="userProfile">
-		           				<img id="user_after" src="${contextPath }/resources/images/user.png">
+		           				<a href="${goMyPageInfo}">
+		           					<img id="user_after" src="${contextPath}/resources/muploadFiles/${loginUser.id}/${loginUser.imagePath}"
+		           					onerror="this.src='${contextPath}/resources/images/user_after.png'">
+		           				</a>
 		           			</div>
-		           			<div class="nickname">${loginUser.name } 님</div>
+		           			<div class="nickname">${loginUser.name} 님</div>
+		           			<a href="logout.kh">로그아웃</a>
 	                	</c:otherwise>
                 	</c:choose>
                 </li>

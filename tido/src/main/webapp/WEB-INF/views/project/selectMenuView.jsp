@@ -83,7 +83,7 @@
 	      </div>
 	      <div class="area area3" onclick="">
 	      	<div>
-	      		<img src="${contextPath }/"
+	      		<img src="${contextPath }/">
 	      	</div>
 	      </div>
 	   </div>

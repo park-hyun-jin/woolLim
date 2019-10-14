@@ -19,13 +19,33 @@
       <property name="defaultAutoCommit" value="false"/>
    </bean>
    
-   <bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
+
+   <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	
+	<tx:annotation-driven/>	
+	
+	<tx:advice id="txAdvice">
+		<tx:attributes>
+			<tx:method name="select*" read-only="true" rollback-for="Exception"/>
+			<tx:method name="insert*" rollback-for="Exception"/>
+			<tx:method name="update*" rollback-for="Exception"/>
+			<tx:method name="delete*" rollback-for="Exception"/>
+		</tx:attributes>
+	</tx:advice>
+   
+   <bean id="sqlSession" 
+         class="org.mybatis.spring.SqlSessionFactoryBean">
       <property name="configLocation" 
          value="classpath:mybatis-config.xml"/>  
       <property name="dataSource" ref="dataSource"/> 
    </bean>
    
-   <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+   
+   
+   <bean id="sqlSessionTemplate"
+        class="org.mybatis.spring.SqlSessionTemplate">
       <constructor-arg ref="sqlSession"/>
    </bean>
    
@@ -53,4 +73,5 @@
 			</props>
 		</property>
 	</bean>
+
 </beans>

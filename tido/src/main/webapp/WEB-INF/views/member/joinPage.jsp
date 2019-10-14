@@ -16,6 +16,7 @@
             width: 1200px;
             height: 1000px;
             margin: auto;
+            color: white;
         }
 
         .joinForm {
@@ -73,7 +74,7 @@
             cursor: pointer;
         }
 
-        #inputImg {
+        #uploadFile {
             width: min-content;
             margin-bottom: 5%;
             margin-left: 30%;
@@ -101,30 +102,43 @@
 
     </style>
     <body>
+    	<jsp:include page="../common/menubar.jsp"></jsp:include>
+    	
         <div class="titleArea">
             <h1>회원가입</h1>
         </div>
-        <form action="minsert.kh" method="POST" class="joinForm">
+        <form action="minsert.kh" method="POST" class="joinForm" enctype="Multipart/form-data">
             <div id="profileArea">
                 <img id="profileImg">
                 <h5>프로필 사진</h5>
             </div>
-            <input type="file" id="inputImg" name="inputImg" multiple="multiple" onchange="loadImg(this,1);">
+            <input type="file" id="uploadFile" name="uploadFile" multiple="multiple" onchange="loadImg(this,1);">
             <table class="insertTable">
                     <tr>
                         <td>
                             <label for="inputEmail" >이메일 *</label>
                         </td>
                         <td>
-                        	<c:if test="${!empty memberId && result == 1}">
+                        	<c:if test="${empty emailMsg}">
                         		<input type="email" class="insertInput" id="inputEmail" placeholder="Email" name="id" value="${memberId}" readonly required>
                         	</c:if>
-                        	<c:if test="${empty memberId}">
+                        	<c:if test="${!empty emailMsg}">
                             	<input type="email" class="insertInput" id="inputEmail" placeholder="Email" name="id" readonly required>
+                            	<script>alert("${emailMsg}")</script>
                         	</c:if>
                         </td>
                         <td>
-                            <h6 id="emailText">이메일이 인증되었습니다.</h6>
+                        	<c:choose>
+                        		<c:when test="${empty emailMsg && !empty memberId}">
+                        			<h6 id="emailText" style="color:green">이메일이 인증되었습니다.</h6>
+                        		</c:when>
+                        		<c:when test="${!empty emailMsg && empty memberId}">
+                        			<h6 id="emailText" style="color:red">이메일이 인증되지 않았습니다. 다시 인증해주세요</h6>
+                        		</c:when>
+                        		<c:otherwise>
+                        			<h6 id="emailText" style="color:red">이메일을 인증해주세요.</h6>
+                        		</c:otherwise>
+                        	</c:choose>
                         </td>
                     </tr>
                     <tr>
@@ -135,7 +149,7 @@
                             <input type="password" class="insertInput" id="inputPassword" placeholder="Password" name="pwd" required>
                         </td>
                         <td>
-                            <h6 id="pwdText">이메일이 인증되었습니다.</h6>
+                            <h6 id="pwdText"></h6>
                         </td>
                     </tr>
                     <tr>
@@ -143,10 +157,10 @@
                             <label for="inputPasswordConfirm">비밀번호 확인 *</label>
                         </td>
                         <td>
-                            <input type="password" class="insertInput" id="inputPasswordConfirm" placeholder="Password Confirm" name="pwd" required>
+                            <input type="password" class="insertInput" id="inputPasswordConfirm" placeholder="Password Confirm" required>
                         </td>
                         <td>
-                            <h6 id="pwdConfirmText">이메일이 인증되었습니다.</h6>
+                            <h6 id="pwdConfirmText"></h6>
                         </td>
                     </tr>
                     <tr>
@@ -157,7 +171,7 @@
                             <input type="text" class="insertInput" id="inputNickName" placeholder="nickname" name="name" required>
                         </td>
                         <td>
-                            <h6 id="nickNameText">이메일이 인증되었습니다.</h6>
+                            <h6 id="nickNameText"></h6>
                         </td>
                     </tr>
                 </table>
@@ -165,7 +179,7 @@
             <div>
                 <ul class="join_ul">
                     <li><button type="submit" class="btn btn-success" onclick="return insertBtn();">가입하기</button></li>
-                    <li><button type="button" class="btn btn-secondary">취소하기</button></a></li>
+                    <li><button type="button" class="btn btn-secondary" onclick="history.back();">취소하기</button></a></li>
                 </ul>
             </div>
         </form>
@@ -178,34 +192,17 @@
 		var nickNameCheck = false;
 		
 		$(function(){
-			
 	        
 			// 업로드 버튼 숨김
-			$("#inputImg").hide();
+			$("#uploadFile").hide();
 			
 			// 이미지 영역 클릭 시 파일 업로드 버튼 동작
 			
 			$("#profileArea").click(function(){
-				$("#inputImg").click();
+				$("#uploadFile").click();
 			});
 	        
-			function loadImg(value, num) {
-				var reader = new FileReader();
-				
-				// reader.onload : reader 객체가 생성된 경우 이벤트 발생
-				reader.onload = function(e){
-					$("#profileImg").attr("src", e.target.result); // e.target -> this랑 같은것(위에 있는 input:type:File), 해당 파일의 이름이 나온다
-				}
-		
-		           console.log(value.files[0].name);
-				
-				// 보안처리(Data URL)
-				// RFC 2397 정의되어 있는 개발 규약
-				// ex) jspProject/Webcontent/uploadImages~~~
-				// 파일의 직접적인 경로 노출 방지
-				reader.readAsDataURL(value.files[0]);
-				// ex) data:img/jpg:base64/
-			}
+			
 			
 			// 패스워드가 일치하는지 검사
 			$("#inputPassword").on("input", function(){
@@ -214,28 +211,48 @@
 					$("#pwdText").text("사용가능한 비밀번호 입니다.").css("color", "green");
 					pwdCheck = true;
 				}else {
-					$("#pwdText").text("사용 불가능한 비밀번호 입니다.").css("color", "red");
+					$("#pwdText").text("영문,숫자 포함 최소 6글자, 최대 18글자만 가능합니다.").css("color", "red");
 					pwdCheck = false;
 				}
 			});
 			
 			// 패스워드 확인 검사
-			$("inputPasswordConfirm").on("input", function(){
-				var pwdVal = $("inputPassword").val();
+			$("#inputPasswordConfirm").on("input", function(){
+				var pwdVal = $("#inputPassword").val();
 				if($(this).val() == pwdVal) {
-					$("pwdConfirmText").text("비밀번호가 일치합니다.").css("color", "green");
+					$("#pwdConfirmText").text("비밀번호가 일치합니다.").css("color", "green");
 					pwdConfirmCheck = true;
 				}else {
-					$("pwdConfirmText").text("비밀번호가 일치하지 않습니다.").css("color", "red");
+					$("#pwdConfirmText").text("비밀번호가 일치하지 않습니다.").css("color", "red");
 					pwdConfirmCheck = false;
 				}
 			});
 			
 			// 닉네임 검사
-			$("inputNickName").on("input", function(){
+			$("#inputNickName").on("input", function(){
 				var nameVal = $(this).val();
+				var regExp = /^[A-z0-9가-힣]{2,10}$/;
 				$.ajax({
-					url : ""
+					url : "nameCheck.kh",
+					type : "post",
+					data : { name : nameVal },
+					success : function(check) {
+						if(check == "fail") {
+							if(regExp.test(nameVal)) {
+								$("#nickNameText").text("사용 가능한 닉네임입니다.").css("color", "green");
+								nickNameCheck = true;
+							}else {
+								$("#nickNameText").text("한글,영문,숫자 포함 최소 2글자 최대 10글자만 가능합니다.").css("color", "red");
+								nickNameCheck = false;
+							}
+						}else {
+							$("#nickNameText").text("이미 사용중인 닉네임입니다.").css("color", "red");
+							nickNameCheck = false;
+						}
+					},
+					error : function(e) {
+						console.log("통신실패");
+					}
 				});
 			});
 			
@@ -251,29 +268,45 @@
 	        });
 		});
 		
+		function loadImg(value, num) {
+			var reader = new FileReader();
+			
+			// reader.onload : reader 객체가 생성된 경우 이벤트 발생
+			reader.onload = function(e){
+				$("#profileImg").attr("src", e.target.result); // e.target -> this랑 같은것(위에 있는 input:type:File), 해당 파일의 이름이 나온다
+			}
+	
+	           console.log(value.files[0].name);
+			
+			// 보안처리(Data URL)
+			// RFC 2397 정의되어 있는 개발 규약
+			// ex) jspProject/Webcontent/uploadImages~~~
+			// 파일의 직접적인 경로 노출 방지
+			reader.readAsDataURL(value.files[0]);
+			// ex) data:img/jpg:base64/
+		}
+		
+		
 		// 가입하기 눌렀을 때 처리
 		function insertBtn() {
-			var pwdVal = $("#inputPassword").val();
-	        var pwdConfirmVal = $("#inputPasswordConfirm").val();
+			var pwd = $("#inputPassword");
+	        var pwdConfirm = $("#inputPasswordConfirm");
+	        var nickName = $("#inputNickName");
 			
-            if(emailVal == "") {
-                alert("이메일을 인증해주세요");
-                return false;
-            }
-            
-            if(pwdVal != pwdConfirmVal) {
-            	alert("비밀번호가 일치하지 않습니다.")
-            	$("#inputpwdConfirm").focus();
-            	return false;
-            }
-            
-            if(nickName == "") {
-            	alert("닉네임을 입력해주세요")
-            	return false;
-            }
+	        if(pwdCheck == false) {
+	        	alert("비밀번호를 다시 입력해주세요");
+	        	pwd.focus();
+	        	return false;
+	        }else if(pwdConfirmCheck == false) {
+	        	alert("비밀번호 확인란을 확인해주세요");
+	        	pwdConfirm.focus();
+	        	return false;
+	        }else if(nickNameCheck == false) {
+	        	alert("닉네임을 확인해주세요.");
+	        	nickName.focus();
+	        	return false;
+	        }
         }
-		
-		
 		
 		</script>
     </body>
