@@ -17,7 +17,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link users" href="aManage.kh">
+                <a class="nav-link users" href="adminUserManage.kh">
                   <span data-feather="users"></span>
                   User Management
                 </a>

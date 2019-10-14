@@ -27,13 +27,32 @@
 	</select>
 	
 	<select id="selectProjectList" parameterType="Project" resultMap="projectResultSet">
-		SELECT PROJECT_NO,PROJECT_TITLE,PROJECT_CREATE_DATE
+		SELECT PROJECT_NO,PROJECT_TITLE,PROJECT_CREATE_DATE,PROJECT_IMAGE_PATH
 		FROM PROJECT
 		WHERE PROJECT_WRITER = #{projectWriter} AND
 		      PROJECT_PATH = #{projectPath} AND
 		      PROJECT_STATUS ='Y'
 		ORDER BY PROJECT_NO DESC
-		
 	</select>
+	
+	<select id="getProjectCount" parameterType="Project" resultType="_int">
+		SELECT COUNT(*)
+		FROM PROJECT
+			WHERE PROJECT_WRITER = #{projectWriter} AND
+		      PROJECT_PATH = #{projectPath} AND
+		      PROJECT_STATUS ='Y'
+	</select>
+	
+	<update id="updateProjectTitle" parameterType="Project" >
+		UPDATE PROJECT 
+		SET PROJECT_TITLE = #{projectTitle},
+		PROJECT_MODIFY_DATE =SYSDATE
+		WHERE PROJECT_NO = #{pNo}
+	</update>
+	<update id="deleteProject" parameterType="_int" >
+		UPDATE PROJECT 
+		SET PROJECT_STATUS = 'N'
+		WHERE PROJECT_NO = #{pNo}
+	</update>
 	
 </mapper>

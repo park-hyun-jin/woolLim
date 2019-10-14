@@ -7,7 +7,7 @@
 		<result property="rReportType" column="REPORT_TYPE"/> <!-- 신고물유형 -->
 		<result property="rReportContent" column="REPORT_CONTENT"/> <!-- 신고한 내용 -->
 		<result property="rReportDate" column="REPORT_DATE"/> <!-- 날짜 -->
-		<result property="rRrNo" column="RRNO"/> <!-- -->
+		<result property="rRrno" column="RRNO"/> <!-- -->
 		<result property="rMemberId" column="MEMBER_ID"/> <!-- 이메일 -->
 
 	</resultMap>
@@ -22,6 +22,6 @@
 	VALUES(SEQ_RNO.NEXTVAL, #{rContentsNo},
 			#{rReportType},
 			#{rReportContent}, SYSDATE,
-			#{rRrNo}, #{rMemberId})
+			#{rRrno}, #{rMemberId})
 	</insert>
 	</mapper>

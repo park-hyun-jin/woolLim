@@ -15,7 +15,7 @@ public class ReportServiceImpl implements ReportService{
 
 	@Override
 	public int insertReport(Report report) {
-		report.setReportContent(report.getReportContent().replace("\n", "<br>"));
+		report.setrReportContent(report.getrReportContent().replace("\n", "<br>"));
 		return rDao.insertReport(report);
 	}
 
