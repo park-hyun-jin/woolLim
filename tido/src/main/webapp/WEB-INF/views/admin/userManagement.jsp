@@ -61,6 +61,10 @@
               </tbody>
             </table>
           </div>
+          <br>
+          <div align="right">
+          <button id="deleteBtn">유저상태N</button>
+          </div>
         </main>
       </div>
     </div>
@@ -76,19 +80,24 @@
 					
 				}
 				});
+			$(".chBox").on("change",function(){
+				if(!$(this).prop("checked")){
+					$("#th_checkAll").prop("checked",false);	
+				}
+			});
 				
 				$("#deleteBtn").on("click",function(){
 					var checkArray= new Array();
-					if(window.confirm("정말 삭제하시겠습니까?")){
+					if(window.confirm("정말 변경하시겠습니까?")){
 						$("input[name='chBox']:checked").each(function(){
 							checkArray.push($(this).val());
 						});
-						console.log(checkArray);
 						$.ajax({
-							url:"deleteBoard.kh",
+							url:"aDeleteMember.kh",
 							data:{checkArray:checkArray},
 							type:"post",
 							success:function(result){
+								location.reload();
 								console.log(result);
 							}
 							

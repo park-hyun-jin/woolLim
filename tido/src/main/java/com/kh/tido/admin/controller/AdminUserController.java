@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.tido.admin.model.service.AdminUserService;
@@ -43,5 +45,14 @@ public class AdminUserController {
 //		return mv;
 //	}
 //	
+	
+	
+	@ResponseBody
+	@RequestMapping("aDeleteMember.kh")
+	public String aDeleteMember(@RequestParam(value="checkArray[]") ArrayList<Integer> aDeleteMember) {
+		
+		int result = aService.deleteBoard(aDeleteMember);
+		return new Gson().toJson(result);
+	}
 	
 }
