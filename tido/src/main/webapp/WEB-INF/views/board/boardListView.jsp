@@ -190,14 +190,33 @@ tbody {
 						</c:url> 
 						<a href="${ after }" style="color: white;">[다음]</a>
 					</c:if>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+				</td>
+			</tr>
+		</tbody>
+	</table>
 		
-		 <script src="https://ajax.googlepis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	     <script type="text/javascript" src="${contextPath }/resources/js/board/bootstrap.js"></script>
-	     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	</body>
+	<div style="margin: 50px;"></div>
+		
+	<!-------------- 게시물 검색하기 --------------->
+	<div id="searchArea" align="center">
+		<form action="bSearch.kh" name="searchForm" method="get">
+			<select id="searchCondition" name="searchCondition" style="width: 100px; height: 40px; font-size: 12px;">
+				<option value="all" <c:if test="${search.searchCondition == 'all'}">selected</c:if> >전체</option>
+				<option value="writer" <c:if test="${search.searchCondition == 'writer'}">selected</c:if> >작성자</option>
+				<option value="title" <c:if test="${search.searchCondition == 'title'}">selected</c:if> >제목</option>
+				<option value="content" <c:if test="${search.searchCondition == 'content'}">selected</c:if> >내용</option>
+			</select>
+			<input type="search" name="searchValue" value="${search.searchValue}" style="width: 350px; height: 40px;">
+			&nbsp;&nbsp;&nbsp;
+			<button class="btn btn-light">검색</button><br><br>
+			<p style="color: white; font-size: 15px;">첨부파일 있는 게시물만</p>
+			<input type="checkbox" name="existFile" <c:if test="${!empty search.existFile }">checked</c:if> >			
+		</form>
+	</div>
+	<!-------------- 게시물 검색하기 --------------->
+	<script src="https://ajax.googlepis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script type="text/javascript" src="${contextPath }/resources/js/board/bootstrap.js"></script>
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+</body>
 </html>
 

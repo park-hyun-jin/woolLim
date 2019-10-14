@@ -52,6 +52,7 @@
 
     </style>
     <body>
+    	<jsp:include page="../common/menubar.jsp"></jsp:include>
         <div class="titleArea">
             <h1>로그인</h1>
         </div>
@@ -72,7 +73,7 @@
             <div>
                 <ul class="login_ul">
                     <li><button type="submit" class="btn btn-primary">로그인</button></li>
-                    <li><button type="button" class="btn btn-secondary" onclick="location.href='history.back()'">취소하기</button></a></li>
+                    <li><button type="button" class="btn btn-secondary" onclick="history.back();">취소하기</button></a></li>
                 </ul>
             </div>
         </form>
