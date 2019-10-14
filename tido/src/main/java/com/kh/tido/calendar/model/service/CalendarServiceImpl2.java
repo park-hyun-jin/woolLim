@@ -1,5 +1,9 @@
 package com.kh.tido.calendar.model.service;
 
+import java.util.ArrayList;
+
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,12 +35,20 @@ public class CalendarServiceImpl2 implements CalendarService2{
 	}
 
 
+	
+
+	@Override
+	public ArrayList<Calendar> loadCalendar() {
+		
+		
+		return cDao.loadCalendar();
+	}
+
+
 	@Override
 	public int UpdateCalendar(Calendar calendar) {
 		
-		int result = cDao.UpdateCalendar(calendar);
-		
-		return result;
+		return cDao.UpdateCalendar(calendar);
 	}
 
 

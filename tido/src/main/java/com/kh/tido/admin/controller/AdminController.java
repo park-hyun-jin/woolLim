@@ -16,6 +16,7 @@ import com.kh.tido.board.model.service.BoardService;
 import com.kh.tido.board.model.vo.Board;
 import com.kh.tido.board.model.vo.Search;
 import com.kh.tido.common.Pagination;
+import com.kh.tido.inquiry.model.vo.Inquiry;
 import com.kh.tido.notice.model.service.NoticeService;
 import com.kh.tido.notice.model.vo.Notice;
 
@@ -34,6 +35,12 @@ public class AdminController {
 	public String compProjectView() {
 		return "admin/adminDashboard";
 	}
+	
+	@RequestMapping("chat-ws.kh")
+	public String webSocket() {
+		return "web/chat-ws";
+	}
+	
 	
 	
 	// 게시판 관리 STATUS Y만
@@ -254,6 +261,120 @@ public class AdminController {
 		int result = aService.reviveNBoard(reviveList);
 		return new Gson().toJson(result);
 	}
+	
+	
+
+	// 문의사항 관리 STATUS Y만
+		@RequestMapping("iboardList.kh")
+		public ModelAndView iboardList(ModelAndView mv, Integer page) {
+			
+			int currentPage = page == null ? 1 : page;
+			
+			
+			ArrayList<Inquiry> list = aService.inquiryselectList(currentPage);
+			
+			System.out.println(list);
+			
+			if(list != null) {
+				
+				mv.addObject("list", list).addObject("pi", Pagination.getPageInfo()).setViewName("admin/adminIboard");
+			}else {
+				mv.addObject("msg", "게시글 목록 조회 실패").setViewName("common/errorPage");
+			}
+			
+			return mv;
+		}
+		
+	
+	  //// 게시판 관리 STATUS N만
+	 
+	  @RequestMapping("iboardListN.kh") 
+	  public ModelAndView iboardListN(ModelAndView mv, Integer page) {
+	  
+	  int currentPage = page == null ? 1 : page;
+	  
+	  
+	  ArrayList<Inquiry> list = aService.inquiryselectListN(currentPage);
+		
+		System.out.println(list);
+		
+		if(list != null) {
+			
+			mv.addObject("list", list).addObject("pi", Pagination.getPageInfo()).setViewName("admin/adminIboardN");
+		}else {
+			mv.addObject("msg", "게시글 목록 조회 실패").setViewName("common/errorPage");
+		}
+		
+		return mv;
+	}
+		
+		// 문의사항 관리 삭제,비삭제 게시글 모두 조회
+		@RequestMapping("iboardListAll.kh")
+		public ModelAndView iboardListAll(ModelAndView mv, Integer page) {
+			
+			int currentPage = page == null ? 1 : page;
+			
+			
+			ArrayList<Inquiry> list = aService.inquiryselectListAll(currentPage);
+			
+			System.out.println(list);
+			
+			if(list != null) {
+				
+				mv.addObject("list", list).addObject("pi", Pagination.getPageInfo()).setViewName("admin/adminIboardAll");
+			}else {
+				mv.addObject("msg", "게시글 목록 조회 실패").setViewName("common/errorPage");
+			}
+			
+			return mv;
+		}
+		
+		@RequestMapping("isearch.kh")
+		public String inquirySearch(Search search, Model model){
+			
+			System.out.println(search.getSearchCondition());
+			System.out.println(search.getSearchValue());
+			System.out.println(search.getExistFile());
+			// 체크 O : on
+			// 체크 X : null
+			
+			ArrayList<Inquiry> inquirySearchList 
+				= aService.inquirySearchList(search);
+			
+			for(Inquiry i : inquirySearchList) {
+				System.out.println(i);
+			}
+			
+			
+			model.addAttribute("list", inquirySearchList);
+			model.addAttribute("search", search);
+			return "admin/adminIboardAll";
+		}
+		
+		// 문의사항 체크박스 삭제
+		@ResponseBody
+		@RequestMapping("deleteIBoard.kh")
+		public String deleteIBoard(@RequestParam(value="checkArray[]") ArrayList<Integer> deleteList) {
+			
+			int result = aService.inquiryDeleteBoard(deleteList);
+			return new Gson().toJson(result);
+		}
+		
+		// 문의사항 체크박스 복구
+		@ResponseBody
+		@RequestMapping("reviveIBoard.kh")
+		public String reviveIBoard(@RequestParam(value="checkArray[]") ArrayList<Integer> reviveList) {
+			
+			int result = aService.reviveIBoard(reviveList);
+			return new Gson().toJson(result);
+		}
+		
+		
+		
+	
+	
+	
+	
 	
 	
 	

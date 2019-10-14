@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.tido.board.model.vo.Board;
 import com.kh.tido.board.model.vo.PageInfo;
 import com.kh.tido.board.model.vo.Search;
+import com.kh.tido.inquiry.model.vo.Inquiry;
 import com.kh.tido.notice.model.vo.Notice;
 
 
@@ -103,6 +104,49 @@ public class AdminDao {
 	public int reviveNBoard(Map cNo) {
 		return sqlSession.update("adminMapper.reviveNoticeAdmin",cNo);
 	}
+	
+	//Q&A 부분
+	
+	public int inquiryGetListCount() {
+		return sqlSession.selectOne("adminMapper.inquiryGetListCount");
+	}
+	
+
+	public ArrayList<Inquiry> inquiryselectList(PageInfo pi) {
+		int offset = (pi.getCurrentPage() -1 ) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		return (ArrayList)sqlSession.selectList("adminMapper.inquiryselectList", null, rowBounds);
+	}
+
+	public ArrayList<Inquiry> inquirySelectListAll(PageInfo pi) {
+		int offset = (pi.getCurrentPage() -1 ) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		return (ArrayList)sqlSession.selectList("adminMapper.inquirySelectListAll", null, rowBounds);
+	}
+
+	public ArrayList<Inquiry> inquirySelectListN(PageInfo pi) {
+		int offset = (pi.getCurrentPage() -1 ) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		return (ArrayList)sqlSession.selectList("adminMapper.inquirySelectListN", null, rowBounds);
+	}
+
+	public ArrayList<Inquiry> inquirySearchList(Search search) {
+		return (ArrayList)sqlSession
+				.selectList("adminMapper.inquirySearchList",search);
+	}
+
+	public int inquiryDeleteBoard(Map iNo) {
+		return sqlSession.update("adminMapper.inquiryDeleteBoard",iNo);
+	}
+
+	public int reviveIBoard(Map iNo) {
+		return sqlSession.update("adminMapper.reviveIBoard",iNo);
+	}
+
+
 	
 	
 }

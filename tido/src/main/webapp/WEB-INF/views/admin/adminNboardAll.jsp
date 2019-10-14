@@ -5,11 +5,86 @@
 <html>
 <head>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<style>
 
-<script src="/webapp/js/jquery.tablesorter.min.js"></script>
-<script src="/webapp/js/widget-scroller.js"></script>
+#tb {
+  position:relative;
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  position: relative;
+  top:20px;
+  
+ 
+}
+
+#tb td, #tb th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#tb tr:nth-child(even){background-color: #f2f2f2;}
+
+#tb tr:hover {background-color: #ddd;}
+
+#tb th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: teal;
+  color: white;
+}
+
+.button {
+  background-color: #ddd;
+  border: none;
+  color: black;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 16px;
+}
+
+#reviveBtn{
+	position: relative;
+	bottom: 400px;
+	left: 960px;
+}
+
+#deleteBtn{
+	position: relative;
+	bottom: 400px;
+	left: 980px;
+}
 
 
+.paging{
+	position: relative;
+	top: 25px;
+	left: 570px;
+}
+
+#searchArea{
+	position: relative;
+	top: 40px;
+	left: 10px;
+}
+#return{
+	position: relative;
+	top: 40px;
+	left: 30px;
+
+}
+
+
+
+
+</style>
 
 
 <meta charset="UTF-8">
@@ -36,8 +111,8 @@
 	<div class="my-4 w-100" id="myChart" width="900" height="380" >
 	
 	
-	<button onclick="location='nboardListN.kh'">삭제된 게시글</button>
-	<button onclick="location='nboardList.kh'">삭제 안 된 게시글</button>
+	<button class="button"  onclick="location='nboardListN.kh'">삭제된 게시글</button>
+	<button class="button"  onclick="location='nboardList.kh'">삭제 안 된 게시글</button>
 	
 	<!--  width="1000" -->
 	<table align="center" border="1" cellspacing="0" width="800" id="tb" class="tablesorter">
@@ -72,11 +147,11 @@
 			
 		</c:forEach>
 		
+		</table>
 		
-		
-		
+		<div class="paging">
 		<!-- 페이징 처리 -->
-		<tr align="center" height="20">
+		<tr align="center" height="40" id="paging">
 			<td colspan="6">
 			
 				<!-- [이전] -->
@@ -117,20 +192,21 @@
 			</td>
 			
 		</tr>
-	
-		</table>
+		</div>
+		
 		
    
 		
 		
 		<!-------------- 게시물 검색하기 --------------->
-	<div id="searchArea" align="center">
+		<div id="searchArea" align="center">
+	
 		<form action="nsearch.kh" name="searchForm" method="get">
 			
 			<select id="searchCondition" name="searchCondition">
 				<option value="all" <c:if test="${search.searchCondition == 'all'}">selected</c:if> >전체</option>
 				<option value="title" <c:if test="${search.searchCondition == 'title'}">selected</c:if> >제목</option>
-				<option value="content" <c:if test="${search.searchCondition == 'content'}">selected</c:if> >내용</option>
+				
 			</select>
 			
 			<input type="search" name="searchValue" value="${search.searchValue}">
@@ -142,17 +218,17 @@
 	</div>
 		
 	</div>
-	
+	<div id="return">
 	<p align="center">
 		<c:url var="home" value="admin.kh"/>
 		<a href="${ home }">시작 페이지로 이동</a> &nbsp;
-		<c:url var="blist" value="nboardList.kh"/>
+		<c:url var="blist" value="nboardListAll.kh"/>
 		<a href="${ blist }">목록 전체 보기</a>
 	</p>
 	<br><br><br><br><br><br><br><br><br><br><br><br>
-	<button id="reviveBtn">선택복구</button> 
-	<button id="deleteBtn">선택삭제</button> 
-	
+	<button class="button" id="reviveBtn">선택복구</button> 
+	<button class="button" id="deleteBtn">선택삭제</button> 
+	</div>
 
 
 	
@@ -200,11 +276,13 @@
 				if(window.confirm("정말 복구하시겠습니까?")){
 					$("input[name='chBox']:checked").each(function(){
 						checkArray.push($(this).val());
+						// text에어리어 값 다른거에다가 넣어서 
 					});
 					console.log(checkArray);
 					$.ajax({
 						url:"reviveNBoard.kh",
 						data:{checkArray:checkArray},
+						// 데이타에 text에어리어 값도 추가해서
 						type:"post",
 						success:function(result){
 							console.log(result);

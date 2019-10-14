@@ -1,22 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="calendarMapper">
+
 	<resultMap id="calendarResultSet" type="Calendar">
 		<id property="cId" column="CAL_NO"/> 
 		<result property="cTitle" column="CAL_TITLE"/> 
 		<result property="cUrl" column="CAL_URL"/> 
-		<result property="cDate" column="CAL_DATE"/> 
-		<result property="cStatus" column="CAL_STATUS"/> 
-		
+		<result property="cStartDate" column="CAL_STARTDATE"/> 
+		<result property="cEndDate" column="CAL_ENDDATE"/> 
+		<result property="cStatus" column="CAL_STATUS"/> 		
 	</resultMap>
- 	<insert id="InsertCalendar" parameterType="Calendar">
-	INSERT INTO CALENDAR VALUES(
-	SEQ_CAL_NO.NEXTVAL, 
-	#{cTitle},
-	#{cUrl},
-	#{cDate},
-	#{cStatus}
 	
+ 	<insert id="InsertCalendar" parameterType="Calendar">
+	INSERT INTO CALENDAR
+	VALUES(SEQ_CAL_NO.NEXTVAL, #{cTitle}, #{cUrl}, #{cStartDate}, #{cEndDate}, DEFAULT)
 	</insert>
 	
 	
@@ -29,10 +26,18 @@
 	UPDATE CALENDAR 
 	SET CAL_TITLE = #{cTitle}, 
 	CAL_URL = #{cUrl}, 
-	CAL_DATE = #{cDate}, 
-	CAL_STATUS = #{cStatus}, 
+	CAL_STARTDATE = #{cStartDate}, 
+	CAL_ENDDATE = #{cEndDate}, 
+	CAL_STATUS= DEFAULT
 	WHERE CAL_NO = #{cId}
 	</update>
+	
+	<select id="loadCalendar" resultMap="calendarResultSet" >
+	
+	SELECT * FROM 
+	CALENDAR
+	
+	</select>
 
 	
 	

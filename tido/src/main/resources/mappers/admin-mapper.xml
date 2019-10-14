@@ -26,6 +26,20 @@
 		<result property="cBoardOriFilename" column="CBOARD_ORIGIN_FILENAME" /> <!-- 기존 파일 이름 -->
 		<result property="cBoardChaFilename" column="CBOARD_CHANGE_FILENAME" /> <!-- 바뀐 파일 이름 -->
 	</resultMap>
+	
+	<resultMap id="inquiryResultSet" type="Inquiry">
+	<id property="iNo" column="INQUIRY_NO"/> <!-- 문의글 번호 -->
+		<result property="iInquiryTitle" column="INQUIRY_TITLE"/> <!-- 문의글 제목 -->
+		<result property="iInquiryContent" column="INQUIRY_CONTENT"/> <!-- 문의글 내용 -->
+		<result property="iInquiryDate" column="INQUIRY_DATE"/> <!-- 문의글 작성일 -->
+		<result property="iInquiryModifyDate" column="INQUIRY_MODIFY_DATE"/> <!-- 문의글 수정일 -->
+		<result property="iInquiryId" column="MEMBER_ID"/> <!-- 이메일 -->
+		<result property="iInquiryStatus" column="INQUIRY_STATUS"/> <!-- 문의글 상태 -->
+		<result property="iInquiryOriginFilename" column="INQUIRY_ORIGIN_FILENAME"/> <!-- 기존파일이름 -->
+		<result property="iInquiryChangeFilename" column="INQUIRY_CHANGE_FILENAME"/> <!-- 바뀐파일이름 -->
+		
+	</resultMap>
+	
 
 <select id="getListCount" resultType="_int">
 		SELECT COUNT(*)
@@ -95,13 +109,9 @@
 				<when test="searchCondition == 'writer'">
 					AND MEMBER_ID LIKE #{sv}
 				</when>
-				<when test="searchCondition == 'content'">
-					AND CBOARD_CONTENT LIKE #{sv}
-				</when>
 				<otherwise>
-					AND (MEMBER_ID LIKE #{sv}
-					OR CBOARD_TITLE LIKE #{sv}
-					OR CBOARD_CONTENT LIKE #{sv})
+					AND (CBOARD_TITLE LIKE #{sv}
+					OR MEMBER_ID LIKE #{sv})
 				</otherwise>
 			</choose>
 		</where>
@@ -148,13 +158,10 @@
 				<when test="searchCondition == 'title'">
 					AND NOTICE_TITLE LIKE #{sv}
 				</when>
-				<when test="searchCondition == 'content'">
-					AND NOTICE_CONTENT LIKE #{sv}
-				</when>
+				
 				<otherwise>
-					AND (MEMBER_ID LIKE #{sv}
-					OR NOTICE_TITLE LIKE #{sv}
-					OR NOTICE_CONTENT LIKE #{sv})
+					AND OR NOTICE_TITLE LIKE #{sv})
+					
 				</otherwise>
 			</choose>
 		</where>
@@ -183,7 +190,79 @@
 		
 	</update>
 	
+	<select id="inquiryGetListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM QNA
+		WHERE INQUIRY_STATUS = 'Y'
+	</select>
 	
+	
+	<select id="inquiryselectList" resultMap="inquiryResultSet">
+	SELECT * FROM QNA
+	WHERE INQUIRY_STATUS ='Y'
+	ORDER BY INQUIRY_NO DESC
+	</select>
+	
+	
+	<select id="inquirySelectListAll" resultMap="inquiryResultSet">
+	SELECT * FROM QNA
+	ORDER BY INQUIRY_NO DESC
+	</select>
+	
+	<select id="inquirySelectListN" resultMap="inquiryResultSet">
+	SELECT * FROM QNA
+	WHERE INQUIRY_STATUS ='N'
+	ORDER BY INQUIRY_NO DESC
+	</select>
+	
+	<select id="inquirySearchList" parameterType="Search"
+			resultMap="inquiryResultSet">
+		<bind name="sv" 
+			value="'%'+ _parameter.getSearchValue() +'%'" />	
+			
+		SELECT * FROM QNA
+		<where>
+			<if test="existFile != null">
+				FILE_PATH IS NOT NULL
+			</if>
+
+			<choose>
+				<when test="searchCondition == 'title'">
+					AND INQUIRY_TITLE LIKE #{sv}
+				</when>
+				<when test="searchCondition == 'writer'">
+					AND MEMBER_ID LIKE #{sv}
+				</when>
+				<otherwise>
+					AND (MEMBER_ID LIKE #{sv}
+					OR INQUIRY_TITLE LIKE #{sv})
+				</otherwise>
+			</choose>
+		</where>
+		ORDER BY INQUIRY_DATE DESC	
+	</select>
+	
+	<update id="inquiryDeleteBoard" parameterType="map">
+		
+		UPDATE QNA
+		SET INQUIRY_STATUS ='N'
+		WHERE INQUIRY_NO IN
+		<foreach collection="deleteList" item="deleteList" open="(" close=")" separator="," >
+			#{deleteList}
+		</foreach>
+		
+	</update>
+	
+	<update id="reviveIBoard" parameterType="map">
+		
+		UPDATE QNA
+		SET INQUIRY_STATUS ='Y'
+		WHERE INQUIRY_NO IN
+		<foreach collection="reviveList" item="reviveList" open="(" close=")" separator="," >
+			#{reviveList}
+		</foreach>
+		
+	</update>
 	
 	
 

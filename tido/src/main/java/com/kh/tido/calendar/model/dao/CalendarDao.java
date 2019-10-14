@@ -1,7 +1,9 @@
 package com.kh.tido.calendar.model.dao;
 
-import org.apache.ibatis.session.SqlSession;
+import java.util.ArrayList;
+
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.tido.calendar.model.vo.Calendar;
@@ -9,24 +11,31 @@ import com.kh.tido.calendar.model.vo.Calendar;
 @Repository("cDao")
 public class CalendarDao {
 	
+	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
 	
 	public int InsertCalendar(Calendar calendar) {
-		
-		return sqlSession.insert("calendar-mapper.InsertCalendar",calendar);
+		System.out.println("dao까지 왔을 떄 calendar : " + calendar);
+		return sqlSession.insert("calendarMapper.InsertCalendar",calendar);
 	}
 
 
 	public int deleteCalendar(int cId) {
 		
-		return sqlSession.delete("calendar-mapper.deleteCalendar",cId);
+		return sqlSession.delete("calendarMapper.deleteCalendar",cId);
 	}
 
 
-	public int UpdateCalendar(Calendar calendar) {
+	 public int UpdateCalendar(Calendar calendar) {
+	      return sqlSession.selectList("calendarMapper.UpdateCalendar",calendar);
+	   }
+
+
+
+	public ArrayList<Calendar>loadCalendar() {
 		
-		return sqlSession.update("calendar-mapper.UpdateCalendar",calendar);
+		return (ArrayList)sqlSession.selectList("calendarMapper.loadCalendar");
 	}
 	
 	

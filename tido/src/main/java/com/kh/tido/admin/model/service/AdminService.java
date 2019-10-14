@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.kh.tido.board.model.vo.Board;
 import com.kh.tido.board.model.vo.Search;
+import com.kh.tido.inquiry.model.vo.Inquiry;
 import com.kh.tido.notice.model.vo.Notice;
 
 public interface AdminService {
@@ -32,6 +33,18 @@ public interface AdminService {
 	public abstract ArrayList<Notice> noticeSelectListN(int currentPage);
 	
 	public abstract ArrayList<Notice> noticeSelectListAll(int currentPage);
+
+	public abstract ArrayList<Inquiry> inquiryselectList(int currentPage);
+
+	public abstract ArrayList<Inquiry> inquiryselectListAll(int currentPage);
+
+	public abstract ArrayList<Inquiry> inquiryselectListN(int currentPage);
+
+	public abstract ArrayList<Inquiry> inquirySearchList(Search search);
+
+	public abstract int inquiryDeleteBoard(ArrayList<Integer> deleteList);
+
+	public abstract int reviveIBoard(ArrayList<Integer> reviveList);
 	
 	
 }

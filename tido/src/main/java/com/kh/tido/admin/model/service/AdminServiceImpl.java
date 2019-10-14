@@ -12,6 +12,7 @@ import com.kh.tido.board.model.vo.Board;
 import com.kh.tido.board.model.vo.PageInfo;
 import com.kh.tido.board.model.vo.Search;
 import com.kh.tido.common.Pagination;
+import com.kh.tido.inquiry.model.vo.Inquiry;
 import com.kh.tido.notice.model.dao.NoticeDao;
 import com.kh.tido.notice.model.vo.Notice;
 
@@ -104,7 +105,7 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public ArrayList<Notice> noticeSelectListN(int currentPage) {
 		
-		int listCount = aDao.getListCount();
+		int listCount = aDao.noticeGetListCount();
 		
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
@@ -114,12 +115,62 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Override
 	public ArrayList<Notice> noticeSelectListAll(int currentPage) {
-		int listCount = aDao.getListCount();
+		int listCount = aDao.noticeGetListCount();
 		
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
 	
 		return aDao.noticeSelectListAll(pi);
+	}
+
+	@Override
+	public ArrayList<Inquiry> inquiryselectList(int currentPage) {
+		int listCount = aDao.inquiryGetListCount();
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+	
+		return aDao.inquiryselectList(pi);
+	}
+
+	@Override
+	public ArrayList<Inquiry> inquiryselectListAll(int currentPage) {
+		int listCount = aDao.inquiryGetListCount();
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+	
+		return aDao.inquirySelectListAll(pi);
+	}
+
+	@Override
+	public ArrayList<Inquiry> inquiryselectListN(int currentPage) {
+		int listCount = aDao.inquiryGetListCount();
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+	
+		return aDao.inquirySelectListN(pi);
+	}
+
+	@Override
+	public ArrayList<Inquiry> inquirySearchList(Search search) {
+		return aDao.inquirySearchList(search);
+	}
+
+	public int inquiryDeleteBoard(ArrayList<Integer> deleteList) {
+		Map<String,Object> iNo = new HashMap<String,Object>();
+		iNo.put("deleteList",deleteList);
+				
+		return aDao.inquiryDeleteBoard(iNo);
+	}
+
+	@Override
+	public int reviveIBoard(ArrayList<Integer> reviveList) {
+		Map<String,Object> iNo = new HashMap<String,Object>();
+		iNo.put("reviveList",reviveList);
+				
+		return aDao.reviveIBoard(iNo);
 	}
 	
 	

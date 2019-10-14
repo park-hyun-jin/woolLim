@@ -4,7 +4,81 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
 
+#tb {
+  position:relative;
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  position: relative;
+  top:20px;
+  
+ 
+}
+
+#tb td, #tb th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#tb tr:nth-child(even){background-color: #f2f2f2;}
+
+#tb tr:hover {background-color: #ddd;}
+
+#tb th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: teal;
+  color: white;
+}
+
+.button {
+  background-color: #ddd;
+  border: none;
+  color: black;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 16px;
+}
+
+#reviveBtn{
+	position: relative;
+	bottom: 400px;
+	left: 960px;
+}
+
+#deleteBtn{
+	position: relative;
+	bottom: 400px;
+	left: 980px;
+}
+
+.paging{
+	position: relative;
+	top: 25px;
+	left: 700px;
+}
+
+#searchArea{
+	position: relative;
+	top: 40px;
+	left: 10px;
+}
+#return{
+	position: relative;
+	top: 40px;
+	left: 30px;
+
+}
+
+
+</style>
 
 <script src="/webapp/js/jquery.tablesorter.min.js"></script>
 <script src="/webapp/js/widget-scroller.js"></script>
@@ -35,7 +109,7 @@
 	
 	<div class="my-4 w-100" id="myChart" width="900" height="380" >
 	
-	<button onclick="location='nboardListAll.kh'">이전으로</button>
+	<button class="button" onclick="location='nboardListAll.kh'">이전으로</button>
 	
 	<!--  width="1000" -->
 	<table align="center" border="1" cellspacing="0" width="800" id="tb" class="tablesorter">
@@ -69,9 +143,11 @@
 		</c:forEach>
 		
 		
+		</table>
 		
 		
 		<!-- 페이징 처리 -->
+		<div class="paging">
 		<tr align="center" height="20">
 			<td colspan="6">
 			
@@ -113,8 +189,7 @@
 			</td>
 			
 		</tr>
-	
-		</table>
+		</div>
 		
    
 		
@@ -126,7 +201,6 @@
 			<select id="searchCondition" name="searchCondition">
 				<option value="all" <c:if test="${search.searchCondition == 'all'}">selected</c:if> >전체</option>
 				<option value="title" <c:if test="${search.searchCondition == 'title'}">selected</c:if> >제목</option>
-				<option value="content" <c:if test="${search.searchCondition == 'content'}">selected</c:if> >내용</option>
 			</select>
 			
 			<input type="search" name="searchValue" value="${search.searchValue}">
@@ -138,17 +212,17 @@
 	</div>
 		
 	</div>
-	
+	<div id="return">
 	<p align="center">
 		<c:url var="home" value="admin.kh"/>
 		<a href="${ home }">시작 페이지로 이동</a> &nbsp;
-		<c:url var="blist" value="nboardList.kh"/>
+		<c:url var="blist" value="nboardListAll.kh"/>
 		<a href="${ blist }">목록 전체 보기</a>
 	</p>
 	<br><br><br><br><br><br><br><br><br><br><br><br>
 	
-	<button id="reviveBtn">선택복구</button> 
-	
+	<button id="reviveBtn" class="button">선택복구</button> 
+	</div>
 	
 
 
