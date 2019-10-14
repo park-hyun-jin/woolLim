@@ -1,11 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>관리자페이지 userManagement</title>
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" ></link>
+<style>
+	#myTable{
+		/* text-align:center; */
+	}
+</style>
 </head>
 <body>
 
@@ -24,130 +30,29 @@
     	<br>
               
           <h2>유저 목록</h2>
-          <div class="table-responsive">
+          <div class="table-responsive" style="width:98%;">
             <table class="table table-striped table-sm" id="myTable">
               <thead>
                 <tr>
-                  <th>아이디</th>
-                  <th>닉네임</th>
-                  <th>신고횟수</th>
-                  <th>제제횟수</th>
-                  <th>가입일</th>
+                  <th width="35%">아이디</th>
+                  <th width="15%">닉네임</th>
+                  <th width="10%">신고횟수</th>
+                  <th width="10%">제제횟수</th>
+                  <th width="20%">가입일</th>
+                  <th width="10%">상태</th>
                 </tr>
               </thead>
               <tbody>
+              <c:forEach var="m" items="${list}">
                 <tr>
-                  <td>1,001</td>
-                  <td>Lorem</td>
-                  <td>ipsum</td>
-                  <td>dolor</td>
-                  <td>sit</td>
+                  <td>${m.id }</td>
+                  <td>${m.name }</td>
+                  <td>${m.reportCount }</td>
+                  <td>${m.banCount }</td>
+                  <td>${m.enrollDate }</td>
+                  <td>${m.status }</td>
                 </tr>
-                <tr>
-                  <td>1,002</td>
-                  <td>amet</td>
-                  <td>consectetur</td>
-                  <td>adipiscing</td>
-                  <td>elit</td>
-                </tr>
-                <tr>
-                  <td>1,003</td>
-                  <td>Integer</td>
-                  <td>nec</td>
-                  <td>odio</td>
-                  <td>Praesent</td>
-                </tr>
-                <tr>
-                  <td>1,003</td>
-                  <td>libero</td>
-                  <td>Sed</td>
-                  <td>cursus</td>
-                  <td>ante</td>
-                </tr>
-                <tr>
-                  <td>1,004</td>
-                  <td>dapibus</td>
-                  <td>diam</td>
-                  <td>Sed</td>
-                  <td>nisi</td>
-                </tr>
-                <tr>
-                  <td>1,005</td>
-                  <td>Nulla</td>
-                  <td>quis</td>
-                  <td>sem</td>
-                  <td>at</td>
-                </tr>
-                <tr>
-                  <td>1,006</td>
-                  <td>nibh</td>
-                  <td>elementum</td>
-                  <td>imperdiet</td>
-                  <td>Duis</td>
-                </tr>
-                <tr>
-                  <td>1,007</td>
-                  <td>sagittis</td>
-                  <td>ipsum</td>
-                  <td>Praesent</td>
-                  <td>mauris</td>
-                </tr>
-                <tr>
-                  <td>1,008</td>
-                  <td>Fusce</td>
-                  <td>nec</td>
-                  <td>tellus</td>
-                  <td>sed</td>
-                </tr>
-                <tr>
-                  <td>1,009</td>
-                  <td>augue</td>
-                  <td>semper</td>
-                  <td>porta</td>
-                  <td>Mauris</td>
-                </tr>
-                <tr>
-                  <td>1,010</td>
-                  <td>massa</td>
-                  <td>Vestibulum</td>
-                  <td>lacinia</td>
-                  <td>arcu</td>
-                </tr>
-                <tr>
-                  <td>1,011</td>
-                  <td>eget</td>
-                  <td>nulla</td>
-                  <td>Class</td>
-                  <td>aptent</td>
-                </tr>
-                <tr>
-                  <td>1,012</td>
-                  <td>taciti</td>
-                  <td>sociosqu</td>
-                  <td>ad</td>
-                  <td>litora</td>
-                </tr>
-                <tr>
-                  <td>1,013</td>
-                  <td>torquent</td>
-                  <td>per</td>
-                  <td>conubia</td>
-                  <td>nostra</td>
-                </tr>
-                <tr>
-                  <td>1,014</td>
-                  <td>per</td>
-                  <td>inceptos</td>
-                  <td>himenaeos</td>
-                  <td>Curabitur</td>
-                </tr>
-                <tr>
-                  <td>1,015</td>
-                  <td>sodales</td>
-                  <td>ligula</td>
-                  <td>in</td>
-                  <td>libero</td>
-                </tr>
+              </c:forEach>
               </tbody>
             </table>
           </div>
@@ -159,7 +64,24 @@
 	<script>
 		$(document).ready(function(){
 			$(".users").addClass("active");
-			$('#myTable').DataTable();
+			var table = $('#myTable').DataTable({
+				"language": {
+			        "emptyTable": "데이터가 없어요.",
+			        "lengthMenu": "페이지당 _MENU_ 개씩 보기",
+			        "info": "현재 _START_ - _END_ / _TOTAL_건",
+			        "infoEmpty": "데이터 없음",
+			        "infoFiltered": "( _MAX_건의 데이터에서 필터링됨 )",
+			        "search": "여기서 검색: ",
+			        "zeroRecords": "일치하는 데이터가 없어요.",
+			        "loadingRecords": "로딩중...",
+			        "processing":     "잠시만 기다려 주세요...",
+			        "paginate": {
+			            "next": "다음",
+			            "previous": "이전"
+			        }
+			    },
+				
+			});
 		});
 	</script>
 </body>
