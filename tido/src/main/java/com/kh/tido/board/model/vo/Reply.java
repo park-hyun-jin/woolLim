@@ -12,6 +12,7 @@ public class Reply {
 	private int cboardNo; // 게시글 번호
 	private String memberId; // 이메일
 	private String memberName; // 닉네임
+	private int reportType=4;
 	
 	
 	public Reply() {
@@ -20,30 +21,7 @@ public class Reply {
 
 
 	public Reply(int cbReplyNo, String cbReplyContent, Date cbReplyCreateDate, Date cbReplyModifyDate,
-			String cbReplyStatus, int cboardNo, String memberId) {
-		super();
-		this.cbReplyNo = cbReplyNo;
-		this.cbReplyContent = cbReplyContent;
-		this.cbReplyCreateDate = cbReplyCreateDate;
-		this.cbReplyModifyDate = cbReplyModifyDate;
-		this.cbReplyStatus = cbReplyStatus;
-		this.cboardNo = cboardNo;
-		this.memberId = memberId;
-	}
-
-
-	public String getMemberName() {
-		return memberName;
-	}
-
-
-	public void setMemberName(String memberName) {
-		this.memberName = memberName;
-	}
-
-
-	public Reply(int cbReplyNo, String cbReplyContent, Date cbReplyCreateDate, Date cbReplyModifyDate,
-			String cbReplyStatus, int cboardNo, String memberId, String memberName) {
+			String cbReplyStatus, int cboardNo, String memberId, String memberName, int reportType) {
 		super();
 		this.cbReplyNo = cbReplyNo;
 		this.cbReplyContent = cbReplyContent;
@@ -53,6 +31,7 @@ public class Reply {
 		this.cboardNo = cboardNo;
 		this.memberId = memberId;
 		this.memberName = memberName;
+		this.reportType = reportType;
 	}
 
 
@@ -126,12 +105,35 @@ public class Reply {
 	}
 
 
+	public String getMemberName() {
+		return memberName;
+	}
+
+
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
+
+
+	public int getReportType() {
+		return reportType;
+	}
+
+
+	public void setReportType(int reportType) {
+		this.reportType = reportType;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Reply [cbReplyNo=" + cbReplyNo + ", cbReplyContent=" + cbReplyContent + ", cbReplyCreateDate="
 				+ cbReplyCreateDate + ", cbReplyModifyDate=" + cbReplyModifyDate + ", cbReplyStatus=" + cbReplyStatus
-				+ ", cboardNo=" + cboardNo + ", memberId=" + memberId + ", memberName=" + memberName + "]";
+				+ ", cboardNo=" + cboardNo + ", memberId=" + memberId + ", memberName=" + memberName + ", reportType="
+				+ reportType + "]";
 	}
+
+
 
 
 

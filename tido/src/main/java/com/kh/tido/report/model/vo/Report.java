@@ -4,90 +4,91 @@ import java.sql.Date;
 
 public class Report {
 
-		private int ReportNo;
-		private int ContentsNo;
-		private int ReportType;
-		private String ReportContent;
-		private Date ReportDate;
-		private int Rrno;
-		private String MemberId;
-		
+		private int rReportNo;
+		private int rContentsNo;
+		private int rReportType;
+		private String rReportContent;
+		private Date rReportDate;
+		private int rRrno;
+		private String rMemberId;
 		public Report() {}
 
-		public Report(int reportNo, int contentsNo, int reportType, String reportContent, Date reportDate, int rrno,
-				String memberId) {
+		public Report(int rReportNo, int rContentsNo, int rReportType, String rReportContent, Date rReportDate,
+				int rRrno, String rMemberId) {
 			super();
-			ReportNo = reportNo;
-			ContentsNo = contentsNo;
-			ReportType = reportType;
-			ReportContent = reportContent;
-			ReportDate = reportDate;
-			Rrno = rrno;
-			MemberId = memberId;
+			this.rReportNo = rReportNo;
+			this.rContentsNo = rContentsNo;
+			this.rReportType = rReportType;
+			this.rReportContent = rReportContent;
+			this.rReportDate = rReportDate;
+			this.rRrno = rRrno;
+			this.rMemberId = rMemberId;
 		}
 
-		public int getReportNo() {
-			return ReportNo;
+		public int getrReportNo() {
+			return rReportNo;
 		}
 
-		public void setReportNo(int reportNo) {
-			ReportNo = reportNo;
+		public void setrReportNo(int rReportNo) {
+			this.rReportNo = rReportNo;
 		}
 
-		public int getContentsNo() {
-			return ContentsNo;
+		public int getrContentsNo() {
+			return rContentsNo;
 		}
 
-		public void setContentsNo(int contentsNo) {
-			ContentsNo = contentsNo;
+		public void setrContentsNo(int rContentsNo) {
+			this.rContentsNo = rContentsNo;
 		}
 
-		public int getReportType() {
-			return ReportType;
+		public int getrReportType() {
+			return rReportType;
 		}
 
-		public void setReportType(int reportType) {
-			ReportType = reportType;
+		public void setrReportType(int rReportType) {
+			this.rReportType = rReportType;
 		}
 
-		public String getReportContent() {
-			return ReportContent;
+		public String getrReportContent() {
+			return rReportContent;
 		}
 
-		public void setReportContent(String reportContent) {
-			ReportContent = reportContent;
+		public void setrReportContent(String rReportContent) {
+			this.rReportContent = rReportContent;
 		}
 
-		public Date getReportDate() {
-			return ReportDate;
+		public Date getrReportDate() {
+			return rReportDate;
 		}
 
-		public void setReportDate(Date reportDate) {
-			ReportDate = reportDate;
+		public void setrReportDate(Date rReportDate) {
+			this.rReportDate = rReportDate;
 		}
 
-		public int getRrno() {
-			return Rrno;
+		public int getrRrno() {
+			return rRrno;
 		}
 
-		public void setRrno(int rrno) {
-			Rrno = rrno;
+		public void setrRrno(int rRrno) {
+			this.rRrno = rRrno;
 		}
 
-		public String getMemberId() {
-			return MemberId;
+		public String getrMemberId() {
+			return rMemberId;
 		}
 
-		public void setMemberId(String memberId) {
-			MemberId = memberId;
+		public void setrMemberId(String rMemberId) {
+			this.rMemberId = rMemberId;
 		}
 
 		@Override
 		public String toString() {
-			return "Report [ReportNo=" + ReportNo + ", ContentsNo=" + ContentsNo + ", ReportType=" + ReportType
-					+ ", ReportContent=" + ReportContent + ", ReportDate=" + ReportDate + ", Rrno=" + Rrno
-					+ ", MemberId=" + MemberId + "]";
+			return "Report [rReportNo=" + rReportNo + ", rContentsNo=" + rContentsNo + ", rReportType=" + rReportType
+					+ ", rReportContent=" + rReportContent + ", rReportDate=" + rReportDate + ", rRrno=" + rRrno
+					+ ", rMemberId=" + rMemberId + "]";
 		}
+
+		
 		
 		
 }
