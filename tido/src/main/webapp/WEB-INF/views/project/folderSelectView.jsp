@@ -65,9 +65,17 @@
 
 	<script>
 	var path;
+	var projectCount=0;
+	var selectCount=12;
+	var begin =0;
+	var lim =selectCount;
 			$(function(){
+				
 				$(".depth1 li p").css("background","rgba(255,255,255,0.2)");
 				path="${loginUser.name}";
+				if(pageCheck=="projectListView"){
+					getProjectCount();
+				}
 				var $folder,$p,$ul,$li,$arrowimg,$folderimg,$span,depth,folderName;
 				var lv=1;
 				var pathList=new Array();
@@ -83,7 +91,16 @@
 				});
 			
 				function clickFolder(folder){
+					$("#projectArea").children("p").remove();
+					begin=0;
+					lim=selectCount;
+					$("#projectArea").html("");
+					$("#loadingMessage").show();
 					if(folder.siblings("input:hidden").val()==0){
+						
+						if(pageCheck=="projectListView"){
+							getProjectCount();
+						}
 						var prevlv=lv;
 						lv = folder.parent().children("span").attr("class");
 						lv=Number(lv.substring(5));

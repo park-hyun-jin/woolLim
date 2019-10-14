@@ -13,6 +13,7 @@
 		<result property="cBoardOriFilename" column="CBOARD_ORIGIN_FILENAME" /> <!-- 기존 파일 이름 -->
 		<result property="cBoardChaFilename" column="CBOARD_CHANGE_FILENAME" /> <!-- 바뀐 파일 이름 -->
 		<result property="memberName" column="MEMBER_NAME" /> <!-- 바뀐 파일 이름 -->
+		<result property="reportType" column="REPORT_TYPE" /> <!-- 바뀐 파일 이름 -->
 		
 	</resultMap>
 	
@@ -26,6 +27,8 @@
 		<result property="cboardNo" column="CBOARD_NO"/> 
 		<result property="memberId" column="MEMBER_ID" />
 		<result property="memberName" column="MEMBER_NAME"/>
+
+		
 	</resultMap>
 	 
 	
@@ -36,7 +39,9 @@
 	</select>
 	
 	<select id="selectList" resultMap="boardResultSet">
-		SELECT CBOARD_NO, CBOARD_TITLE, CBOARD_CONTENT, CBOARD_CREATE_DATE, CBOARD_MODIFY_DATE, CBOARD_VIEW_COUNT, CBOARD_STATUS, MEMBER_ID, CBOARD_ORIGIN_FILENAME, CBOARD_CHANGE_FILENAME, MEMBER_NAME
+		SELECT CBOARD_NO, CBOARD_TITLE, CBOARD_CONTENT, CBOARD_CREATE_DATE, 
+		CBOARD_MODIFY_DATE, CBOARD_VIEW_COUNT, CBOARD_STATUS, MEMBER_ID, 
+		CBOARD_ORIGIN_FILENAME, CBOARD_CHANGE_FILENAME, MEMBER_NAME
 		FROM CBOARD
 		JOIN MEMBER USING (MEMBER_ID)
 		WHERE CBOARD_STATUS='Y'
@@ -59,7 +64,8 @@
 	
 
 	<select id="selectBoard" parameterType="_int" resultMap="boardResultSet">
-		SELECT CBOARD_NO, CBOARD_TITLE, CBOARD_CONTENT, CBOARD_CREATE_DATE, CBOARD_MODIFY_DATE, CBOARD_VIEW_COUNT, CBOARD_STATUS, MEMBER_ID, CBOARD_ORIGIN_FILENAME, CBOARD_CHANGE_FILENAME, MEMBER_NAME	
+		SELECT CBOARD_NO, CBOARD_TITLE, CBOARD_CONTENT, CBOARD_CREATE_DATE, CBOARD_MODIFY_DATE, CBOARD_VIEW_COUNT, 
+		CBOARD_STATUS, MEMBER_ID, CBOARD_ORIGIN_FILENAME, CBOARD_CHANGE_FILENAME, MEMBER_NAME,REPORT_TYPE	
 		FROM CBOARD
 		JOIN MEMBER USING (MEMBER_ID)
 		WHERE CBOARD_NO = #{cBoardNo}
@@ -75,12 +81,13 @@
 	<insert id="insertReply" parameterType="Reply">
 		INSERT INTO CB_REPLY VALUES(
 			SEQ_CBRNO.NEXTVAL, #{cbReplyContent}, SYSDATE, SYSDATE, 
-			DEFAULT, #{cboardNo}, #{memberId}
+			DEFAULT, #{cboardNo}, #{memberId},#{reportType}
 		)
 	</insert>
 	
 	<select id="selectReply" parameterType="_int" resultMap="replyResultSet">
-		SELECT CB_REPLY_NO, CB_REPLY_CONTENT, CB_REPLY_CREATE_DATE, CB_REPLY_MODIFY_DATE, CB_REPLY_STATUS, CBOARD_NO, MEMBER_ID, MEMBER_NAME
+		SELECT CB_REPLY_NO, CB_REPLY_CONTENT, CB_REPLY_CREATE_DATE, 
+		CB_REPLY_MODIFY_DATE, CB_REPLY_STATUS, CBOARD_NO, MEMBER_ID, MEMBER_NAME
 		FROM CB_REPLY
 		JOIN MEMBER USING (MEMBER_ID)
 		WHERE CB_REPLY_STATUS='Y'
