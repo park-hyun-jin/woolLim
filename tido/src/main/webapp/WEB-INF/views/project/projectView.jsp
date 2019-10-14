@@ -18,7 +18,7 @@ var pageCheck="projectView";
 <body oncontextmenu="return false" onselectstart="return false"
 	ondragstart="return false">
 	<div id="saveModal">
-		<div>
+		<div id="savePopup">
 			<h5 align="center">프로젝트 저장</h5>
 			<div class="folderarea">
 				<jsp:include page="folderSelectView.jsp" />
@@ -32,8 +32,11 @@ var pageCheck="projectView";
 					<button id="cancel">취소</button>
 				</div>
 		</div>
+	
 	</div>
-
+	<div id="saveMessage" align="center">
+		저장중입니다<span class="dot"></span>
+	</div>
 	<jsp:include page="../common/menubar.jsp" />
 	<div class="musicController">
 		<div>
@@ -53,18 +56,23 @@ var pageCheck="projectView";
 			<div>	
 			    length <input id="length" type="number"value="32" min="4" max="64">
 			</div>
-			<c:if test="${loginUser!=null }">
-			<div>
-				<button id="savepop">저장</button>
-				<button id="open">open</button>
-			</div>
-			</c:if>
+			
 		</div>
 		<div>
 			<img src="${contextPath }/resources/images/right-arrow.png">
 		</div>
 	</div>
-	<section>
+	<div class="savebtnarea">
+			<h4 id="title"></h4>
+			<c:if test="${!empty project}">
+				<button id="overrite">저장</button>
+				<button id="savepop">다른 이름으로 저장</button>
+				</c:if>
+				<c:if test="${empty project}">
+				<button id="savepop">저장</button>
+			</c:if>
+	</div>
+	<section id="wrap">
 		
 		
 		<jsp:include page="piano.jsp" />
@@ -128,12 +136,13 @@ var pageCheck="projectView";
 	       
 	       $(".padBox").width(40*length + 100);
 	       
-	       console.log(length);
 	       
 	   });
 	   
-
+	
 	   var volume= 0.5;
+	   
+	 
 	   
 	   for(var i=0; i < $("audio").length; i++) {
 		   $("audio")[i].volume = volume;
@@ -312,10 +321,20 @@ var pageCheck="projectView";
 	});
 
 	$("#save").on("click",function(){
+		
 		var sound="";
 		var sounds="";
 		var projectTitle= $("#projectTitle").val();
 		if(projectTitle.trim()!=""){
+			$("#saveMessage").show();
+			var loading=setInterval(function(){
+				$("#saveMessage").children(".dot").append(".");
+				if($("#saveMessage").children(".dot").text().length>=4){
+					$("#saveMessage").children(".dot").text(".");
+				}
+			},300);
+			$('body').scrollTop(0);
+			$('#scrollbox').scrollLeft(0);
 			for(var i =1; i<=length; i++){ 
 		       for (var k = 1; k < 3; k++) {
 		          for(var j = 0; j < noteArr.length; j++) {
@@ -338,7 +357,6 @@ var pageCheck="projectView";
 		      		 for (var k = 0; k < 2; k++) {
 		               	for(var j = 0; j < bassNoteArr.length; j++) {
 		               		sound=$(".bass ."+bassNoteArr[j]+k+".length"+i).children().val();
-		               		console.log(i+""+sound)
 		               	    if(sound==""){
 		               	    	sounds+="x ";
 		               		}else{
@@ -351,7 +369,6 @@ var pageCheck="projectView";
 		           	  }else{
 		           		  bassSoundInfo+=sounds+$(".bass .C2.length"+i).children().val()+"/";
 		           	  }
-					 console.log(bassSoundInfo);
 		           	 sounds="";
 				}
 			
@@ -381,28 +398,37 @@ var pageCheck="projectView";
 		          drumSoundInfo+=sounds+"/";
 		          sounds="";
 			}
+			var projectImagePath;
 			
-			console.log(path);
-		 	$.ajax({
-				url:"savePjt.kh",
-				data:{projectTitle:projectTitle,
-					  pianoSoundInfo:pianoSoundInfo,
-					  bassSoundInfo:bassSoundInfo,
-					  guitarSoundInfo:guitarSoundInfo,
-					  drumSoundInfo:drumSoundInfo,
-					  bpm:bpm,
-					  beat:beat,
-					  projectPath:path},
-				type:"post",
-				success:function(result){
-					$("#projectTitle").val("");
-			 		$("#saveModal").css({"display":"none"});
-			 		$(".folders li").children("input:hidden").val(0);
-					$(".arrowimg").attr("src","${contextPath }/resources/images/right-arrow.png");
-					$(".folders li").children("ul").remove();
+			html2canvas(document.getElementById("padBox")).then(function(canvas) {
+				projectImagePath=canvas.toDataURL("image/jpeg");
+		    });
 					
-				}
-			});  
+			setTimeout(function(){
+			
+			 	$.ajax({
+					url:"savePjt.kh",
+					data:{projectTitle:projectTitle,
+						  pianoSoundInfo:pianoSoundInfo,
+						  bassSoundInfo:bassSoundInfo,
+						  guitarSoundInfo:guitarSoundInfo,
+						  drumSoundInfo:drumSoundInfo,
+						  bpm:bpm,
+						  beat:beat,
+						  projectPath:path,
+						  projectImagePath:projectImagePath},
+					type:"post",
+					success:function(result){
+						$("#projectTitle").val("");
+				 		$("#saveModal").hide();
+				 		$(".folders li").children("input:hidden").val(0);
+						$(".arrowimg").attr("src","${contextPath }/resources/images/right-arrow.png");
+						$(".folders li").children("ul").remove();
+						$("#saveMessage").hide();
+					}
+				});  
+			},3000);
+			
 		}else{
 			$("#projectTitle").css("border","2px solid red");
 		}
@@ -416,6 +442,7 @@ var pageCheck="projectView";
 	
 	<c:if test="${!empty project}">
 		<script>
+		  	$("#title").text('${project.projectTitle}');
 			$("#bpm").val('${project.bpm}');
 			$("#beat").val('${project.beat}');
 			var beatArr = "<c:out value='${project.pianoSoundInfo}'/>".split("/");
@@ -438,7 +465,6 @@ var pageCheck="projectView";
   		 		}
 	 		}
 	 		beatArr = "<c:out value='${project.bassSoundInfo}'/>".split("/");
-	 		console.log(beatArr);
 	 		for(var i=0; i<length; i++){
 	 			soundArr= $.trim(beatArr[i]).split(" ");
 	 			var sidx=0;
@@ -483,6 +509,7 @@ var pageCheck="projectView";
  			    }
 	 	   }
  		   sidx=0;
+ 	
 		</script>	
 	</c:if>
 	

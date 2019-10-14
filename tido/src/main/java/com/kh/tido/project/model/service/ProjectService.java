@@ -10,7 +10,9 @@ import com.kh.tido.project.model.vo.ProjectFile;
 
 public interface ProjectService {
 
-	public abstract int saveProject(ProjectFile project,String projectTitle,String projectPath, HttpServletRequest request,String projectWriter);
+	public abstract int saveProject(ProjectFile project,String projectTitle,
+			String projectPath, HttpServletRequest request,String projectWriter,
+			String projectImagePath);
 
 	public abstract ProjectFile openProject(HttpServletRequest request,int pNo);
 
@@ -21,6 +23,10 @@ public interface ProjectService {
 	public abstract File createFolder(String path,HttpServletRequest request);
 
 	public abstract int getProjectCount(Project project, HttpServletRequest request);
+
+	public abstract int  updateProjectTitle(Project project);
+
+	public abstract int deleteProject(int pNo);
 	
 	
 	

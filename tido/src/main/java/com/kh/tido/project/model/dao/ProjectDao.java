@@ -1,5 +1,6 @@
 package com.kh.tido.project.model.dao;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import org.apache.ibatis.session.RowBounds;
@@ -32,6 +33,14 @@ public class ProjectDao {
 
 	public int getProjectCount(Project project) {
 		return sqlSession.selectOne("projectMapper.getProjectCount",project);
+	}
+
+	public int updateProjectTitle(Project project) {
+		return sqlSession.update("projectMapper.updateProjectTitle",project);
+	}
+
+	public int deleteProject(int pNo) {
+		return sqlSession.update("projectMapper.deleteProject",pNo);
 	}
 	
 	
