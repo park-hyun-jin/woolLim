@@ -34,7 +34,8 @@
             <table class="table table-striped table-sm" id="myTable">
               <thead>
                 <tr>
-                  <th width="35%">아이디</th>
+                  <th width="5%"><input type="checkbox" name="checkAll" id="th_checkAll"/></th>
+                  <th width="30%">아이디</th>
                   <th width="15%">닉네임</th>
                   <th width="10%">신고횟수</th>
                   <th width="10%">제제횟수</th>
@@ -45,8 +46,12 @@
               <tbody>
               <c:forEach var="m" items="${list}">
                 <tr>
-                  <td>${m.id }</td>
-                  <td>${m.name }</td>
+                <c:url var="amdetail" value="amdetail.kh">
+					<c:param name="id" value="${ m.id }"/> 
+				</c:url>
+				  <td><input type="checkbox" name="chBox" class="chBox" value="${m.id}" /></td>
+                  <td><a href="${ amdetail }">${ m.id }</a></td>
+                  <td><a href="${ amdetail }">${ m.name }</a></td>
                   <td>${m.reportCount }</td>
                   <td>${m.banCount }</td>
                   <td>${m.enrollDate }</td>
@@ -60,11 +65,40 @@
       </div>
     </div>
 	<script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-	
+	<script type="text/javascript" src="${contextPath }/resources/js/admin/dashboard.js"></script>
 	<script>
 		$(document).ready(function(){
+			$("#th_checkAll").on("change",function(){
+				if($(this).prop("checked")){
+					$("input[name='chBox']").prop("checked",true);				
+				}else{
+					$("input[name='chBox']").prop("checked",false);				
+					
+				}
+				});
+				
+				$("#deleteBtn").on("click",function(){
+					var checkArray= new Array();
+					if(window.confirm("정말 삭제하시겠습니까?")){
+						$("input[name='chBox']:checked").each(function(){
+							checkArray.push($(this).val());
+						});
+						console.log(checkArray);
+						$.ajax({
+							url:"deleteBoard.kh",
+							data:{checkArray:checkArray},
+							type:"post",
+							success:function(result){
+								console.log(result);
+							}
+							
+						});
+					}
+				});
 			$(".users").addClass("active");
 			var table = $('#myTable').DataTable({
+				stateSave: true,
+				order: [[4,"asc"]],
 				"language": {
 			        "emptyTable": "데이터가 없어요.",
 			        "lengthMenu": "페이지당 _MENU_ 개씩 보기",

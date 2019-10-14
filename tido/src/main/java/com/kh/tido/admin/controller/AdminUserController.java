@@ -35,5 +35,13 @@ public class AdminUserController {
 		return mv;
 	}
 	
+//	@RequestMapping("amdetail.kh")
+//	public ModelAndView adminManageDetail(ModelAndView mv, int id) {
+//		Member mem = 
+//		
+//		
+//		return mv;
+//	}
+//	
 	
 }
