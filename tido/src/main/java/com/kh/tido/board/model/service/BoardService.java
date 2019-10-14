@@ -9,28 +9,26 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kh.tido.board.model.vo.Board;
 import com.kh.tido.board.model.vo.Reply;
 import com.kh.tido.board.model.vo.Search;
+import com.kh.tido.notice.model.vo.Notice;
 
 public interface BoardService {
 
+	public abstract ArrayList<Board> selectList(int currentPage);
 	
 	public abstract int insertBoard(Board board, MultipartFile uploadFile, HttpServletRequest request);
-	
-
-	public abstract ArrayList<Board> selectList(int currentPage);
 	
 	public abstract Board selectBoard(int cBoardNo);
 		
 	public abstract int deleteBoard(int cBoardNo);
-
 	
 	public abstract int updateBoard(Board board, MultipartFile reloadFile, HttpServletRequest request);
 	
 	public abstract int insertReply(Reply reply);
 	
-
 	public abstract ArrayList<Reply> selectReply(int cBoardNo);
 
-	
+	public abstract ArrayList<Board> searchList(Search search);
 
+	
 
 }

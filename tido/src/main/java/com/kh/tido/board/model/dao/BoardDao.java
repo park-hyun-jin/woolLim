@@ -1,7 +1,6 @@
 package com.kh.tido.board.model.dao;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -12,6 +11,7 @@ import com.kh.tido.board.model.vo.Board;
 import com.kh.tido.board.model.vo.PageInfo;
 import com.kh.tido.board.model.vo.Reply;
 import com.kh.tido.board.model.vo.Search;
+import com.kh.tido.notice.model.vo.Notice;
 
 @Repository("bDao")
 public class BoardDao {
@@ -28,8 +28,7 @@ public class BoardDao {
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
 		return (ArrayList)sqlSession.selectList("boardMapper.selectList", null, rowBounds);
 	}
-	
-	
+
 	public int insertBoard(Board board) {
 		return sqlSession.insert("boardMapper.insertBoard", board);
 	}
@@ -58,10 +57,7 @@ public class BoardDao {
 		return (ArrayList)sqlSession.selectList("boardMapper.selectReply", cBoardNo);
 	}
 
-	
-
-	
-
-	
-	
+	public ArrayList<Board> searchList(Search search) {
+		return (ArrayList)sqlSession.selectList("boardMapper.searchList", search);
+	}
 }

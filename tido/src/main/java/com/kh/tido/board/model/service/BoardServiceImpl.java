@@ -4,8 +4,6 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,6 +18,7 @@ import com.kh.tido.board.model.vo.PageInfo;
 import com.kh.tido.board.model.vo.Reply;
 import com.kh.tido.board.model.vo.Search;
 import com.kh.tido.common.Pagination;
+import com.kh.tido.notice.model.vo.Notice;
 
 @Service("bService")
 public class BoardServiceImpl implements BoardService{
@@ -34,8 +33,6 @@ public class BoardServiceImpl implements BoardService{
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		return bDao.selectList(pi);
 	}
-	
-	
 
 	@Override
 	public int insertBoard(Board board, MultipartFile uploadFile, HttpServletRequest request) {
@@ -142,13 +139,9 @@ public class BoardServiceImpl implements BoardService{
 		return bDao.selectReply(cBoardNo);
 	}
 
-	
-
-	
-
-
-
-	
+	@Override
+	public ArrayList<Board> searchList(Search search) {
+		return bDao.searchList(search);
 	}
 
-
+}
