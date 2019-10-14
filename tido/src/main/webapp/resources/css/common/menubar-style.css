@@ -35,8 +35,8 @@
 	}
 	
 	a {
-		color: white;
-		font-weight: bolder;
+		color: white !important;
+		font-weight: bold !important;
 	}
 	
 	a:hover {
