@@ -277,6 +277,9 @@ color: white; width:80% height: 100px; margin: auto; line-height: 320%;
 			$("#reportType").val(${board.reportType});
 		});
 		
+	
+
+	
 		function reportButtonclick(btn){
 			btn.on("click",function(){
 				contentsNo=$(this).children("input").eq(0).val().trim();
@@ -286,6 +289,7 @@ color: white; width:80% height: 100px; margin: auto; line-height: 320%;
 			});
 			
 		}
+	
 		
 	</script>
 </body>
