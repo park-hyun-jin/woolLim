@@ -7,6 +7,8 @@
 <title></title>
 </head>
 <body>
+
+	  
 	<nav class="col-md-2 d-none d-md-block bg-light sidebar">
           <div class="sidebar-sticky">
             <ul class="nav flex-column">
@@ -23,36 +25,33 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link board" href="#">
-                  <span data-feather="file-text"></span>
+
+                <a class="nav-link" href="cboardListAll.kh">
+                  <span data-feather="clipboard"></span>
                   Board Management
                 </a>
               </li>             
               <li class="nav-item">
-                <a class="nav-link report" href="#">
+
+                <a class="nav-link" href="adminMain.kh">
                   <span data-feather="bar-chart-2"></span>
-                  Reports & QnA
+                 Schedule Management
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="nboardListAll.kh">
                   <span data-feather="layers"></span>
-                  Integrations
+                  Notice Management
                 </a>
               </li>
             </ul>
     
-            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-              <span>Saved reports</span>
-              <a class="d-flex align-items-center text-muted" href="#">
-                <span data-feather="plus-circle"></span>
-              </a>
             </h6>
             <ul class="nav flex-column mb-2">
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="iboardListAll.kh">
                   <span data-feather="file-text"></span>
-                  Current month
+                  Q&A Management
                 </a>
               </li>
               <li class="nav-item">
@@ -73,6 +72,8 @@
                   Year-end sale
                 </a>
               </li>
+              
+             
             </ul>
           </div>
         </nav>

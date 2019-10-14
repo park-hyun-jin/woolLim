@@ -14,17 +14,11 @@ import com.kh.tido.member.model.vo.Member;
 public class AdminUserController {	
 	
 	@Autowired
-	private AdminUserService aService;
-		
-	@RequestMapping("admin.kh")
-	public String compProjectView() {
-		return "admin/adminDashboard";
-	}
-	
+	private AdminUserService auService;
 	
 	@RequestMapping("adminUserManage.kh")
 	public ModelAndView adminManageView(ModelAndView mv) {
-		ArrayList<Member> list = aService.memberList();
+		ArrayList<Member> list = auService.memberList();
 		
 		if(list != null) {			
 			mv.addObject("list", list).			

@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="adminMapper">
+
+	<resultMap id="adminNoticeResultSet" type="Notice">
+	<id property="nNo" column="NOTICE_NO"/> <!-- 공지사항 번호 -->
+	<result property="pnoticeTitle" column="NOTICE_TITLE"/> <!-- 공지사항 제목 -->
+	<result property="pnoticeContent"  column="NOTICE_CONTENT"/> <!-- 공지사항 내용 -->
+	<result property="pnoticeCreateDate" column="NOTICE_CREATE_DATE"/> <!-- 공지사항 작성일 -->
+	<result property="pnoticeModifyDate" column="NOTICE_MODIFY_DATE"/> <!-- 공지사항 수정일 -->
+	<result property="pnoticeViewCount" column="NOTICE_VIEW_COUNT"/> <!-- 조회수 -->
+	<result property="pnoticeStatus" column="NOTICE_STATUS"/> <!-- 공지사항 상태 -->
+	<result property="pmemberId" column="MEMBER_ID"/> <!-- 이메일 -->
+	<result property="pnoticeFilePath" column="NOTICE_FILE_PATH"/> <!-- 공지사항 파일경로 -->
+	</resultMap>
+	
+	<resultMap id="adminBoardResultSet" type="Board">
+		<id property="cBoardNo" column="CBOARD_NO"/> <!-- 게시글 번호 -->
+		<result property="cBoardTitle" column="CBOARD_TITLE"/> <!-- 게시글 제목 -->
+		<result property="cBoardContent" column="CBOARD_CONTENT"/> <!-- 게시글 내용 -->
+		<result property="cBoardCreateDate" column="CBOARD_CREATE_DATE"/> <!-- 게시글 작성일 -->
+		<result property="cBoardModifyDate" column="CBOARD_MODIFY_DATE"/> <!-- 게시글 수정일 -->
+		<result property="cBoardViewCount" column="CBOARD_VIEW_COUNT"/> <!-- 게시글 조회수 -->
+		<result property="cBoardStatus" column="CBOARD_STATUS"/> <!-- 게시글 상태 -->
+		<result property="memberId" column="MEMBER_ID" /> <!-- 이메일 -->
+		<result property="cBoardOriFilename" column="CBOARD_ORIGIN_FILENAME" /> <!-- 기존 파일 이름 -->
+		<result property="cBoardChaFilename" column="CBOARD_CHANGE_FILENAME" /> <!-- 바뀐 파일 이름 -->
+	</resultMap>
+	
+	<resultMap id="inquiryResultSet" type="Inquiry">
+	<id property="iNo" column="INQUIRY_NO"/> <!-- 문의글 번호 -->
+		<result property="iInquiryTitle" column="INQUIRY_TITLE"/> <!-- 문의글 제목 -->
+		<result property="iInquiryContent" column="INQUIRY_CONTENT"/> <!-- 문의글 내용 -->
+		<result property="iInquiryDate" column="INQUIRY_DATE"/> <!-- 문의글 작성일 -->
+		<result property="iInquiryModifyDate" column="INQUIRY_MODIFY_DATE"/> <!-- 문의글 수정일 -->
+		<result property="iInquiryId" column="MEMBER_ID"/> <!-- 이메일 -->
+		<result property="iInquiryStatus" column="INQUIRY_STATUS"/> <!-- 문의글 상태 -->
+		<result property="iInquiryOriginFilename" column="INQUIRY_ORIGIN_FILENAME"/> <!-- 기존파일이름 -->
+		<result property="iInquiryChangeFilename" column="INQUIRY_CHANGE_FILENAME"/> <!-- 바뀐파일이름 -->
+		
+	</resultMap>
+	
+
+<select id="getListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM CBOARD
+		WHERE CBOARD_STATUS='Y'
+	</select>
+	
+	<select id="selectList" resultMap="adminBoardResultSet">
+		SELECT *
+		FROM CBOARD
+		WHERE CBOARD_STATUS='Y'
+		ORDER BY CBOARD_NO DESC
+	</select>
+
+<select id="selectListN" resultMap="adminBoardResultSet">
+		SELECT *
+		FROM CBOARD
+		WHERE CBOARD_STATUS='N'
+		ORDER BY CBOARD_NO DESC
+	</select>
+	
+	<select id="selectListAll" resultMap="adminBoardResultSet">
+		SELECT *
+		FROM CBOARD
+		ORDER BY CBOARD_NO DESC
+	</select>
+
+<update id="updateBoardAdmin" parameterType="map">
+		
+		UPDATE CBOARD
+		SET CBOARD_STATUS ='N'
+		WHERE CBOARD_NO IN
+		<foreach collection="deleteList" item="deleteList" open="(" close=")" separator="," >
+			#{deleteList}
+		</foreach>
+		
+	</update>
+	
+	<update id="reviveBoardAdmin" parameterType="map">
+		
+		UPDATE CBOARD
+		SET CBOARD_STATUS ='Y'
+		WHERE CBOARD_NO IN
+		<foreach collection="reviveList" item="reviveList" open="(" close=")" separator="," >
+			#{reviveList}
+		</foreach>
+		
+	</update>
+	
+	
+	
+	<select id="searchList" parameterType="Search"
+			resultMap="adminBoardResultSet">
+		<bind name="sv" 
+			value="'%'+ _parameter.getSearchValue() +'%'" />	
+			
+		SELECT * FROM CBOARD
+		<where>
+			<if test="existFile != null">
+				FILE_PATH IS NOT NULL
+			</if>
+			
+			<choose>
+				<when test="searchCondition == 'title'">
+					AND CBOARD_TITLE LIKE #{sv}
+				</when>
+				<when test="searchCondition == 'writer'">
+					AND MEMBER_ID LIKE #{sv}
+				</when>
+				<otherwise>
+					AND (CBOARD_TITLE LIKE #{sv}
+					OR MEMBER_ID LIKE #{sv})
+				</otherwise>
+			</choose>
+		</where>
+		ORDER BY CBOARD_CREATE_DATE DESC	
+	</select>
+	
+
+	<!-- 전체 조회 -->
+	<select id="noticeGetListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM NOTICE
+		WHERE NOTICE_STATUS = 'Y'
+	</select>
+	
+	<select id="noticeSelectList" resultMap="adminNoticeResultSet">
+	SELECT * FROM NOTICE
+	WHERE NOTICE_STATUS ='Y'
+	ORDER BY NOTICE_NO DESC
+	</select>
+	
+	<select id="noticeSelectListN" resultMap="adminNoticeResultSet">
+	SELECT * FROM NOTICE
+	WHERE NOTICE_STATUS ='N'
+	ORDER BY NOTICE_NO DESC
+	</select>
+	
+	<select id="noticeSelectListAll" resultMap="adminNoticeResultSet">
+	SELECT * FROM NOTICE
+	ORDER BY NOTICE_NO DESC
+	</select>
+	
+	<select id="noticeSearchList" parameterType="Search"
+			resultMap="adminNoticeResultSet">
+		<bind name="sv" 
+			value="'%'+ _parameter.getSearchValue() +'%'" />	
+			
+		SELECT * FROM NOTICE
+		<where>
+			<if test="existFile != null">
+				FILE_PATH IS NOT NULL
+			</if>
+			
+			<choose>
+				<when test="searchCondition == 'title'">
+					AND NOTICE_TITLE LIKE #{sv}
+				</when>
+				
+				<otherwise>
+					AND OR NOTICE_TITLE LIKE #{sv})
+					
+				</otherwise>
+			</choose>
+		</where>
+		ORDER BY NOTICE_CREATE_DATE DESC	
+	</select>
+	
+	<update id="updateNoticeAdmin" parameterType="map">
+		
+		UPDATE NOTICE
+		SET NOTICE_STATUS ='N'
+		WHERE NOTICE_NO IN
+		<foreach collection="deleteList" item="deleteList" open="(" close=")" separator="," >
+			#{deleteList}
+		</foreach>
+		
+	</update>
+	
+	<update id="reviveNoticeAdmin" parameterType="map">
+		
+		UPDATE NOTICE
+		SET NOTICE_STATUS ='Y'
+		WHERE NOTICE_NO IN
+		<foreach collection="reviveList" item="reviveList" open="(" close=")" separator="," >
+			#{reviveList}
+		</foreach>
+		
+	</update>
+	
+	<select id="inquiryGetListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM QNA
+		WHERE INQUIRY_STATUS = 'Y'
+	</select>
+	
+	
+	<select id="inquiryselectList" resultMap="inquiryResultSet">
+	SELECT * FROM QNA
+	WHERE INQUIRY_STATUS ='Y'
+	ORDER BY INQUIRY_NO DESC
+	</select>
+	
+	
+	<select id="inquirySelectListAll" resultMap="inquiryResultSet">
+	SELECT * FROM QNA
+	ORDER BY INQUIRY_NO DESC
+	</select>
+	
+	<select id="inquirySelectListN" resultMap="inquiryResultSet">
+	SELECT * FROM QNA
+	WHERE INQUIRY_STATUS ='N'
+	ORDER BY INQUIRY_NO DESC
+	</select>
+	
+	<select id="inquirySearchList" parameterType="Search"
+			resultMap="inquiryResultSet">
+		<bind name="sv" 
+			value="'%'+ _parameter.getSearchValue() +'%'" />	
+			
+		SELECT * FROM QNA
+		<where>
+			<if test="existFile != null">
+				FILE_PATH IS NOT NULL
+			</if>
+
+			<choose>
+				<when test="searchCondition == 'title'">
+					AND INQUIRY_TITLE LIKE #{sv}
+				</when>
+				<when test="searchCondition == 'writer'">
+					AND MEMBER_ID LIKE #{sv}
+				</when>
+				<otherwise>
+					AND (MEMBER_ID LIKE #{sv}
+					OR INQUIRY_TITLE LIKE #{sv})
+				</otherwise>
+			</choose>
+		</where>
+		ORDER BY INQUIRY_DATE DESC	
+	</select>
+	
+	<update id="inquiryDeleteBoard" parameterType="map">
+		
+		UPDATE QNA
+		SET INQUIRY_STATUS ='N'
+		WHERE INQUIRY_NO IN
+		<foreach collection="deleteList" item="deleteList" open="(" close=")" separator="," >
+			#{deleteList}
+		</foreach>
+		
+	</update>
+	
+	<update id="reviveIBoard" parameterType="map">
+		
+		UPDATE QNA
+		SET INQUIRY_STATUS ='Y'
+		WHERE INQUIRY_NO IN
+		<foreach collection="reviveList" item="reviveList" open="(" close=")" separator="," >
+			#{reviveList}
+		</foreach>
+		
+	</update>
+	
+	
+
+</mapper>
