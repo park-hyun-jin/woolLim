@@ -26,4 +26,6 @@ public interface MemberService {
 
 	ArrayList<Board> selectMemberBoard(String id, int currentPage);
 
+	ArrayList<Board> selectMemberBoardSearch(String id, int currentPage, String search, String sort);
+
 }

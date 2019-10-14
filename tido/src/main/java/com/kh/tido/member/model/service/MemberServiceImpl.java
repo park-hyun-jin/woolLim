@@ -2,6 +2,8 @@ package com.kh.tido.member.model.service;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -165,13 +167,23 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public ArrayList<Board> selectMemberBoard(String id, int currentPage) {
 		
-		int listCount = mDao.getMemberBaordCount(id);
+		int listCount = mDao.getMemberBoardCount(id);
 		
 		System.out.println("---------- listCount : " + listCount);
 		
 		PageInfo pi = PaginationMember.getPageInfo(currentPage, listCount);
 		
 		return mDao.selectMemberBoard(id, pi);
+	}
+
+	@Override
+	public ArrayList<Board> selectMemberBoardSearch(String id, int currentPage, String search, String sort) {
+		
+		Map map = new HashMap();
+		
+		int listSearchCount = mDao.getMemberBoardSearchCount();
+		
+		return null;
 	}
 
 }

@@ -52,7 +52,7 @@ public class MemberDao {
 		return sqlSession.delete("memberMapper.deleteMemberAuth", id);
 	}
 	
-	public int getMemberBaordCount(String id) {
+	public int getMemberBoardCount(String id) {
 		return sqlSession.selectOne("memberMapper.selectMemberBoardCount", id);
 	}
 	
@@ -60,6 +60,11 @@ public class MemberDao {
 		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
 		return (ArrayList)sqlSession.selectList("memberMapper.selectMemberBoard", id, rowBounds);
+	}
+
+	public int getMemberBoardSearchCount() {
+		
+		return 0;
 	}
 	
 }

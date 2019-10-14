@@ -143,7 +143,13 @@ public class MemberController {
 		
 		int currentPage = page == null ? 1 : page;
 		
-		ArrayList<Board> list = mService.selectMemberBoard(id, currentPage);
+		ArrayList<Board> list = null;
+		
+		if(search != null && sort != null) {
+			list = mService.selectMemberBoard(id, currentPage);
+		}else {
+			list = mService.selectMemberBoardSearch(id, currentPage, search, sort);
+		}
 		
 		if(list != null) {
 			model.addAttribute("list", list);

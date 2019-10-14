@@ -213,11 +213,13 @@
                 </div>
                 <div class="content-3">
                     <form class="form-inline" id="selectForm">
-                            <select name="selectSearch" class="selectSearch">
+                            <select name="sort" class="selectSearch">
                                 <option value="title" selected>제목</option>
                                 <option value="content">내용</option>
                             </select>
-                            <input type="text" class="form-control" name="projectSearch" id="inputPassword2" placeholder="검색어를 입력하세요">
+                            <input type="hidden" name="id" value="${loginUser.id}">
+                            <input type="hidden" name="page" value="${1}">
+                            <input type="text" class="form-control" name="search" id="inputPassword2" placeholder="검색어를 입력하세요">
                             <input class="btn btn-primary" type="submit" value="검색">
                     </form>
                 </div>
