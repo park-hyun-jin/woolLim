@@ -13,6 +13,7 @@
                 margin: 0;
                 padding: 0;
                 box-sizing: border-box;
+                color: white;
             }
 
             .container {
@@ -42,7 +43,7 @@
 
             .menu li a {
                 text-decoration: none;
-                color: gray;
+                color: white;
                 font-size: 25px;
                 font-weight: bold;
             }
@@ -84,7 +85,7 @@
                 display: inline-block;
                 font-size: 20px;
                 margin: 5px;
-                color: dimgray;
+                color: white;
             }
 
             .content-3 {
@@ -105,17 +106,23 @@
                 width: 70px;
                 height: 36px;
                 vertical-align: middle;
+                color: black;
+            }
+            
+            .selectSearch option {
+            	color: black;
             }
 
         </style>
     </head>
     <body>
+    	<jsp:include page="../common/menubar.jsp"></jsp:include>
         <div class="container">
             <div class="menu">
                 <ul>
-                    <li><a href="#">회원정보</a></li>
-                    <li><a href="#">작곡 프로젝트 관리</a></li>
-                    <li><a href="#" style="color: black">작성 글</a></li>
+                    <li><a href="myPageInfo.kh">회원정보</a></li>
+                    <li><a href="myPageProject.kh">작곡 프로젝트 관리</a></li>
+                    <li><a href="myPageBoard.kh" style="color: black">작성 글</a></li>
                     <li><a href="#">작성 댓글</a></li>
                     <li><a href="#">신고 및 문의 내역</a></li>
                 </ul>
@@ -181,7 +188,7 @@
                     </ul>
                 </div>
                 <div class="content-3">
-                    <form class="form-inline">
+                    <form class="form-inline" id="selectForm">
                             <select name="selectSearch" class="selectSearch">
                                 <option value="title" selected>제목</option>
                                 <option value="content">내용</option>
