@@ -1,9 +1,12 @@
 package com.kh.tido.member.model.service;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.tido.board.model.vo.Board;
 import com.kh.tido.member.model.vo.Member;
 import com.kh.tido.member.model.vo.MemberAuth;
 
@@ -20,5 +23,7 @@ public interface MemberService {
 	int selectId(String memberId);
 
 	int selectName(String name);
+
+	ArrayList<Board> selectMemberBoard(String id, int currentPage);
 
 }

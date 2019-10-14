@@ -1,6 +1,7 @@
 package com.kh.tido.member.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.tido.board.model.vo.Board;
+import com.kh.tido.common.PaginationMember;
 import com.kh.tido.member.model.service.MemberService;
 import com.kh.tido.member.model.vo.Member;
 import com.kh.tido.member.model.vo.MemberAuth;
@@ -46,16 +49,6 @@ public class MemberController {
 	@RequestMapping("myPageInfo.kh")
 	public String myPageInfo() {
 		return "member/mypage_info";
-	}
-	
-	@RequestMapping("myPageProject.kh")
-	public String myPageProject() {
-		return "member/mypage_project";
-	}
-	
-	@RequestMapping("myPageBoard.kh")
-	public String myPageBoard() {
-		return "member/mypage_board";
 	}
 	
 	
@@ -108,7 +101,6 @@ public class MemberController {
 	public String idCheck(String memberId) {
 		int result = mService.selectId(memberId);
 		String check;
-		System.out.println("----------------------------------------------------------------");
 		if(result == 0) {
 			check = "fail";
 		}else {
@@ -143,6 +135,24 @@ public class MemberController {
 		}else {
 			model.addAttribute("msg", "프로필 사진 등록에 실패하였습니다. 회원 정보 수정에서 다시 등록해주세요.");
 			return "redirect:main.kh";
+		}
+	}
+	
+	@RequestMapping("memberBoardList.kh")
+	public String selectMemberBoard(Model model, String id, Integer page, String search, String sort) {
+		
+		int currentPage = page == null ? 1 : page;
+		
+		ArrayList<Board> list = mService.selectMemberBoard(id, currentPage);
+		
+		if(list != null) {
+			model.addAttribute("list", list);
+			model.addAttribute("pi", PaginationMember.getPageInfo());
+			System.out.println("---------- pi : " + PaginationMember.getPageInfo());
+			return "member/mypage_board";
+		}else {
+			model.addAttribute("msg", "로그인 유저 글 조회 중 오류 발생");
+			return "common/errorPage";
 		}
 	}
 	

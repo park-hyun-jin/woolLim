@@ -14,6 +14,33 @@
 		<result property="imagePath" column="MEMBER_IMAGE_PATH"/>
 	</resultMap>
 	
+	<resultMap id="boardResultSet" type="Board">
+		<id property="cBoardNo" column="CBOARD_NO"/> <!-- 게시글 번호 -->
+		<result property="cBoardTitle" column="CBOARD_TITLE"/> <!-- 게시글 제목 -->
+		<result property="cBoardContent" column="CBOARD_CONTENT"/> <!-- 게시글 내용 -->
+		<result property="cBoardCreateDate" column="CBOARD_CREATE_DATE"/> <!-- 게시글 작성일 -->
+		<result property="cBoardModifyDate" column="CBOARD_MODIFY_DATE"/> <!-- 게시글 수정일 -->
+		<result property="cBoardViewCount" column="CBOARD_VIEW_COUNT"/> <!-- 게시글 조회수 -->
+		<result property="cBoardStatus" column="CBOARD_STATUS"/> <!-- 게시글 상태 -->
+		<result property="memberId" column="MEMBER_ID" /> <!-- 이메일 -->
+		<result property="cBoardOriFilename" column="CBOARD_ORIGIN_FILENAME" /> <!-- 기존 파일 이름 -->
+		<result property="cBoardChaFilename" column="CBOARD_CHANGE_FILENAME" /> <!-- 바뀐 파일 이름 -->
+		<result property="memberName" column="MEMBER_NAME" /> <!-- 바뀐 파일 이름 -->
+		
+	</resultMap>
+	
+
+	<resultMap id="replyResultSet" type="Reply">
+		<id property="cbReplyNo" column="CB_REPLY_NO"/> 
+		<result property="cbReplyContent" column="CB_REPLY_CONTENT"/> 
+		<result property="cbReplyCreateDate" column="CB_REPLY_CREATE_DATE"/> 
+		<result property="cbReplyModifyDate" column="CB_REPLY_MODIFY_DATE"/> 
+		<result property="cbReplyStatus" column="CB_REPLY_STATUS"/> 
+		<result property="cboardNo" column="CBOARD_NO"/> 
+		<result property="memberId" column="MEMBER_ID" />
+		<result property="memberName" column="MEMBER_NAME"/>
+	</resultMap>
+	
 	<!-- 로그인 할 때 아이디 조회 -->
 	<select id="selectOne" parameterType="Member" resultMap="memberResultSet">
 		SELECT * FROM MEMBER 
@@ -62,5 +89,19 @@
 		DELETE FROM MEMBER_AUTH
 		WHERE MEMBER_ID = #{id}
 	</delete>
+	
+	<select id="selectMemberBoardCount" parameterType="string" resultType="_int">
+		SELECT COUNT(*)
+		FROM CBOARD
+		WHERE MEMBER_ID = #{id}
+		AND CBOARD_STATUS = 'Y'
+	</select>
+	
+	<select id="selectMemberBoard" parameterType="string" resultMap="boardResultSet">
+		SELECT * FROM CBOARD
+		WHERE MEMBER_ID = #{id}
+		AND CBOARD_STATUS = 'Y'
+		ORDER BY CBOARD_NO DESC
+	</select>
 	
 </mapper>

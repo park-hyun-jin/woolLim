@@ -116,13 +116,18 @@
         </style>
     </head>
     <body>
+    	
+		<c:url var="memberBoardPage" value="memberBoardList.kh">
+    		<c:param name="id" value="${loginUser.id }"/>
+    	</c:url>
+    
     	<jsp:include page="../common/menubar.jsp"></jsp:include>
         <div class="container">
             <div class="menu">
                 <ul>
                     <li><a href="myPageInfo.kh">회원정보</a></li>
                     <li><a href="myPageProject.kh">작곡 프로젝트 관리</a></li>
-                    <li><a href="myPageBoard.kh" style="color: black">작성 글</a></li>
+                    <li><a href="${ memberBoardPage }" style="color: black">작성 글</a></li>
                     <li><a href="#">작성 댓글</a></li>
                     <li><a href="#">신고 및 문의 내역</a></li>
                 </ul>
@@ -137,54 +142,73 @@
                             <th>조회수</th>
                             <th>최근 수정 일자</th>
                         </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>검정고무신</td>
-                            <td>ㅋㅋㅋㅋㅋㅋㅋ</td>
-                            <td>3</td>
-                            <td>2019-09-23</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>검정고무신</td>
-                            <td>ㅋㅋㅋㅋㅋㅋㅋ</td>
-                            <td>3</td>
-                            <td>2019-09-23</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>검정고무신</td>
-                            <td>ㅋㅋㅋㅋㅋㅋㅋ</td>
-                            <td>3</td>
-                            <td>2019-09-23</td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>검정고무신</td>
-                            <td>ㅋㅋㅋㅋㅋㅋㅋ</td>
-                            <td>3</td>
-                            <td>2019-09-23</td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>검정고무신</td>
-                            <td>ㅋㅋㅋㅋㅋㅋㅋ</td>
-                            <td>3</td>
-                            <td>2019-09-23</td>
-                        </tr>
+                        <c:forEach var="b" items="${list}">
+                        	<tr>
+                        		<c:url var="bdetail" value="bdetail.kh">
+									<c:param name="cBoardNo" value="${ b.cBoardNo }"/>
+									<c:param name="page" value="${ pi.currentPage }"/>
+								</c:url>
+                        		<td>${b.cBoardNo}</td>
+                        		<td>${b.cBoardTitle}</td>
+                        		<td><a href="${bdetail}">${b.cBoardContent}</a></td>
+                        		<td>${b.cBoardViewCount}</td>
+                        		<td>${b.cBoardModifyDate}</td>
+                        	</tr>
+                        </c:forEach>
                     </table>
                 </div>
                 <div class="content-2">
                     <ul>
-                        <li>&lt;&lt;</li>
-                        <li>&lt;</li>
-                        <li>1</li>
-                        <li>2</li>
-                        <li>3</li>
-                        <li>4</li>
-                        <li>5</li>
-                        <li>&gt;</li>
-                        <li>&gt;&gt;</li>
+                        <li>
+	                        <c:url var="firstPage" value="memberBoardList.kh">
+	                        	<c:param name="id" value="${ loginUser.id }"/>
+								<c:param name="page" value="${ pi.startPage }"/>
+							</c:url>
+							<a href="${ firstPage }">&lt;&lt;</a>
+                        </li>
+                        <li>
+                        	<c:if test="${ pi.currentPage <= 1 }">&lt;</c:if>
+							<c:if test="${ pi.currentPage > 1 }">
+								<c:url var="beforePage" value="memberBoardList.kh">
+									<c:param name="id" value="${ loginUser.id }"/>
+									<c:param name="page" value="${ pi.currentPage - 1 }"/>
+								</c:url>
+								<a href="${ beforePage }">&lt;</a> 
+							</c:if>
+                        </li>
+                        <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+                        	<li>
+                        		<c:if test="${ p == currentPage }">
+									<font color="red" size="4"><b>${ p }</b></font>
+								</c:if>
+                        	</li>
+							<c:if test="${ p != currentPage }">
+								<c:url var="pagination" value="memberBoardList.kh">
+									<c:param name="id" value="${ loginUser.id }"/>
+									<c:param name="page" value="${ p }"/>
+								</c:url>
+								<a href="${ pagination }">${ p }</a>
+							</c:if>
+                        </c:forEach>
+                        <li>
+                        	<c:if test="${ pi.currentPage >= pi.maxPage }">
+								&gt;
+							</c:if>
+							<c:if test="${ pi.currentPage < pi.maxPage }">
+								<c:url var="afterPage" value="memberBoardList.kh">
+									<c:param name="id" value="${ loginUser.id }"/>
+									<c:param name="page" value="${ pi.currentPage + 1 }"/>
+								</c:url> 
+								<a href="${ afterPage }">&gt;</a>
+							</c:if>
+                        </li>
+                        <li>
+                        	<c:url var="lastPage" value="memberBoardList.kh">
+                        		<c:param name="id" value="${ loginUser.id }"/>
+								<c:param name="page" value="${ pi.maxPage }"/>
+                        	</c:url>
+                        	<a href="${lastPage}">&gt;&gt;</a>
+                        </li>
                     </ul>
                 </div>
                 <div class="content-3">

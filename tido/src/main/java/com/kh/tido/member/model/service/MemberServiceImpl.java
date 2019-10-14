@@ -1,6 +1,7 @@
 package com.kh.tido.member.model.service;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +16,9 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.tido.board.model.vo.Board;
+import com.kh.tido.member.model.vo.PageInfo;
+import com.kh.tido.common.PaginationMember;
 import com.kh.tido.member.controller.MailHandler;
 import com.kh.tido.member.model.dao.MemberDao;
 import com.kh.tido.member.model.vo.Member;
@@ -156,6 +160,18 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int selectName(String name) {
 		return mDao.selectName(name);
+	}
+
+	@Override
+	public ArrayList<Board> selectMemberBoard(String id, int currentPage) {
+		
+		int listCount = mDao.getMemberBaordCount(id);
+		
+		System.out.println("---------- listCount : " + listCount);
+		
+		PageInfo pi = PaginationMember.getPageInfo(currentPage, listCount);
+		
+		return mDao.selectMemberBoard(id, pi);
 	}
 
 }

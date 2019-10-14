@@ -1,12 +1,16 @@
 package com.kh.tido.member.model.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.tido.board.model.vo.Board;
+import com.kh.tido.member.model.vo.PageInfo;
 import com.kh.tido.member.model.vo.Member;
 import com.kh.tido.member.model.vo.MemberAuth;
 
@@ -46,6 +50,16 @@ public class MemberDao {
 
 	public int deleteMemberAuth(String id) {
 		return sqlSession.delete("memberMapper.deleteMemberAuth", id);
+	}
+	
+	public int getMemberBaordCount(String id) {
+		return sqlSession.selectOne("memberMapper.selectMemberBoardCount", id);
+	}
+	
+	public ArrayList<Board> selectMemberBoard(String id, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		return (ArrayList)sqlSession.selectList("memberMapper.selectMemberBoard", id, rowBounds);
 	}
 	
 }
