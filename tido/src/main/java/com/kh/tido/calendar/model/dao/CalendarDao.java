@@ -28,7 +28,8 @@ public class CalendarDao {
 
 
 	 public int UpdateCalendar(Calendar calendar) {
-	      return sqlSession.selectList("calendarMapper.UpdateCalendar",calendar);
+		
+	      return sqlSession.update("calendarMapper.UpdateCalendar",calendar);
 	   }
 
 

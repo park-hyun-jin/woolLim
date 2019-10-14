@@ -21,4 +21,8 @@ public interface NoticeService {
 	public abstract Notice selectOne(int nNo);
 
 
+	public abstract int deleteNotice(int nNo);
+
+	public abstract int updateNotice(Notice notice);
+
 }

@@ -25,10 +25,13 @@ import com.kh.tido.notice.model.vo.Notice;
 @Controller
 public class AdminController {
 	
+
 	@Autowired
 	private BoardService bService;
 	@Autowired
 	private AdminService aService;
+
+
 	
 	
 	@RequestMapping("admin.kh")
@@ -379,6 +382,11 @@ public class AdminController {
 	
 	
 	
+	@RequestMapping("aManage.kh")
+	public String adminManageView() {
+		
+		return "admin/userManagement";
+	}
 	
 	
 }

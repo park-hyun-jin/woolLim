@@ -22,7 +22,6 @@ import com.kh.tido.board.model.vo.Search;
 import com.kh.tido.common.Pagination;
 import com.kh.tido.member.model.vo.Member;
 
-
 @Controller
 public class BoardController {
 	
@@ -45,30 +44,32 @@ public class BoardController {
 		}
 		return mv;
 	}
-	
+
 	@RequestMapping("binsertView.kh")
 	public String boardinsertView() {
-		return "board/boardinsertForm";
+		return "board/boardInsertForm";
 	}
-	
+
 	@RequestMapping("binsert.kh")
 	public String boardInsert(Board board, HttpServletRequest request, MultipartFile uploadFile, Model model) {
+		System.out.println(board);
 		int result = bService.insertBoard(board, uploadFile, request);
-		
+
 		String path = null;
 		if(result > 0) {
-			path = "redirectLblist.kh";
+			path = "redirect:bList.kh";
 		}else {
 			model.addAttribute("msg", "게시글 등록 실패");
 			path = "common/errorPage";
 		}
 		return path;
 	}
-	
+
 	@RequestMapping("bdetail.kh")
-	public ModelAndView boardDetail(ModelAndView mv, Integer page, int memberId) {
+	public ModelAndView boardDetail(ModelAndView mv, Integer page, int cBoardNo) {
 		int currentPage = page == null ? 1 : page;
-		Board board = bService.selectBoard(memberId);
+		Board board = bService.selectBoard(cBoardNo);
+		System.out.println(board);
 		if(board != null) {
 			mv.addObject("board", board).addObject("currentPage", currentPage).setViewName("board/boardDetailView");
 		}else {
@@ -78,19 +79,21 @@ public class BoardController {
 	}
 	
 	@RequestMapping("bupView.kh")
-	public ModelAndView boardUpdateView(ModelAndView mv, int memberId, Integer page) {
+	public ModelAndView boardUpdateView(ModelAndView mv, int cBoardNo, Integer page) {
 		int currentPage = page == null ? 1 : page;
-		Board board = bService.selectBoard(memberId);
-		mv.addObject("board", board).addObject("currentPage", currentPage).setViewName("board/boardUpdateView");
+		
+		Board board = bService.selectBoard(cBoardNo);
+		mv.addObject("board", board).addObject("currentPage", currentPage)
+		.setViewName("board/boardUpdateView");
 		
 		return mv;
 	}
 	
 	@RequestMapping("bdelete.kh")
-	public ModelAndView boardDelete(ModelAndView mv, int memberId) {
-		int result = bService.deleteBoard(memberId);
+	public ModelAndView boardDelete(ModelAndView mv, int cBoardNo) {
+		int result = bService.deleteBoard(cBoardNo);
 		if(result > 0) {
-			mv.setViewName("redirect:blist.kh");
+			mv.setViewName("redirect:bList.kh");
 		}else {
 			mv.addObject("msg", "게시글 삭제 실패").setViewName("common/errorPage");
 		}
@@ -99,9 +102,11 @@ public class BoardController {
 	
 	@RequestMapping("bupdate.kh")
 	public ModelAndView boardUpdate(ModelAndView mv, Board board, HttpServletRequest request, MultipartFile reloadFile, Integer page) {
+		
 		int result = bService.updateBoard(board, reloadFile, request);
+		
 		if(result > 0) {
-			mv.setViewName("redirect:boarddetail.kh?cBoardNo="+board.getcBoardNo()+"&page="+page);
+			mv.setViewName("redirect:bdetail.kh?cBoardNo="+board.getcBoardNo()+"&page="+page);
 		}else {
 			mv.addObject("msg", "게시글 수정 실패").setViewName("common/errorPage");
 		}
@@ -124,12 +129,14 @@ public class BoardController {
 	
 	@RequestMapping(value="rList.kh", produces="application/json; charset=UTF-8")
 	@ResponseBody
-	public String listReply(int memberId) {
-		ArrayList<Reply> list = bService.selectReply(memberId);
+	public String listReply(int cBoardNo) {
+		ArrayList<Reply> list = bService.selectReply(cBoardNo);
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		return gson.toJson(list);
-	}
+
+		}
 	
-	
-	
-}
+
+	}	
+
+

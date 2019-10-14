@@ -14,14 +14,15 @@
 		<result property="imagePath" column="MEMBER_IMAGE_PATH"/>
 	</resultMap>
 	
-	
+	<!-- 로그인 할 때 아이디 조회 -->
 	<select id="selectOne" parameterType="Member" resultMap="memberResultSet">
 		SELECT * FROM MEMBER 
 		WHERE MEMBER_ID = #{id} 
-		AND MEMBER_PWD = #{pwd} 
+		<!-- AND MEMBER_PWD = #{pwd} --> 
 		AND MEMBER_STATUS = 'Y'
 	</select>
 	
+	<!-- memberAuth 등록 -->
 	<insert id="insertAuthKey" parameterType="MemberAuth">
 		INSERT INTO MEMBER_AUTH
 		VALUES(#{memberAuthKey}, #{memberAuthStatus}, #{memberId})
@@ -34,23 +35,32 @@
 		AND MEMBER_AUTHKEY = #{memberAuthKey}
 	</update>
 	
+	<!-- 회원가입 -->
 	<insert id="insertMember" parameterType="Member">
 		INSERT INTO MEMBER
 		VALUES(
-			#{id}, #{name}, #{pwd}, SYSDATE, SYSDATE, DEFAULT, DEFAULT, DEFAULT, NULL
+			#{id}, #{name}, #{pwd}, SYSDATE, SYSDATE, DEFAULT, DEFAULT, DEFAULT, #{imagePath}
 		)
 	</insert>
 	
+	<!-- 중복된 아이디가 있는지 조회 -->
 	<select id="selectId" parameterType="string" resultType="_int">
 		SELECT COUNT(*)
 		FROM MEMBER
 		WHERE MEMBER_ID = #{memberId}
 	</select>
 	
+	<!-- 중복된 닉네임임 있는지 조회 -->
 	<select id="selectName" parameterType="string" resultType="_int">
 		SELECT COUNT(*)
 		FROM MEMBER
 		WHERE MEMBER_NAME = #{name}
 	</select>
+	
+	<!-- 회원가입 후 memberAuth 정보 삭제 -->
+	<delete id="deleteMemberAuth" parameterType="string">
+		DELETE FROM MEMBER_AUTH
+		WHERE MEMBER_ID = #{id}
+	</delete>
 	
 </mapper>

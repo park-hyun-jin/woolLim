@@ -13,13 +13,15 @@ public class Inquiry {
 	private String iInquiryStatus;
 	private String iInquiryOriginFilename;
 	private String iInquiryChangeFilename;
-
+	
+	
 	public Inquiry() {}
 
 	public Inquiry(int iNo, String iInquiryTitle, String iInquiryContent, Date iInquiryDate, Date iInquiryModifyDate,
+
 			String iInquiryId, String iInquiryStatus, String iInquiryOriginFilename, String iInquiryChangeFilename) {
 		super();
-		this.iNo = iNo;
+		this.iNo = iNo;	
 		this.iInquiryTitle = iInquiryTitle;
 		this.iInquiryContent = iInquiryContent;
 		this.iInquiryDate = iInquiryDate;
@@ -113,7 +115,7 @@ public class Inquiry {
 	
 	
 	
-	
+
 	
 }
 

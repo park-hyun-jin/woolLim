@@ -86,16 +86,16 @@ public class BoardServiceImpl implements BoardService{
 
 
 	@Override
-	public Board selectBoard(int bNo) {
-		bDao.addReadCount(bNo);
-		Board board = bDao.selectBoard(bNo);
+	public Board selectBoard(int cBoardNo) {
+		bDao.addReadCount(cBoardNo);
+		Board board = bDao.selectBoard(cBoardNo);
 		return board;
 	}
 
 	@Override
-	public int deleteBoard(int bNo) {
+	public int deleteBoard(int cBoardNo) {
 		
-		return bDao.deleteBoard(bNo);
+		return bDao.deleteBoard(cBoardNo);
 	}
 
 	@Override
@@ -138,8 +138,8 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public ArrayList<Reply> selectReply(int bNo) {
-		return bDao.selectReply(bNo);
+	public ArrayList<Reply> selectReply(int cBoardNo) {
+		return bDao.selectReply(cBoardNo);
 	}
 
 	

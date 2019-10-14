@@ -95,9 +95,9 @@ public class CalenderController {
 	
 	@ResponseBody
 	@RequestMapping(value="updateCalendar.kh",method=RequestMethod.GET)
-	public int UpdateCalendar(@ModelAttribute  Calendar calendar) {
+	public int UpdateCalendar(Calendar calendar) {
 		
-		System.out.println(calendar);
+		
 		int result = cService.UpdateCalendar(calendar);
 		
 

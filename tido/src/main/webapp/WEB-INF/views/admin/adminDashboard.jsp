@@ -193,8 +193,17 @@
 
 
 
+
 	
 </html>
 	
+
+	<script type="text/javascript" src="${contextPath }/resources/js/admin/dashboard.js"></script>
+	<script>
+		$(document).ready(function(){
+			$(".home").addClass("active");
+		});
+	</script>
+
 </body>
 </html>

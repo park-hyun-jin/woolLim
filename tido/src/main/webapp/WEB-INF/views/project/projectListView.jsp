@@ -11,34 +11,12 @@
 <script>
 var pageCheck="projectListView";
 </script>
-<style>
-.createFolderBtn{
-	width:300px;
-	height: 120px;
-	position:absolute;
-	background: rgba(0,0,0,0.6);
-	left:0;
-	right:0;
-	top:300px;
-	margin: auto;
-	display:none;
-	border-radius: 10px;
-}
-.createFolderBtn div{
-	text-align: center;
-	color:white;
-	padding:5px;
-}
-.createFolderBtn div input{
-	width:90%;
-}
-</style>
 </head>
 <body>
 		<jsp:include page="../common/menubar.jsp"/>
 		
 		
-		<div id="createFolderBtn" class="createFolderBtn">
+		<div id="createFolderPop" class="popup">
 			<div>
 				<h6 >새 폴더 추가</h6>
 			</div>
@@ -49,8 +27,33 @@ var pageCheck="projectListView";
 				<button id="addOk">확인</button>
 				<button id="addCancel">취소</button>
 			</div>
+		</div>
+		<div id="updateNamePop" class="popup">
+			<div>
+				<h6 >이름 변경</h6>
+			</div>
+			<div>
+				<input id="projectName" value>
+			</div>
+			<div>
+				<button id="updateNameOk">확인</button>
+				<button id="updateNameCancel">취소</button>
+			</div>
+		</div>
+		<div id="deleteConfirmPop" class="popup">
+			<div>
+				<h6 >정말 삭제하시겠습니까?</h6>
+			</div>
+			<div>
+				<button id="deleteOk">확인</button>
+				<button id="deleteCancel">취소</button>
+			</div>
 		</div>			
-		
+				
+		<ul class="contextmenu">
+		  <li id="updateNameMenu"><span>이름 변경</span></li>
+		  <li id="deleteProjectMenu"><span>삭제</span></li>
+		</ul>
 		
 		<aside oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
 			<div class="asidehead">
@@ -62,18 +65,27 @@ var pageCheck="projectListView";
 			</span>
 			<jsp:include page="folderSelectView.jsp"/>
 		</aside>
-		<section>
+		<section id="projectWrapper">
 			<h3  id="folderPath" class="folderPath">내 라이브러리</h3>
+			<h6 id="loadingMessage">프로젝트를 불러오는 중입니다<span class="dot"></span></h6>
 			<div id="projectArea" class="projectArea">
 			</div>
 		</section>
 		<jsp:include page="../common/footer.jsp"/>
 		<script>
+			var check=true;
+			var $project;
+			var projectNo;
+			if(projectCount<=selectCount){
+				 //check=false;
+			}
+						
 			$(function(){
+				getProjectCount();
 				selectProjectList(path);
 				
 				$("#folderAddBtn").on("click",function(){
-					$("#createFolderBtn").css("display","block");
+					$("#createFolderPop").show();
 				});
 				
 				$("#addOk").on("click",function(){
@@ -84,53 +96,202 @@ var pageCheck="projectListView";
 							data:{path:path+"\\"+folderName},
 							type:"post",
 							success:function(result){
-								
+								console.log(result);
 							}
 						});
-						
+						$("#createFolderPop").hide();
 					}else{
 						$("#newFolderName").css({"border":"2px solid red"});
 					}	
 				});
+				$("#addCancel").on("click",function(){
+					$("#createFolderPop").hide();
+				});
+				
+			
+				$("#projectArea").mouseover(function(){ 
+					$("#projectArea").scroll(function(){
+						 var scrollT = $(this).scrollTop();
+     					 var scrollH = $(this).height();
+        				 var contentH = $('#projectArea').height(); 
+        			
+       					 if(scrollT + scrollH +1 >= contentH) {
+							if(check){
+							setTimeout(function(){
+								selectProjectList(path);
+							},1500);
+								check=false;
+							}
+						}
+					});
+			 	});
+				
+				
+				$("#updateNameMenu").on("click",function(){
+					$("#updateNamePop").show();
+					$("#projectName").val($project.children("div").children().eq(0).text()).select();
+				});
+				
+				$("#updateNameOk").on("click",function(){
+					var projectTitle =$("#projectName").val();
+					if(projectTitle!=""){
+						$.ajax({
+							url:"updatePjtName.kh",
+							data:{pNo:projectNo,projectTitle:projectTitle},
+							type:"get",
+							success:function(result){
+								console.log(result);
+								$("#updateNamePop").hide();
+								$project.children("div").children().eq(0).text(projectTitle);
+							}
+						});
+					}
+				});
+				
+				
+				
+				$("#deleteProjectMenu").on("click",function(){
+					$("#deleteConfirmPop").show();
+				});
+				
+				$("#deleteOk").on("click",function(){
+					$.ajax({
+						url:"deletePjt.kh",
+						data:{pNo:projectNo},
+						type:"get",
+						success:function(result){
+							console.log(result);
+							$("#deleteConfirmPop").hide();
+							$project.remove();
+						}
+					});
+				});
+				  
 				
 			});
-			function selectProjectList(path){
+			  
+		
+			function selectProjectList(){
+				var loading=setInterval(function(){
+					$("#loadingMessage").children(".dot").append(".");
+					if($("#loadingMessage").children(".dot").text().length>=4){
+						$("#loadingMessage").children(".dot").text(".");
+					}
+				},300);
 				$.ajax({
 					url:"selectPjt.kh",
 					type:"post",
-					data:{projectPath:path},
+					data:{projectPath:path,begin:begin,lim:lim},
 					dataType:"json",
 					success:function(projectList){
+						$("#projectArea").children("p").remove();
+						clearInterval(loading);
 						var replacedPath=path.replace("${loginUser.name}","내 라이브러리");
 						replacedPath=replacedPath.replace("\\"," > ");
 						$(".folderPath").text(replacedPath) ;
-						$("#projectArea").text("");
 						if(projectList.length!=0){
+							$("#loadingMessage").hide();
 							for(var i in projectList){
 								var $div = $("<div class='project'>");
-								var $img=$("<img>").attr({"src":""});
+								var $img=$("<img>");
+								$img.attr({"src":projectList[i].projectImagePath});
 								var $path = $("<input type='hidden' value="+projectList[i].pNo+">");
 								var $info= $("<div>");
-							 	$info.append(projectList[i].projectTitle+" ");
-							 	$info.append(projectList[i].pCreateDate+"<br>");
+							 	$info.append("<p>"+projectList[i].projectTitle+"</p>");
+							 	$info.append("<p>"+projectList[i].pCreateDate+"</p>");
 							 	$div.append($img);
 							 	$div.append($info);
 							 	$div.append($path);
-								openProject($div);
+								addEvent($div);
 								$("#projectArea").append($div);
 							}
+							$("#projectArea").append("<p align='center'>loading...</p>")
+							begin=begin+selectCount;
+							lim=lim+selectCount;
+							if(lim>=projectCount){
+								lim=projectCount;
+							}
+							if(projectList.length<selectCount){
+								setTimeout(function(){
+									$("#projectArea").children("p").text("더 이상 조회결과가 없습니다.");
+								},1500);
+								check=false;
+							}else{
+								check=true;
+							}
 						}else{
-							$("#projectArea").text("프로젝트가 없습니다");
+							$("#projectArea").append("<p align='center'>loading...</p>")
+							$("#loadingMessage").hide();
+							setTimeout(function(){
+								$("#projectArea").children("p").text("조회결과가 없습니다.");
+							},1500); 
+							check=false;
 						}
+							
 					}
 				});
 			}
-			function openProject(project){
+			
+			
+			
+			function addEvent(project){
 				project.on("click",function(){
 					var pNo=Number($(this).children("input:hidden").val());
 					location.href="openPjt.kh?pNo="+pNo;
 				});
+				
+				project.contextmenu(function(e){
+					$project=$(this);
+					projectNo=$(this).children("input[type='hidden']").val();
+				    var winWidth = $(document).width();
+				    var winHeight = $(document).height();
+				    var posX = e.pageX;
+				    var posY = e.pageY;
+				    var menuWidth = $(".contextmenu").width();
+				    var menuHeight = $(".contextmenu").height();
+				    var secMargin = 10;
+				    if(posX + menuWidth + secMargin >= winWidth
+				    && posY + menuHeight + secMargin >= winHeight){
+				      posLeft = posX - menuWidth - secMargin + "px";
+				      posTop = posY - menuHeight - secMargin + "px";
+				    }
+				    else if(posX + menuWidth + secMargin >= winWidth){
+				      posLeft = posX - menuWidth - secMargin + "px";
+				      posTop = posY + secMargin + "px";
+				    }
+				    else if(posY + menuHeight + secMargin >= winHeight){
+				      posLeft = posX + secMargin + "px";
+				      posTop = posY - menuHeight - secMargin + "px";
+				    }
+				    else {
+				      posLeft = posX + secMargin + "px";
+				      posTop = posY + secMargin + "px";
+				    };
+				    $(".contextmenu").css({
+				      "left": posLeft,
+				      "top": posTop
+				    }).show();
+				    return false;
+				  });
+				
+				  $(document).click(function(){
+				    $(".contextmenu").hide();
+				  });
+				
 			}
+			
+			function getProjectCount(){
+				$.ajax({
+					url:"getPjtCount.kh",
+					data:{path:path},
+					type:"post",
+					success:function(count){
+						projectCount=count;
+					}
+				});
+			}
+			
+			
 		</script>
 	
 </body>

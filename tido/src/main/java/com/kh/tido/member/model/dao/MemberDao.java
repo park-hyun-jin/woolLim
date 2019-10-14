@@ -17,7 +17,7 @@ public class MemberDao {
 	private SqlSessionTemplate sqlSession;
 
 	public Member selectMember(Member mem) {
-		
+		System.out.println("member session" + sqlSession);
 		Member loginUser = sqlSession.selectOne("memberMapper.selectOne", mem);
 		
 		return loginUser;
@@ -42,6 +42,10 @@ public class MemberDao {
 
 	public int selectName(String name) {
 		return sqlSession.selectOne("memberMapper.selectName", name);
+	}
+
+	public int deleteMemberAuth(String id) {
+		return sqlSession.delete("memberMapper.deleteMemberAuth", id);
 	}
 	
 }

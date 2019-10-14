@@ -31,19 +31,19 @@ public class BoardDao {
 	
 	
 	public int insertBoard(Board board) {
-		return sqlSession.insert("boardMapper.insetBoard", board);
+		return sqlSession.insert("boardMapper.insertBoard", board);
 	}
 
-	public void addReadCount(int bNo) {
-		sqlSession.update("boardMapper.addReadCount", bNo);
+	public void addReadCount(int cBoardNo) {
+		sqlSession.update("boardMapper.addReadCount", cBoardNo);
 	}
 
-	public Board selectBoard(int bNo) {
-		return sqlSession.selectOne("boardMapper.selectBoard", bNo);
+	public Board selectBoard(int cBoardNo) {
+		return sqlSession.selectOne("boardMapper.selectBoard", cBoardNo);
 	}
 
-	public int deleteBoard(int bNo) {
-		return sqlSession.update("boardMapper.deleteBoard", bNo);
+	public int deleteBoard(int cBoardNo) {
+		return sqlSession.update("boardMapper.deleteBoard", cBoardNo);
 	}
 
 	public int updateBoard(Board board) {
@@ -54,8 +54,8 @@ public class BoardDao {
 		return sqlSession.insert("boardMapper.insertReply", reply);
 	}
 
-	public ArrayList<Reply> selectReply(int bNo) {
-		return (ArrayList)sqlSession.selectList("boardMapper.selectReply", bNo);
+	public ArrayList<Reply> selectReply(int cBoardNo) {
+		return (ArrayList)sqlSession.selectList("boardMapper.selectReply", cBoardNo);
 	}
 
 	

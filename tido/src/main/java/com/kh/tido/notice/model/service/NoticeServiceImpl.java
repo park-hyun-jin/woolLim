@@ -41,6 +41,8 @@ public class NoticeServiceImpl implements NoticeService {
 
 	public Notice selectOne(int nNo) {
 		
+		nDao.addpnoticeViewCount(nNo);
+		
 		return nDao.selectOne(nNo);
 	}
 
@@ -49,10 +51,23 @@ public class NoticeServiceImpl implements NoticeService {
 		
 		notice.setPnoticeContent(notice.getPnoticeContent().replace("\n", "<br>"));
 		return nDao.insertNotice(notice);
+	}
+	
+	public int deleteNotice(int nNo) {
+		return nDao.deleteNotice(nNo);
+	}
+
+	@Override
+	public int updateNotice(Notice notice) {
+		notice.setPnoticeContent(notice.getPnoticeContent().replace("\n", "<br>"));
+		return nDao.updateNotice(notice);
+	}
+
+
 
 	}
 
 
 
 
-}
+
