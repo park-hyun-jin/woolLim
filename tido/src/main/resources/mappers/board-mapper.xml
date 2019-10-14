@@ -52,7 +52,7 @@
 		INSERT INTO CBOARD VALUES(
 			SEQ_CBNO.NEXTVAL, #{cBoardTitle}, #{cBoardContent}, 
 			SYSDATE, SYSDATE, DEFAULT, DEFAULT, #{memberId}, 
-			#{cBoardOriFilename}, #{cBoardChaFilename}
+			#{cBoardOriFilename}, #{cBoardChaFilename}, DEFAULT
 		)
 	</insert>
 	
