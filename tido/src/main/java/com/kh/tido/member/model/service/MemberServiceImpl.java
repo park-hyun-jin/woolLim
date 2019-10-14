@@ -102,7 +102,7 @@ public class MemberServiceImpl implements MemberService {
  		
  		int result = mDao.insertMember(mem);
  		
- 		if(result > 1) {
+ 		if(result >= 1) {
  			projectFilePath = root + "\\project" + "\\" + mem.getName();
  			File folder = new File(projectFilePath);
  			

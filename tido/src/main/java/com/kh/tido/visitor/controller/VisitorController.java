@@ -40,7 +40,6 @@ public class VisitorController {
 		vc.setVisit_agent(request.getHeader("User-Agent"));
 		vc.setVisit_refer(request.getHeader("referer"));
 		vc.setVisit_ip(ip);
-		System.out.println(ip);
 		int result = vService.insertVisitor(vc);
 		String visitor = vService.selectVisitor()+"";			
 	

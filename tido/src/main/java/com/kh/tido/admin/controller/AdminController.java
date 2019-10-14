@@ -373,20 +373,5 @@ public class AdminController {
 		}
 		
 		
-		
-	
-	
-	
-	
-	
-	
-	
-	
-	@RequestMapping("aManage.kh")
-	public String adminManageView() {
-		
-		return "admin/userManagement";
-	}
-	
 	
 }

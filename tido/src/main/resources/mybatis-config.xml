@@ -20,6 +20,7 @@
 		<typeAlias type="com.kh.tido.report.model.vo.ReportReason" alias="ReportReason"/>
 	</typeAliases>
 	
+		
 	<mappers>
 		<mapper resource="mappers/project-mapper.xml"/>
 		<mapper resource="mappers/board-mapper.xml"/>
@@ -30,14 +31,8 @@
 		<mapper resource="mappers/calendar-mapper.xml"/>
 		<mapper resource="mappers/visitor-mapper.xml"/>
 		<mapper resource="mappers/report-mapper.xml"/>
-		
+		<mapper resource="mappers/adminUser-mapper.xml"/>	
 		
  	</mappers>
 
 </configuration>
-
-
-	
-	
-		
- 	

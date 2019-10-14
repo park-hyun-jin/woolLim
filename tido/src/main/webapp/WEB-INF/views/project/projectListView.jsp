@@ -12,7 +12,7 @@
 var pageCheck="projectListView";
 </script>
 </head>
-<body>
+	<body>
 		<jsp:include page="../common/menubar.jsp"/>
 		
 		
