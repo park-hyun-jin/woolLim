@@ -32,7 +32,6 @@ var pageCheck="projectView";
 					<button id="cancel">취소</button>
 				</div>
 		</div>
-	
 	</div>
 	<div id="saveMessage" align="center">
 		저장중입니다<span class="dot"></span>
