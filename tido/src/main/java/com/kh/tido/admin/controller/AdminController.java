@@ -367,7 +367,7 @@ public class AdminController {
 			return mv;
 		}
 		
-		@RequestMapping("isearch.kh")
+		@RequestMapping("adminIsearch.kh")
 		public String inquirySearch(Search search, Model model){
 			
 			System.out.println(search.getSearchCondition());

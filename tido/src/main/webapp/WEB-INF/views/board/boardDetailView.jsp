@@ -250,6 +250,9 @@ table.type09 tbody td  {
 			$("#reportType").val(${board.reportType});
 		});
 		
+	
+
+	
 		function reportButtonclick(btn){
 			btn.on("click",function(){
 				contentsNo=$(this).children("input").eq(0).val().trim();
@@ -259,6 +262,7 @@ table.type09 tbody td  {
 			});
 			
 		}
+	
 		
 	</script>
 </body>
