@@ -54,7 +54,7 @@ var pageCheck="projectView";
 			    beat <input id="beat" type="number"value="8" min="4" max="16">
 			</div>
 			<div>	
-			    length <input id="length" type="number"value="32" min="4" max="64">
+			    length <input id="length" type="number"value="32" min="4" max="64" step="4">
 			</div>
 			
 		</div>
@@ -131,6 +131,12 @@ var pageCheck="projectView";
 		   }
 		   
 	       for(var i = 1; i <= length; i++) {
+	    	   if(i%4==0){
+			         $(".length"+i).css("border-right","2px solid grey");
+		          }
+		       if(i==length){
+		             $(".length"+i).css("border-right","1px solid lightgrey");
+		       }
 	          $(".length"+i).show();
 	       }
 	       
@@ -415,6 +421,7 @@ var pageCheck="projectView";
 						  drumSoundInfo:drumSoundInfo,
 						  bpm:bpm,
 						  beat:beat,
+						  length:length,
 						  projectPath:path,
 						  projectImagePath:projectImagePath},
 					type:"post",
@@ -445,6 +452,28 @@ var pageCheck="projectView";
 		  	$("#title").text('${project.projectTitle}');
 			$("#bpm").val('${project.bpm}');
 			$("#beat").val('${project.beat}');
+			$("#length").val('${project.length}');
+
+		   length = $("#length").val();
+		   for(var i = 1; i <= 64; i++) {
+			   $(".length"+i).hide(); 
+		   }
+		   
+	       for(var i = 1; i <= length; i++) {
+	    	   if(i%4==0){
+			         $(".length"+i).css("border-right","2px solid grey");
+		          }
+		       if(i==length){
+		             $(".length"+i).css("border-right","1px solid lightgrey");
+		       }
+	          $(".length"+i).show();
+	       }
+	       
+	       $(".padBox").width(40*length + 100);
+	       
+			       
+			   
+			
 			var beatArr = "<c:out value='${project.pianoSoundInfo}'/>".split("/");
 			var soundArr;
 	 		for(var i=0; i<length; i++){

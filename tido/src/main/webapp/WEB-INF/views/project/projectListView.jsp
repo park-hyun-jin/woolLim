@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="styleSheet" href="${contextPath }/resources/css/project/projectListView-style.css" > 
+
 <script>
 var pageCheck="projectListView";
 </script>
@@ -51,6 +52,7 @@ var pageCheck="projectListView";
 		</div>			
 				
 		<ul class="contextmenu">
+		  <li id="shareProjectMenu"><span>공유하기</span></li>
 		  <li id="updateNameMenu"><span>이름 변경</span></li>
 		  <li id="deleteProjectMenu"><span>삭제</span></li>
 		</ul>
@@ -76,11 +78,13 @@ var pageCheck="projectListView";
 			var check=true;
 			var $project;
 			var projectNo;
+			var scrollCount=0;
 			if(projectCount<=selectCount){
 				 //check=false;
 			}
 						
 			$(function(){
+				$("#projectArea").hide();
 				getProjectCount();
 				selectProjectList(path);
 				
@@ -117,8 +121,11 @@ var pageCheck="projectListView";
         			
        					 if(scrollT + scrollH +1 >= contentH) {
 							if(check){
+						
+							$("#projectArea").children("p").text("loading...");
 							setTimeout(function(){
 								selectProjectList(path);
+								scrollCount++;
 							},1500);
 								check=false;
 							}
@@ -184,6 +191,7 @@ var pageCheck="projectListView";
 					data:{projectPath:path,begin:begin,lim:lim},
 					dataType:"json",
 					success:function(projectList){
+						$("#projectArea").show();
 						$("#projectArea").children("p").remove();
 						clearInterval(loading);
 						var replacedPath=path.replace("${loginUser.name}","내 라이브러리");
@@ -204,24 +212,32 @@ var pageCheck="projectListView";
 							 	$div.append($path);
 								addEvent($div);
 								$("#projectArea").append($div);
+								
 							}
-							$("#projectArea").append("<p align='center'>loading...</p>")
+							$("#projectArea").append("<p align='center' style='height:30px'></p>");
 							begin=begin+selectCount;
 							lim=lim+selectCount;
 							if(lim>=projectCount){
 								lim=projectCount;
 							}
 							if(projectList.length<selectCount){
-								setTimeout(function(){
-									$("#projectArea").children("p").text("더 이상 조회결과가 없습니다.");
-								},1500);
+								$("#projectArea").children("p").remove();
+								if(	scrollCount>=1){
+								$("#projectArea").append("<p align='center'>loading...</p>")
+									setTimeout(function(){
+										$("#projectArea").children("p").text("더 이상 조회결과가 없습니다.");
+									},1500);
+								}
 								check=false;
 							}else{
 								check=true;
 							}
+						
 						}else{
-							$("#projectArea").append("<p align='center'>loading...</p>")
 							$("#loadingMessage").hide();
+							if(	scrollCount>=1){
+								$("#projectArea").append("<p align='center'>loading...</p>")
+							}
 							setTimeout(function(){
 								$("#projectArea").children("p").text("조회결과가 없습니다.");
 							},1500); 

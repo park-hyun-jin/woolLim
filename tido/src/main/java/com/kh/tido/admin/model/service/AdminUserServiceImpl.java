@@ -20,6 +20,7 @@ public class AdminUserServiceImpl implements AdminUserService{
 	@Override
 	public ArrayList<Member> memberList() {		
 		return auDao.memberList();
+
 	}
 
 	@Override
@@ -44,6 +45,12 @@ public class AdminUserServiceImpl implements AdminUserService{
 	@Override
 	public ArrayList<Board> aMemberBoardList(String id) {
 		return auDao.aMemberBoardList(id);
+
+	}
+
+	@Override
+	public Board detailBoard(int cBoardNo) {		
+		return auDao.detailBoard(cBoardNo);
 	}
 
 }

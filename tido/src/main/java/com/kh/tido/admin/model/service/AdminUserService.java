@@ -17,4 +17,6 @@ public interface AdminUserService {
 
 	ArrayList<Board> aMemberBoardList(String id);
 
+	Board detailBoard(int cBoardNo);
+
 }

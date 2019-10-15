@@ -60,11 +60,11 @@
               </c:forEach>
               </tbody>
             </table>
-          </div>
-          <br>
-          <div align="right">
+           <br>
+           <div align="right">
           <button id="deleteBtn">장비를 정지합니다.</button>
           <button id="reviveBtn">영웅은.. 죽지않아요!</button>
+          </div>
           </div>
         </main>
       </div>
@@ -128,16 +128,16 @@
 			});
 			
 			$(".users").addClass("active");
+			
 			var table = $('#myTable').DataTable({
-				stateSave: true,
-				order: [[4,"asc"]],
+				order: [[5,"desc"]],
 				"language": {
 			        "emptyTable": "데이터가 없어요.",
 			        "lengthMenu": "페이지당 _MENU_ 개씩 보기",
 			        "info": "현재 _START_ - _END_ / _TOTAL_건",
 			        "infoEmpty": "데이터 없음",
 			        "infoFiltered": "( _MAX_건의 데이터에서 필터링됨 )",
-			        "search": "여기서 검색: ",
+			        "search": "검색: ",
 			        "zeroRecords": "일치하는 데이터가 없어요.",
 			        "loadingRecords": "로딩중...",
 			        "processing":     "잠시만 기다려 주세요...",
@@ -148,6 +148,31 @@
 			    },
 				
 			});
+			
+		    
+		    $('#myTable_filter').prepend('<input type="text" id="toDate" placeholder="yyyy-MM-dd"> ');
+		    $('#myTable_filter').prepend('<input type="text" id="fromDate" placeholder="yyyy-MM-dd">~');
+		    
+		    $.fn.dataTable.ext.search.push(
+		    	    function(settings, data, dataIndex){
+		    	        var min = Date.parse($('#fromDate').val());
+		    	        var max = Date.parse($('#toDate').val());
+		    	        var targetDate = Date.parse(data[5]);
+		    	 
+		    	        if( (isNaN(min) && isNaN(max) ) || 
+		    	            (isNaN(min) && targetDate <= max )|| 
+		    	            ( min <= targetDate && isNaN(max) ) ||
+		    	            ( targetDate >= min && targetDate <= max) ){ 
+		    	                return true;
+		    	        }
+		    	        return false;
+		    	    }
+		    	)
+		    
+		    $('#toDate, #fromDate').unbind().bind('keyup',function(){
+			    table.draw();
+			})
+
 		});
 	</script>
 </body>

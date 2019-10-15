@@ -36,4 +36,8 @@ public class AdminUserDao {
 		return (ArrayList)sqlSession.selectList("adminUserMapper.aMemberBoardList", id);
 	}
 
+	public Board detailBoard(int cBoardNo) {
+		return sqlSession.selectOne("adminUserMapper.detailBoard",cBoardNo);
+	}
+
 }

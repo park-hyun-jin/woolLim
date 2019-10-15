@@ -21,12 +21,7 @@ public class AdminUserController {
 	
 	@Autowired
 	private AdminUserService auService;
-		
-	@RequestMapping("admin.kh")
-	public String compProjectView() {
-		return "admin/adminDashboard";
-	}
-	
+
 	
 	@RequestMapping("adminUserManage.kh")
 	public ModelAndView adminManageView(ModelAndView mv) {
@@ -72,11 +67,23 @@ public class AdminUserController {
 		if(mem!=null) {
 			model.addAttribute("member",mem);
 			model.addAttribute("bList",bList);
-			return "admin/userDetail";
+			return "admin/adminUserDetail";
 		}else {
 			model.addAttribute("msg","게시물 목록 조회 실패");
 			return "common/errorPage";
 		}
+	}
+	
+	@RequestMapping("abDetail.kh")
+	public ModelAndView adminboardDetail(ModelAndView mv, Integer page, int cBoardNo) {
+		int currentPage = page == null ? 1 : page;
+		Board board = auService.detailBoard(cBoardNo);		
+		if(board != null) {
+			mv.addObject("board", board).addObject("currentPage", currentPage).setViewName("admin/adminBoardDetailView");
+		}else {
+			mv.addObject("msg", "조회 실패").setViewName("common/errorPage");
+		}
+		return mv;
 	}
 	
 }

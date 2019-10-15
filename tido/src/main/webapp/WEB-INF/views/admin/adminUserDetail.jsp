@@ -28,7 +28,7 @@
             
           </div>
     	<br>
-              
+           
           <h2>${member.id } 상세 페이지</h2>
           <br>
           <div class="table-responsive" style="width:98%;">
@@ -56,30 +56,30 @@
             </table>
           </div>
           <br>
-          <h2>유저 작성 게시글</h2>
-          <div class="table-responsive" style="width:48%;">
+          <h4>유저 작성 게시글</h4>
+          <div class="table-responsive" style="width:50%;">
             <table class="table table-striped table-sm" id="myTable">
               <thead>
                 <tr>
                   <th width="5%"><input type="checkbox" name="checkAll" id="th_checkAll"/></th>
-                  <th width="5%">번호</th>
+                  <th width="10%">번호</th>
                   <th width="30%">제목</th>
-                  <th width="20%">작성자</th>
-                  <th width="20%">날짜</th>
-                  <th width="10%">조회수</th>
-                  <th width="10%">상태</th>
+                  <th width="15%">작성자</th>
+                  <th width="17%">날짜</th>
+                  <th align="center" width="13%">조회수</th>
+                  <th width="20%">상태</th>
                 </tr>
               </thead>
               <tbody>
               <c:forEach var="b" items="${bList}">
                 <tr>
-                <c:url var="bDetail" value="bDetail.kh">
-					<c:param name="cBoardNo" value="${ b.cBoardNo }"/> 
+                <c:url var="abDetail" value="abDetail.kh">
+					<c:param name="cBoardNo" value="${ b.cBoardNo }"/>
 				</c:url>
 				  <td><input type="checkbox" name="chBox" class="chBox" value="${b.cBoardNo}" /></td>
                   <td>${b.cBoardNo}</td>
-                  <td><a href="${ bDetail }">${ b.cBoardTitle }</a></td>
-                  <td>${ b.memberId }</td>
+                  <td><a href="${ abDetail }">${ b.cBoardTitle }</a></td>
+                  <td>${b.memberName }</td>
                   <td>${b.cBoardCreateDate }</td>
                   <td>${b.cBoardViewCount }</td>
                   <td>${b.cBoardStatus }</td>
@@ -87,11 +87,15 @@
               </c:forEach>
               </tbody>
             </table>
-          </div>
-          <br>
+            <br>
           <div align="right">
           <button id="deleteBtn">장비를 정지합니다.</button>
           <button id="reviveBtn">영웅은.. 죽지않아요!</button>
+          </div>
+          </div>
+          <br>
+          <div align="right">          
+          <button id="golist" onclick="history.back();">목록으로</button>
           </div>
         </main>
       </div>
@@ -115,7 +119,7 @@
 					$("#th_checkAll").prop("checked",false);	
 				}
 			});
-				
+	
 			$("#deleteBtn").on("click",function(){
 				var checkArray= new Array();
 				if(window.confirm("정말 변경하시겠습니까? 리얼리? 참트루?")){
@@ -156,8 +160,7 @@
 			
 			$(".users").addClass("active");
 			var table = $('#myTable').DataTable({
-				stateSave: true,
-				order: [[4,"asc"]],
+				order: ([1,"desc"]),
 				"language": {
 			        "emptyTable": "데이터가 없어요.",
 			        "lengthMenu": "페이지당 _MENU_ 개씩 보기",
