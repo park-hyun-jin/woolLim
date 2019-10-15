@@ -12,6 +12,100 @@
 		<result property="iInquiryStatus" column="INQUIRY_STATUS"/> <!-- 문의글 상태 -->
 		<result property="iInquiryOriginFilename" column="INQUIRY_ORIGIN_FILENAME"/> <!-- 기존파일이름 -->
 		<result property="iInquiryChangeFilename" column="INQUIRY_CHANGE_FILENAME"/> <!-- 바뀐파일이름 -->
+		<result property="memberName" column="MEMBER_NAME"/>
 	</resultMap>
 	
+	
+	
+	
+	<select id="getListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM QNA
+		WHERE INQUIRY_STATUS = 'Y'
+	</select>
+	
+	<select id="selectList" resultMap="inquiryResultSet">
+	SELECT INQUIRY_NO, INQUIRY_TITLE, INQUIRY_CONTENT, INQUIRY_DATE,
+	INQUIRY_MODIFY_DATE, MEMBER_ID, INQUIRY_STATUS,
+	INQUIRY_ORIGIN_FILENAME, INQUIRY_CHANGE_FILENAME, MEMBER_NAME
+	FROM QNA
+	JOIN MEMBER USING (MEMBER_ID)
+	WHERE INQUIRY_STATUS ='Y'
+	ORDER BY INQUIRY_NO DESC
+	</select>
+	
+
+	<insert id="insertInquiry" parameterType="Inquiry">
+		 INSERT INTO QNA VALUES(
+         SEQ_INO.NEXTVAL, #{iInquiryTitle}, #{iInquiryContent}, SYSDATE, 
+         SYSDATE, #{iInquiryId}, 
+         DEFAULT, #{iInquiryOriginFilename}, #{iInquiryChangeFilename})
+	</insert>
+
+
+	<select id="selectInquiry" parameterType="_int"
+		resultMap="inquiryResultSet">
+		SELECT INQUIRY_NO, INQUIRY_TITLE, INQUIRY_CONTENT, INQUIRY_DATE,
+		INQUIRY_MODIFY_DATE
+		,MEMBER_ID, INQUIRY_STATUS, INQUIRY_ORIGIN_FILENAME, INQUIRY_CHANGE_FILENAME, MEMBER_NAME
+		FROM QNA
+		JOIN MEMBER USING (MEMBER_ID)
+		WHERE INQUIRY_NO = #{iNo}
+	</select>
+
+
+	<update id="updateInquiry" parameterType="Inquiry">
+		UPDATE QNA
+		SET INQUIRY_TITLE = #{iInquiryTitle},
+		INQUIRY_CONTENT = #{iInquiryContent},
+
+		<if test="iInquiryOriginFilename != null">
+			INQUIRY_ORIGIN_FILENAME = #{iInquiryOriginFilename},
+			INQUIRY_CHANGE_FILENAME = #{iInquiryChangeFilename},
+		</if>
+
+		INQUIRY_MODIFY_DATE = SYSDATE
+		WHERE INQUIRY_NO = #{iNo}
+
+	</update>
+
+
+
+
+	<delete id="deleteInquiry" parameterType="_int">
+	UPDATE QNA
+	SET
+	INQUIRY_STATUS='N'
+	WHERE INQUIRY_NO=#{iNo}
+	</delete>
+
+	<select id="searchList" parameterType="iSearch"
+		resultMap="inquiryResultSet">
+		<bind name="sv" value="'%'+ _parameter.getSearchValue() +'%'" />
+		
+		SELECT INQUIRY_NO, INQUIRY_CONTENT, INQUIRY_DATE, INQUIRY_MODIFY_DATE, MEMBER_ID,
+		INQUIRY_STATUS, INQUIRY_ORIGIN_FILENAME, INQUIRY_CHANGE_FILENAME, MEMBER_NAME
+		FROM QNA
+		JOIN MEMBER USING (MEMBER_ID) WHERE
+			<choose>
+				<when test="searchCondition == 'title'">
+					 INQUIRY_TITLE LIKE #{sv}
+				</when>
+				<when test="searchCondition == 'writer'">
+					 MEMBER_NAME LIKE #{sv}
+				</when>
+				<when test="searchCondition == 'content'">
+					 INQUIRY_CONTENT LIKE #{sv}
+				</when>
+				<otherwise>
+					 (MEMBER_ID LIKE #{sv}
+					OR INQUIRY_TITLE LIKE #{sv}
+					OR INQUIRY_CONTENT
+					LIKE #{sv})
+				</otherwise>
+			</choose>
+		
+		ORDER BY INQUIRY_DATE DESC
+	</select>
+
 	</mapper>

@@ -120,6 +120,7 @@
 	
 	
 	
+	
 	<!--  width="1000" -->
 	
 	
@@ -205,7 +206,7 @@
 		
 		<!-------------- 게시물 검색하기 --------------->
 	<div id="searchArea" align="center">
-		<form action="isearch.kh" name="searchForm" method="get">
+		<form action="adminIsearch.kh" name="searchForm" method="get">
 			
 			<select id="searchCondition" name="searchCondition">
 				<option value="all" <c:if test="${search.searchCondition == 'all'}">selected</c:if> >전체</option>
@@ -270,6 +271,9 @@
 						data:{checkArray:checkArray},
 						type:"post",
 						success:function(result){
+							if(result>0){
+								location.reload();
+							}
 							console.log(result);
 						}
 						
@@ -289,6 +293,9 @@
 						data:{checkArray:checkArray},
 						type:"post",
 						success:function(result){
+							if(result>0){
+								location.reload();
+							}
 							console.log(result);
 						}
 						
