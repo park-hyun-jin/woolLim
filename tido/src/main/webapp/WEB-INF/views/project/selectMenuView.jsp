@@ -6,64 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style>
-   
-   *{
-      box-sizing: border-box;
-   }
-   section{
-      
-      width:95%;
-      height:600px;
-      margin:100px auto;
-   }
-    section>div{
-    	margin: auto;
-    	width:80%;
-    	height: 100%;
-    }
-   section>div>div{
-      width:30%;
-      height: 500px;
-      float: left;
-      margin:1.5%;
-      background:rgba(255,255,255,0.8);
-   }
-   section>div>div:hover{
-      -webkit-filter: invert(100%);
-         filter: invert(100%);
-         cursor: pointer;
-   }
-   section>div>div>div{
-      text-align: center;
-      font-weight:bolder;
-      font-size:20px;
-      width:100%;
-      height:128px;
-      margin-top: 150px;
-   }
-
-    @media ( max-width: 768px ) {
-	    section{
-	      width:100%;
-	      height:600px;
-	   }
-      section>div>div{
-	      width:400px;
-	      height: 30%;
-	      float: none;
-	      margin-bottom:10px;
-  	 }
-  	 section>div>div>div{
-      text-align: center;
-      font-weight:bolder;
-      font-size:20px;
-      width:100%;
-      height:50%;
-      margin-top:10px;
-  	 }
-   }
-</style>
+<link rel="styleSheet" href="${contextPath }/resources/css/project/selectMenuView-style.css" > 
 </head>
 <body>
    <jsp:include page="../common/menubar.jsp"/>
@@ -81,16 +24,15 @@
 	            <div >내 프로젝트</div>
 	         </div>
 	      </div>
-	      <div class="area area3" onclick="">
-	      	<div>
-	      		<img src="${contextPath }/">
-	      	</div>
+	      <div class="area area3" onclick="location.href='pjtBoardListView.kh'">
+	      	 <div>
+	            <img src="${contextPath }/resources/images/share-music.png">
+	            <div >공유게시판</div>
+	         </div>
 	      </div>
 	   </div>
    </section>
    <jsp:include page="../common/footer.jsp"/>
-   
-   
    
    <c:if test="${loginUser==null }">   
       <script>

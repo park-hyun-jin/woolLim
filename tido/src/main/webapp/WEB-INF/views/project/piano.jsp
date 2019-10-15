@@ -26,7 +26,6 @@
 </div>
 
 
-
 <div id="scrollbox" style="white-space:nowrap; overflow-y:hidden; width:80%;">
 <div id="padBox" class="padBox" style="width: 1280px">
 <div class="sound C3 piano">

@@ -18,7 +18,9 @@
 		<typeAlias type="com.kh.tido.visitor.model.vo.VisitorCount" alias="VisitorCount"/>	
 		<typeAlias type="com.kh.tido.report.model.vo.Report" alias="Report"/>
 		<typeAlias type="com.kh.tido.report.model.vo.ReportReason" alias="ReportReason"/>
+		<typeAlias type="com.kh.tido.projectBoard.model.vo.ProjectBoard" alias="ProjectBoard"/>
 	</typeAliases>
+	
 	
 		
 	<mappers>
@@ -31,8 +33,10 @@
 		<mapper resource="mappers/calendar-mapper.xml"/>
 		<mapper resource="mappers/visitor-mapper.xml"/>
 		<mapper resource="mappers/report-mapper.xml"/>
+		<mapper resource="mappers/pboard-mapper.xml"/>
 		<mapper resource="mappers/adminUser-mapper.xml"/>	
-		
  	</mappers>
+
+		
 
 </configuration>
