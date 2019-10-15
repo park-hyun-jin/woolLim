@@ -234,10 +234,10 @@
                         </select>
                         <input type="hidden" name="id" value="${loginUser.id}">
                         <input type="hidden" name="page" value="${1}">
-                        <c:if  test="${!empty sort}">
+                        <c:if  test="${!empty search}">
 	                        <input type="text" class="form-control" name="search" id="inputPassword2" value="${search}" placeholder="검색어를 입력하세요">
                         </c:if>
-                        <c:if test="${empty sort}">
+                        <c:if test="${empty search}">
                         	<input type="text" class="form-control" name="search" id="inputPassword2" placeholder="검색어를 입력하세요">
                         </c:if>
                         <input class="btn btn-primary" type="submit" value="검색">

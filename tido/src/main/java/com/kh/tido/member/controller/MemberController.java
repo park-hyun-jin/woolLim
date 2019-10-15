@@ -179,7 +179,7 @@ public class MemberController {
 		ArrayList<Reply> list = null;
 		
 		if(search != null && search != "") {
-			list = mService.selectMemberReplySearch(id, currentPage, search, sort);
+			list = mService.selectMemberReplySearch(id, currentPage, search);
 		}else {
 			list = mService.selectMemberReply(id, currentPage);
 		}

@@ -31,7 +31,7 @@ public interface MemberService {
 
 	ArrayList<Reply> selectMemberReply(String id, int currentPage);
 	
-	ArrayList<Reply> selectMemberReplySearch(String id, int currentPage, String search, String sort);
+	ArrayList<Reply> selectMemberReplySearch(String id, int currentPage, String search);
 
 
 }

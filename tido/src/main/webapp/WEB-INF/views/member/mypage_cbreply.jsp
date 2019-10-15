@@ -141,19 +141,17 @@
                         <tr>
                             <th>No</th>
                             <th>내용</th>
-                            <th>조회수</th>
                             <th>최근 수정 일자</th>
                         </tr>
-                        <c:forEach var="b" items="${list}">
+                        <c:forEach var="r" items="${list}">
                         	<tr>
                         		<c:url var="bdetail" value="bdetail.kh">
-									<c:param name="cBoardNo" value="${ b.cbReplyNo }"/>
+									<c:param name="cBoardNo" value="${ r.cboardNo }"/>
 									<c:param name="page" value="${ pi.currentPage }"/>
 								</c:url>
-                        		<td>${b.cBoardNo}</td>
-                        		<td><a href="${bdetail}">${b.cBoardContent}</a></td>
-                        		<td>${b.cBoardViewCount}</td>
-                        		<td>${b.cBoardModifyDate}</td>
+                        		<td>${r.cBoardNo}</td>
+                        		<td><a href="${bdetail}">${r.cbReplyContent}</a></td>
+                        		<td>${r.cbReplyModifyDate}</td>
                         	</tr>
                         </c:forEach>
                     </table>
@@ -215,27 +213,14 @@
                 <div class="content-3">
                     <form class="form-inline" id="selectForm">
                     	<select name="sort" class="selectSearch">
-                    		<c:if  test="${!empty sort}">
-                    			<c:if test="${sort == 'title'}">
-	                                <option value="title" selected>제목</option>
-	                                <option value="content">내용</option>
-                    			</c:if>
-                    			<c:if test="${sort == 'content'}">
-	                                <option value="title">제목</option>
-	                                <option value="content" selected>내용</option>
-                    			</c:if>
-                            </c:if>
-                            <c:if test="${empty sort}">
-                            	<option value="title" selected>제목</option>
-	                            <option value="content">내용</option>
-                            </c:if>
+	                    	<option value="content" selected>내용</option>
                         </select>
                         <input type="hidden" name="id" value="${loginUser.id}">
                         <input type="hidden" name="page" value="${1}">
-                        <c:if  test="${!empty sort}">
+                        <c:if  test="${!empty search}">
 	                        <input type="text" class="form-control" name="search" id="inputPassword2" value="${search}" placeholder="검색어를 입력하세요">
                         </c:if>
-                        <c:if test="${empty sort}">
+                        <c:if test="${empty search}">
                         	<input type="text" class="form-control" name="search" id="inputPassword2" placeholder="검색어를 입력하세요">
                         </c:if>
                         <input class="btn btn-primary" type="submit" value="검색">

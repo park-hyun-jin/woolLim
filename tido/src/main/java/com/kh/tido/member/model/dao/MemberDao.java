@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.tido.board.model.vo.Board;
+import com.kh.tido.board.model.vo.Reply;
 import com.kh.tido.member.model.vo.PageInfo;
 import com.kh.tido.member.model.vo.Member;
 import com.kh.tido.member.model.vo.MemberAuth;
@@ -72,5 +73,23 @@ public class MemberDao {
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
 		return (ArrayList)sqlSession.selectList("memberMapper.selectMemberBoardSearchList", map, rowBounds);
 	}
+
+	public int getMemberReplyCount(String id) {
+		return sqlSession.selectOne("memberMapper.selectMemberReplyCount", id);
+	}
+
+	public ArrayList<Reply> selectMemberReply(String id, PageInfo pi) {
+		return sqlSession.selectOne("memberMapper.selectMemberReplyList", id);
+	}
+	
+	public int getMemberReplySearchCount(Map map) {
+		return sqlSession.selectOne("memberMapper.selectMemberReplySearchCount", map);
+	}
+
+	public ArrayList<Reply> selectMemberReplySearch(Map map, PageInfo pi) {
+		return sqlSession.selectOne("memberMapper.selectMemberReplySearchList", map);
+	}
+
+
 	
 }

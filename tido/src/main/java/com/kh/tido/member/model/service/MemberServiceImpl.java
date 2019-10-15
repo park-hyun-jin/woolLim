@@ -197,14 +197,31 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public ArrayList<Reply> selectMemberReply(String id, int currentPage) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		int listCount = mDao.getMemberReplyCount(id);
+		
+		System.out.println("---------- listCount : " + listCount);
+		
+		PageInfo pi = PaginationMember.getPageInfo(currentPage, listCount);
+		
+		return mDao.selectMemberReply(id, pi);
 	}
 
 	@Override
-	public ArrayList<Reply> selectMemberReplySearch(String id, int currentPage, String search, String sort) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Reply> selectMemberReplySearch(String id, int currentPage, String search) {
+		
+		Map map = new HashMap();
+		
+		map.put("id", id);
+		map.put("search", search);
+		
+		int listCount = mDao.getMemberReplySearchCount(map);
+		
+		System.out.println("map : " + map);
+		
+		PageInfo pi = PaginationMember.getPageInfo(currentPage, listCount);
+		
+		return mDao.selectMemberReplySearch(map, pi);
 	}
 
 }
