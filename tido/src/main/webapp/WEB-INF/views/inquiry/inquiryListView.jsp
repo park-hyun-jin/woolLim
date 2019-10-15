@@ -190,7 +190,6 @@
 					</c:if>
 				</td>
 			</tr>
-			</tr>
 	</table>
 
 		<div>
@@ -208,16 +207,7 @@
 			</form>
 
 
-
-		
-
-
-
-
-			</form>
-
 		</div>
-		</thead>
 	</div>
 
 	

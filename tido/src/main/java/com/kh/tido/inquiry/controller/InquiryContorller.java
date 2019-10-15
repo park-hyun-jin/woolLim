@@ -11,13 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.tido.common.Pagination3;
 import com.kh.tido.inquiry.model.service.InquiryService;
 import com.kh.tido.inquiry.model.vo.Inquiry;
 import com.kh.tido.inquiry.model.vo.Search;
-import com.kh.tido.notice.model.vo.Notice;
 
 @Controller
 public class InquiryContorller {
@@ -129,6 +127,7 @@ public class InquiryContorller {
 		}
 		return mv;
 	}
+	
 	@RequestMapping("isearch.kh")
 	public String inquirySearch(Search search, Model model, Integer page){
 		int currentPage = page == null ? 1 : page;
