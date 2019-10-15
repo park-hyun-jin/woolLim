@@ -24,17 +24,17 @@
       
       <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 class="h2">유저 관리 페이지</h1>
+            <h1 class="h2">유저 상세 페이지</h1>
             
           </div>
     	<br>
               
-          <h2>유저 목록</h2>
+          <h2>${member.id } 상세 페이지</h2>
+          <br>
           <div class="table-responsive" style="width:98%;">
-            <table class="table table-striped table-sm" id="myTable">
+            <table class="table table-striped table-sm">
               <thead>
                 <tr>
-                  <th width="5%"><input type="checkbox" name="checkAll" id="th_checkAll"/></th>
                   <th width="30%">아이디</th>
                   <th width="15%">닉네임</th>
                   <th width="10%">신고횟수</th>
@@ -44,18 +44,45 @@
                 </tr>
               </thead>
               <tbody>
-              <c:forEach var="m" items="${list}">
+                <tr>				  
+                  <td>${ member.id }</td>
+                  <td>${ member.name }</td>
+                  <td>${member.reportCount }</td>
+                  <td>${member.banCount }</td>
+                  <td>${member.enrollDate }</td>
+                  <td>${member.status }</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <br>
+          <h2>유저 작성 게시글</h2>
+          <div class="table-responsive" style="width:48%;">
+            <table class="table table-striped table-sm" id="myTable">
+              <thead>
                 <tr>
-                <c:url var="amdetail" value="amdetail.kh">
-					<c:param name="id" value="${ m.id }"/> 
+                  <th width="5%"><input type="checkbox" name="checkAll" id="th_checkAll"/></th>
+                  <th width="5%">번호</th>
+                  <th width="30%">제목</th>
+                  <th width="20%">작성자</th>
+                  <th width="20%">날짜</th>
+                  <th width="10%">조회수</th>
+                  <th width="10%">상태</th>
+                </tr>
+              </thead>
+              <tbody>
+              <c:forEach var="b" items="${bList}">
+                <tr>
+                <c:url var="bDetail" value="bDetail.kh">
+					<c:param name="cBoardNo" value="${ b.cBoardNo }"/> 
 				</c:url>
-				  <td><input type="checkbox" name="chBox" class="chBox" value="${m.id}" /></td>
-                  <td><a href="${ amdetail }">${ m.id }</a></td>
-                  <td><a href="${ amdetail }">${ m.name }</a></td>
-                  <td>${m.reportCount }</td>
-                  <td>${m.banCount }</td>
-                  <td>${m.enrollDate }</td>
-                  <td>${m.status }</td>
+				  <td><input type="checkbox" name="chBox" class="chBox" value="${b.cBoardNo}" /></td>
+                  <td>${b.cBoardNo}</td>
+                  <td><a href="${ bDetail }">${ b.cBoardTitle }</a></td>
+                  <td>${ b.memberId }</td>
+                  <td>${b.cBoardCreateDate }</td>
+                  <td>${b.cBoardViewCount }</td>
+                  <td>${b.cBoardStatus }</td>
                 </tr>
               </c:forEach>
               </tbody>
@@ -69,7 +96,7 @@
         </main>
       </div>
     </div>
-	<script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="${contextPath }/resources/js/admin/dashboard.js"></script>
 	<script>
 		$(document).ready(function(){

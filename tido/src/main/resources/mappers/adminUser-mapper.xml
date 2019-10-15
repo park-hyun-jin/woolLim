@@ -14,9 +14,55 @@
 		<result property="imagePath" column="MEMBER_IMAGE_PATH"/>
 	</resultMap>
 	
+	<resultMap id="boardResultSet" type="Board">
+		<id property="cBoardNo" column="CBOARD_NO"/> <!-- 게시글 번호 -->
+		<result property="cBoardTitle" column="CBOARD_TITLE"/> <!-- 게시글 제목 -->
+		<result property="cBoardContent" column="CBOARD_CONTENT"/> <!-- 게시글 내용 -->
+		<result property="cBoardCreateDate" column="CBOARD_CREATE_DATE"/> <!-- 게시글 작성일 -->
+		<result property="cBoardModifyDate" column="CBOARD_MODIFY_DATE"/> <!-- 게시글 수정일 -->
+		<result property="cBoardViewCount" column="CBOARD_VIEW_COUNT"/> <!-- 게시글 조회수 -->
+		<result property="cBoardStatus" column="CBOARD_STATUS"/> <!-- 게시글 상태 -->
+		<result property="memberId" column="MEMBER_ID" /> <!-- 이메일 -->
+		<result property="cBoardOriFilename" column="CBOARD_ORIGIN_FILENAME" /> <!-- 기존 파일 이름 -->
+		<result property="cBoardChaFilename" column="CBOARD_CHANGE_FILENAME" /> <!-- 바뀐 파일 이름 -->
+		<result property="memberName" column="MEMBER_NAME" /> <!-- 바뀐 파일 이름 -->
+		<result property="reportType" column="REPORT_TYPE" /> <!-- 바뀐 파일 이름 -->
+		
+	</resultMap>
+	
 	<select id="selectList" resultMap="memberResultSet">
 		SELECT *
 		FROM MEMBER
+	</select>
+	
+	<update id="aDeleteMember" parameterType="map">
+		UPDATE MEMBER
+		SET MEMBER_STATUS ='N'
+		WHERE MEMBER_ID IN
+		<foreach collection="aMemberList" item="list" open="(" close=")" separator="," >
+			#{list}
+		</foreach>
+	</update>
+	
+	<update id="aReviveMember" parameterType="map">
+		UPDATE MEMBER
+		SET MEMBER_STATUS ='Y'
+		WHERE MEMBER_ID IN
+		<foreach collection="aMemberList" item="list" open="(" close=")" separator="," >
+			#{list}
+		</foreach>
+	</update>
+	
+	<select id="aMemberDetail" parameterType="string" resultMap="memberResultSet">
+		SELECT *
+		FROM MEMBER
+		WHERE MEMBER_ID = #{id}
+	</select>
+	
+	<select id="aMemberBoardList" parameterType="string" resultMap="boardResultSet">
+		SELECT *
+		FROM CBOARD
+		WHERE MEMBER_ID = #{id}
 	</select>
 	
 	
