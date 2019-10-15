@@ -1,6 +1,7 @@
 package com.kh.tido.board.model.service;
 
 import java.io.File;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,6 +19,7 @@ import com.kh.tido.board.model.vo.PageInfo;
 import com.kh.tido.board.model.vo.Reply;
 import com.kh.tido.board.model.vo.Search;
 import com.kh.tido.common.Pagination;
+import com.kh.tido.common.Pagination2;
 import com.kh.tido.notice.model.vo.Notice;
 
 @Service("bService")
@@ -29,8 +31,8 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public ArrayList<Board> selectList(int currentPage){
 		
-		int listCount = bDao.getListCount();
-		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		int listCount = bDao.getListCount();	
+		PageInfo pi = Pagination2.getPageInfo(currentPage, listCount);
 		return bDao.selectList(pi);
 	}
 

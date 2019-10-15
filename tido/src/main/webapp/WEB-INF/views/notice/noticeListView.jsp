@@ -146,11 +146,12 @@ to {
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
+					
 					<form action="ninsert.kh" id="ninsert" method="post" enctype="Multipart/form-data">
 						<div class="container" id="asd">
 
-							<div class="form-group">
 
+							<div class="form-group">
 								<label for="subject">제목</label> 
 								<input type="text" class="form-control" id="subject" name="pnoticeTitle" placeholder="제목을 입력하세요.">
 							</div>

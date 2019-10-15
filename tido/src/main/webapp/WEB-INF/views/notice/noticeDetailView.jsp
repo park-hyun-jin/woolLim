@@ -41,7 +41,7 @@
             <div class="form-row">
             
               <div class="form-group col-md-6">
-                <label for="inputEmail4">Email</label>
+                <label for="inputEmail4">nickName</label>
                 <div type="text" class="form-control" id="inputEmail4" >${ notice.memberName }</div>
               </div>
               <div class="form-group col-md-6">
@@ -56,46 +56,47 @@
             <div class="form-group" >
               <label for="inputAddress2">내용</label>
             	
-              <div type="text" class="form-control" id="inputAddress2">ㅁㄴㅇㄴㅁㅇ</div>
+              <div type="text" class="form-control" id="inputAddress2">${notice.pnoticeContent}</div>
             </div>
-            <div class="form-row">
-              <div class="form-group col-md-6"> 
-              <c:if test="${ !empty notice.pnoticeFilePath }">
-                <label for="inputCity">첨부파일</label>
-                <div  class="form-control" id="inputCity"><a href="${ contextPath }/resources/nuploadFiles/${ notice.pnoticeFilePath}" download>
-							${ notice.pnoticeFilePath }
-						</a></div>
-                </c:if>
-              </div>
-			  
-              <c:url var="nupView" value="nupView.kh">
-			<c:param name="nNo" value="${ notice.nNo }"/>
-		</c:url>
-		<c:url var="ndelete" value="ndelete.kh">
-			<c:param name="nNo" value="${ notice.nNo }"/>
-		</c:url>
-		
-		
-		<tr>
-			<td colspan="2" align="center">
-				<div class="form-group col-md-6" > 
-                    <div class="form-group text-center" id="button">
-                        <a  href="${ ndelete }" type="submit" id="join-submit" class="btn btn-info">
-                            삭제하기<i class="fa fa-check spaceLeft"></i>
-                        </a>
-                        <a type="submit" class="btn btn-primary" href="${ nupView }">
-                            수정하기<i class="fa fa-times spaceLeft"></i>
-                        </a>
-                    </div>
-                </div>
-			</td>
-		</tr>
-		
-		   
-			
-			
-              
-		  
-		</div>
-    </body>
+		<div class="form-row">
+			<div class="form-group col-md-6">
+				<c:if test="${ !empty notice.pnoticeFilePath }">
+					<label for="inputCity">첨부파일</label>
+					<div class="form-control" id="inputCity">
+						<a
+							href="${ contextPath }/resources/nuploadFiles/${ notice.pnoticeFilePath}"
+							download> ${ notice.pnoticeFilePath } </a>
+					</div>
+				</c:if>
+			</div>
+
+			<c:url var="nupView" value="nupView.kh">
+				<c:param name="nNo" value="${ notice.nNo }" />
+			</c:url>
+			<c:url var="ndelete" value="ndelete.kh">
+				<c:param name="nNo" value="${ notice.nNo }" />
+			</c:url>
+
+
+			<c:if test="${ loginUser.id == 'admin@admin.com' }">
+				<tr>
+					<td colspan="2" align="center">
+						<div class="form-group col-md-6">
+							<div class="form-group text-center" id="button">
+								<a href="${ ndelete }" type="submit" id="join-submit"
+									class="btn btn-info"> 삭제하기<i class="fa fa-check spaceLeft"></i>
+								</a> <a type="submit" class="btn btn-primary" href="${ nupView }">
+									수정하기<i class="fa fa-times spaceLeft"></i>
+								</a>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</c:if>
+
+
+
+
+
+		</div></body>
 </html>
