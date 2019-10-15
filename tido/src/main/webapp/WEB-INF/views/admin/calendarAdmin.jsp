@@ -19,6 +19,7 @@
 
 
 <style>
+
   .outer {
     max-width: 900px;
     margin: 30px auto;
@@ -91,12 +92,6 @@
   .modalRegister button {
   	margin-top: 40px;
   }
-  
-  #registerTable1{
-  position:relative;
-  bottom:450px;
-  
-  }
 </style>
 </head>
 <body>
@@ -105,7 +100,7 @@
 	
 	<div class="outer">
 		<div class="header">
-
+			<button type="button" class="btn btn-primary" onclick="registerEvent();" style="float:left">일정 등록</button>
 		<div id="calendar" class="calendar"></div>
 	</div>
 	
@@ -115,7 +110,7 @@
 	   	<div class="modal-content" id="modal-content">
 	   		<div class="modalRegister">
 	   		<form action="insertCalendar.kh" id="registerForm" method="GET">
-	   			<table id="registerTable1">
+	   			<table id="registerTable">
 		   			<tr>
 		   				<td><label for="title" for="title">일정 등록</label></td>
 		   				<td><input type="text" name="cTitle" id="title"></td>
@@ -200,6 +195,7 @@
 	
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script>
+
 	var id;
 	var title;
 	var url;
@@ -207,10 +203,12 @@
 	var endDate;
 	var status;
 	
+
 	$(document).ready(function(){
 		
 		loadCalendar();
 		
+
  		$("#calendar").fullCalendar({
 			
 			selectable: true,
@@ -224,6 +222,7 @@
       			return false;
       	    }
     	});
+
 	});
 	
 function loadCalendar() {
@@ -279,13 +278,14 @@ function loadCalendar() {
 			
 		}); 
 }
+
 function updateBtn() {
 	   title = $("input[name=updateTitle]").val();
 	   url = $("input[name=updateUrl]").val().trim();
-	   startDate = $("input[name=upStartDate]").val();
+	   startDate =$("input[name=upStartDate]").val();
 	   endDate = $("input[name=upEndDate]").val();
 	   status = $("#updateStatus").val();
-	   
+	  
 	   $(".updateModal").css("display", "none");
 	   
 	   $.ajax({
@@ -304,6 +304,9 @@ function updateBtn() {
 	      }
 	   });
 	}
+
+
+
 function deleteBtn() {
 	$(".updateModal").css("display", "none");
 	
@@ -322,6 +325,8 @@ function deleteBtn() {
 		}
 	});
 }
+
+
 	function closeBtn(){
 		$(".registerModal").css("display", "none");
 		$(".updateModal").css("display", "none");
@@ -336,13 +341,12 @@ function deleteBtn() {
 	}
 	
 	function updateEvent(event) {
-		var startDate = event.start.format("YYYY-MM-DD");
-		var endDate = event.end.format("YYYY-MM-DD");
 		$("input[name=updateTitle]").val(event.title);
 		$("input[name=updateUrl]").val(event.url);
 		$("input[name=upStartDate]").val(startDate);
 		$("input[name=upEndDate]").val(endDate);
 		$(".updateModal").css("display", "block");
+		
 	}
 	
 	function saveBtn() {

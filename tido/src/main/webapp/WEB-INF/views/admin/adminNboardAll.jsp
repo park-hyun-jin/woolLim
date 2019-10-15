@@ -133,10 +133,15 @@
 		<tr>
 			<td><input type="checkbox" name="chBox" class="chBox" value="${n.nNo}" /></td>
 			<td align="center">${ n.nNo }</td>
-				
-			<td align="center">	${ n.pnoticeTitle }</td>
-		
 			
+			<td align="center">
+			<c:url var="adminNdetail" value="adminNdetail.kh">
+			<c:param name="nNo" value="${n.nNo }" />
+			</c:url>
+			<a href="${ adminNdetail }" style="color: black;">${ n.pnoticeTitle }</a>
+			</td>
+			
+		
 			<td align="center">${ n.pnoticeCreateDate }</td>
 			
 			<td align="center">${ n.pnoticeViewCount }</td>
@@ -263,6 +268,9 @@
 						data:{checkArray:checkArray},
 						type:"post",
 						success:function(result){
+							if(result>0){
+								location.reload();
+							}
 							console.log(result);
 						}
 						
@@ -285,6 +293,9 @@
 						// 데이타에 text에어리어 값도 추가해서
 						type:"post",
 						success:function(result){
+							if(result>0){
+								location.reload();
+							}
 							console.log(result);
 						}
 						

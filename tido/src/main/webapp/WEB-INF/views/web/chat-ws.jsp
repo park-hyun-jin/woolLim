@@ -11,7 +11,7 @@
 	
 	function connect() {
 		wsocket = new WebSocket(
-		"ws://localhost:8080/tido/chat-ws");
+		"ws://192.168.110.71:8080/tido/chat-ws");
 		wsocket.onopen = onOpen;
 		wsocket.onmessage = onMessage;
 		wsocket.onclose = onClose;
@@ -63,13 +63,19 @@
 
 
 #nickname{
-	width: 200px; height: 40px; overflow-y: auto; border: 1px solid black;
+	width: 260px; height: 40px; overflow-y: auto; border: 1px solid black;
 }
 
 #chatArea{
-	width: 500px; height: 200px; overflow-y: auto; border: 1px solid black;
+	width: 260px; height: 200px; overflow-y: auto; border: 1px solid black;
 
 }
+
+	#enterBtn,#exitBtn,#message,#sendBtn{
+	width: 260px;
+	}
+
+
 
 
 
@@ -77,8 +83,10 @@
 </style>
 </head>
 <body>
-	이름:<br><br><input type="text" id="nickname">
-	<input type="button" id="enterBtn" value="입장">
+	<br><br>
+	이름:<br><br><input type="text" id="nickname"> &nbsp;
+	<input type="button" id="enterBtn" value="입장"> 
+	<br>
 	<input type="button" id="exitBtn" value="나가기">
     <br><br>
     <h3>대화 영역</h3>

@@ -32,11 +32,6 @@
                 </a>
               </li>             
               <li class="nav-item">
-
-                <a class="nav-link" href="adminMain.kh">
-                  <span data-feather="bar-chart-2"></span>
-                 Schedule Management
-                </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="nboardListAll.kh">
@@ -72,7 +67,7 @@
                   Year-end sale
                 </a>
               </li>
-              
+               <jsp:include page="/WEB-INF/views/web/chat-ws.jsp"/>
              
             </ul>
           </div>

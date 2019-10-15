@@ -14,7 +14,7 @@ public class Inquiry {
 	private String iInquiryOriginFilename;
 	private String iInquiryChangeFilename;
 	private String memberName;
-
+		
 	public Inquiry() {}
 
 	public Inquiry(int iNo, String iInquiryTitle, String iInquiryContent, Date iInquiryDate, Date iInquiryModifyDate,

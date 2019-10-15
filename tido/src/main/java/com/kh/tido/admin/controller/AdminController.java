@@ -30,6 +30,9 @@ public class AdminController {
 	private BoardService bService;
 	@Autowired
 	private AdminService aService;
+	
+	@Autowired
+	private NoticeService nService;
 
 
 	
@@ -42,6 +45,20 @@ public class AdminController {
 	@RequestMapping("chat-ws.kh")
 	public String webSocket() {
 		return "web/chat-ws";
+	}
+	
+	
+	@RequestMapping("adminBdetail.kh")
+	public ModelAndView boardDetail(ModelAndView mv, Integer page, int cBoardNo) {
+		int currentPage = page == null ? 1 : page;
+		Board board = bService.selectBoard(cBoardNo);
+		System.out.println(board);
+		if(board != null) {
+			mv.addObject("board", board).addObject("currentPage", currentPage).setViewName("board/boardDetailView");
+		}else {
+			mv.addObject("msg", "조회 실패").setViewName("common/errorPage");
+		}
+		return mv;
 	}
 	
 	
@@ -116,10 +133,11 @@ public class AdminController {
 	//CBOARD 체크박스 삭제
 	@ResponseBody
 	@RequestMapping("deleteBoard.kh")
-	public String deleteBoard(@RequestParam(value="checkArray[]") ArrayList<Integer> deleteList) {
+	public int deleteBoard(@RequestParam(value="checkArray[]") ArrayList<Integer> deleteList) {
 		
 		int result = aService.deleteBoard(deleteList);
-		return new Gson().toJson(result);
+		return result;
+		
 	}
 	
 	//CBOARD 체크박스 삭제 복구
@@ -156,6 +174,7 @@ public class AdminController {
 		model.addAttribute("search", search);
 		return "admin/adminCboard";
 	}
+	
 	
 	
 	
@@ -221,6 +240,22 @@ public class AdminController {
 		
 		return mv;
 	}
+	
+	@RequestMapping("adminNdetail.kh")
+	public String noticeDetail(int nNo, Model model) {
+		
+		Notice notice = nService.selectOne(nNo);
+		
+		if(notice != null) {
+			model.addAttribute("notice", notice);
+			return "notice/noticeDetailView";
+		}else {
+			model.addAttribute("msg", "공지사항 상세조회 실패");
+			return "common/errorPage";
+		}
+		
+	}
+	
 	
 	
 	
