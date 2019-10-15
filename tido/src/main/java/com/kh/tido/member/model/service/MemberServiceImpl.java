@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.tido.board.model.vo.Board;
+import com.kh.tido.board.model.vo.Reply;
 import com.kh.tido.member.model.vo.PageInfo;
 import com.kh.tido.common.PaginationMember;
 import com.kh.tido.member.controller.MailHandler;
@@ -181,8 +182,28 @@ public class MemberServiceImpl implements MemberService {
 		
 		Map map = new HashMap();
 		
-		int listSearchCount = mDao.getMemberBoardSearchCount();
+		map.put("id", id);
+		map.put("search", search);
+		map.put("sort", sort);
 		
+		int listCount = mDao.getMemberBoardSearchCount(map);
+		
+		System.out.println("map : " + map);
+		
+		PageInfo pi = PaginationMember.getPageInfo(currentPage, listCount);
+		
+		return mDao.selectMemberBoardSearch(map, pi);
+	}
+
+	@Override
+	public ArrayList<Reply> selectMemberReply(String id, int currentPage) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Reply> selectMemberReplySearch(String id, int currentPage, String search, String sort) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 

@@ -2,6 +2,7 @@ package com.kh.tido.member.model.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
@@ -62,9 +63,14 @@ public class MemberDao {
 		return (ArrayList)sqlSession.selectList("memberMapper.selectMemberBoard", id, rowBounds);
 	}
 
-	public int getMemberBoardSearchCount() {
-		
-		return 0;
+	public int getMemberBoardSearchCount(Map map) {
+		return sqlSession.selectOne("memberMapper.selectMemberBoardSearchCount", map);
+	}
+
+	public ArrayList<Board> selectMemberBoardSearch(Map map, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		return (ArrayList)sqlSession.selectList("memberMapper.selectMemberBoardSearchList", map, rowBounds);
 	}
 	
 }

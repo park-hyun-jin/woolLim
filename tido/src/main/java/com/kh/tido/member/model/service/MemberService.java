@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.tido.board.model.vo.Board;
+import com.kh.tido.board.model.vo.Reply;
 import com.kh.tido.member.model.vo.Member;
 import com.kh.tido.member.model.vo.MemberAuth;
 
@@ -27,5 +28,10 @@ public interface MemberService {
 	ArrayList<Board> selectMemberBoard(String id, int currentPage);
 
 	ArrayList<Board> selectMemberBoardSearch(String id, int currentPage, String search, String sort);
+
+	ArrayList<Reply> selectMemberReply(String id, int currentPage);
+	
+	ArrayList<Reply> selectMemberReplySearch(String id, int currentPage, String search, String sort);
+
 
 }

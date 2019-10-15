@@ -113,14 +113,17 @@
     	<c:url var="memberBoardPage" value="memberBoardList.kh">
     		<c:param name="id" value="${loginUser.id }"/>
     	</c:url>
+    	<c:url var="memberReplyPage" value="memberReplyList.kh">
+    		<c:param name="id" value="${loginUser.id }"/>
+    	</c:url>
     	
         <div class="container">
             <div class="menu">
                 <ul>
                     <li><a href="myPageInfo.kh" style="color: black">회원정보</a></li>
-                    <li><a href="myPageProject.kh">작곡 프로젝트 관리</a></li>
+                    <li><a href="projectListView.kh">작곡 프로젝트 관리</a></li>
                     <li><a href="${ memberBoardPage }">작성 글</a></li>
-                    <li><a href="#">작성 댓글</a></li>
+                    <li><a href="${memberReplyPage }">작성 댓글</a></li>
                     <li><a href="#">신고 및 문의 내역</a></li>
                 </ul>
             </div>

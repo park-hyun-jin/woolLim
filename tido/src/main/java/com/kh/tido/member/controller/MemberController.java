@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.tido.board.model.vo.Board;
+import com.kh.tido.board.model.vo.Reply;
 import com.kh.tido.common.PaginationMember;
 import com.kh.tido.member.model.service.MemberService;
 import com.kh.tido.member.model.vo.Member;
@@ -145,16 +146,24 @@ public class MemberController {
 		
 		ArrayList<Board> list = null;
 		
-		if(search != null && sort != null) {
-			list = mService.selectMemberBoard(id, currentPage);
-		}else {
+		if(search != null && search != "") {
 			list = mService.selectMemberBoardSearch(id, currentPage, search, sort);
+		}else {
+			list = mService.selectMemberBoard(id, currentPage);
 		}
+		
+		System.out.println("list : " + list);
+		
+		System.out.println("search : " + search);
+		System.out.println("sort : " + sort);
 		
 		if(list != null) {
 			model.addAttribute("list", list);
 			model.addAttribute("pi", PaginationMember.getPageInfo());
-			System.out.println("---------- pi : " + PaginationMember.getPageInfo());
+			if(search != null && search != "") {
+				model.addAttribute("search", search);
+				model.addAttribute("sort", sort);
+			}
 			return "member/mypage_board";
 		}else {
 			model.addAttribute("msg", "로그인 유저 글 조회 중 오류 발생");
@@ -162,5 +171,36 @@ public class MemberController {
 		}
 	}
 	
+	@RequestMapping("memberReplyList.kh")
+	public String selectMemberReply(Model model, String id, Integer page, String search, String sort) {
+		
+		int currentPage = page == null ? 1 : page;
+		
+		ArrayList<Reply> list = null;
+		
+		if(search != null && search != "") {
+			list = mService.selectMemberReplySearch(id, currentPage, search, sort);
+		}else {
+			list = mService.selectMemberReply(id, currentPage);
+		}
+		
+		System.out.println("list : " + list);
+		
+		System.out.println("search : " + search);
+		System.out.println("sort : " + sort);
+		
+		if(list != null) {
+			model.addAttribute("list", list);
+			model.addAttribute("pi", PaginationMember.getPageInfo());
+			if(search != null && search != "") {
+				model.addAttribute("search", search);
+				model.addAttribute("sort", sort);
+			}
+			return "member/mypage_reply";
+		}else {
+			model.addAttribute("msg", "로그인 유저 댓글 조회 중 오류 발생");
+			return "common/errorPage";
+		}
+	}
 	
 }

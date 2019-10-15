@@ -90,6 +90,7 @@
 		WHERE MEMBER_ID = #{id}
 	</delete>
 	
+	<!-- 로그인 유저가 쓴 글 개수 조회 -->
 	<select id="selectMemberBoardCount" parameterType="string" resultType="_int">
 		SELECT COUNT(*)
 		FROM CBOARD
@@ -97,11 +98,37 @@
 		AND CBOARD_STATUS = 'Y'
 	</select>
 	
+	<!-- 로그인 유저가 쓴 글 리스트 조회 -->
 	<select id="selectMemberBoard" parameterType="string" resultMap="boardResultSet">
 		SELECT * FROM CBOARD
 		WHERE MEMBER_ID = #{id}
 		AND CBOARD_STATUS = 'Y'
 		ORDER BY CBOARD_NO DESC
+	</select>
+	
+	<select id="selectMemberBoardSearchCount" parameterType="map" resultType="_int">
+		SELECT COUNT(*) 
+		FROM CBOARD
+		WHERE MEMBER_ID = #{id}
+		<if test="sort == 'title'">
+			AND CBOARD_TITLE LIKE '%' || #{search} || '%'
+		</if>
+		<if test="sort == 'content'">
+			AND CBOARD_TITLE LIKE '%' || #{search} || '%'
+		</if>
+		AND CBOARD_STATUS = 'Y'
+	</select>
+	
+	<select id="selectMemberBoardSearchList" parameterType="map" resultMap="boardResultSet">
+		SELECT * FROM CBOARD
+		WHERE MEMBER_ID = #{id}
+		<if test="sort == 'title'">
+			AND CBOARD_TITLE LIKE '%' || #{search} || '%'
+		</if>
+		<if test="sort == 'content'">
+			AND CBOARD_CONTENT LIKE '%' || #{search} || '%'
+		</if>
+		AND CBOARD_STATUS = 'Y'
 	</select>
 	
 </mapper>

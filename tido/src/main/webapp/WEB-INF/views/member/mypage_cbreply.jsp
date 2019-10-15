@@ -140,7 +140,6 @@
                     <table class="projectTable">
                         <tr>
                             <th>No</th>
-                            <th>제목</th>
                             <th>내용</th>
                             <th>조회수</th>
                             <th>최근 수정 일자</th>
@@ -148,11 +147,10 @@
                         <c:forEach var="b" items="${list}">
                         	<tr>
                         		<c:url var="bdetail" value="bdetail.kh">
-									<c:param name="cBoardNo" value="${ b.cBoardNo }"/>
+									<c:param name="cBoardNo" value="${ b.cbReplyNo }"/>
 									<c:param name="page" value="${ pi.currentPage }"/>
 								</c:url>
                         		<td>${b.cBoardNo}</td>
-                        		<td>${b.cBoardTitle}</td>
                         		<td><a href="${bdetail}">${b.cBoardContent}</a></td>
                         		<td>${b.cBoardViewCount}</td>
                         		<td>${b.cBoardModifyDate}</td>
