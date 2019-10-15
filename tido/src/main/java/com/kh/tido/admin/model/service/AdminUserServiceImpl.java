@@ -8,15 +8,15 @@ import org.springframework.stereotype.Service;
 import com.kh.tido.admin.model.dao.AdminUserDao;
 import com.kh.tido.member.model.vo.Member;
 
-@Service("aService")
+@Service("auService")
 public class AdminUserServiceImpl implements AdminUserService{
 	
 	@Autowired
-	private AdminUserDao aDao;
+	private AdminUserDao auDao;
 
 	@Override
 	public ArrayList<Member> memberList() {		
-		return aDao.memberList();
+		return auDao.memberList();
 	}
 
 }

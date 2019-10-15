@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 public class ProjectFile {
 	private int bpm;
 	private int beat;
+	private int length;
 	private String pianoSoundInfo;
 	private String bassSoundInfo;
 	private String guitarSoundInfo;
@@ -14,11 +15,12 @@ public class ProjectFile {
 	public ProjectFile() {
 		// TODO Auto-generated constructor stub
 	}
-	public ProjectFile(int bpm, int beat, String pianoSoundInfo, String bassSoundInfo, String guitarSoundInfo,
-			String drumSoundInfo, String projectTitle) {
+	public ProjectFile(int bpm, int beat, int length, String pianoSoundInfo, String bassSoundInfo,
+			String guitarSoundInfo, String drumSoundInfo, String projectTitle) {
 		super();
 		this.bpm = bpm;
 		this.beat = beat;
+		this.length = length;
 		this.pianoSoundInfo = pianoSoundInfo;
 		this.bassSoundInfo = bassSoundInfo;
 		this.guitarSoundInfo = guitarSoundInfo;
@@ -36,6 +38,12 @@ public class ProjectFile {
 	}
 	public void setBeat(int beat) {
 		this.beat = beat;
+	}
+	public int getLength() {
+		return length;
+	}
+	public void setLength(int length) {
+		this.length = length;
 	}
 	public String getPianoSoundInfo() {
 		return pianoSoundInfo;
@@ -69,10 +77,11 @@ public class ProjectFile {
 	}
 	@Override
 	public String toString() {
-		return "ProjectFile [bpm=" + bpm + ", beat=" + beat + ", pianoSoundInfo=" + pianoSoundInfo + ", bassSoundInfo="
-				+ bassSoundInfo + ", guitarSoundInfo=" + guitarSoundInfo + ", drumSoundInfo=" + drumSoundInfo
-				+ ", projectTitle=" + projectTitle + "]";
+		return "ProjectFile [bpm=" + bpm + ", beat=" + beat + ", length=" + length + ", pianoSoundInfo="
+				+ pianoSoundInfo + ", bassSoundInfo=" + bassSoundInfo + ", guitarSoundInfo=" + guitarSoundInfo
+				+ ", drumSoundInfo=" + drumSoundInfo + ", projectTitle=" + projectTitle + "]";
 	}
+	
 
 	
 	

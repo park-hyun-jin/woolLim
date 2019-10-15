@@ -27,6 +27,7 @@ public class NoticeController {
 	@Autowired
 	private NoticeService nService;
 	
+
 	@RequestMapping("nlist.kh")
 	public ModelAndView noticeList(ModelAndView mv, Integer page) {
 		

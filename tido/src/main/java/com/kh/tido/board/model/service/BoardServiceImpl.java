@@ -146,4 +146,6 @@ public class BoardServiceImpl implements BoardService{
 		return bDao.searchList(search);
 	}
 
+
 }
+

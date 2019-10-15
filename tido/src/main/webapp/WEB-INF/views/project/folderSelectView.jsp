@@ -1,53 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<style>
-	div.asidehead>h3{
-		font-family:"Archivo Black";
-		padding-top:25px;
-	}
-	.projectSearch{
-		width:85%;
-	}
-	.imgbtns{
-		display:inline-block;
-		width:6%;
-		height:22px;
-		margin-right:8px;
-	}
-	.arrowimg,.folderimg{
-		-webkit-filter: invert(100%);
-	   	filter: invert(100%);
-   	}
-	#folderAddBtn img{
-		width:100%;
-		height: 100%;
-		margin-left:10px;
-		-webkit-filter: invert(100%);
-   		filter: invert(100%);
-	}
-	.folders,.folders ul{
-		list-style: none;
-		padding:10px 0 0 0 ;
-		color:white;
-	}
-	.folders:hover,.imgbtns:hover{
-	cursor:pointer;
-	}
-	.folders span{
-		margin-left : 10px;
-	}
-	.folders p{
-	   margin: 0;
-	}
-	.folders ul{
-		padding:3px 0 0 0;
-		color:black;
-		display:none;
-	}
-</style>
-
-
+<link rel="stylesheet"  href="${contextPath }/resources/css/project/folderSelectView-style.css">
 <ul class="folders depth1">
 	<li>
 		<p>
@@ -91,6 +45,8 @@
 				});
 			
 				function clickFolder(folder){
+					scrollCount=0;
+					$("#projectArea").hide();
 					$("#projectArea").children("p").remove();
 					begin=0;
 					lim=selectCount;

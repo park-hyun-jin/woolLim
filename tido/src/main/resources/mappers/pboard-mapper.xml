@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="pboardMapper">
+	<resultMap type="ProjectBoard" id="pBoardResultSet">
+		<id property="pbNo" column="PBOARD_NO"/>
+		<result property="pBoardTitle" column="PBOARD_TITLE"/>
+		<result property="pBoardContent" column="PBOARD_CONTENT"/>
+		<result property="pBoardCreateDate" column="PBOARD_CREATE_DATE"/>
+		<result property="pBoardModifyDate" column="PBOARD_MODIFY_DATE"/>
+		<result property="pBoardViewCount" column="PBOARD_VIEW_COUNT"/>
+		<result property="pBoardLikeCount" column="PBOARD_LIKE_COUNT"/>
+		<result property="pBoardStatus" column="PBOARD_STATUS"/>
+		<result property="refPNo" column="PROJECT_NO"/>
+		<result property="memberName" column="MEMBER_NAME"/>
+		<result property="projectImagePath" column="PROJECT_IMAGE_PATH"/>
+		<result property="writerImagePath" column="MEMBER_IMAGE_PATH"/>
+		<result property="writerId" column="MEMBER_ID"/>
+	</resultMap>
+		
+	<select id="getpbListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM PBOARD 
+		WHERE PBOARD_STATUS='Y'
+	</select>
+	
+	<select id="selectpBoardList" parameterType="ProjectBoard" resultMap="pBoardResultSet">
+		SELECT PBOARD_NO,MEMBER_NAME,PBOARD_TITLE,PBOARD_CONTENT,PBOARD_CREATE_DATE,
+		       PBOARD_VIEW_COUNT,PBOARD_LIKE_COUNT,PROJECT_NO,PROJECT_IMAGE_PATH,MEMBER_IMAGE_PATH,MEMBER_ID
+		FROM PBOARD
+		JOIN PROJECT USING (PROJECT_NO)
+		JOIN MEMBER USING (MEMBER_ID)
+		WHERE PBOARD_STATUS='Y'
+		ORDER BY PBOARD_NO DESC
+	</select>
+</mapper>

@@ -134,7 +134,11 @@ public class BoardController {
 		ArrayList<Reply> list = bService.selectReply(cBoardNo);
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		return gson.toJson(list);
-	}	
+
+		}
+	
+
+
 	
 	// 검색
 		@RequestMapping("bSearch.kh")
@@ -160,3 +164,4 @@ public class BoardController {
 		}
 		
 }
+

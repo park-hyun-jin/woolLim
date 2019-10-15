@@ -1,10 +1,11 @@
 package com.kh.tido.notice.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 
 import com.kh.tido.common.Pagination;
 import com.kh.tido.member.model.dao.MemberDao;
@@ -17,7 +18,7 @@ public class NoticeServiceImpl implements NoticeService {
 	
 	@Autowired
 	private NoticeDao nDao;
-
+	
 	@Override
 	public ArrayList<Notice> selectList(int currentPage) {
 		
@@ -25,18 +26,18 @@ public class NoticeServiceImpl implements NoticeService {
 		
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
-		// 2) 목록조회 후 리턴
+	
 		return nDao.selectList(pi);
 
 	}
-
+	
+	
 	@Override
 	public int insertNotice(Notice notice) {
 		notice.setPnoticeContent(notice.getPnoticeContent().replace("\n", "<br>"));
 		return nDao.insertNotice(notice);
 	}
 
-	@Override
 	public Notice selectOne(int nNo) {
 		
 		nDao.addpnoticeViewCount(nNo);
@@ -45,6 +46,12 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
+	public int noticeList(Notice notice) {
+		
+		notice.setPnoticeContent(notice.getPnoticeContent().replace("\n", "<br>"));
+		return nDao.insertNotice(notice);
+	}
+	
 	public int deleteNotice(int nNo) {
 		return nDao.deleteNotice(nNo);
 	}
@@ -57,4 +64,9 @@ public class NoticeServiceImpl implements NoticeService {
 
 
 
-}
+	}
+
+
+
+
+

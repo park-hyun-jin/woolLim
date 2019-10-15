@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.tido.member.model.vo.Member;
 
-@Repository("aDao")
+@Repository("auDao")
 public class AdminUserDao {
 	
 	@Autowired
