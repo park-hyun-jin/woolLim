@@ -18,8 +18,10 @@ import com.google.gson.GsonBuilder;
 import com.kh.tido.board.model.service.BoardService;
 import com.kh.tido.board.model.vo.Board;
 import com.kh.tido.board.model.vo.Reply;
+import com.kh.tido.board.model.vo.Search;
 import com.kh.tido.common.Pagination;
 import com.kh.tido.member.model.vo.Member;
+import com.kh.tido.notice.model.vo.Notice;
 
 @Controller
 public class BoardController {
@@ -132,5 +134,34 @@ public class BoardController {
 		ArrayList<Reply> list = bService.selectReply(cBoardNo);
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		return gson.toJson(list);
-	}	
+
+		}
+	
+
+
+	
+	// 검색
+		@RequestMapping("bSearch.kh")
+		public String boardSearch(Search search, Model model){
+			
+			System.out.println(search.getSearchCondition());
+			System.out.println(search.getSearchValue());
+			System.out.println(search.getExistFile());
+			// 체크 O : on
+			// 체크 X : null
+			
+			ArrayList<Board> searchList 
+				= bService.searchList(search);
+			
+			for(Board n : searchList) {
+				System.out.println(n);
+			}
+			
+			
+			model.addAttribute("list", searchList);
+			model.addAttribute("search", search);
+			return "board/boardListView";
+		}
+		
 }
+

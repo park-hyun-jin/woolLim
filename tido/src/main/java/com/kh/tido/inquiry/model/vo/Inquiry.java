@@ -13,15 +13,15 @@ public class Inquiry {
 	private String iInquiryStatus;
 	private String iInquiryOriginFilename;
 	private String iInquiryChangeFilename;
-	private String memberName;
-
+	
+	
 	public Inquiry() {}
 
 	public Inquiry(int iNo, String iInquiryTitle, String iInquiryContent, Date iInquiryDate, Date iInquiryModifyDate,
-			String iInquiryId, String iInquiryStatus, String iInquiryOriginFilename, String iInquiryChangeFilename,
-			String memberName) {
+
+			String iInquiryId, String iInquiryStatus, String iInquiryOriginFilename, String iInquiryChangeFilename) {
 		super();
-		this.iNo = iNo;
+		this.iNo = iNo;	
 		this.iInquiryTitle = iInquiryTitle;
 		this.iInquiryContent = iInquiryContent;
 		this.iInquiryDate = iInquiryDate;
@@ -30,7 +30,6 @@ public class Inquiry {
 		this.iInquiryStatus = iInquiryStatus;
 		this.iInquiryOriginFilename = iInquiryOriginFilename;
 		this.iInquiryChangeFilename = iInquiryChangeFilename;
-		this.memberName = memberName;
 	}
 
 	public int getiNo() {
@@ -105,22 +104,19 @@ public class Inquiry {
 		this.iInquiryChangeFilename = iInquiryChangeFilename;
 	}
 
-	public String getMemberName() {
-		return memberName;
-	}
-
-	public void setMemberName(String memberName) {
-		this.memberName = memberName;
-	}
-
 	@Override
 	public String toString() {
 		return "Inquiry [iNo=" + iNo + ", iInquiryTitle=" + iInquiryTitle + ", iInquiryContent=" + iInquiryContent
 				+ ", iInquiryDate=" + iInquiryDate + ", iInquiryModifyDate=" + iInquiryModifyDate + ", iInquiryId="
 				+ iInquiryId + ", iInquiryStatus=" + iInquiryStatus + ", iInquiryOriginFilename="
-				+ iInquiryOriginFilename + ", iInquiryChangeFilename=" + iInquiryChangeFilename + ", memberName="
-				+ memberName + "]";
+				+ iInquiryOriginFilename + ", iInquiryChangeFilename=" + iInquiryChangeFilename + "]";
 	}
 	
 	
+	
+	
+
+	
 }
+
+

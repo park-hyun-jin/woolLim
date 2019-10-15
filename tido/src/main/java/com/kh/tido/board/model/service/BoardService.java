@@ -8,6 +8,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.tido.board.model.vo.Board;
 import com.kh.tido.board.model.vo.Reply;
+import com.kh.tido.board.model.vo.Search;
+import com.kh.tido.notice.model.vo.Notice;
 
 public interface BoardService {
 
@@ -24,6 +26,8 @@ public interface BoardService {
 	public abstract int insertReply(Reply reply);
 	
 	public abstract ArrayList<Reply> selectReply(int cBoardNo);
+
+	public abstract ArrayList<Board> searchList(Search search);
 
 	
 

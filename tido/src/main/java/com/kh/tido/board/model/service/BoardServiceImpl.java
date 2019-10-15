@@ -16,7 +16,9 @@ import com.kh.tido.board.model.exception.BoardException;
 import com.kh.tido.board.model.vo.Board;
 import com.kh.tido.board.model.vo.PageInfo;
 import com.kh.tido.board.model.vo.Reply;
+import com.kh.tido.board.model.vo.Search;
 import com.kh.tido.common.Pagination;
+import com.kh.tido.notice.model.vo.Notice;
 
 @Service("bService")
 public class BoardServiceImpl implements BoardService{
@@ -137,4 +139,11 @@ public class BoardServiceImpl implements BoardService{
 		return bDao.selectReply(cBoardNo);
 	}
 
+	@Override
+	public ArrayList<Board> searchList(Search search) {
+		return bDao.searchList(search);
+	}
+
+
 }
+
