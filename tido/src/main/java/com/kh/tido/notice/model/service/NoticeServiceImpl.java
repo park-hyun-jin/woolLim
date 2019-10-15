@@ -5,11 +5,12 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kh.tido.board.model.vo.PageInfo;
+
 import com.kh.tido.common.Pagination;
 import com.kh.tido.member.model.dao.MemberDao;
 import com.kh.tido.notice.model.dao.NoticeDao;
 import com.kh.tido.notice.model.vo.Notice;
+import com.kh.tido.notice.model.vo.PageInfo;
 
 @Service("nService")
 public class NoticeServiceImpl implements NoticeService {
