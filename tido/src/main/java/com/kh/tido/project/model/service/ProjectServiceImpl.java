@@ -57,6 +57,7 @@ public class ProjectServiceImpl implements ProjectService {
 
 			projectFile.setBpm(Integer.parseInt(prop.getProperty("bpm")));
 			projectFile.setBeat(Integer.parseInt(prop.getProperty("beat")));
+			projectFile.setLength(Integer.parseInt(prop.getProperty("length")));
 			projectFile.setPianoSoundInfo(prop.getProperty("pianoSoundInfo"));
 			projectFile.setGuitarSoundInfo(prop.getProperty("guitarSoundInfo"));
 			projectFile.setBassSoundInfo(prop.getProperty("bassSoundInfo"));
@@ -88,6 +89,7 @@ public class ProjectServiceImpl implements ProjectService {
 					FileWriter writer = new FileWriter(file);
 					writer.write("bpm = " + project.getBpm() + "\n" + 
 							     "beat = " + project.getBeat() + "\n"+ 
+							     "length = " + project.getLength() + "\n"+ 
 								 "pianoSoundInfo = " + project.getPianoSoundInfo() + "\n" + 
 							     "bassSoundInfo = " + project.getBassSoundInfo() + "\n" + 
 								 "guitarSoundInfo = " + project.getGuitarSoundInfo() + "\n" + 

@@ -168,16 +168,15 @@ input[name="volume"]{
 	display: none;
 }
 .savebtnarea{
-	height:60px;
+	height:auto;
 	padding-top:10px;
 	padding-left:50px;
 	background: black;
 }
 .savebtnarea>button{
-	
+	margin:10px 0 10px 0;
 }
 #title{
-	display:inline-block;
-	width:85%;
+	width:100%;
 	color: white;
 }
