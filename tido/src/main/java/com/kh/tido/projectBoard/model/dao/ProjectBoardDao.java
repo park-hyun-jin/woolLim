@@ -26,4 +26,18 @@ public class ProjectBoardDao {
 		return (ArrayList)sqlSession.selectList("pboardMapper.selectpBoardList",null,rb);
 	}
 
+	public int insertpBoard(ProjectBoard pBoard) {
+		return sqlSession.insert("pboardMapper.insertpBoard",pBoard);
+	}
+
+	public int updatepBoard(ProjectBoard pBoard) {
+		return sqlSession.update("pboardMapper.updatepBoard",pBoard);
+	}
+
+	public int deletepBoard(int pbNo) {
+		return sqlSession.update("pboardMapper.deletepBoard",pbNo);
+	}
+
+
+
 }
