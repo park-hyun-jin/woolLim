@@ -120,6 +120,7 @@
 	
 	
 	
+	
 	<!--  width="1000" -->
 	
 	
@@ -270,6 +271,9 @@
 						data:{checkArray:checkArray},
 						type:"post",
 						success:function(result){
+							if(result>0){
+								location.reload();
+							}
 							console.log(result);
 						}
 						
@@ -289,6 +293,9 @@
 						data:{checkArray:checkArray},
 						type:"post",
 						success:function(result){
+							if(result>0){
+								location.reload();
+							}
 							console.log(result);
 						}
 						

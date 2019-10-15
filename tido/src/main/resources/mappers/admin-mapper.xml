@@ -25,6 +25,8 @@
 		<result property="memberId" column="MEMBER_ID" /> <!-- 이메일 -->
 		<result property="cBoardOriFilename" column="CBOARD_ORIGIN_FILENAME" /> <!-- 기존 파일 이름 -->
 		<result property="cBoardChaFilename" column="CBOARD_CHANGE_FILENAME" /> <!-- 바뀐 파일 이름 -->
+		
+	
 	</resultMap>
 	
 	<resultMap id="inquiryResultSet" type="Inquiry">

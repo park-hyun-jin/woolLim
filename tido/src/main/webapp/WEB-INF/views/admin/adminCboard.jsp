@@ -144,7 +144,15 @@
 			<td><input type="checkbox" name="chBox" class="chBox" value="${b.cBoardNo}" /></td>
 			<td align="center">${ b.cBoardNo }</td>
 				
-			<td align="center">	${ b.cBoardTitle }</td>
+			<td align="center">
+			
+			<c:url var="adminBdetail" value="adminBdetail.kh">
+			<c:param name="cBoardNo" value="${b.cBoardNo }" />
+			<c:param name="page" value="${pi.currentPage }" />
+			
+			</c:url>
+			<a href="${ adminBdetail }" style="color: black;">${ b.cBoardTitle }</a>
+			</td>	
 			
 			<td align="center">${ b.memberId }</td>
 			<td align="center">${ b.cBoardCreateDate }</td>
@@ -271,6 +279,9 @@
 						data:{checkArray:checkArray},
 						type:"post",
 						success:function(result){
+							if(result>0){
+								location.reload();
+							}
 							console.log(result);
 						}
 						
