@@ -83,7 +83,8 @@
 	      </div>
 	      <div class="area area3" onclick="">
 	      	<div>
-	      		<img src="${contextPath }/">
+	      		<img src="${contextPath }/resources/images/development-project.jpg">
+	      		<div>프로젝트 게시판</div>
 	      	</div>
 	      </div>
 	   </div>

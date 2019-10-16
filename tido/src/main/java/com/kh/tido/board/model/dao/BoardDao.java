@@ -30,6 +30,7 @@ public class BoardDao {
 	}
 
 	public int insertBoard(Board board) {
+		System.out.println();
 		return sqlSession.insert("boardMapper.insertBoard", board);
 	}
 
@@ -46,6 +47,7 @@ public class BoardDao {
 	}
 
 	public int updateBoard(Board board) {
+		System.out.println(board.getcBoardNo());
 		return sqlSession.update("boardMapper.updateBoard",board);
 	}
 

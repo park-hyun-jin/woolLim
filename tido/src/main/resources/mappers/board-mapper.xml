@@ -1,135 +1,142 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="boardMapper">
-	<resultMap id="boardResultSet" type="Board">
-		<id property="cBoardNo" column="CBOARD_NO"/> <!-- 게시글 번호 -->
-		<result property="cBoardTitle" column="CBOARD_TITLE"/> <!-- 게시글 제목 -->
-		<result property="cBoardContent" column="CBOARD_CONTENT"/> <!-- 게시글 내용 -->
-		<result property="cBoardCreateDate" column="CBOARD_CREATE_DATE"/> <!-- 게시글 작성일 -->
-		<result property="cBoardModifyDate" column="CBOARD_MODIFY_DATE"/> <!-- 게시글 수정일 -->
-		<result property="cBoardViewCount" column="CBOARD_VIEW_COUNT"/> <!-- 게시글 조회수 -->
-		<result property="cBoardStatus" column="CBOARD_STATUS"/> <!-- 게시글 상태 -->
-		<result property="memberId" column="MEMBER_ID" /> <!-- 이메일 -->
-		<result property="cBoardOriFilename" column="CBOARD_ORIGIN_FILENAME" /> <!-- 기존 파일 이름 -->
-		<result property="cBoardChaFilename" column="CBOARD_CHANGE_FILENAME" /> <!-- 바뀐 파일 이름 -->
-		<result property="memberName" column="MEMBER_NAME" /> <!-- 바뀐 파일 이름 -->
-		<result property="reportType" column="REPORT_TYPE" /> <!-- 바뀐 파일 이름 -->
-		
-	</resultMap>
-	
+   <resultMap id="boardResultSet" type="Board">
+      <id property="cBoardNo" column="CBOARD_NO"/> <!-- 게시글 번호 -->
+      <result property="cBoardTitle" column="CBOARD_TITLE"/> <!-- 게시글 제목 -->
+      <result property="cBoardContent" column="CBOARD_CONTENT"/> <!-- 게시글 내용 -->
+      <result property="cBoardCreateDate" column="CBOARD_CREATE_DATE"/> <!-- 게시글 작성일 -->
+      <result property="cBoardModifyDate" column="CBOARD_MODIFY_DATE"/> <!-- 게시글 수정일 -->
+      <result property="cBoardViewCount" column="CBOARD_VIEW_COUNT"/> <!-- 게시글 조회수 -->
+      <result property="cBoardStatus" column="CBOARD_STATUS"/> <!-- 게시글 상태 -->
+      <result property="memberId" column="MEMBER_ID" /> <!-- 이메일 -->
+      <result property="cBoardOriFilename" column="CBOARD_ORIGIN_FILENAME" /> <!-- 기존 파일 이름 -->
+      <result property="cBoardChaFilename" column="CBOARD_CHANGE_FILENAME" /> <!-- 바뀐 파일 이름 -->
+      <result property="memberName" column="MEMBER_NAME" /> <!-- 바뀐 파일 이름 -->
+      <result property="reportType" column="REPORT_TYPE" /> <!-- 바뀐 파일 이름 -->
+      
+   </resultMap>
+   
 
-	<resultMap id="replyResultSet" type="Reply">
-		<id property="cbReplyNo" column="CB_REPLY_NO"/> 
-		<result property="cbReplyContent" column="CB_REPLY_CONTENT"/> 
-		<result property="cbReplyCreateDate" column="CB_REPLY_CREATE_DATE"/> 
-		<result property="cbReplyModifyDate" column="CB_REPLY_MODIFY_DATE"/> 
-		<result property="cbReplyStatus" column="CB_REPLY_STATUS"/> 
-		<result property="cboardNo" column="CBOARD_NO"/> 
-		<result property="memberId" column="MEMBER_ID" />
-		<result property="memberName" column="MEMBER_NAME"/>
+   <resultMap id="replyResultSet" type="Reply">
+      <id property="cbReplyNo" column="CB_REPLY_NO"/> 
+      <result property="cbReplyContent" column="CB_REPLY_CONTENT"/> 
+      <result property="cbReplyCreateDate" column="CB_REPLY_CREATE_DATE"/> 
+      <result property="cbReplyModifyDate" column="CB_REPLY_MODIFY_DATE"/> 
+      <result property="cbReplyStatus" column="CB_REPLY_STATUS"/> 
+      <result property="cboardNo" column="CBOARD_NO"/> 
+      <result property="memberId" column="MEMBER_ID" />
+      <result property="memberName" column="MEMBER_NAME"/>
 
-		
-	</resultMap>
-	 
-	
-	<select id="getListCount" resultType="_int">
-		SELECT COUNT(*)
-		FROM CBOARD
-		WHERE CBOARD_STATUS='Y'
-	</select>
-	
-	<select id="selectList" resultMap="boardResultSet">
-		SELECT CBOARD_NO, CBOARD_TITLE, CBOARD_CONTENT, CBOARD_CREATE_DATE, 
-		CBOARD_MODIFY_DATE, CBOARD_VIEW_COUNT, CBOARD_STATUS, MEMBER_ID, 
-		CBOARD_ORIGIN_FILENAME, CBOARD_CHANGE_FILENAME, MEMBER_NAME
-		FROM CBOARD
-		JOIN MEMBER USING (MEMBER_ID)
-		WHERE CBOARD_STATUS='Y'
-		ORDER BY CBOARD_NO DESC
-	</select>
-	
-	<insert id="insertBoard" parameterType="Board">
-		INSERT INTO CBOARD VALUES(
-			SEQ_CBNO.NEXTVAL, #{cBoardTitle}, #{cBoardContent}, 
-			SYSDATE, SYSDATE, DEFAULT, DEFAULT, #{memberId}, 
-			#{cBoardOriFilename}, #{cBoardChaFilename}
-		)
-	</insert>
-	
-	<update id="addReadCount" parameterType="_int">
-		UPDATE CBOARD
-		SET CBOARD_VIEW_COUNT = CBOARD_VIEW_COUNT + 1
-		WHERE CBOARD_NO = #{cBoardNo}    
-	</update>
-	
+      
+   </resultMap>
+    
+   
+   <select id="getListCount" resultType="_int">
+      SELECT COUNT(*)
+      FROM CBOARD
+      WHERE CBOARD_STATUS='Y'
+   </select>
+   
+   <select id="selectList" resultMap="boardResultSet">
+      SELECT CBOARD_NO, CBOARD_TITLE, CBOARD_CONTENT, CBOARD_CREATE_DATE, 
+      CBOARD_MODIFY_DATE, CBOARD_VIEW_COUNT, CBOARD_STATUS, MEMBER_ID, 
+      CBOARD_ORIGIN_FILENAME, CBOARD_CHANGE_FILENAME, MEMBER_NAME
+      FROM CBOARD
+      JOIN MEMBER USING (MEMBER_ID)
+      WHERE CBOARD_STATUS='Y'
+      ORDER BY CBOARD_NO DESC
+   </select>
+   
+   <insert id="insertBoard" parameterType="Board">
+      INSERT INTO CBOARD VALUES(
+         SEQ_CBNO.NEXTVAL, #{cBoardTitle}, #{cBoardContent}, 
+         SYSDATE, SYSDATE, DEFAULT, DEFAULT, #{memberId}, 
+         #{cBoardOriFilename}, #{cBoardChaFilename}, DEFAULT
+      )
+   </insert>
+   
+   <update id="addReadCount" parameterType="_int">
+      UPDATE CBOARD
+      SET CBOARD_VIEW_COUNT = CBOARD_VIEW_COUNT + 1
+      WHERE CBOARD_NO = #{cBoardNo}    
+   </update>
+   
 
-	<select id="selectBoard" parameterType="_int" resultMap="boardResultSet">
-		SELECT CBOARD_NO, CBOARD_TITLE, CBOARD_CONTENT, CBOARD_CREATE_DATE, CBOARD_MODIFY_DATE, CBOARD_VIEW_COUNT, 
-		CBOARD_STATUS, MEMBER_ID, CBOARD_ORIGIN_FILENAME, CBOARD_CHANGE_FILENAME, MEMBER_NAME,REPORT_TYPE	
-		FROM CBOARD
-		JOIN MEMBER USING (MEMBER_ID)
-		WHERE CBOARD_NO = #{cBoardNo}
-		AND CBOARD_STATUS = 'Y'
-	</select>
-	
-	<update id="deleteBoard" parameterType="_int">
-		UPDATE CBOARD SET CBOARD_STATUS = 'N'
-		WHERE CBOARD_NO = #{cBoardNo}
-	</update>
-	
-	
-	<insert id="insertReply" parameterType="Reply">
-		INSERT INTO CB_REPLY VALUES(
-			SEQ_CBRNO.NEXTVAL, #{cbReplyContent}, SYSDATE, SYSDATE, 
-			DEFAULT, #{cboardNo}, #{memberId},#{reportType}
-		)
-	</insert>
-	
-	<select id="selectReply" parameterType="_int" resultMap="replyResultSet">
-		SELECT CB_REPLY_NO, CB_REPLY_CONTENT, CB_REPLY_CREATE_DATE, 
-		CB_REPLY_MODIFY_DATE, CB_REPLY_STATUS, CBOARD_NO, MEMBER_ID, MEMBER_NAME
-		FROM CB_REPLY
-		JOIN MEMBER USING (MEMBER_ID)
-		WHERE CB_REPLY_STATUS='Y'
-		AND CBOARD_NO = #{cBoardNo}
-		ORDER BY CB_REPLY_NO DESC
-	</select>
-	
-	
-	
-	
-	
-	
-	<select id="searchList" parameterType="Search" resultMap="boardResultSet">
-		<bind name="sv" value="'%'+ _parameter.getSearchValue() +'%'" />	
-			
-		SELECT CBOARD_NO, CBOARD_TITLE, CBOARD_CONTENT, CBOARD_CREATE_DATE, CBOARD_MODIFY_DATE, CBOARD_VIEW_COUNT, 
-		CBOARD_STATUS, MEMBER_ID, CBOARD_ORIGIN_FILENAME, CBOARD_CHANGE_FILENAME, MEMBER_NAME
-		FROM CBOARD
-		JOIN MEMBER USING (MEMBER_ID)
-		<where>
-			<if test="existFile != null">
-				CBOARD_ORIGIN_FILENAME IS NOT NULL
-			</if>
-			
-			<choose>
-				<when test="searchCondition == 'title'">
-					AND MEMBER_NAME LIKE #{sv}
-				</when>
-				<when test="searchCondition == 'writer'">
-					AND CBOARD_TITLE LIKE #{sv}
-				</when>
-				<when test="searchCondition == 'content'">
-					AND CBOARD_CONTENT LIKE #{sv}
-				</when>
-				<otherwise>
-					AND (MEMBER_NAME LIKE #{sv}
-					OR CBOARD_TITLE LIKE #{sv}
-					OR CBOARD_CONTENT LIKE #{sv})
-				</otherwise>
-			</choose>
-		</where>
-		ORDER BY CBOARD_CREATE_DATE DESC	
-	</select>
+   <select id="selectBoard" parameterType="_int" resultMap="boardResultSet">
+      SELECT CBOARD_NO, CBOARD_TITLE, CBOARD_CONTENT, CBOARD_CREATE_DATE, CBOARD_MODIFY_DATE, CBOARD_VIEW_COUNT, 
+      CBOARD_STATUS, MEMBER_ID, CBOARD_ORIGIN_FILENAME, CBOARD_CHANGE_FILENAME, MEMBER_NAME,REPORT_TYPE   
+      FROM CBOARD
+      JOIN MEMBER USING (MEMBER_ID)
+      WHERE CBOARD_NO = #{cBoardNo}
+      AND CBOARD_STATUS = 'Y'
+   </select>
+   
+   <update id="deleteBoard" parameterType="_int">
+      UPDATE CBOARD SET CBOARD_STATUS = 'N'
+      WHERE CBOARD_NO = #{cBoardNo}
+   </update>
+   
+   
+   <insert id="insertReply" parameterType="Reply">
+      INSERT INTO CB_REPLY VALUES(
+         SEQ_CBRNO.NEXTVAL, #{cbReplyContent}, SYSDATE, SYSDATE, 
+         DEFAULT, #{cboardNo}, #{memberId},#{reportType}
+      )
+   </insert>
+   
+   <select id="selectReply" parameterType="_int" resultMap="replyResultSet">
+      SELECT CB_REPLY_NO, CB_REPLY_CONTENT, CB_REPLY_CREATE_DATE, 
+      CB_REPLY_MODIFY_DATE, CB_REPLY_STATUS, CBOARD_NO, MEMBER_ID, MEMBER_NAME
+      FROM CB_REPLY
+      JOIN MEMBER USING (MEMBER_ID)
+      WHERE CB_REPLY_STATUS='Y'
+      AND CBOARD_NO = #{cBoardNo}
+      ORDER BY CB_REPLY_NO DESC
+   </select>
+   
+   <update id="updateBoard" parameterType="Board">
+      UPDATE CBOARD
+      SET
+      CBOARD_TITLE = #{cBoardTitle},
+      CBOARD_CONTENT = #{cBoardContent},
+      CBOARD_MODIFY_DATE = SYSDATE
+      WHERE CBOARD_NO = #{cBoardNo}    
+   </update>
+   
+   
+   
+   
+   <select id="searchList" parameterType="Search" resultMap="boardResultSet">
+      <bind name="sv" value="'%'+ _parameter.getSearchValue() +'%'" />   
+         
+      SELECT CBOARD_NO, CBOARD_TITLE, CBOARD_CONTENT, CBOARD_CREATE_DATE, CBOARD_MODIFY_DATE, CBOARD_VIEW_COUNT, 
+      CBOARD_STATUS, MEMBER_ID, CBOARD_ORIGIN_FILENAME, CBOARD_CHANGE_FILENAME, MEMBER_NAME
+      FROM CBOARD
+      JOIN MEMBER USING (MEMBER_ID)
+      <where>
+         <if test="existFile != null">
+            CBOARD_ORIGIN_FILENAME IS NOT NULL
+         </if>
+         
+         <choose>
+            <when test="searchCondition == 'title'">
+               AND MEMBER_NAME LIKE #{sv}
+            </when>
+            <when test="searchCondition == 'writer'">
+               AND CBOARD_TITLE LIKE #{sv}
+            </when>
+            <when test="searchCondition == 'content'">
+               AND CBOARD_CONTENT LIKE #{sv}
+            </when>
+            <otherwise>
+               AND (MEMBER_NAME LIKE #{sv}
+               OR CBOARD_TITLE LIKE #{sv}
+               OR CBOARD_CONTENT LIKE #{sv})
+            </otherwise>
+         </choose>
+      </where>
+      ORDER BY CBOARD_CREATE_DATE DESC   
+   </select>
 
 </mapper>
