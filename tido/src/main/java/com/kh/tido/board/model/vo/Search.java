@@ -45,13 +45,11 @@ public class Search {
 		return "Search [searchCondition=" + searchCondition + ", searchValue=" + searchValue + ", existFile="
 				+ existFile + "]";
 	}
-
+	
 	public Search(String searchCondition, String searchValue) {
 		super();
 		this.searchCondition = searchCondition;
 		this.searchValue = searchValue;
 	}
-	
-	
 	
 }

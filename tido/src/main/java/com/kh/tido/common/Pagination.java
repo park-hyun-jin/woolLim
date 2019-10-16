@@ -1,6 +1,6 @@
 package com.kh.tido.common;
 
-import com.kh.tido.board.model.vo.PageInfo;
+import com.kh.tido.notice.model.vo.PageInfo;
 
 public class Pagination {
 

@@ -42,6 +42,10 @@ public class MemberDao {
 	public int insertMember(Member mem) {
 		return sqlSession.insert("memberMapper.insertMember", mem);
 	}
+	
+	public int updateMember(Member mem) {
+		return sqlSession.update("memberMapper.updateMember", mem);
+	}
 
 	public int selectId(String memberId) {
 		return sqlSession.selectOne("memberMapper.selectId", memberId);
@@ -114,6 +118,18 @@ public class MemberDao {
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
 		return (ArrayList)sqlSession.selectList("memberMapper.selectMemberQnaSearchList", map, rowBounds);
 	}
+
+	public int deleteMember(String id) {
+		return sqlSession.update("memberMapper.deleteMember", id);
+	}
+
+	public int selectIdStatus(String memberId) {
+		return sqlSession.selectOne("memberMapper.selectIdStatus", memberId);
+	}
+
+
+
+	
 
 
 	

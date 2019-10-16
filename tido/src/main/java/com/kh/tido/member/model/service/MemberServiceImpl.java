@@ -46,16 +46,17 @@ public class MemberServiceImpl implements MemberService {
 		
 		Member loginUser = mDao.selectMember(mem);
 		
-		if(loginUser.getId().equals("admin@admin.com")) {
-			if(!mem.getPwd().equals("1234")) {
-				loginUser = null;
-			}
-		}else {
-			if(!bCryptPasswordEncoder.matches(mem.getPwd(), loginUser.getPwd())) {
-				loginUser = null;
+		if(loginUser != null) {
+			if(loginUser.getId().equals("admin@admin.com")) {
+				if(!mem.getPwd().equals("1234")) {
+					loginUser = null;
+				}
+			}else {
+				if(!bCryptPasswordEncoder.matches(mem.getPwd(), loginUser.getPwd())) {
+					loginUser = null;
+				}
 			}
 		}
-		
 		return loginUser;
 	}
 	
@@ -69,8 +70,25 @@ public class MemberServiceImpl implements MemberService {
 		MailHandler sendMail = new MailHandler(mailSender);
 		sendMail.setSubject("[WooLim 이메일 인증]"); // 메일제목
 		sendMail.setText( // 메일내용
-				new StringBuffer().append("<h1>메일인증</h1>").append("<a href='http://localhost:8080/tido/emailConfirm.kh?memberId=")
+				new StringBuffer().append("<h1> (WooLim) 회원 가입 메일인증입니다.</h1>").append("<a href='http://localhost:8080/tido/emailConfirm.kh?memberId=")
 				.append(email).append("&memberAuthKey=").append(key).append("' target='_blank'>이메일 인증 확인</a>").toString());
+		sendMail.setFrom("falling710@gmail.com", "WooLim"); // 보낸이
+		sendMail.setTo(email); // 받는이
+		sendMail.send();
+	}
+	
+	@Override
+	public void searchEmail(String email) throws Exception {
+		String key = new TempKey().getKey(50, false); // 인증키 생성
+		String status = "searchPwd";
+		System.out.println("key : " + key);
+		MemberAuth memberAuth = new MemberAuth(key, 0, email);
+		mDao.insertAuthKey(memberAuth); // 인증키 DB저장
+		MailHandler sendMail = new MailHandler(mailSender);
+		sendMail.setSubject("[WooLim 이메일 인증]"); // 메일제목
+		sendMail.setText( // 메일내용
+				new StringBuffer().append("<h1> (WooLim) 비밀번호를 찾기 위한 메일인증입니다.</h1>").append("<a href='http://localhost:8080/tido/emailConfirm.kh?memberId=")
+				.append(email).append("&memberAuthKey=").append(key).append("&status=").append(status).append("' target='_blank'>이메일 인증 확인</a>").toString());
 		sendMail.setFrom("falling710@gmail.com", "WooLim"); // 보낸이
 		sendMail.setTo(email); // 받는이
 		sendMail.send();
@@ -124,6 +142,48 @@ public class MemberServiceImpl implements MemberService {
  		}
  		
  		int authCheck = mDao.deleteMemberAuth(mem.getId());
+		
+		return result;
+	}
+	
+	@Override
+	public int updateMember(Member mem, MultipartFile uploadFile, HttpServletRequest request) {
+		String encPwd = bCryptPasswordEncoder.encode(mem.getPwd());
+ 		String root = request.getSession().getServletContext().getRealPath("resources");
+ 		String savePath = "";
+ 		String filePath = "";
+ 		String projectFilePath = "";
+	
+ 		mem.setPwd(encPwd);
+ 		
+ 		String fileName = null;
+ 		
+ 		// 업로드 된 파일이 있을 경우 멤버 프로필 사진 경로 저장
+ 		if(!uploadFile.getOriginalFilename().equals("")) {
+ 			fileName = uploadFile.getOriginalFilename();
+ 			
+	 		// 파일 저장 경로 설정
+ 			// 각 멤버마다 이름이 멤버 아이디인 폴더 안에 원본파일을 가입하는 회원의 닉네임을 붙인 이름으로 저장한다
+			savePath = root + "\\muploadFiles" + "\\" + mem.getId();
+			filePath = savePath + "\\" + fileName;
+			
+ 			mem.setImagePath(fileName);
+ 		}
+ 		
+ 		int result = mDao.updateMember(mem);
+ 		
+ 		if(result >= 1) {
+ 			projectFilePath = root + "\\project" + "\\" + mem.getName();
+ 			File folder = new File(projectFilePath);
+ 			
+ 			if(!folder.exists()) {
+ 				folder.mkdir();
+ 			}
+ 		}
+ 		
+ 		if(fileName != null && result == 1) {
+ 			result = saveFile(savePath, filePath, uploadFile);
+ 		}
 		
 		return result;
 	}
@@ -237,11 +297,12 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public ArrayList<Inquiry> selectMemberInquirySearch(String id, int currentPage, String search) {
+	public ArrayList<Inquiry> selectMemberInquirySearch(String id, int currentPage, String search, String sort) {
 		Map map = new HashMap();
 		
 		map.put("id", id);
 		map.put("search", search);
+		map.put("sort", sort);
 		
 		int listCount = mDao.getMemberQnaSearchCount(map);
 		
@@ -251,5 +312,12 @@ public class MemberServiceImpl implements MemberService {
 		
 		return mDao.selectMemberQnaSearch(map, pi);
 	}
+
+	@Override
+	public int deleteMember(String id) {
+		return mDao.deleteMember(id);
+	}
+
+	
 
 }

@@ -48,9 +48,19 @@ public class MemberController {
 		return "member/emailRegistPage";
 	}
 	
+	@RequestMapping("searchEmailPage.kh")
+	public String searchEmailPage() {
+		return "member/searchEmailPage";
+	}
+	
 	@RequestMapping("myPageInfo.kh")
 	public String myPageInfo() {
 		return "member/mypage_info";
+	}
+	
+	@RequestMapping("updatePage.kh")
+	public String myPageUpdate() {
+		return "member/mypage_update";
 	}
 	
 	
@@ -63,8 +73,8 @@ public class MemberController {
 			model.addAttribute("loginUser", loginUser);
 			return "redirect:main.kh";
 		}else {
-			model.addAttribute("msg", "로그인 실패!");
-			return "common/errorPage";
+			model.addAttribute("msg", "로그인에 실패하였습니다.");
+			return "redirect:loginPage.kh";
 		}
 	}
 
@@ -82,9 +92,10 @@ public class MemberController {
 		mService.insertAuth(email);
 		return "member/joinPage";
 	}
-
+	
 	@RequestMapping(value = "emailConfirm.kh")
 	public String emailConfirm(MemberAuth memberAuth, Model model) throws Exception { // 이메일 인증 확인
+		
 		if((mService.selectId(memberAuth.getMemberId()) == 1)) {
 			model.addAttribute("emailMsg", "이미 등록된 이메일입니다.");
 		}else {
@@ -96,6 +107,7 @@ public class MemberController {
 			}
 		}
 		return "/member/joinPage";
+		
 	}
 	
 	@ResponseBody
@@ -111,6 +123,7 @@ public class MemberController {
 		return check;
 	}
 	
+	
 	@ResponseBody
 	@RequestMapping(value="nameCheck.kh", method=RequestMethod.POST)
 	public String nameCheck(String name) {
@@ -125,8 +138,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping("minsert.kh")
-	public String InsertMember(Member mem, MultipartFile uploadFile, HttpServletRequest request, Model model) {
-		System.out.println("mem : " + mem);
+	public String insertMember(Member mem, MultipartFile uploadFile, HttpServletRequest request, Model model) {
 		int result = mService.insertMember(mem, uploadFile, request);
 		if(result == 1) {
 			model.addAttribute("loginUser", mem).addAttribute("msg", "회원가입이 완료되었습니다!");
@@ -137,6 +149,37 @@ public class MemberController {
 		}else {
 			model.addAttribute("msg", "프로필 사진 등록에 실패하였습니다. 회원 정보 수정에서 다시 등록해주세요.");
 			return "redirect:main.kh";
+		}
+	}
+	
+	@RequestMapping("mupdate.kh")
+	public String updateMember(Member mem, MultipartFile uploadFile, HttpServletRequest request, Model model) {
+		System.out.println("mem : " + mem);
+		int result = mService.updateMember(mem, uploadFile, request);
+		if(result == 1) {
+			Member loginUser = mService.loginMember(mem);
+			model.addAttribute("loginUser", loginUser).addAttribute("msg", "회원수정이 완료되었습니다!");
+			return "redirect:myPageInfo.kh";
+		}else if(result == 0) {
+			model.addAttribute("msg", "회원수정에 실패하였습니다.");
+			return "common/errorPage";
+		}else {
+			Member loginUser = mService.loginMember(mem);
+			model.addAttribute("msg", "프로필 사진 등록에 실패하였습니다. 회원 정보 수정에서 다시 등록해주세요.");
+			return "redirect:myPageInfo.kh";
+		}
+	}
+	
+	@RequestMapping("mdelete.kh")
+	public String deleteMember(String id, SessionStatus status, Model model) {
+		int result = mService.deleteMember(id);
+		if(result > 0) {
+			status.setComplete();
+			model.addAttribute("msg", "회원탈퇴가 처리 되었습니다.");
+			return "redirect:main.kh";
+		}else {
+			model.addAttribute("msg", "회원탈퇴 중 오류 발생 실패하였습니다.");
+			return "redirect:common/errorPage";
 		}
 	}
 	
@@ -228,7 +271,7 @@ public class MemberController {
 		ArrayList<Inquiry> list = null;
 		
 		if(search != null && search != "") {
-			list = mService.selectMemberInquirySearch(id, currentPage, search);
+			list = mService.selectMemberInquirySearch(id, currentPage, search, sort);
 		}else {
 			list = mService.selectMemberInquiry(id, currentPage);
 		}

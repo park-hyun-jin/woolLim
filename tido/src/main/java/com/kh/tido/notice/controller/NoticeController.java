@@ -1,6 +1,8 @@
 package com.kh.tido.notice.controller;
 
 import java.io.File;
+
+
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.kh.tido.common.Pagination;
 import com.kh.tido.notice.model.service.NoticeService;
 import com.kh.tido.notice.model.vo.Notice;
+import com.kh.tido.notice.model.vo.Search;
 
 
 @Controller
@@ -26,6 +29,7 @@ public class NoticeController {
 	@Autowired
 	private NoticeService nService;
 	
+
 	@RequestMapping("nlist.kh")
 	public ModelAndView noticeList(ModelAndView mv, Integer page) {
 		
@@ -206,6 +210,23 @@ public class NoticeController {
 			model.addAttribute("msg", "공지사항 수정 실패");
 			return "common/errorPage";
 		}
+	}
+	@RequestMapping("nsearch.kh")
+	public String noticeSearch(Search search, Model model, Integer page){
+		int currentPage = page == null ? 1 : page;
+		ArrayList<Notice> searchList = nService.searchList(search,currentPage);
+		
+		if(searchList != null) {
+			model.addAttribute("list", searchList);
+			model.addAttribute("search", search);
+			model.addAttribute("pi",Pagination.getPageInfo());
+			return "notice/noticeListView";
+		}else {
+			model.addAttribute("msg","게시물 목록 조회 실패");
+			return "common/errorPage";
+		}
+		
+
 	}
 	
 	

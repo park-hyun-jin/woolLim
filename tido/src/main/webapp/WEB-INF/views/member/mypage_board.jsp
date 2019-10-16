@@ -167,7 +167,7 @@
 									<c:param name="cBoardNo" value="${ b.cBoardNo }"/>
 								</c:url>
                         		<td>${b.cBoardNo}</td>
-                        		<td>${b.cBoardTitle}</td>
+                        		<td><a href="${bdetail}">${b.cBoardTitle}</a></td>
                         		<td><a href="${bdetail}">${b.cBoardContent}</a></td>
                         		<td>${b.cBoardViewCount}</td>
                         		<td>${b.cBoardModifyDate}</td>

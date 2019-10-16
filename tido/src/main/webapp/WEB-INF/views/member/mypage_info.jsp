@@ -161,10 +161,23 @@
                     </table>
                 </div>
                 <div class="content-3" align="center">
-                    <button type="button" class="btn btn-primary" style="background-color:rgb(46, 46, 48)">수정</button>
-                    <button type="button" class="btn btn-danger" style="background-color:rgb(136, 5, 16)">탈퇴</button>
+                    <button type="button" class="btn btn-primary" onclick="updateBtn()" style="background-color:rgb(46, 46, 48)">수정</button>
+                    <button type="button" class="btn btn-danger" onclick="deleteBtn()" style="background-color:rgb(136, 5, 16)">탈퇴</button>
                 </div>
             </div>
         </div>
+        <script>
+        	var id = "<c:out value='${loginUser.id}'/>";
+        
+        	function updateBtn() {
+        		location.href="updatePage.kh";
+        	}
+        	
+        	function deleteBtn() {
+        		if(confirm("정말 탈퇴하시겠습니까?")) {
+        			location.href="mdelete.kh?id="+id;
+        		}
+        	}
+        </script>
     </body>
 </html>

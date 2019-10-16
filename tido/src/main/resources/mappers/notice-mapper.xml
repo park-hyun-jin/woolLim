@@ -31,6 +31,17 @@
 	ORDER BY NOTICE_NO DESC
 	</select>
 	
+	<select id="selectListN" resultMap="noticeResultSet">
+	SELECT * FROM NOTICE
+	WHERE NOTICE_STATUS ='N'
+	ORDER BY NOTICE_NO DESC
+	</select>
+	
+	<select id="selectListAll" resultMap="noticeResultSet">
+	SELECT * FROM NOTICE
+	ORDER BY NOTICE_NO DESC
+	</select>
+	
 	<insert id="insertList" parameterType="Notice">
 	INSERT INTO NOTICE
 	VALUES(SEQ_NNO.NEXTVAL, #{pnoticeTitle},
@@ -40,6 +51,8 @@
 			#{pmemberId}, #{pnoticeFilePath})
 	</insert>
 	
+
+	
 	<select id="detailList" parameterType="_int" resultMap="noticeResultSet">
 	SELECT NOTICE_NO,  NOTICE_TITLE, NOTICE_CONTENT, NOTICE_CREATE_DATE, NOTICE_MODIFY_DATE 
 	,NOTICE_VIEW_COUNT, NOTICE_STATUS, MEMBER_ID, NOTICE_FILE_PATH, MEMBER_NAME  
@@ -48,6 +61,7 @@
 	WHERE NOTICE_NO = #{nNo}
 	
 	</select>
+
 	
 	<update id="addpnoticeViewCount" parameterType="_int">
 	UPDATE NOTICE 
@@ -68,4 +82,34 @@
 	DELETE FROM NOTICE
 	WHERE NOTICE_NO=#{nNo}
 	</delete>
+
+
+		<select id="searchList" parameterType="nSearch"
+		resultMap="noticeResultSet">
+		<bind name="sv" value="'%'+ _parameter.getSearchValue() +'%'" />
+		
+		SELECT NOTICE_NO, NOTICE_TITLE, NOTICE_CONTENT, NOTICE_CREATE_DATE, NOTICE_MODIFY_DATE,
+		NOTICE_VIEW_COUNT, NOTICE_STATUS, MEMBER_ID, MEMBER_NAME
+		FROM NOTICE
+		JOIN MEMBER USING (MEMBER_ID) WHERE
+			<choose>
+				<when test="searchCondition == 'title'">
+					 NOTICE_TITLE LIKE #{sv}
+				</when>
+				<when test="searchCondition == 'writer'">
+					 MEMBER_NAME LIKE #{sv}
+				</when>
+				<when test="searchCondition == 'content'">
+					 NOTICE_CONTENT LIKE #{sv}
+				</when>
+				<otherwise>
+					 (MEMBER_ID LIKE #{sv}
+					OR NOTICE_TITLE LIKE #{sv}
+					OR NOTICE_CONTENT
+					LIKE #{sv})
+				</otherwise>
+			</choose>
+		
+		ORDER BY NOTICE_CREATE_DATE DESC
+	</select>
 </mapper>

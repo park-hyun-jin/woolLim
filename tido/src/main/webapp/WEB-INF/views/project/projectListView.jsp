@@ -8,12 +8,95 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="styleSheet" href="${contextPath }/resources/css/project/projectListView-style.css" > 
+
 <script>
 var pageCheck="projectListView";
 </script>
+<style>
+	.shareModal{
+		position: fixed;
+		width:100%;
+		height: 100%;
+		background: rgba(0,0,0,0.7);
+		top:0;
+		left:0;
+		z-index:3;
+		display: none;
+	}
+	.shareModal>div{
+		margin:auto;
+		margin-top:150px;
+		background:rgba(255,255,255,0.9);
+		width:400px;
+		height: 400px;
+		border-radius: 5px;
+	}
+	.shareModal>div>h2{
+		padding:10px;
+		
+	}
+	.shareModal>div>div{
+		width:100%;
+		text-align: center;
+	}
+	.insertTitle{
+		height: 10%;
+	}
+	.refProject{
+		height: 20%;
+		text-align: left;
+		
+	}
+	.refProject>input{
+		width:90%;
+	}
+	
+	.insertContent{
+		height: 45%;
+	}
+	.insertTitle>input{
+		width:90%;
+		border:1px solid grey;
+		border-radius: 3px;
+	}
+	.insertContent>textarea{
+		width:90%;
+		height: 90%;
+		border:1px solid grey;
+		resize: none;
+		border-radius: 3px;
+	}
+	.button{
+		height: 15%;
+		text-align: center;
+	}
+
+</style>
 </head>
 	<body>
-		<jsp:include page="../common/menubar.jsp"/>
+	<jsp:include page="../common/menubar.jsp"/>
+	<div class="shareModal">
+		<div>
+			<h2 align="center">공유하기</h2>
+			<div class="insertTitle">
+				<input placeholder="제목" id="insertTitle" >
+			</div>
+			<div class="refProject">
+				<label>공유할 프로젝트</label><br>
+				<input id="refProject" readonly="readonly" value="">
+			</div>
+			<div  class="insertContent">
+				<textarea placeholder="내용" id="insertContent"></textarea>
+			</div>
+			<div class="button">
+				<button id="shareOk">공유</button>
+				<button id="shareCancel">취소</button>
+			</div>
+		</div>
+	</div>
+	
+	
+	
 		
 		
 		<div id="createFolderPop" class="popup">
@@ -51,6 +134,7 @@ var pageCheck="projectListView";
 		</div>			
 				
 		<ul class="contextmenu">
+		  <li id="shareProjectMenu"><span>공유하기</span></li>
 		  <li id="updateNameMenu"><span>이름 변경</span></li>
 		  <li id="deleteProjectMenu"><span>삭제</span></li>
 		</ul>
@@ -76,11 +160,13 @@ var pageCheck="projectListView";
 			var check=true;
 			var $project;
 			var projectNo;
+			var scrollCount=0;
 			if(projectCount<=selectCount){
 				 //check=false;
 			}
 						
 			$(function(){
+				$("#projectArea").hide();
 				getProjectCount();
 				selectProjectList(path);
 				
@@ -117,8 +203,11 @@ var pageCheck="projectListView";
         			
        					 if(scrollT + scrollH +1 >= contentH) {
 							if(check){
+						
+							$("#projectArea").children("p").text("loading...");
 							setTimeout(function(){
 								selectProjectList(path);
+								scrollCount++;
 							},1500);
 								check=false;
 							}
@@ -146,8 +235,11 @@ var pageCheck="projectListView";
 							}
 						});
 					}
+					
+					
+					
+					
 				});
-				
 				
 				
 				$("#deleteProjectMenu").on("click",function(){
@@ -166,8 +258,31 @@ var pageCheck="projectListView";
 						}
 					});
 				});
-				  
 				
+				$("#shareProjectMenu").on("click",function(){
+					$(".shareModal").show();
+					$("#refProject").val($project.children("div").children().eq(0).text());
+				});
+				
+				$("#shareOk").on("click",function(){
+					var title=$("#insertTitle").val();
+					var content=$("#insertContent").val();
+					$.ajax({
+						url:"insertSharePjt.kh",
+						data:{pBoardTitle:title,pBoardContent:content,refPNo:projectNo},
+						type:"get",
+						success:function(result){
+							$(".shareModal").hide();
+							$("#insertTitle").val("");
+							$("#insertContent").val("");
+						}
+					});
+				});
+				$("#shareCancel").on("click",function(){
+					$(".shareModal").hide();
+					$("#insertTitle").val("");
+					$("#insertContent").val("");
+				});
 			});
 			  
 		
@@ -184,6 +299,7 @@ var pageCheck="projectListView";
 					data:{projectPath:path,begin:begin,lim:lim},
 					dataType:"json",
 					success:function(projectList){
+						$("#projectArea").show();
 						$("#projectArea").children("p").remove();
 						clearInterval(loading);
 						var replacedPath=path.replace("${loginUser.name}","내 라이브러리");
@@ -204,24 +320,32 @@ var pageCheck="projectListView";
 							 	$div.append($path);
 								addEvent($div);
 								$("#projectArea").append($div);
+								
 							}
-							$("#projectArea").append("<p align='center'>loading...</p>")
+							$("#projectArea").append("<p align='center' style='height:30px'></p>");
 							begin=begin+selectCount;
 							lim=lim+selectCount;
 							if(lim>=projectCount){
 								lim=projectCount;
 							}
 							if(projectList.length<selectCount){
-								setTimeout(function(){
-									$("#projectArea").children("p").text("더 이상 조회결과가 없습니다.");
-								},1500);
+								$("#projectArea").children("p").remove();
+								if(	scrollCount>=1){
+								$("#projectArea").append("<p align='center'>loading...</p>")
+									setTimeout(function(){
+										$("#projectArea").children("p").text("더 이상 조회결과가 없습니다.");
+									},1500);
+								}
 								check=false;
 							}else{
 								check=true;
 							}
+						
 						}else{
-							$("#projectArea").append("<p align='center'>loading...</p>")
 							$("#loadingMessage").hide();
+							if(	scrollCount>=1){
+								$("#projectArea").append("<p align='center'>loading...</p>")
+							}
 							setTimeout(function(){
 								$("#projectArea").children("p").text("조회결과가 없습니다.");
 							},1500); 

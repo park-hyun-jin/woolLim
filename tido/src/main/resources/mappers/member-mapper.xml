@@ -105,6 +105,28 @@
 	</delete>
 	
 	
+	<!-- 회원 정보 수정 -->
+	<update id="updateMember" parameterType="Member">
+		UPDATE MEMBER
+		<if test="(imagePath == null) || (imagePath == '')">
+			SET MEMBER_PWD = #{pwd}, MODIFY_DATE = SYSDATE
+		</if>
+		<if test="(imagePath != null) and (imagePath != '')">
+			SET MEMBER_PWD = #{pwd}, MODIFY_DATE = SYSDATE, MEMBER_IMAGE_PATH = #{imagePath}
+		</if>
+		WHERE MEMBER_ID = #{id}
+	</update>
+	
+	<delete id="deleteMember" parameterType="string">
+		UPDATE MEMBER
+		SET MEMBER_STATUS = 'N', MODIFY_DATE = SYSDATE
+		WHERE MEMBER_ID = #{id}
+	</delete>
+	
+	
+	
+	
+	
 	
 	<!-- 로그인 유저가 쓴 글 개수 조회 -->
 	<select id="selectMemberBoardCount" parameterType="string" resultType="_int">
@@ -211,7 +233,12 @@
 		SELECT COUNT(*) 
 		FROM QNA
 		WHERE MEMBER_ID = #{id}
-		AND INQUIRY_CONTENT LIKE '%' || #{search} || '%'
+		<if test="sort == 'title'">
+			AND INQUIRY_TITLE LIKE '%' || #{search} || '%'
+		</if>
+		<if test="sort == 'content'">
+			AND INQUIRY_CONTENT LIKE '%' || #{search} || '%'
+		</if>
 		AND INQUIRY_STATUS = 'Y'
 	</select>
 	
@@ -219,9 +246,16 @@
 	<select id="selectMemberQnaSearchList" parameterType="map" resultMap="inquiryResultSet">
 		SELECT * FROM QNA
 		WHERE MEMBER_ID = #{id}
-		AND INQUIRY_CONTENT LIKE '%' || #{search} || '%'
+		<if test="sort == 'title'">
+			AND INQUIRY_TITLE LIKE '%' || #{search} || '%'
+		</if>
+		<if test="sort == 'content'">
+			AND INQUIRY_CONTENT LIKE '%' || #{search} || '%'
+		</if>
 		AND INQUIRY_STATUS = 'Y'
 		ORDER BY INQUIRY_NO DESC
 	</select>
+	
+	
 	
 </mapper>

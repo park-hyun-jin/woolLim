@@ -17,6 +17,8 @@ public interface MemberService {
 	Member loginMember(Member mem);
 
 	void insertAuth(String email) throws Exception;
+	
+	void searchEmail(String email) throws Exception;
 
 	int updateAuth(MemberAuth memberAuth) throws Exception;
 
@@ -36,7 +38,13 @@ public interface MemberService {
 
 	ArrayList<Inquiry> selectMemberInquiry(String id, int currentPage);
 
-	ArrayList<Inquiry> selectMemberInquirySearch(String id, int currentPage, String search);
+	ArrayList<Inquiry> selectMemberInquirySearch(String id, int currentPage, String search, String sort);
+
+	int updateMember(Member mem, MultipartFile uploadFile, HttpServletRequest request);
+
+	int deleteMember(String id);
+
+
 
 
 }
