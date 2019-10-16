@@ -56,9 +56,9 @@ aria-hidden="true">
 						<div id="inputRadio">
 					<input type="radio" id="shit" name="rRrNo" value="1"/><label for="shit">욕설 및 비방</label><br>
 					<input type="radio" id="honor" name="rRrNo" value="2"/><label for="honor">명예훼손 / 사생활 침해</label><br>
-					<input type="radio" id="advertise" name="rRrNo" value="3"/><label for="advertise">부적절한 홍보 게시글</label><br>
+					<input type="radio" id="adv" name="rRrNo" value="3"/><label for="adv">부적절한 홍보 게시글</label><br>
 					<input type="radio" id="copy" name="rRrNo" value="4"/><label for="copy">저작권침해</label><br>
-					<input type="radio" id="polite" name="rRrNo" value="5"/><label for=""polite"">무분별한 정치적 발언</label><br>
+					<input type="radio" id="polite" name="rRrNo" value="5"/><label for="polite">무분별한 정치적 발언</label><br>
 					<input type="radio" id="code" name="rRrNo" value="6"/><label for="code">악성코드</label><br>
 					<input type="radio" id="overlap" name="rRrNo" value="7"/><label for="overlap">중복된 글 연속 삽입</label><br>
 					</div>

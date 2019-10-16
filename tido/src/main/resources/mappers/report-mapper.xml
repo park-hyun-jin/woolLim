@@ -22,6 +22,6 @@
 	VALUES(SEQ_RNO.NEXTVAL, #{rContentsNo},
 			#{rReportType},
 			#{rReportContent}, SYSDATE,
-			#{rRrno}, #{rMemberId})
+			#{rRrno}, #{rMemberId},DEFAULT)
 	</insert>
 	</mapper>
