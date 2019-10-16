@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.kh.tido.board.model.vo.Board;
 import com.kh.tido.board.model.vo.Reply;
 import com.kh.tido.common.PaginationMember;
+import com.kh.tido.inquiry.model.vo.Inquiry;
 import com.kh.tido.member.model.service.MemberService;
 import com.kh.tido.member.model.vo.Member;
 import com.kh.tido.member.model.vo.MemberAuth;
@@ -152,6 +153,12 @@ public class MemberController {
 			list = mService.selectMemberBoard(id, currentPage);
 		}
 		
+		for(int i=0; i<list.size(); i++) {
+			if(list.get(i).getcBoardContent().length() > 10) {
+				list.get(i).setcBoardContent(list.get(i).getcBoardContent().substring(0, 9));
+			}
+		}
+		
 		System.out.println("list : " + list);
 		
 		System.out.println("search : " + search);
@@ -176,12 +183,20 @@ public class MemberController {
 		
 		int currentPage = page == null ? 1 : page;
 		
+		System.out.println("id : " + id + ", currentPage : " + currentPage + ", search : " + search + ", sort : " + sort); 
+		
 		ArrayList<Reply> list = null;
 		
 		if(search != null && search != "") {
 			list = mService.selectMemberReplySearch(id, currentPage, search);
 		}else {
 			list = mService.selectMemberReply(id, currentPage);
+		}
+		
+		for(int i=0; i<list.size(); i++) {
+			if(list.get(i).getCbReplyContent().length() > 10) {
+				list.get(i).setCbReplyContent(list.get(i).getCbReplyContent().substring(0, 9));
+			}
 		}
 		
 		System.out.println("list : " + list);
@@ -196,7 +211,47 @@ public class MemberController {
 				model.addAttribute("search", search);
 				model.addAttribute("sort", sort);
 			}
-			return "member/mypage_reply";
+			return "member/mypage_cbreply";
+		}else {
+			model.addAttribute("msg", "로그인 유저 댓글 조회 중 오류 발생");
+			return "common/errorPage";
+		}
+	}
+	
+	@RequestMapping("memberQnaList.kh")
+	public String selectMemberQna(Model model, String id, Integer page, String search, String sort) {
+		
+		int currentPage = page == null ? 1 : page;
+		
+		System.out.println("id : " + id + ", currentPage : " + currentPage + ", search : " + search + ", sort : " + sort); 
+		
+		ArrayList<Inquiry> list = null;
+		
+		if(search != null && search != "") {
+			list = mService.selectMemberInquirySearch(id, currentPage, search);
+		}else {
+			list = mService.selectMemberInquiry(id, currentPage);
+		}
+		
+		for(int i=0; i<list.size(); i++) {
+			if(list.get(i).getiInquiryContent().length() > 10) {
+				list.get(i).setiInquiryContent(list.get(i).getiInquiryContent().substring(0, 9));
+			}
+		}
+		
+		System.out.println("list : " + list);
+		
+		System.out.println("search : " + search);
+		System.out.println("sort : " + sort);
+		
+		if(list != null) {
+			model.addAttribute("list", list);
+			model.addAttribute("pi", PaginationMember.getPageInfo());
+			if(search != null && search != "") {
+				model.addAttribute("search", search);
+				model.addAttribute("sort", sort);
+			}
+			return "member/mypage_qna";
 		}else {
 			model.addAttribute("msg", "로그인 유저 댓글 조회 중 오류 발생");
 			return "common/errorPage";

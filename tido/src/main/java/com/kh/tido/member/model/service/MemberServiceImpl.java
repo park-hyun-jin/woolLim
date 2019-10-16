@@ -22,6 +22,7 @@ import com.kh.tido.board.model.vo.Board;
 import com.kh.tido.board.model.vo.Reply;
 import com.kh.tido.member.model.vo.PageInfo;
 import com.kh.tido.common.PaginationMember;
+import com.kh.tido.inquiry.model.vo.Inquiry;
 import com.kh.tido.member.controller.MailHandler;
 import com.kh.tido.member.model.dao.MemberDao;
 import com.kh.tido.member.model.vo.Member;
@@ -222,6 +223,33 @@ public class MemberServiceImpl implements MemberService {
 		PageInfo pi = PaginationMember.getPageInfo(currentPage, listCount);
 		
 		return mDao.selectMemberReplySearch(map, pi);
+	}
+
+	@Override
+	public ArrayList<Inquiry> selectMemberInquiry(String id, int currentPage) {
+		int listCount = mDao.getMemberQnaCount(id);
+		
+		System.out.println("---------- listCount : " + listCount);
+		
+		PageInfo pi = PaginationMember.getPageInfo(currentPage, listCount);
+		
+		return mDao.selectMemberQna(id, pi);
+	}
+
+	@Override
+	public ArrayList<Inquiry> selectMemberInquirySearch(String id, int currentPage, String search) {
+		Map map = new HashMap();
+		
+		map.put("id", id);
+		map.put("search", search);
+		
+		int listCount = mDao.getMemberQnaSearchCount(map);
+		
+		System.out.println("map : " + map);
+		
+		PageInfo pi = PaginationMember.getPageInfo(currentPage, listCount);
+		
+		return mDao.selectMemberQnaSearch(map, pi);
 	}
 
 }

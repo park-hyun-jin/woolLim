@@ -41,6 +41,20 @@
 		<result property="memberName" column="MEMBER_NAME"/>
 	</resultMap>
 	
+	
+	<resultMap id="inquiryResultSet" type="Inquiry">
+	<id property="iNo" column="INQUIRY_NO"/> <!-- 문의글 번호 -->
+		<result property="iInquiryTitle" column="INQUIRY_TITLE"/> <!-- 문의글 제목 -->
+		<result property="iInquiryContent" column="INQUIRY_CONTENT"/> <!-- 문의글 내용 -->
+		<result property="iInquiryDate" column="INQUIRY_DATE"/> <!-- 문의글 작성일 -->
+		<result property="iInquiryModifyDate" column="INQUIRY_MODIFY_DATE"/> <!-- 문의글 수정일 -->
+		<result property="iInquiryId" column="MEMBER_ID"/> <!-- 이메일 -->
+		<result property="iInquiryStatus" column="INQUIRY_STATUS"/> <!-- 문의글 상태 -->
+		<result property="iInquiryOriginFilename" column="INQUIRY_ORIGIN_FILENAME"/> <!-- 기존파일이름 -->
+		<result property="iInquiryChangeFilename" column="INQUIRY_CHANGE_FILENAME"/> <!-- 바뀐파일이름 -->
+	</resultMap>
+	
+	
 	<!-- 로그인 할 때 아이디 조회 -->
 	<select id="selectOne" parameterType="Member" resultMap="memberResultSet">
 		SELECT * FROM MEMBER 
@@ -90,6 +104,8 @@
 		WHERE MEMBER_ID = #{id}
 	</delete>
 	
+	
+	
 	<!-- 로그인 유저가 쓴 글 개수 조회 -->
 	<select id="selectMemberBoardCount" parameterType="string" resultType="_int">
 		SELECT COUNT(*)
@@ -134,12 +150,14 @@
 		ORDER BY CBOARD_NO DESC
 	</select>
 	
+	
+	
+	
 	<!-- 로그인 유저가 쓴 댓글 수 조회 -->
 	<select id="selectMemberReplyCount" parameterType="string" resultType="_int">
 		SELECT COUNT(*)
 		FROM CB_REPLY
 		WHERE MEMBER_ID = #{id}
-		AND CB_REPLY_CONTENT LIKE '%' || #{search} || '%'
 		AND CB_REPLY_STATUS = 'Y'
 	</select>
 	
@@ -147,7 +165,6 @@
 	<select id="selectMemberReplyList" parameterType="string" resultMap="replyResultSet">
 		SELECT * FROM CB_REPLY
 		WHERE MEMBER_ID = #{id}
-		AND CB_REPLY_CONTENT LIKE '%' || #{search} || '%'
 		AND CB_REPLY_STATUS = 'Y'
 		ORDER BY CBOARD_NO DESC
 	</select>
@@ -168,6 +185,43 @@
 		AND CB_REPLY_CONTENT LIKE '%' || #{search} || '%'
 		AND CB_REPLY_STATUS = 'Y'
 		ORDER BY CBOARD_NO DESC
+	</select>
+	
+	
+	
+	
+	<!-- 로그인 유저가 쓴 문의사항 수 조회 -->
+	<select id="selectMemberQnaCount" parameterType="string" resultType="_int">
+		SELECT COUNT(*)
+		FROM QNA
+		WHERE MEMBER_ID = #{id}
+		AND INQUIRY_STATUS = 'Y'
+	</select>
+	
+	<!-- 로그인 유저가 쓴 문의사항  리스트 조회 -->
+	<select id="selectMemberQnaList" parameterType="string" resultMap="inquiryResultSet">
+		SELECT * FROM QNA
+		WHERE MEMBER_ID = #{id}
+		AND INQUIRY_STATUS = 'Y'
+		ORDER BY INQUIRY_NO DESC
+	</select>
+	
+	<!-- 로그인 유저가 쓴 문의사항 중 검색된 결과 수 조회 -->
+	<select id="selectMemberQnaSearchCount" parameterType="map" resultType="_int">
+		SELECT COUNT(*) 
+		FROM QNA
+		WHERE MEMBER_ID = #{id}
+		AND INQUIRY_CONTENT LIKE '%' || #{search} || '%'
+		AND INQUIRY_STATUS = 'Y'
+	</select>
+	
+	<!-- 로그인 유저가 쓴 문의사항 중 검색된 결과 리스트 조회 -->
+	<select id="selectMemberQnaSearchList" parameterType="map" resultMap="inquiryResultSet">
+		SELECT * FROM QNA
+		WHERE MEMBER_ID = #{id}
+		AND INQUIRY_CONTENT LIKE '%' || #{search} || '%'
+		AND INQUIRY_STATUS = 'Y'
+		ORDER BY INQUIRY_NO DESC
 	</select>
 	
 </mapper>

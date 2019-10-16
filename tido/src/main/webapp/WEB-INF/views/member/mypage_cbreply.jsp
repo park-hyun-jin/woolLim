@@ -13,7 +13,7 @@
                 margin: 0;
                 padding: 0;
                 box-sizing: border-box;
-                color: white;
+                color: black;
             }
 
             .container {
@@ -21,6 +21,7 @@
                 height: 700px;
                 margin: auto;
                 padding: 0;
+                background-color: rgba( 255, 255, 255, 0.5 );
             }
 
             .menu {
@@ -43,7 +44,7 @@
 
             .menu li a {
                 text-decoration: none;
-                color: white;
+                color: black;
                 font-size: 25px;
                 font-weight: bold;
             }
@@ -85,7 +86,7 @@
                 display: inline-block;
                 font-size: 20px;
                 margin: 5px;
-                color: white;
+                color: black;
             }
 
             .content-3 {
@@ -112,6 +113,14 @@
             .selectSearch option {
             	color: black;
             }
+            
+            .content a {
+            	color: black;
+            }
+            
+            .content a:hover {
+				text-decoration: none;
+			}
 
         </style>
     </head>
@@ -123,6 +132,9 @@
     	<c:url var="memberReplyPage" value="memberReplyList.kh">
     		<c:param name="id" value="${loginUser.id }"/>
     	</c:url>
+    	<c:url var="memberQnaPage" value="memberQnaList.kh">
+    		<c:param name="id" value="${loginUser.id }"/>
+    	</c:url>
     
     	<jsp:include page="../common/menubar.jsp"></jsp:include>
         <div class="container">
@@ -130,9 +142,9 @@
                 <ul>
                     <li><a href="myPageInfo.kh">회원정보</a></li>
                     <li><a href="projectListView.kh">작곡 프로젝트 관리</a></li>
-                    <li><a href="${ memberBoardPage }" style="color: black">작성 글</a></li>
-                    <li><a href="${memberReplyPage }">작성 댓글</a></li>
-                    <li><a href="#">신고 및 문의 내역</a></li>
+                    <li><a href="${ memberBoardPage }">작성 글</a></li>
+                    <li><a href="${memberReplyPage }" style="color: dimgrey">작성 댓글</a></li>
+                    <li><a href="${memberQnaPage}">문의 내역</a></li>
                 </ul>
             </div>
             <div class="content">
@@ -147,9 +159,8 @@
                         	<tr>
                         		<c:url var="bdetail" value="bdetail.kh">
 									<c:param name="cBoardNo" value="${ r.cboardNo }"/>
-									<c:param name="page" value="${ pi.currentPage }"/>
 								</c:url>
-                        		<td>${r.cBoardNo}</td>
+                        		<td>${r.cbReplyNo}</td>
                         		<td><a href="${bdetail}">${r.cbReplyContent}</a></td>
                         		<td>${r.cbReplyModifyDate}</td>
                         	</tr>
@@ -159,16 +170,16 @@
                 <div class="content-2">
                     <ul>
                         <li>
-	                        <c:url var="firstPage" value="memberBoardList.kh">
+	                        <c:url var="firstPage" value="memberReplyList.kh">
 	                        	<c:param name="id" value="${ loginUser.id }"/>
-								<c:param name="page" value="${ pi.startPage }"/>
+								<c:param name="page" value="${ 1 }"/>
 							</c:url>
 							<a href="${ firstPage }">&lt;&lt;</a>
                         </li>
                         <li>
                         	<c:if test="${ pi.currentPage <= 1 }">&lt;</c:if>
 							<c:if test="${ pi.currentPage > 1 }">
-								<c:url var="beforePage" value="memberBoardList.kh">
+								<c:url var="beforePage" value="memberReplyList.kh">
 									<c:param name="id" value="${ loginUser.id }"/>
 									<c:param name="page" value="${ pi.currentPage - 1 }"/>
 								</c:url>
@@ -182,11 +193,11 @@
 								</c:if>
                         	</li>
 							<c:if test="${ p != currentPage }">
-								<c:url var="pagination" value="memberBoardList.kh">
+								<c:url var="pagination" value="memberReplyList.kh">
 									<c:param name="id" value="${ loginUser.id }"/>
 									<c:param name="page" value="${ p }"/>
 								</c:url>
-								<a href="${ pagination }">${ p }</a>
+								<a class="pageNum" name="${p}" href="${ pagination }">${ p }</a>
 							</c:if>
                         </c:forEach>
                         <li>
@@ -194,7 +205,7 @@
 								&gt;
 							</c:if>
 							<c:if test="${ pi.currentPage < pi.maxPage }">
-								<c:url var="afterPage" value="memberBoardList.kh">
+								<c:url var="afterPage" value="memberReplyList.kh">
 									<c:param name="id" value="${ loginUser.id }"/>
 									<c:param name="page" value="${ pi.currentPage + 1 }"/>
 								</c:url> 
@@ -202,7 +213,7 @@
 							</c:if>
                         </li>
                         <li>
-                        	<c:url var="lastPage" value="memberBoardList.kh">
+                        	<c:url var="lastPage" value="memberReplyList.kh">
                         		<c:param name="id" value="${ loginUser.id }"/>
 								<c:param name="page" value="${ pi.maxPage }"/>
                         	</c:url>
@@ -228,5 +239,9 @@
                 </div>
             </div>
         </div>
+        <script>
+        	var currentPage = "<c:out value='${pi.currentPage}'/>";
+    		$("a[name="+currentPage+"]").css("color", "red");
+        </script>
     </body>
 </html>

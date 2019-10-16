@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.tido.board.model.vo.Board;
 import com.kh.tido.board.model.vo.Reply;
+import com.kh.tido.inquiry.model.vo.Inquiry;
 import com.kh.tido.member.model.vo.PageInfo;
 import com.kh.tido.member.model.vo.Member;
 import com.kh.tido.member.model.vo.MemberAuth;
@@ -79,7 +80,9 @@ public class MemberDao {
 	}
 
 	public ArrayList<Reply> selectMemberReply(String id, PageInfo pi) {
-		return sqlSession.selectOne("memberMapper.selectMemberReplyList", id);
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		return (ArrayList)sqlSession.selectList("memberMapper.selectMemberReplyList", id, rowBounds);
 	}
 	
 	public int getMemberReplySearchCount(Map map) {
@@ -87,7 +90,29 @@ public class MemberDao {
 	}
 
 	public ArrayList<Reply> selectMemberReplySearch(Map map, PageInfo pi) {
-		return sqlSession.selectOne("memberMapper.selectMemberReplySearchList", map);
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		return (ArrayList)sqlSession.selectList("memberMapper.selectMemberReplySearchList", map, rowBounds);
+	}
+
+	public int getMemberQnaCount(String id) {
+		return sqlSession.selectOne("memberMapper.selectMemberQnaCount", id);
+	}
+
+	public ArrayList<Inquiry> selectMemberQna(String id, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		return (ArrayList)sqlSession.selectList("memberMapper.selectMemberQnaList", id, rowBounds);
+	}
+
+	public int getMemberQnaSearchCount(Map map) {
+		return sqlSession.selectOne("memberMapper.selectMemberQnaSearchCount", map);
+	}
+
+	public ArrayList<Inquiry> selectMemberQnaSearch(Map map, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		return (ArrayList)sqlSession.selectList("memberMapper.selectMemberQnaSearchList", map, rowBounds);
 	}
 
 
