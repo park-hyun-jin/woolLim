@@ -108,7 +108,7 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="md-form mb-0">
-							<
+							
 								<input type="text" id="subject" name="iInquiryDate" class="form-control" value="${ inquiry.iInquiryTitle }"  readonly>
 								<label for="subject" class=""></label>
 							</div>
@@ -153,7 +153,7 @@
 				</c:url>
 				
 
-				<c:if test="${ loginUser.id eq inquiry.iInquiryId	 }">
+				<c:if test="${ (loginUser.id eq inquiry.iInquiryId) || (loginUser.id eq 'admin@admin.com') }">
 				
 				<div class="text-center text-md-left" id="Send">
                     <a class="btn btn-primary" onclick="location.href='iList.kh';">list</a>     

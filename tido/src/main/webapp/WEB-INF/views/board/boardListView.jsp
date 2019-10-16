@@ -150,7 +150,7 @@ tbody {
                         <c:param name="cBoardNo" value="${b.cBoardNo }" />
                         <c:param name="page" value="${pi.currentPage }" />
                      </c:url>
-                     <a href="${bdetail}" style="color: snow;">${b.cBoardTitle}</a>
+                     <a href="${bdetail}" style="color: white;">${b.cBoardTitle}</a>
                   </c:if>
                   <c:if test="${empty loginUser }">${b.cBoardTitle }</c:if>
                </td>
