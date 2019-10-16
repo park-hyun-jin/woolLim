@@ -53,4 +53,18 @@ public class AdminUserServiceImpl implements AdminUserService{
 		return auDao.detailBoard(cBoardNo);
 	}
 
+	@Override
+	public int aDeleteMemberBoard(ArrayList<Integer> aMemberBoardList) {
+		Map<String,Object> memberBoardList = new HashMap<String,Object>();
+		memberBoardList.put("aMemberBoardList",aMemberBoardList);
+		return auDao.aDeleteMemberBoard(memberBoardList);
+	}
+
+	@Override
+	public int aReviveMemberBoard(ArrayList<Integer> aMemberBoardList) {		
+		Map<String,Object> memberBoardList = new HashMap<String,Object>();
+		memberBoardList.put("aMemberBoardList",aMemberBoardList);
+		return auDao.aReviveMemberBoard(memberBoardList);
+	}
+
 }
