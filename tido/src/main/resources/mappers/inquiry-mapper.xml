@@ -72,12 +72,12 @@
 
 
 
-	<delete id="deleteInquiry" parameterType="_int">
+	<update id="deleteInquiry" parameterType="_int">
 	UPDATE QNA
 	SET
 	INQUIRY_STATUS='N'
 	WHERE INQUIRY_NO=#{iNo}
-	</delete>
+	</update>
 
 	<select id="searchList" parameterType="iSearch"
 		resultMap="inquiryResultSet">
