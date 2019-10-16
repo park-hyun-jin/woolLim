@@ -79,7 +79,7 @@
 	WHERE INQUIRY_NO=#{iNo}
 	</delete>
 
-	<select id="searchList" parameterType="Search"
+	<select id="searchList" parameterType="iSearch"
 		resultMap="inquiryResultSet">
 		<bind name="sv" value="'%'+ _parameter.getSearchValue() +'%'" />
 		

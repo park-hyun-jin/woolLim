@@ -27,8 +27,6 @@
 		<result property="cboardNo" column="CBOARD_NO"/> 
 		<result property="memberId" column="MEMBER_ID" />
 		<result property="memberName" column="MEMBER_NAME"/>
-
-		
 	</resultMap>
 	 
 	
