@@ -1,9 +1,8 @@
 package com.kh.tido.common;
 
-import com.kh.tido.board.model.vo.PageInfo;
+import com.kh.tido.member.model.vo.PageInfo;
 
-public class Pagination2 {
-
+public class PaginationMember {
 	private static PageInfo pi = null;
 	
 	public static PageInfo getPageInfo() {
@@ -11,10 +10,9 @@ public class Pagination2 {
 		return pi;
 	}
 	
-	
 	public static PageInfo getPageInfo(int currentPage, int listCount) {
 		
-		int limit =	10;
+		int limit =	5;
 		int pagingBarSize = 5;
 		
 		int maxPage;

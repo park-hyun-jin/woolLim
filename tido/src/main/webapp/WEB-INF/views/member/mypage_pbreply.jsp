@@ -13,7 +13,7 @@
                 margin: 0;
                 padding: 0;
                 box-sizing: border-box;
-                color: black;
+                color: white;
             }
 
             .container {
@@ -21,7 +21,6 @@
                 height: 700px;
                 margin: auto;
                 padding: 0;
-        		background-color: rgba( 255, 255, 255, 0.5 );
             }
 
             .menu {
@@ -44,7 +43,7 @@
 
             .menu li a {
                 text-decoration: none;
-                color: black;
+                color: white;
                 font-size: 25px;
                 font-weight: bold;
             }
@@ -86,7 +85,7 @@
                 display: inline-block;
                 font-size: 20px;
                 margin: 5px;
-                color: black;
+                color: white;
             }
 
             .content-3 {
@@ -113,18 +112,6 @@
             .selectSearch option {
             	color: black;
             }
-            
-            .projectTable a {
-            	color: black;
-            }
-            
-            .content a {
-            	color: black;
-            }
-            
-            .content a:hover {
-				text-decoration: none;
-			}
 
         </style>
     </head>
@@ -136,9 +123,6 @@
     	<c:url var="memberReplyPage" value="memberReplyList.kh">
     		<c:param name="id" value="${loginUser.id }"/>
     	</c:url>
-    	<c:url var="memberQnaPage" value="memberQnaList.kh">
-    		<c:param name="id" value="${loginUser.id }"/>
-    	</c:url>
     
     	<jsp:include page="../common/menubar.jsp"></jsp:include>
         <div class="container">
@@ -146,9 +130,9 @@
                 <ul>
                     <li><a href="myPageInfo.kh">회원정보</a></li>
                     <li><a href="projectListView.kh">작곡 프로젝트 관리</a></li>
-                    <li><a href="${ memberBoardPage }" style="color: dimgrey">작성 글</a></li>
+                    <li><a href="${ memberBoardPage }" style="color: black">작성 글</a></li>
                     <li><a href="${memberReplyPage }">작성 댓글</a></li>
-                    <li><a href="${memberQnaPage}">문의 내역</a></li>
+                    <li><a href="#">신고 및 문의 내역</a></li>
                 </ul>
             </div>
             <div class="content">
@@ -165,9 +149,10 @@
                         	<tr>
                         		<c:url var="bdetail" value="bdetail.kh">
 									<c:param name="cBoardNo" value="${ b.cBoardNo }"/>
+									<c:param name="page" value="${ pi.currentPage }"/>
 								</c:url>
                         		<td>${b.cBoardNo}</td>
-                        		<td><a href="${bdetail}">${b.cBoardTitle}</a></td>
+                        		<td>${b.cBoardTitle}</td>
                         		<td><a href="${bdetail}">${b.cBoardContent}</a></td>
                         		<td>${b.cBoardViewCount}</td>
                         		<td>${b.cBoardModifyDate}</td>
@@ -180,7 +165,7 @@
                         <li>
 	                        <c:url var="firstPage" value="memberBoardList.kh">
 	                        	<c:param name="id" value="${ loginUser.id }"/>
-								<c:param name="page" value="${ 1 }"/>
+								<c:param name="page" value="${ pi.startPage }"/>
 							</c:url>
 							<a href="${ firstPage }">&lt;&lt;</a>
                         </li>
@@ -205,7 +190,7 @@
 									<c:param name="id" value="${ loginUser.id }"/>
 									<c:param name="page" value="${ p }"/>
 								</c:url>
-								<a class="pageNum" name="${p}" href="${ pagination }">${ p }</a>
+								<a href="${ pagination }">${ p }</a>
 							</c:if>
                         </c:forEach>
                         <li>
@@ -249,10 +234,10 @@
                         </select>
                         <input type="hidden" name="id" value="${loginUser.id}">
                         <input type="hidden" name="page" value="${1}">
-                        <c:if  test="${!empty search}">
+                        <c:if  test="${!empty sort}">
 	                        <input type="text" class="form-control" name="search" id="inputPassword2" value="${search}" placeholder="검색어를 입력하세요">
                         </c:if>
-                        <c:if test="${empty search}">
+                        <c:if test="${empty sort}">
                         	<input type="text" class="form-control" name="search" id="inputPassword2" placeholder="검색어를 입력하세요">
                         </c:if>
                         <input class="btn btn-primary" type="submit" value="검색">
@@ -260,9 +245,5 @@
                 </div>
             </div>
         </div>
-        <script>
-        	var currentPage = "<c:out value='${pi.currentPage}'/>";
-    		$("a[name="+currentPage+"]").css("color", "red");
-        </script>
     </body>
 </html>

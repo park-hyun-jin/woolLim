@@ -39,6 +39,8 @@
 table {
 	color: white;
 	background-color: #343a40;
+	text-align:center;
+	
 }
 
 #Search {
@@ -49,13 +51,15 @@ table {
 #iInquiryContent {
 	height: 400px;
 }
-td{
+.table td{
 color : white;
+font-size:16px !important;
 }
-th{
+.table th{
  background-color: #212529;
  color: white;
- 
+ font-size:16px !important;
+ font-weight:bold;
 }
 
 
@@ -140,7 +144,7 @@ th{
 
 
 		<table id="dt-less-columns" class="table table-striped table-bordered "
-		cellspacing="0" width="100%">
+		cellspacing="0" width="100%" >
 		<thead>
 			<tr>
 				<th class="th-sm" width="10%">번호</th>

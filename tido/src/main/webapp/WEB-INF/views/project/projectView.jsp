@@ -14,6 +14,7 @@
 <script>
 var pageCheck="projectView";
 </script>
+
 </head>
 <body oncontextmenu="return false" onselectstart="return false"
 	ondragstart="return false">
@@ -61,16 +62,24 @@ var pageCheck="projectView";
 			<img src="${contextPath }/resources/images/right-arrow.png">
 		</div>
 	</div>
+	
 	<div class="savebtnarea">
-			<h4 id="title"></h4>
+			
+			 
 			<c:if test="${!empty project}">
-				<button id="overrite">저장</button>
-				<button id="savepop">다른 이름으로 저장</button>
-				</c:if>
-				<c:if test="${empty project}">
+			<h4 id="title">${project.projectTitle }</h4>
+				<c:if test="${loginUser.id == project.projectWriter}"> 
+					<button id="overrite">저장</button>
+					<button id="savepop">다른 이름으로 저장</button>
+				</c:if> 
+			</c:if>
+			<c:if test="${empty project and loginUser.id!=null}">
+				
 				<button id="savepop">저장</button>
 			</c:if>
 	</div>
+	
+	
 	<section id="wrap">
 		
 		
@@ -106,6 +115,16 @@ var pageCheck="projectView";
 	    var drumSoundInfo="";
 	    var bpm = $("#bpm").val();
 	    var beat = $("#beat").val();
+	    if("${loginUser.id}"!="${project.projectWriter}"){
+	    	$.ajax({
+	    		url:"increaseViewCount.kh",
+	    		data:{refPbno:Number(${param.pbNo})},
+	    		type:"get",
+	    		success:function(result){
+	    			console.log(result);
+	    		}
+	    	});
+	    }
 	    
 	    
 	   for(var i = 1; i <= 64; i++) {
@@ -192,21 +211,23 @@ var pageCheck="projectView";
 	  });
 	  
 	  // 드래그 이벤트
-	  $(".pad").on("mousedown",function(){
-	         var $pad = $(this);
-	         imprint($pad);
-	         $(".pad").on("mouseenter",function() {
-					$pad = $(this);
-					imprint($pad);
-	         });
-	         
-		});
-	  
-	  // 마우스 땟을 때 이벤트 제거
-	  $(".pad,body").on("mouseup",function(){
-	  	$(".pad").off("mouseenter");
-	  });
+	 	  if("${loginUser.id}"=="" || "${project.projectWriter}" =="" || "${loginUser.id}"=="${project.projectWriter}" ){
+		  	$(".pad").on("mousedown",function(){
+		         var $pad = $(this);
+		         imprint($pad);
+		         $(".pad").on("mouseenter",function() {
+						$pad = $(this);
+						imprint($pad);
+		         });
+		         
+			});
+		  
+		  // 마우스 땟을 때 이벤트 제거
+		  $(".pad,body").on("mouseup",function(){
+		  	$(".pad").off("mouseenter");
+		  });
 	      
+	 }
 	  // 안찍혀있을 때 색칠, 찍혀있을 때 색 없앰
 	  function imprint(pad){
 	  		var sound = pad.parent().attr('class').split(" ")[1]; 
@@ -274,13 +295,10 @@ var pageCheck="projectView";
 	   			var sound =$("."+drumArr[i]+".length" + idx).children().val();
 	   	        if(sound!="")playSound(sound);
 	       }
-	   	   
-	       
 	       for(var i=0; i<chordArr.length; i++){
 	    	   var sound =$("."+chordArr[i]+".length" + idx).children().val();
 	    	   if(sound!="")playSound(sound);
 	 	    } 
-	      
 	       	play=setTimeout(function(){
 	       		  if (idx >= length) {
 	                   idx = 1;
@@ -446,6 +464,8 @@ var pageCheck="projectView";
 	});
 	</script>
 	
+	
+	
 	<c:if test="${!empty project}">
 		<script>
 		  	$("#title").text('${project.projectTitle}');
@@ -469,9 +489,6 @@ var pageCheck="projectView";
 	       }
 	       
 	       $(".padBox").width(40*length + 100);
-	       
-			       
-			   
 			
 			var beatArr = "<c:out value='${project.pianoSoundInfo}'/>".split("/");
 			var soundArr;
@@ -537,8 +554,15 @@ var pageCheck="projectView";
  			    }
 	 	   }
  		   sidx=0;
- 	
+ 			
+ 		   
+ 		 
 		</script>	
+		<c:if test="${loginUser.id != project.projectWriter}"> 
+		<script>
+			$("#bpm,#beat,#length").attr("readonly","readonly");
+		</script>
+	</c:if>
 	</c:if>
 	
 	

@@ -93,13 +93,12 @@ public class InquiryContorller {
 		return "inquiry/inquiryUpdateView";
 	}
 	
-	@RequestMapping("iupdate.kh")
+	@RequestMapping(value="iupdate.kh", method=RequestMethod.POST)
 	public ModelAndView updateinquiry(ModelAndView mv, 
 			Inquiry inquiry, 
 			HttpServletRequest request,
 			MultipartFile reloadFile,
 			Integer page){
-		System.out.println(inquiry);
 		int result = iService.updateinquiry(inquiry, reloadFile, request);
 		
 		if(result > 0) {
@@ -115,9 +114,7 @@ public class InquiryContorller {
 		
 	@RequestMapping("idelete.kh")
 	public ModelAndView inquiryDelete(int iNo, ModelAndView mv) {
-
 		int result = iService.deleteInquiry(iNo);
-
 		if (result > 0) {
 			mv.setViewName("redirect:iList.kh");
 

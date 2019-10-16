@@ -11,11 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
-import com.kh.tido.board.model.vo.Board;
-import com.kh.tido.common.Pagination;
 import com.kh.tido.member.model.vo.Member;
 import com.kh.tido.project.model.service.ProjectService;
 import com.kh.tido.project.model.vo.Project;
@@ -30,7 +27,7 @@ public class ProjectController {
 	
 	
 	@RequestMapping("openPjt.kh")
-	public String openProject(int pNo,HttpServletRequest request,Model model) {
+	public String openProject(int pNo,HttpServletRequest request,Model model,int pbNo) { 
 		ProjectFile projectFile= pService.openProject(request,pNo);
 		model.addAttribute("project",projectFile);
 		return "project/projectView";

@@ -39,7 +39,7 @@
 		font-weight: bold !important;
 	}
 	
-	a:hover {
+	.header a:hover {
 		text-decoration: none;
 		color: #F79F81;
 	}

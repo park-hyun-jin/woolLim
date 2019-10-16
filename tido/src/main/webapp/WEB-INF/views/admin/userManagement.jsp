@@ -8,8 +8,9 @@
 <title>관리자페이지 userManagement</title>
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" ></link>
 <style>
-	#myTable{
-		/* text-align:center; */
+	#myTable>thead>tr{
+		background-color:#007bff;
+		color:white;
 	}
 </style>
 </head>

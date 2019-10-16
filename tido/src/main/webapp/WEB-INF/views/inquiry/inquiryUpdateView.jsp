@@ -150,14 +150,14 @@
 
 
 				<p align="center">
-					<c:url var="updateInquiry" value="iupdate.kh" />
+					
 					<c:url var="delteInquiry" value="idelete.kh" >
 					<c:param name="iNo" value="${ inquiry.iNo }" />
 					</c:url>
 					
 					<button
-						class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" onclick="location.href='${updateInquiry}'">Aqua</button>
-					<button
+						class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0">Aqua</button>
+					<button type="button"
 						class="btn btn-outline-red btn-rounded btn-block my-4 waves-effect z-depth-0" onclick="location.href='${delteInquiry}'">Aqua</button>
 
 				</p>

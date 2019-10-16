@@ -1,101 +1,41 @@
+<<<<<<< HEAD
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="contextPath" value="${pageContext.servletContext.contextPath }" scope="application"/>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>게시판 목록</title>
-<link rel="stylesheet" href="${contextPath }/resources/css/board/boardlist-style.css"> 
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+<title>게시판 글쓰기</title>
 <style>
-/* 게시판 리스트 목록 */
-body {
-   margin: auto;
-}
-nav, table, #wr{
-   width: 70%;
-   margin: auto;
-}
-tbody {
-   text-align: center;
+navbar navbar-default {
+	width: 70%;
+	margin: auto;
 }
 
-.sub_news, .sub_news th, .sub_news td {
-   border: 0
+.fade {
+	z-index: 1000000 !important;
+	left: 25px;
+	top: 25px;
+	width: 320px;
+	height: 300px;
+	display: none;
 }
 
-.sub_news a {
-   color: #383838;
-   text-decoration: none
+.form-style {
+	width: 100%;
 }
 
-/* 게시판 리스트 글씨 */
-.sub_news {
-   width: 100%;
-   border-bottom: 1px solid #999;
-   color: #666;
-   font-size: 16px;
-   table-layout: fixed
+.img_wrap {
+	width: 300px;
+	margin-top: 50px;
 }
 
-.sub_news caption {
-   display: none
+.img_wrap img {
+	max-width: 100%;
 }
-
-.sub_news th {
-   padding: 5px 0 6px;
-   border-top: solid 1px #999;
-   border-bottom: solid 1px #b2b2b2;
-   background-color: #f1f1f4;
-   color: #333;
-   font-weight: bold;
-   line-height: 20px;
-   vertical-align: top
-}
-
-.sub_news td {
-   padding: 8px 0 9px;
-   border-bottom: solid 1px #d2d2d2;
-   text-align: center;
-   line-height: 18px;
-}
-
-.sub_news .no, .date, .sub_news .hit {
-   padding: 0;
-   font-family: Tahoma;
-   font-size: 11px;
-   line-height: normal
-}
-
-.sub_news .title {
-   text-align: left;
-   padding-left: 15px;
-   font-size: 15px;
-}
-
-.sub_news .title .pic, .sub_news .title .new {
-   margin: 0 0 2px;
-   vertical-align: middle;
-}
-
-.sub_news .title a.comment {
-   padding: 0;
-   background: none;
-   color: #f00;
-   font-size: 15px;
-   font-weight: bold
-}
-#thead tr th {
-   text-align: center;
-}
-
-.btn{
-   font-size: 20px !important;
-}
-
-
-
 </style>
 </head>
 <body>
@@ -133,18 +73,8 @@ tbody {
 							border-radius: 30px 30px 0px 0 px">게시판 글쓰기</th>
 						</tr>
 					</thead>
-					<%-- <tbody>
-						<tr>
-							<td><input type="hidden" name="memberId" value="${loginUser.id }"> 
-								<input type="text" class="btn btn-default btn-rounded" value="${ loginUser.name }"
-								style="width: 100%; color: white; height: 70px; font-size: 35px; font-weight: bold; text-align: left;" readonly>
-								${ loginUser.name }
-							</td>
-						</tr>
-					</tbody> --%>
 				</table>
 			</form>
-
 			<!-- 썸머노트 -->
 			
 			<form method="post" action="binsert.kh">
@@ -165,15 +95,13 @@ tbody {
 						</td>
 					</tr>
 				</table>
-				
 			</form>
 		</div>
 		<!-- 썸머노트 -->
-
 		<div style="margin: 20px;"></div>
 		<a href=""></a>
-
 	</div>
 	<input type="file" name="uploadFile" placeholder="사진등록" class="btn btn-outline-default waves-effect"font-size: 17px;">
+	<jsp:include page="../common/footer.jsp"/>
 </body>
 </html>
