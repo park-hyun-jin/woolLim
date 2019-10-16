@@ -12,9 +12,6 @@ public class Pagination2 {
 	}
 	
 	
-	
-	
-	
 	public static PageInfo getPageInfo(int currentPage, int listCount) {
 		
 		int limit =	10;
