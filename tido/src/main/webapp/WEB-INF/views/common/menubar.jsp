@@ -51,7 +51,14 @@
 		           					onerror="this.src='${contextPath}/resources/images/user_after.png'">
 		           				</a>
 		           			</div>
-		           			<div class="nickname">${loginUser.name} 님</div>
+		           			<div class="nickname">
+		           			<c:if test="${loginUser.name eq 'admin' }">
+		           				<a href="admin.kh">
+		           			</c:if>${loginUser.name} 님
+		           			<c:if test="${loginUser.name eq 'admin' }">
+		           				</a>
+		           			</c:if>
+		           			</div>
 		           			<a href="logout.kh">로그아웃</a>
 	                	</c:otherwise>
                 	</c:choose>
