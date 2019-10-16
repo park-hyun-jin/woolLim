@@ -41,6 +41,7 @@
 		<foreach collection="aMemberList" item="list" open="(" close=")" separator="," >
 			#{list}
 		</foreach>
+		AND MEMBER_STATUS = 'Y'
 	</update>
 	
 	<update id="aReviveMember" parameterType="map">
@@ -50,6 +51,7 @@
 		<foreach collection="aMemberList" item="list" open="(" close=")" separator="," >
 			#{list}
 		</foreach>
+		AND MEMBER_STATUS = 'N'
 	</update>
 	
 	<select id="aMemberDetail" parameterType="string" resultMap="memberResultSet">
@@ -74,5 +76,25 @@
 		JOIN MEMBER USING (MEMBER_ID)
 		WHERE CBOARD_NO = #{cBoardNo}
 	</select>
+	
+	<update id="aDeleteMemberBoard" parameterType="map">
+		UPDATE CBOARD
+		SET CBOARD_STATUS ='N'
+		WHERE CBOARD_NO IN
+		<foreach collection="aMemberBoardList" item="list" open="(" close=")" separator="," >
+			#{list}
+		</foreach>
+		AND CBOARD_STATUS = 'Y'
+	</update>
+	
+	<update id="aReviveMemberBoard" parameterType="map">
+		UPDATE CBOARD
+		SET CBOARD_STATUS ='Y'
+		WHERE CBOARD_NO IN
+		<foreach collection="aMemberBoardList" item="list" open="(" close=")" separator="," >
+			#{list}
+		</foreach>
+		AND CBOARD_STATUS = 'N'
+	</update>
 	
 </mapper>

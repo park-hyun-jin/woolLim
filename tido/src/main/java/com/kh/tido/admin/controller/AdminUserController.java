@@ -86,4 +86,18 @@ public class AdminUserController {
 		return mv;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="aDeleteMemberBoard.kh",method=RequestMethod.POST)
+	public int aDeleteMemberBoard(@RequestParam(value="checkArray[]") ArrayList<Integer> aMemberBoardList) {
+		int result = auService.aDeleteMemberBoard(aMemberBoardList);
+		return result;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="aReviveMemberBoard.kh",method=RequestMethod.POST)
+	public int aReviveMemberBoard(@RequestParam(value="checkArray[]") ArrayList<Integer> aMemberBoardList) {
+		int result = auService.aReviveMemberBoard(aMemberBoardList);
+		return result;
+	}
+	
 }

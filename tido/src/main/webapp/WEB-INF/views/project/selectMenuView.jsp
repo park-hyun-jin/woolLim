@@ -24,11 +24,11 @@
 	            <div >내 프로젝트</div>
 	         </div>
 	      </div>
-	      <div class="area area3" onclick="">
-	      	<div>
-	      		<img src="${contextPath }/resources/images/development-project.jpg">
-	      		<div>프로젝트 게시판</div>
-	      	</div>
+	      <div class="area area3" onclick="location.href='pjtBoardListView.kh'">
+	      	 <div>
+	            <img src="${contextPath }/resources/images/share-music.png">
+	            <div >공유게시판</div>
+	         </div>
 	      </div>
 	   </div>
    </section>
@@ -38,10 +38,10 @@
       <script>
       
       $(function(){
-         $(".area2").on("mouseenter",function(){
+         $(".area2,.area3").on("mouseenter",function(){
             $(this).children().children().eq(0).hide();
             $(this).children().children().eq(1).text("로그인 해주세요").css("line-height","128px");
- 		     $(".area2").attr("onclick","");
+            $(this).attr("onclick","");
          }).on("mouseleave",function(){
             $(this).children().children().eq(0).show();
             $(this).children().children().eq(1).text("내 프로젝트").css("line-height","");;

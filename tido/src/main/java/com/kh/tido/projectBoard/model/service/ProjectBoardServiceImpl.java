@@ -8,9 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.tido.board.model.vo.PageInfo;
-import com.kh.tido.member.model.vo.Member;
 import com.kh.tido.common.Pagination2;
+import com.kh.tido.member.model.vo.Member;
 import com.kh.tido.projectBoard.model.dao.ProjectBoardDao;
+import com.kh.tido.projectBoard.model.vo.PBReply;
 import com.kh.tido.projectBoard.model.vo.ProjectBoard;
 
 @Service("pbService")
@@ -44,6 +45,25 @@ public class ProjectBoardServiceImpl implements ProjectBoardService {
 		return pbDao.deletepBoard(pbNo);
 	}
 
+	@Override
+	public int insertPBReply(PBReply pbReply) {
+		pbReply.setPbRContent(pbReply.getPbRContent().replace("\n","<br>"));
+		return pbDao.insertPBReply(pbReply);
+	}
 
+	@Override
+	public ArrayList<PBReply> selectpbReplyList(int refPbno) {
+		return pbDao.selectpbReplyList(refPbno);
+	}
+
+	@Override
+	public int getReplyCount(int refPbno) {
+		return pbDao.getReplyCount(refPbno);
+	}
+
+	@Override
+	public int increaseViewCount(int refPbno) {
+		return pbDao.increaseViewCount(refPbno);
+	}
 	
 }

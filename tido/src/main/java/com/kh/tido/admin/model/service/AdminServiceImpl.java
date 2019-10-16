@@ -9,12 +9,13 @@ import org.springframework.stereotype.Service;
 
 import com.kh.tido.admin.model.dao.AdminDao;
 import com.kh.tido.board.model.vo.Board;
-import com.kh.tido.board.model.vo.PageInfo;
 import com.kh.tido.board.model.vo.Search;
-import com.kh.tido.common.Pagination2;
+import com.kh.tido.common.Pagination;
 import com.kh.tido.inquiry.model.vo.Inquiry;
 import com.kh.tido.notice.model.dao.NoticeDao;
 import com.kh.tido.notice.model.vo.Notice;
+import com.kh.tido.notice.model.vo.PageInfo;
+import com.kh.tido.report.model.vo.Report;
 
 @Service("aService")
 public class AdminServiceImpl implements AdminService {
@@ -29,21 +30,21 @@ public class AdminServiceImpl implements AdminService {
 	public ArrayList<Board> selectList(int currentPage){
 		
 		int listCount = aDao.getListCount();
-		PageInfo pi = Pagination2.getPageInfo(currentPage, listCount);
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		return aDao.selectList(pi);
 	}
 	
 	@Override
 	public ArrayList<Board> selectListN(int currentPage) {
 		int listCount = aDao.getListCount();
-		PageInfo pi = Pagination2.getPageInfo(currentPage, listCount);
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		return aDao.selectListN(pi);
 	}
 	
 	@Override
 	public ArrayList<Board> selectListAll(int currentPage) {
 		int listCount = aDao.getListCount();
-		PageInfo pi = Pagination2.getPageInfo(currentPage, listCount);
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		return aDao.selectListAll(pi);
 	}
 	
@@ -56,11 +57,11 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	@Override
-	public int reviveBoard(ArrayList<Integer> reviveList) {
+	public int reviveCBoard(ArrayList<Integer> reviveList) {
 		Map<String,Object> bNo = new HashMap<String,Object>();
 		bNo.put("reviveList",reviveList);
 				
-		return aDao.reviveBoard(bNo);
+		return aDao.reviveCBoard(bNo);
 	}
 	
 	@Override
@@ -95,7 +96,7 @@ public class AdminServiceImpl implements AdminService {
 		
 		int listCount = aDao.getListCount();
 		
-		PageInfo pi = Pagination2.getPageInfo(currentPage, listCount);
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
 	
 		return aDao.noticeSelectList(pi);
@@ -107,7 +108,7 @@ public class AdminServiceImpl implements AdminService {
 		
 		int listCount = aDao.noticeGetListCount();
 		
-		PageInfo pi = Pagination2.getPageInfo(currentPage, listCount);
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
 	
 		return aDao.noticeSelectListN(pi);
@@ -117,7 +118,7 @@ public class AdminServiceImpl implements AdminService {
 	public ArrayList<Notice> noticeSelectListAll(int currentPage) {
 		int listCount = aDao.noticeGetListCount();
 		
-		PageInfo pi = Pagination2.getPageInfo(currentPage, listCount);
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
 	
 		return aDao.noticeSelectListAll(pi);
@@ -127,7 +128,7 @@ public class AdminServiceImpl implements AdminService {
 	public ArrayList<Inquiry> inquiryselectList(int currentPage) {
 		int listCount = aDao.inquiryGetListCount();
 		
-		PageInfo pi = Pagination2.getPageInfo(currentPage, listCount);
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
 	
 		return aDao.inquiryselectList(pi);
@@ -137,7 +138,7 @@ public class AdminServiceImpl implements AdminService {
 	public ArrayList<Inquiry> inquiryselectListAll(int currentPage) {
 		int listCount = aDao.inquiryGetListCount();
 		
-		PageInfo pi = Pagination2.getPageInfo(currentPage, listCount);
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
 	
 		return aDao.inquirySelectListAll(pi);
@@ -147,7 +148,7 @@ public class AdminServiceImpl implements AdminService {
 	public ArrayList<Inquiry> inquiryselectListN(int currentPage) {
 		int listCount = aDao.inquiryGetListCount();
 		
-		PageInfo pi = Pagination2.getPageInfo(currentPage, listCount);
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
 	
 		return aDao.inquirySelectListN(pi);
@@ -172,6 +173,41 @@ public class AdminServiceImpl implements AdminService {
 				
 		return aDao.reviveIBoard(iNo);
 	}
+
+	@Override
+	public ArrayList<Report> rboardListAll(int currentPage) {
+		int listCount = aDao.reportGetListCount();
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+	
+		return aDao.rboardListAll(pi);
+	}
+
+	@Override
+	public ArrayList<Report> reportSearch(int rRrno) {
+	
+		
+		return aDao.reportSearch(rRrno);
+	}
+
+	@Override
+	public ArrayList<Report> adminRsearch(Search search) {
+	
+		return aDao.adminRsearch(search);
+	
+	}
+
+	@Override
+	public ArrayList<Report> adminReportTypeSearch(int rReportType) {
+		return aDao.adminReportTypeSearch(rReportType);
+	}
+
+	
+		
+	
+
+
 	
 	
 }

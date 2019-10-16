@@ -40,4 +40,12 @@ public class AdminUserDao {
 		return sqlSession.selectOne("adminUserMapper.detailBoard",cBoardNo);
 	}
 
+	public int aDeleteMemberBoard(Map<String, Object> memberBoardList) {		
+		return sqlSession.update("adminUserMapper.aDeleteMemberBoard",memberBoardList);
+	}
+
+	public int aReviveMemberBoard(Map<String, Object> memberBoardList) {		
+		return sqlSession.update("adminUserMapper.aReviveMemberBoard",memberBoardList);
+	}
+
 }

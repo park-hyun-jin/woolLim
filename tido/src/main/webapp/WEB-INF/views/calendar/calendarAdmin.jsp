@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Calendar(admin) : SPEC</title>
+<title></title>
 <link href='<%= request.getContextPath() %>/resources/css/fullcalendar.min.css' rel='stylesheet' />
 <link href='<%= request.getContextPath() %>/resources/css/fullcalendar.print.min.css' rel='stylesheet' media='print' />
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -80,6 +80,7 @@
   	margin: auto;
 	/* border: solid 1px black; */
   	padding: 20px 0;
+  	
   }
   
   .modalRegister table {
@@ -92,11 +93,7 @@
   	margin-top: 40px;
   }
   
-  #registerTable1{
-  position:relative;
-  bottom:450px;
   
-  }
 </style>
 </head>
 <body>
@@ -105,7 +102,7 @@
 	
 	<div class="outer">
 		<div class="header">
-
+		
 		<div id="calendar" class="calendar"></div>
 	</div>
 	
@@ -115,7 +112,7 @@
 	   	<div class="modal-content" id="modal-content">
 	   		<div class="modalRegister">
 	   		<form action="insertCalendar.kh" id="registerForm" method="GET">
-	   			<table id="registerTable1">
+	   			<table id="registerTable">
 		   			<tr>
 		   				<td><label for="title" for="title">일정 등록</label></td>
 		   				<td><input type="text" name="cTitle" id="title"></td>
@@ -125,11 +122,11 @@
 		   				<td><input type="url" name="cUrl" id="url"></td>
 		   			</tr>
 		   			<tr>
-		   				<td><label for="date">날짜 지정</label></td>
+		   				<td><label for="date">시작 일자</label></td>
 		   				<td><input type="date" name="cStartDate"></td>
 		   			</tr>
 		   			<tr>
-		   				<td><label for="date">날짜 지정</label></td>
+		   				<td><label for="date">종료 일자</label></td>
 		   				<td><input type="date" name="cEndDate"></td>
 		   			</tr>
 		   			<tr>
@@ -222,6 +219,13 @@
       			updateEvent(event);
       			id = event.id;
       			return false;
+      	    },
+      	    dayClick: function() {
+      	    	$("input[name=cTitle]").val('');
+      			$("input[name=cUrl]").val('');
+      			$("input[name=cStartDate]").val('');
+      			$("input[name=cEndDate]").val('');
+      			$(".registerModal").css("display", "block");
       	    }
     	});
 	});
