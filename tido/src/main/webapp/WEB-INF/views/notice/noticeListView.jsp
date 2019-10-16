@@ -123,6 +123,13 @@ to {
 	font-weight: bold;
 }
 }
+#searchValue{
+width : 250px;
+}
+
+#Search{
+float:right;
+}
 </style>
 </head>
 <body>
@@ -285,7 +292,7 @@ to {
 
 			<div class="md-form active-pink active-pink-2 mb-3 mt-0" >
 			
-					<input class="form-control" name="searchValue" value="${search.searchValue}">
+					<input class="form-control" name="searchValue" value="${search.searchValue}" id="searchValue">
 				</div>
 			</form>
 

@@ -46,6 +46,7 @@ table.type09 tbody td  {
     /* background: snow; */
     color: white;
 }
+
 </style>
 </head>
 <body>
@@ -89,14 +90,14 @@ table.type09 tbody td  {
 								</c:if>
 							</td>
 						</tr>
-						 
-						<button type="button" class="btn btn-outline-danger waves-effect reportPopBtn" data-toggle="modal" data-target="#centralModalDanger">
-						신고하기
+						<c:if test="${ loginUser.id != board.memberId }">
+ 			<button type="button" class="btn btn-outline-danger btn-rounded waves-effect" data-toggle="modal" data-target="#centralModalDanger">신고하기
+
 						<input type="hidden" value="${board.cBoardNo}">
-						</button>
-					
+					</button>
+
 						<jsp:include page="../Report/reportCBoardModal.jsp"/>		
-									
+						</c:if>			
 						<tr>
 							<td colspan="2" class="text-center" style="color: white">
 								<c:url var="bupView" value="bupView.kh">
@@ -114,7 +115,7 @@ table.type09 tbody td  {
 									<a href="${bupView }" class="btn btn-outline-primary waves-effect">수정하기</a>&nbsp;
 									<a href="${bdelete }" class="btn btn-outline-danger waves-effect">삭제하기</a>&nbsp;
 								</c:if>
-								<a href="${blist }" class="btn btn-outline-warning waves-effect">목록으로</a>
+								<a href="${blist}" class="btn btn-outline-warning waves-effect">목록으로</a>
 							</td>
 						</tr>
 					</table>
@@ -211,13 +212,19 @@ table.type09 tbody td  {
 					 var $bNo; 
 					 var $btn;
 					 var $reportType;
-
+					 var loginUser="${loginUser.id}";
+					 var boardmemberId= "${board.memberId}";
+					 
 					 if(list.length > 0){ 
 						 $.each(list, function(i){
 							 $reportType=$("<input type='hidden'>").val(list[i].reportType);
 							 $bNo=$("<input type='hidden'>").val(list[i].cbReplyNo);
 							 $btn=$("<button type='button' class='btn btn-outline-danger waves-effect reportPopBtn' data-toggle='modal' data-target='#centralModalDanger'>");
+							 
+							 if(loginUser == boardmemberId){
 							 $btn.append("신고");
+							}
+							 
 							 $btn.append($bNo);
 							 $btn.append($reportType);
 							 $tr = $("<tr>");
@@ -228,7 +235,10 @@ table.type09 tbody td  {
 							 $tr.append($memberId);
 							 $tr.append($cbReplyContent);
 							 $tr.append($cbReplyCreateDate);
+							 
+							 if(loginUser == boardmemberId){
 							 $tr.append($btn);
+							 }
 							 
 							 $tableBody.append($tr);
 							 reportButtonclick($btn);
@@ -249,7 +259,7 @@ table.type09 tbody td  {
 			$("#contentsNo").val(contentsNo);
 			$("#reportType").val(${board.reportType});
 		});
-		
+	
 	
 
 	
