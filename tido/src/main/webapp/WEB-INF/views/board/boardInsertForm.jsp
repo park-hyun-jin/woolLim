@@ -99,125 +99,81 @@ tbody {
 </style>
 </head>
 <body>
-<jsp:include page="../common/menubar.jsp"/>
-   <div style="margin: 50px;"></div>
-   <h1 class="page-header" style="color: white; font-weight: bold;">게시판 목록</h1>
-   <div></div>
+	<jsp:include page="../common/menubar.jsp" />
 
-   <!-- 상단 메뉴바 -->
-   <nav class="navbar navbar-default" style="background-color: #212529;">
-      <div class="navbar-header">
-         <a class="navbar-brand" href="${contextPath }" style="font-size: 22px; float: left;">WOOLLIM</a>
-      </div>
-   </nav>
-   <!-- 상단 메뉴바 -->
-   
-   <!-- <div style="margin: 70px;"></div> -->
+	<!-- include libraries(jQuery, bootstrap) -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
 
-   <div id="wr" style="text-align: right;">
-      <button onClick="location.href='binsertView.kh'" class="btn btn-primary" style="background-color: #4B0082">글쓰기</button>
-   </div>
 
-   <div style="margin: 10px;"></div>
+	<script>
+	$(document).ready(function() {
+		$('#summernote').summernote({
+			placeholder : 'content',
+			minHeight : 370,
+			maxHeight : null,
+			focus : true,
+			lang : 'ko-KR'
+		});
+	});
+	</script>
 
-   <table class="sub_news" border="1" cellspacing="0" summary="게시판의 글제목 리스트" style="width: 70%; background-color: #343a40;">
-      <caption>게시판 리스트</caption>
-      <colgroup> 
-         <col width="5%;">
-         <col width="60%;">
-         <col width="10%;">
-         <col width="15%;">
-         <col width="10%;">
-      </colgroup>
-      <thead style="background: linear-gradient(to bottom, grey, black);">
-         <tr style="height: 50px;"> <!-- #F8F8FF -->
-            <th scope="col" style="color:white; vertical-align: middle; background-color: #212529; font-size: 17px; vertical-align: middle;">번호</th> <!-- cBoardNo -->
-            <th scope="col" style="color:white; text-align: center; background-color: #212529; font-size: 17px; vertical-align: middle;">제목</th> <!-- cBoardTitle -->
-            <th scope="col" style="color:white; text-align: center; background-color: #212529; font-size: 17px; vertical-align: middle;">글쓴이</th> <!-- memberId -->
-            <th scope="col" style="color:white; text-align: center; background-color: #212529; font-size: 17px; vertical-align: middle;">날짜</th> <!-- cBoardCreateDate -->
-            <th scope="col" style="color:white; text-align: center; background-color: #212529; font-size: 17px; vertical-align: middle;">조회수</th> <!-- cBoardViewCount -->
-         </tr>
-      </thead>
-      
-      <tbody style="color: white;">      
-         <c:forEach var="b" items="${ list }">
-            <tr>
-               <td align="center">${b.cBoardNo }</td>
-               
-               <td align="left">
-                  <c:if test="${ !empty loginUser }">
-                     <c:url var="bdetail" value="bdetail.kh">
-                        <c:param name="cBoardNo" value="${b.cBoardNo }" />
-                        <c:param name="page" value="${pi.currentPage }" />
-                     </c:url>
-                     <a href="${bdetail}" style="color: snow;">${b.cBoardTitle}</a>
-                  </c:if>
-                  <c:if test="${empty loginUser }">${b.cBoardTitle }</c:if>
-               </td>
-               
-               <td align="center">${b.memberName }</td>
-               <td align="center">${b.cBoardCreateDate }</td>
-               <td align="center">${b.cBoardViewCount }</td>
-            </tr>
-         </c:forEach>
-         
-         <tr align="center" height="20" style="background-color: #212529;">
-            <td colspan="6">
-               <c:if test="${pi.currentPage <= 1 }">[이전]&nbsp;</c:if>
-               <c:if test="${ pi.currentPage > 1 }">
-                  <c:url var="before" value="bList.kh">
-                     <c:param name="page" value="${ pi.currentPage - 1 }"/>
-                  </c:url>
-                  <a href="${ before }" style="color: white;">[이전]</a> &nbsp;
-               </c:if>
-               
-               <!-- 페이지 -->
-               <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-                  <c:if test="${ p eq currentPage }">
-                     <font color="red" size="5"><b>[${ p }]</b></font>
-                  </c:if>
-                  
-                  <c:if test="${ p ne currentPage }">
-                     <c:url var="pagination" value="bList.kh">
-                        <c:param name="page" value="${ p }"/>
-                     </c:url>
-                     <a href="${ pagination }" style="color: white;">${ p }</a> &nbsp;
-                  </c:if>
-               </c:forEach>
-               
-               <!-- [다음] -->
-               <c:if test="${ pi.currentPage >= pi.maxPage }">[다음]</c:if>
-               <c:if test="${ pi.currentPage < pi.maxPage }">
-                  <c:url var="after" value="bList.kh">
-                     <c:param name="page" value="${ pi.currentPage + 1 }"/>
-                  </c:url> 
-                  <a href="${ after }" style="color: white;">[다음]</a>
-               </c:if>
-            </td>
-         </tr>
-      </tbody>
-   </table>
-      
-   <div style="margin: 50px;"></div>
-      
-   <!-------------- 게시물 검색하기 --------------->
-   <div id="searchArea" align="center">
-      <form action="bSearch.kh" name="searchForm" method="get">
-         <select id="searchCondition" name="searchCondition" style="width: 100px; height: 40px; font-size: 12px;">
-            <option value="all" <c:if test="${search.searchCondition == 'all'}">selected</c:if> >전체</option>
-            <option value="writer" <c:if test="${search.searchCondition == 'writer'}">selected</c:if> >작성자</option>
-            <option value="title" <c:if test="${search.searchCondition == 'title'}">selected</c:if> >제목</option>
-            <option value="content" <c:if test="${search.searchCondition == 'content'}">selected</c:if> >내용</option>
-         </select>
-         <input type="search" name="searchValue" value="${search.searchValue}" style="width: 350px; height: 40px;">&nbsp;&nbsp;&nbsp;
-         <button class="btn btn-light">검색</button><br><br>
-         <input type="checkbox"  name="existFile"<c:if test="${!empty search.existFile }">checked</c:if> >      
-         <p style="color: white; font-size: 15px;">첨부파일 있는 게시물</p>
-      </form>
-   </div>
-   <!-------------- 게시물 검색하기 --------------->
-   <script src="https://ajax.googlepis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-   <script type="text/javascript" src="${contextPath }/resources/js/board/bootstrap.js"></script>
-   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<div style="margin: 50px;"></div>
+
+	<!-- 게시판 -->
+	<div class="container">
+		<div class="row">
+			<form method="post" action="binsert.kh" enctype="multipart/form-data" class="form-style">
+				<table class="table table-striped" style="text-align: center; border: 1px;">
+					<thead>
+						<tr>
+							<th colspan="3" style="color: white; font-size: 40px; text-align: center; background-color: #212529; 
+							border-radius: 30px 30px 0px 0 px">게시판 글쓰기</th>
+						</tr>
+					</thead>
+					<%-- <tbody>
+						<tr>
+							<td><input type="hidden" name="memberId" value="${loginUser.id }"> 
+								<input type="text" class="btn btn-default btn-rounded" value="${ loginUser.name }"
+								style="width: 100%; color: white; height: 70px; font-size: 35px; font-weight: bold; text-align: left;" readonly>
+								${ loginUser.name }
+							</td>
+						</tr>
+					</tbody> --%>
+				</table>
+			</form>
+
+			<!-- 썸머노트 -->
+			
+			<form method="post" action="binsert.kh">
+			<input type="hidden" name="memberId" value="${loginUser.id }">
+				<input type="text" value="  작성자  :  ${ loginUser.name }" style="width: 100%; height: 40px; font-size: 20px; 
+				font-weight: bold; text-align: left; color: #dcdcdc; background-color: #282828;" readonly>
+				<div style="margin: 20px;"></div>
+				<input type="text" name="cBoardTitle" style="width: 100%; height: 40px;" placeholder="제목" /><br>
+				<br>
+				<textarea id="summernote" name="cBoardContent"></textarea>
+				<!-- <input id="subBtn" type="button" value="글 작성" style="float: right;" onclick="goWrite(this.form)" /> -->
+				<div style="margin: 50px;"></div>
+				<table align="right" style="margin-left: 940px;">
+					<tr>
+						<td colspan="2" align="center">
+						<input type="submit" class="btn btn-primary" value="등록하기" />&nbsp; 
+							<a href="bList.kh" class="btn btn-danger">목록으로</button>
+						</td>
+					</tr>
+				</table>
+				
+			</form>
+		</div>
+		<!-- 썸머노트 -->
+
+		<div style="margin: 20px;"></div>
+		<a href=""></a>
+
+	</div>
+	<input type="file" name="uploadFile" placeholder="사진등록" class="btn btn-outline-default waves-effect"font-size: 17px;">
 </body>
 </html>

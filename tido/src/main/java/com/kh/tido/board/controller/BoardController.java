@@ -19,9 +19,8 @@ import com.kh.tido.board.model.service.BoardService;
 import com.kh.tido.board.model.vo.Board;
 import com.kh.tido.board.model.vo.Reply;
 import com.kh.tido.board.model.vo.Search;
-import com.kh.tido.common.Pagination;
+import com.kh.tido.common.Pagination2;
 import com.kh.tido.member.model.vo.Member;
-import com.kh.tido.notice.model.vo.Notice;
 
 @Controller
 public class BoardController {
@@ -35,10 +34,11 @@ public class BoardController {
 		int currentPage = page == null ? 1 : page;
 		
 		ArrayList<Board> list = bService.selectList(currentPage);
+
 		
 		if(list != null) {
 			mv.addObject("list", list).
-			addObject("pi",Pagination.getPageInfo()).
+			addObject("pi",Pagination2.getPageInfo()).
 			setViewName("board/boardListView");
 		}else {
 			mv.addObject("msg", "목록 조회 실패").setViewName("common/errorPage");
@@ -142,22 +142,15 @@ public class BoardController {
 	
 	// 검색
 		@RequestMapping("bSearch.kh")
-		public String boardSearch(Search search, Model model){
-			
-			System.out.println(search.getSearchCondition());
-			System.out.println(search.getSearchValue());
-			System.out.println(search.getExistFile());
+		public String boardSearch(Search search, Model model, Integer page){
+			int currentPage = page == null ? 1 : page;
+		
 			// 체크 O : on
 			// 체크 X : null
 			
-			ArrayList<Board> searchList 
-				= bService.searchList(search);
-			
-			for(Board n : searchList) {
-				System.out.println(n);
-			}
-			
-			
+			ArrayList<Board> searchList	= bService.searchList(search, currentPage);
+			System.out.println(Pagination2.getPageInfo());
+			model.addAttribute("pi",Pagination2.getPageInfo());
 			model.addAttribute("list", searchList);
 			model.addAttribute("search", search);
 			return "board/boardListView";
