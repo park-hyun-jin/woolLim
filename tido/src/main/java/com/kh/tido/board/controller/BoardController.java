@@ -145,6 +145,7 @@ public class BoardController {
 		public String boardSearch(Search search, Model model, Integer page){
 			int currentPage = page == null ? 1 : page;
 		
+			
 			// 체크 O : on
 			// 체크 X : null
 			
