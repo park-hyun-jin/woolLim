@@ -171,8 +171,8 @@ float:right;
 							</div>
 							<div class="form-grouwp">
 								<label for="content">내용</label>
-								<textarea class="form-control" id="content" name="pnoticeContent" rows="3"></textarea>
-								<img id="foo"src="#" />
+								<textarea class="form-control" id="content" name="pnoticeContent" rows="3" ></textarea>
+								
 							</div>
 							<div class="form-group">
 								<label for="exampleInputFile">파일 업로드</label>

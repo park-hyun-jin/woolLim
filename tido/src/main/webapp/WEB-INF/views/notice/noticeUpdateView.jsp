@@ -83,8 +83,8 @@
                 <!-- Title -->
                 <div class="md-form mt-0">
                 <div>
-                	
-                    <input type="text" id="materialRegisterFormEmail" class="form-control" name="pnoticeTitle" value="${ notice.pnoticeTitle }">
+     
+                    <input type="text" id="materialRegisterFormEmail" class="form-control" name="pnoticeModifyDate" value="${ notice.pnoticeModifyDate }">
                  
                     <label for="materialRegisterFormEmail"></label>
                 </div>
@@ -92,7 +92,7 @@
     <div class="md-form mt-0">
                 <div>
                 	
-                    <input type="text" id="materialRegisterFormEmail" class="form-control" name="pnoticeTitle" value="${ notice.pnoticeModifyDate }">
+                    <input type="text" id="materialRegisterFormEmail" class="form-control" name="pnoticeTitle" value="${ notice.pnoticeTitle }">
                  
                     <label for="materialRegisterFormEmail"></label>
                 </div>

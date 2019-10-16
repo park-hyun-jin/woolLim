@@ -42,6 +42,7 @@
     </head>
     <body>
    <c:import url="../common/menubar.jsp" />
+   
     <br>
     <br>
     	<div id="bodyForm">

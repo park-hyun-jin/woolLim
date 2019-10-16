@@ -17,6 +17,12 @@
             height: 800px;
             margin: auto;
         }
+        
+        .container {
+        	width: 800px;
+        	height: 500px;
+        	background-color: rgba( 255, 255, 255, 0.5 );
+        }
 
         .loginForm {
             width: 650px;
@@ -49,39 +55,48 @@
             color: gray;
             margin-top: 5%;
         }
+        
+        #searchPwd {
+        	cursor : pointer !important;
+        }
 
     </style>
     <body>
     	<jsp:include page="../common/menubar.jsp"></jsp:include>
-        <div class="titleArea">
-            <h1>로그인</h1>
-        </div>
-        <form action="login.kh" method="POST" class="loginForm">
-            <div class="form-group row">
-                <label for="inputEmail" class="col-sm-2 col-form-label">이메일</label>
-                <div class="col-sm-10">
-                <input type="email" class="form-control" id="inputEmail" placeholder="Email" name="id">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="inputPassword" class="col-sm-2 col-form-label">비밀번호</label>
-                <div class="col-sm-10">
-                <input type="password" class="form-control" id="inputPassword" placeholder="Password" name="pwd">
-                </div>
-            </div>
-            <br>
-            <div>
-                <ul class="login_ul">
-                    <li><button type="submit" class="btn btn-primary">로그인</button></li>
-                    <li><button type="button" class="btn btn-secondary" onclick="history.back();">취소하기</button></a></li>
-                </ul>
-            </div>
-        </form>
-        <div>
-            <ul class="login_ul">
-                <li><a href="minsertPage.kh">회원가입</a></li>
-                <li><a href="#">아이디</a>/<a href="#">비밀번호 찾기</a></li>
-            </ul>
-        </div>
+    	
+    	<div class="container">
+	    	<div class="titleArea">
+	            <h1>로그인</h1>
+	        </div>
+	        <form action="login.kh" method="POST" class="loginForm">
+	            <div class="form-group row">
+	                <label for="inputEmail" class="col-sm-2 col-form-label">이메일</label>
+	                <div class="col-sm-10">
+	                <input type="email" class="form-control" id="inputEmail" placeholder="Email" name="id">
+	                </div>
+	            </div>
+	            <div class="form-group row">
+	                <label for="inputPassword" class="col-sm-2 col-form-label">비밀번호</label>
+	                <div class="col-sm-10">
+	                <input type="password" class="form-control" id="inputPassword" placeholder="Password" name="pwd">
+	                </div>
+	            </div>
+	            <br>
+	            <div>
+	                <ul class="login_ul">
+	                    <li><button type="submit" class="btn btn-primary">로그인</button></li>
+	                    <li><button type="button" class="btn btn-secondary" onclick="history.back();">취소하기</button></a></li>
+	                </ul>
+	            </div>
+	        </form>
+	        <div>
+	            <ul class="login_ul">
+	                <li><a href="minsertPage.kh">회원가입</a></li>
+	            </ul>
+	        </div>
+    	</div>
+    	<script>
+        
+    	</script>
     </body>
 </html>

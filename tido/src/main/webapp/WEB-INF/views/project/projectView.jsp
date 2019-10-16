@@ -73,7 +73,8 @@ var pageCheck="projectView";
 					<button id="savepop">다른 이름으로 저장</button>
 				</c:if> 
 			</c:if>
-			<c:if test="${empty project}">
+			<c:if test="${empty project and loginUser.id!=null}">
+				
 				<button id="savepop">저장</button>
 			</c:if>
 	</div>
@@ -114,11 +115,10 @@ var pageCheck="projectView";
 	    var drumSoundInfo="";
 	    var bpm = $("#bpm").val();
 	    var beat = $("#beat").val();
-	    
 	    if("${loginUser.id}"!="${project.projectWriter}"){
 	    	$.ajax({
 	    		url:"increaseViewCount.kh",
-	    		data:{refPbno:${param.pbNo}},
+	    		data:{refPbno:Number(${param.pbNo})},
 	    		type:"get",
 	    		success:function(result){
 	    			console.log(result);
@@ -211,8 +211,8 @@ var pageCheck="projectView";
 	  });
 	  
 	  // 드래그 이벤트
-	 if("${loginUser.id}"=="${project.projectWriter}"){
-		  $(".pad").on("mousedown",function(){
+	 	  if("${loginUser.id}"=="" || "${project.projectWriter}" =="" || "${loginUser.id}"=="${project.projectWriter}" ){
+		  	$(".pad").on("mousedown",function(){
 		         var $pad = $(this);
 		         imprint($pad);
 		         $(".pad").on("mouseenter",function() {

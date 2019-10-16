@@ -34,12 +34,12 @@
 		text-align: center;
 	}
 	
-	a {
+	.header a {
 		color: white !important;
 		font-weight: bold !important;
 	}
 	
-	a:hover {
+	.header a:hover {
 		text-decoration: none;
 		color: #F79F81;
 	}
