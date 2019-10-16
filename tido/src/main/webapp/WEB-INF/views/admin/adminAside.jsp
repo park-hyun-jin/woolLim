@@ -26,31 +26,31 @@
               </li>
               <li class="nav-item">
 
-                <a class="nav-link" href="cboardListAll.kh">
-                  <span data-feather="clipboard"></span>
+                <a class="nav-link board" href="adminCboardListAll.kh">
+                  <span data-feather="board"></span>
                   Board Management
                 </a>
               </li>             
               <li class="nav-item">
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="nboardListAll.kh">
-                  <span data-feather="layers"></span>
+                <a class="nav-link notice" href="adminNboardListAll.kh">
+                  <span data-feather="notice"></span>
                   Notice Management
                 </a>
               </li>
             </ul>
             <ul class="nav flex-column mb-2">
               <li class="nav-item">
-                <a class="nav-link" href="iboardListAll.kh">
-                  <span data-feather="file-text"></span>
+                <a class="nav-link QNA" href="adminIboardListAll.kh">
+                  <span data-feather="QNA"></span>
                   Q&A Management
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="file-text"></span>
-                  Last quarter
+                <a class="nav-link report" href="adminRboardListAll.kh">
+                  <span data-feather="report"></span>
+                  Report Management
                 </a>
               </li>
               <li class="nav-item">

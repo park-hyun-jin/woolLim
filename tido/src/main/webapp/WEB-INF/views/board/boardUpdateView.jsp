@@ -47,7 +47,7 @@ background-color: #323232;
 	</table>
 
 
-	<form action="bupdate.kh" method="post" enctype="multipart/form-data">
+	<form action="bupdate.kh" method="post" enctype="multipart/form-data" style="width: 1185px;">
 		<input type="hidden" name="page" value="${ currentPage }"> 
 		<input type="hidden" name="cBoardNo" value="${ board.cBoardNo }"> 
 		<input type="hidden" name="cBoardChaFilename" value="${ board.cBoardChaFilename  }">
@@ -111,7 +111,7 @@ background-color: #323232;
 	<form method="post" action="bupdate.kh" style="width: 62%; margin: auto;">
 	<input type="hidden" name="cBoardNo" value="${ board.cBoardNo }" style="display: none;"> 
 		<!-- <input type="text" name="writer" style="width: 20%;" placeholder="작성자" /><br> -->
-		<table>
+		<table style="width: 100%;">
 		<tr>
 			<td><input type="text" readonly name="memberName" value="${ board.memberName }" style="width: 100%;"></td>
 			<td style="width: 10px;"></td>
@@ -135,10 +135,10 @@ background-color: #323232;
 					<a href="${ contextPath }/resources/buploadFiles/${ board.cBoardChaFilename }" download>${ board.cBoardOriFilename }</a>
 				</c:if>
 			</td>
-			<td style="width: 10px;"></td>
+			<td style="width: 10px; height: 100px;"></td>
 		</tr>
 		
-		<div style="margin: 70px;"></div>
+		
 		
 		<tr>
 			<td>
@@ -146,7 +146,7 @@ background-color: #323232;
 				<c:url var="bList" value="bList.kh">
 					<c:param name="page" value="${ currentPage }"/>
 				</c:url>
-					
+				
 				<a href="${ bList }" class="btn btn-outline-warning waves-effect">목록으로</a>&nbsp;&nbsp;
 				<a href="javascript:history.go(-1);" class="btn btn-outline-danger waves-effect">취소하기</a>
 			</td>
@@ -155,12 +155,8 @@ background-color: #323232;
 		</table>
 	<!-- </textarea> -->
 		<!-- <input id="subBtn" type="button" value="글 작성" style="float: right;" onclick="goWrite(this.form)" /> -->
-		
-			
-	</form>
-	<script>
 
-	
-	</script>
+	</form>
+	<jsp:include page="../common/footer.jsp"/>
 </body>
 </html>

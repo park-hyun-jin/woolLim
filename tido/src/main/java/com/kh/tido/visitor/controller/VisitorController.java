@@ -56,5 +56,4 @@ public class VisitorController {
 		return "main";
 	}
 	
-	
 }

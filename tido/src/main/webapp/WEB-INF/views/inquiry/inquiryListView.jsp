@@ -37,7 +37,8 @@
 }
 
 table {
-	background-color: #212529;
+	color: white;
+	background-color: #343a40;
 }
 
 #Search {
@@ -51,6 +52,13 @@ table {
 td{
 color : white;
 }
+th{
+ background-color: #212529;
+ color: white;
+ 
+}
+
+
 </style>
 </head>
 <body>
@@ -152,7 +160,7 @@ color : white;
 							<c:param name="iNo" value="${ i.iNo }" />
 						</c:url>
 						<c:choose>
-						<c:when test="${ (loginUser.id eq inquiry.iInquiryId) || (loginUser.id eq 'admin@admin.com') }">
+						<c:when test="${ (loginUser.id eq i.iInquiryId ) || (loginUser.id eq 'admin@admin.com') }">
 						<td><a href="${ idetail }">${ i.iInquiryTitle }</a></td>
 						</c:when>
 						<c:otherwise>
@@ -167,7 +175,7 @@ color : white;
 
 			<tr>
 			<tr id="pg" align="center" height="20">
-				<td colspan="6">
+				<td colspan="6" id="foot">
 					<!-- [이전] --> <c:if test="${ pi.currentPage <= 1 }">
 					[이전] &nbsp;
 				</c:if> <c:if test="${ pi.currentPage > 1 }">
@@ -189,7 +197,8 @@ color : white;
 					</c:if>
 					</c:forEach> <!-- [다음] --> <c:if test="${ pi.currentPage >= pi.maxPage }">
 					[다음]
-				</c:if> <c:if test="${ pi.currentPage < pi.maxPage }">
+				</c:if> 
+				<c:if test="${ pi.currentPage < pi.maxPage }">
 						<c:url var="after" value="iList.kh">
 							<c:param name="page" value="${ pi.currentPage + 1 }" />
 						</c:url>
@@ -201,7 +210,7 @@ color : white;
 
 		<div>
 			<form action="isearch.kh" name="searchForm" method="get"id="Search">
-			<select class="mdb-select md-form" id="searchCondition" name="searchCondition" searchable="Search here..">
+			<select class="browser-default custom-select" id="searchCondition" name="searchCondition" searchable="Search here..">
 				<option value="all" <c:if test="${search.searchCondition == 'all'}">selected</c:if> >전체</option>
 				<option value="writer" <c:if test="${search.searchCondition == 'writer'}">selected</c:if> >작성자</option>
 				<option value="title" <c:if test="${search.searchCondition == 'title'}">selected</c:if> >제목</option>

@@ -17,6 +17,7 @@
 <select id="pianoSelect">
     <option value="piano">piano</option>
     <option value="synth">synth</option>
+    <option value="choir">choir</option>
 </select>
 
 <div class="volumeController">
@@ -40,12 +41,12 @@
 
 <c:forEach  var="poctv" varStatus="j" begin="1" end="2">
 	<c:forEach var="noteList" items="${note}">
-	   <audio class="pianoAudio" id="${noteList}${poctv}piano" src="${contextPath }/resources/sounds/piano/${noteList}${poctv}.wav" preload="none"></audio>
+	   <audio class="pianoAudio" id="${noteList}${poctv}piano" src="${contextPath }/resources/sounds/piano/${noteList}${poctv}.mp3" preload="none"></audio>
 	</c:forEach>
 </c:forEach>
 
 
-<audio class="pianoAudio" id="C3piano" src="${contextPath }/resources/sounds/piano/C3.wav" preload="none"></audio>
+<audio class="pianoAudio" id="C3piano" src="${contextPath }/resources/sounds/piano/C3.mp3" preload="none"></audio>
 
 <c:forEach var="poctv" varStatus="j" begin="1" end="2">
 <c:forEach var="noteList" items="${note}">
@@ -71,12 +72,14 @@
 				for(var j = 0; j < noteArray.length; j++) {
 					$("#"+noteArray[j]+i+"piano").attr("src", $("#"+noteArray[j]+i+"piano").attr("src").replace("sounds/piano", "sounds/" + $(this).val()));
 					$("#"+noteArray[j]+i+"piano").attr("src", $("#"+noteArray[j]+i+"piano").attr("src").replace("sounds/synth", "sounds/" + $(this).val()));
+					$("#"+noteArray[j]+i+"piano").attr("src", $("#"+noteArray[j]+i+"piano").attr("src").replace("sounds/choir", "sounds/" + $(this).val()));
 					
 					console.log($("#"+noteArray[j]+i+"piano").attr("src"));
 				}
 			}
 				$("#C3piano").attr("src", $("#C3piano").attr("src").replace("sounds/piano", "sounds/" + $(this).val()));
 				$("#C3piano").attr("src", $("#C3piano").attr("src").replace("sounds/synth", "sounds/" + $(this).val()));
+				$("#C3piano").attr("src", $("#C3piano").attr("src").replace("sounds/choir", "sounds/" + $(this).val()));
 			
 		});
 		

@@ -27,7 +27,7 @@ public interface BoardService {
 	
 	public abstract ArrayList<Reply> selectReply(int cBoardNo);
 
-	public abstract ArrayList<Board> searchList(Search search);
+	public abstract ArrayList<Board> searchList(Search search, int currentPage);
 
 	
 

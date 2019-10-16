@@ -11,7 +11,6 @@ import com.kh.tido.board.model.vo.Board;
 import com.kh.tido.board.model.vo.PageInfo;
 import com.kh.tido.board.model.vo.Reply;
 import com.kh.tido.board.model.vo.Search;
-import com.kh.tido.notice.model.vo.Notice;
 
 @Repository("bDao")
 public class BoardDao {
@@ -59,8 +58,15 @@ public class BoardDao {
 		return (ArrayList)sqlSession.selectList("boardMapper.selectReply", cBoardNo);
 	}
 
-	public ArrayList<Board> searchList(Search search) {
-		return (ArrayList)sqlSession.selectList("boardMapper.searchList", search);
+	public ArrayList<Board> searchList(Search search, PageInfo pi) {
+		int offset = (pi.getCurrentPage() -1 ) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		return (ArrayList)sqlSession.selectList("boardMapper.searchList", search,rowBounds);
+	}
+
+	public int getSearchListCount(Search search) {	
+		return sqlSession.selectOne("boardMapper.getSearchListCount",search);
 	}
 
 }

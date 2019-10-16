@@ -46,6 +46,7 @@ table.type09 tbody td  {
     /* background: snow; */
     color: white;
 }
+
 </style>
 </head>
 <body>
@@ -89,14 +90,14 @@ table.type09 tbody td  {
 								</c:if>
 							</td>
 						</tr>
-						 
-						<button type="button" class="btn btn-outline-danger waves-effect reportPopBtn" data-toggle="modal" data-target="#centralModalDanger">
-						신고하기
+						<c:if test="${ loginUser.id != board.memberId }">
+ 			<button type="button" class="btn btn-outline-danger btn-rounded waves-effect" data-toggle="modal" data-target="#centralModalDanger">신고하기
+
 						<input type="hidden" value="${board.cBoardNo}">
-						</button>
-					
+					</button>
+
 						<jsp:include page="../Report/reportCBoardModal.jsp"/>		
-									
+						</c:if>			
 						<tr>
 							<td colspan="2" class="text-center" style="color: white">
 								<c:url var="bupView" value="bupView.kh">
@@ -114,7 +115,7 @@ table.type09 tbody td  {
 									<a href="${bupView }" class="btn btn-outline-primary waves-effect">수정하기</a>&nbsp;
 									<a href="${bdelete }" class="btn btn-outline-danger waves-effect">삭제하기</a>&nbsp;
 								</c:if>
-								<a href="${blist }" class="btn btn-outline-warning waves-effect">목록으로</a>
+								<a href="${blist}" class="btn btn-outline-warning waves-effect">목록으로</a>
 							</td>
 						</tr>
 					</table>
@@ -144,7 +145,7 @@ table.type09 tbody td  {
 
 		</tbody>
 	</table>
-
+	
 	<!-- <div style="margin: 10px;"></div> -->
 
 	<!-- 댓글 등록  -->
@@ -211,24 +212,34 @@ table.type09 tbody td  {
 					 var $bNo; 
 					 var $btn;
 					 var $reportType;
-
+					 var loginUser="${loginUser.name}";
+					 var boardmemberId= "${board.memberId}";
+					 
 					 if(list.length > 0){ 
 						 $.each(list, function(i){
 							 $reportType=$("<input type='hidden'>").val(list[i].reportType);
 							 $bNo=$("<input type='hidden'>").val(list[i].cbReplyNo);
 							 $btn=$("<button type='button' class='btn btn-outline-danger waves-effect reportPopBtn' data-toggle='modal' data-target='#centralModalDanger'>");
-							 $btn.append("신고");
+							 
+							 console.log(loginUser);	
+							 console.log(list[i].memberName);
+							 
+							$btn.append("신고");
+							 
 							 $btn.append($bNo);
 							 $btn.append($reportType);
 							 $tr = $("<tr>");
 							 $memberId = $("<th>").text(list[i].memberName).css("width","200px");
 							 $cbReplyContent = $("<td>").html(list[i].cbReplyContent).css("width","700px");
-							 $cbReplyCreateDate = $("<td>").text(list[i].cbReplyCreateDate).css("width","100px");
+							 $cbReplyCreateDate = $("<td>").text(list[i].cbReplyCreateDate).css("width","200px");
 
 							 $tr.append($memberId);
 							 $tr.append($cbReplyContent);
 							 $tr.append($cbReplyCreateDate);
+							 
+							 if(loginUser != list[i].memberName){
 							 $tr.append($btn);
+							 }
 							 
 							 $tableBody.append($tr);
 							 reportButtonclick($btn);
@@ -249,7 +260,7 @@ table.type09 tbody td  {
 			$("#contentsNo").val(contentsNo);
 			$("#reportType").val(${board.reportType});
 		});
-		
+	
 	
 
 	
@@ -265,5 +276,6 @@ table.type09 tbody td  {
 	
 		
 	</script>
+	<jsp:include page="../common/footer.jsp"/>
 </body>
 </html>
