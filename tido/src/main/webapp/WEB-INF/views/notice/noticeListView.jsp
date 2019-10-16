@@ -56,6 +56,10 @@
 	text-align: left;
 }
 
+.table{
+ background-color: #343a40;
+}
+
 div>#paging {
 	text-align: center;
 }

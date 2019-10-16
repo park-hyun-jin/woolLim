@@ -212,7 +212,7 @@ table.type09 tbody td  {
 					 var $bNo; 
 					 var $btn;
 					 var $reportType;
-					 var loginUser="${loginUser.id}";
+					 var loginUser="${loginUser.name}";
 					 var boardmemberId= "${board.memberId}";
 					 
 					 if(list.length > 0){ 
@@ -221,22 +221,23 @@ table.type09 tbody td  {
 							 $bNo=$("<input type='hidden'>").val(list[i].cbReplyNo);
 							 $btn=$("<button type='button' class='btn btn-outline-danger waves-effect reportPopBtn' data-toggle='modal' data-target='#centralModalDanger'>");
 							 
-							 if(loginUser == boardmemberId){
-							 $btn.append("신고");
-							}
+							 console.log(loginUser);	
+							 console.log(list[i].memberName);
+							 
+							$btn.append("신고");
 							 
 							 $btn.append($bNo);
 							 $btn.append($reportType);
 							 $tr = $("<tr>");
 							 $memberId = $("<th>").text(list[i].memberName).css("width","200px");
 							 $cbReplyContent = $("<td>").html(list[i].cbReplyContent).css("width","700px");
-							 $cbReplyCreateDate = $("<td>").text(list[i].cbReplyCreateDate).css("width","100px");
+							 $cbReplyCreateDate = $("<td>").text(list[i].cbReplyCreateDate).css("width","200px");
 
 							 $tr.append($memberId);
 							 $tr.append($cbReplyContent);
 							 $tr.append($cbReplyCreateDate);
 							 
-							 if(loginUser == boardmemberId){
+							 if(loginUser != list[i].memberName){
 							 $tr.append($btn);
 							 }
 							 
