@@ -260,7 +260,7 @@ public class AdminController {
 	
 	
 	// 공지사항 검색
-	@RequestMapping("nsearch.kh")
+	@RequestMapping("ansearch.kh")
 	public String noticeSearch(Search search, Model model){
 		
 		System.out.println(search.getSearchCondition());

@@ -142,6 +142,7 @@ public class InquiryContorller {
 			model.addAttribute("msg","게시물 목록 조회 실패");
 			return "common/errorPage";
 		}
+		
 
 	}
 }
