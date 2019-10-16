@@ -55,30 +55,19 @@
     	<canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
 	      
           <h2>Section title</h2>
-          <div class="table-responsive">
-<<<<<<< HEAD
-
-           
+          <div class="table-responsive">  
                 <jsp:include page="/WEB-INF/views/calendar/calendarAdmin.jsp"/>
-              
-=======
           <jsp:include page="/WEB-INF/views/calendar/calendarAdmin.jsp"/>
->>>>>>> refs/heads/master
           </div>
         </main>
       </div>
     </div>
-<<<<<<< HEAD
 
 
 	
 </html>
 	
-
-=======
-
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
->>>>>>> refs/heads/master
 	<script type="text/javascript" src="${contextPath }/resources/js/admin/dashboard.js"></script>
 	<script>
 		$(document).ready(function(){
