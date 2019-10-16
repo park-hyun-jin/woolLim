@@ -211,7 +211,7 @@ var pageCheck="projectView";
 	  });
 	  
 	  // 드래그 이벤트
-	 	  if("${loginUser.id}"=="" || "${loginUser.id}"=="${project.projectWriter}" ){
+	 	  if("${loginUser.id}"=="" || "${project.projectWriter}" =="" || "${loginUser.id}"=="${project.projectWriter}" ){
 		  	$(".pad").on("mousedown",function(){
 		         var $pad = $(this);
 		         imprint($pad);
