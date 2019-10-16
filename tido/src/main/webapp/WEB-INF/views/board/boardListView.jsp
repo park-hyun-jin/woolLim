@@ -214,7 +214,7 @@ tbody {
          <input type="checkbox"  name="existFile"<c:if test="${!empty search.existFile }">checked</c:if> >      
          <p style="color: white; font-size: 15px;">첨부파일 있는 게시물</p>
       </form>
-   </div>
+   </div><jsp:include page="../common/footer.jsp"/>
    <!-------------- 게시물 검색하기 --------------->
    <script src="https://ajax.googlepis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
    <script type="text/javascript" src="${contextPath }/resources/js/board/bootstrap.js"></script>

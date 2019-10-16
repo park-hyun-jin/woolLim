@@ -11,6 +11,7 @@ public class Pagination2 {
 		return pi;
 	}
 	
+	
 	public static PageInfo getPageInfo(int currentPage, int listCount) {
 		
 		int limit =	10;

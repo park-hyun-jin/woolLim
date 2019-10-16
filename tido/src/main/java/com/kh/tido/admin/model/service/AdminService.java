@@ -6,6 +6,7 @@ import com.kh.tido.board.model.vo.Board;
 import com.kh.tido.board.model.vo.Search;
 import com.kh.tido.inquiry.model.vo.Inquiry;
 import com.kh.tido.notice.model.vo.Notice;
+import com.kh.tido.report.model.vo.Report;
 
 public interface AdminService {
 
@@ -17,7 +18,7 @@ public interface AdminService {
 	
 	public abstract int deleteBoard(ArrayList<Integer> deleteList);
 	
-	public abstract int reviveBoard(ArrayList<Integer> reviveList);
+	public abstract int reviveCBoard(ArrayList<Integer> reviveList);
 
 	public abstract ArrayList<Board> searchList(Search search);
 	
@@ -45,6 +46,14 @@ public interface AdminService {
 	public abstract int inquiryDeleteBoard(ArrayList<Integer> deleteList);
 
 	public abstract int reviveIBoard(ArrayList<Integer> reviveList);
+
+	public abstract ArrayList<Report> rboardListAll(int currentPage);
+
+	public abstract ArrayList<Report> reportSearch(int rRrno);
+
+	public abstract ArrayList<Report> adminRsearch(Search search);
+
+	public abstract ArrayList<Report> adminReportTypeSearch(int rReportType);
 	
 	
 }
