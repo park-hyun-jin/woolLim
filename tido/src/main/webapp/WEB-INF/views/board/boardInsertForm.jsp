@@ -85,21 +85,25 @@ navbar navbar-default {
 							border-radius: 30px 30px 0px 0 px">게시판 글쓰기</th>
 						</tr>
 					</thead>
-					<tbody>
+					<%-- <tbody>
 						<tr>
 							<td><input type="hidden" name="memberId" value="${loginUser.id }"> 
-								<input type="text" class="btn btn-default btn-rounded" value="작성자  :  ${ loginUser.name }"
+								<input type="text" class="btn btn-default btn-rounded" value="${ loginUser.name }"
 								style="width: 100%; color: white; height: 70px; font-size: 35px; font-weight: bold; text-align: left;" readonly>
 								${ loginUser.name }
 							</td>
 						</tr>
-					</tbody>
+					</tbody> --%>
 				</table>
 			</form>
 
 			<!-- 썸머노트 -->
 			
 			<form method="post" action="binsert.kh">
+			<input type="hidden" name="memberId" value="${loginUser.id }">
+				<input type="text" value="  작성자  :  ${ loginUser.name }" style="width: 100%; height: 40px; font-size: 20px; 
+				font-weight: bold; text-align: left; color: #dcdcdc; background-color: #282828;" readonly>
+				<div style="margin: 20px;"></div>
 				<input type="text" name="cBoardTitle" style="width: 100%; height: 40px;" placeholder="제목" /><br>
 				<br>
 				<textarea id="summernote" name="cBoardContent"></textarea>
@@ -113,9 +117,7 @@ navbar navbar-default {
 						</td>
 					</tr>
 				</table>
-				<input type="hidden" name="memberId" value="${loginUser.id }">
-				<input type="text" value="  작성자  :  ${ loginUser.name }" style="width: 100%; height: 40px; font-size: 20px; 
-				font-weight: bold; text-align: left; color: #dcdcdc; background-color: #282828;" readonly>
+				
 			</form>
 		</div>
 		<!-- 썸머노트 -->
