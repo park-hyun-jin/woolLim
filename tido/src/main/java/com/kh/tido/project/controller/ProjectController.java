@@ -27,7 +27,7 @@ public class ProjectController {
 	
 	
 	@RequestMapping("openPjt.kh")
-	public String openProject(int pNo,HttpServletRequest request,Model model) {
+	public String openProject(int pNo,HttpServletRequest request,Model model,int pbNo) { 
 		ProjectFile projectFile= pService.openProject(request,pNo);
 		model.addAttribute("project",projectFile);
 		return "project/projectView";
@@ -114,7 +114,7 @@ public class ProjectController {
 		return result+"";
 	}
 	
-	
+	// 프로젝트 게시판 --------------------------------------------------
 	
 	
 	

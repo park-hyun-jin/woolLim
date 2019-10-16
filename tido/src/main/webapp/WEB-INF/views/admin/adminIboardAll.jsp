@@ -33,40 +33,19 @@
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
-  background-color: teal;
+  background-color: #007bff;
   color: white;
 }
 
-.button {
-  background-color: #ddd;
-  border: none;
-  color: black;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 16px;
+#checkBox{
+	text-align:right;
+	
 }
-
-#reviveBtn{
-	position: relative;
-	bottom: 400px;
-	left: 980px;
-}
-
-#deleteBtn{
-	position: relative;
-	bottom: 400px;
-	left: 960px;
-}
-
 
 .paging{
 	position: relative;
 	top: 25px;
-	left: 570px;
+	text-align:center;
 }
 
 #searchArea{
@@ -115,8 +94,8 @@
 	<div class="my-4 w-100" id="myChart" width="900" height="380" >
 	
 	
-	<button class="button" onclick="location='iboardListN.kh'">삭제된 게시글</button>
-	<button class="button" onclick="location='iboardList.kh'">삭제 안 된 게시글</button>
+	<button class="button" onclick="location='adminIboardListN.kh'">삭제된 게시글</button>
+	<button class="button" onclick="location='adminIboardListY.kh'">삭제 안 된 게시글</button>
 	
 	
 	
@@ -165,7 +144,7 @@
 					[이전] &nbsp;
 				</c:if>
 				<c:if test="${ pi.currentPage > 1 }">
-					<c:url var="before" value="I-iboardListAll.kh">
+					<c:url var="before" value="I-adminIboardListAll.kh">
 						<c:param name="page" value="${ pi.currentPage - 1 }"/>
 					</c:url>
 					<a href="${ before }">[이전]</a> &nbsp;
@@ -178,7 +157,7 @@
 					</c:if>
 					
 					<c:if test="${ p ne currentPage }">
-						<c:url var="pagination" value="iboardListAll.kh">
+						<c:url var="pagination" value="adminIboardListAll.kh">
 							<c:param name="page" value="${ p }"/>
 						</c:url>
 						<a href="${ pagination }">${ p }</a> &nbsp;
@@ -190,7 +169,7 @@
 					[다음]
 				</c:if>
 				<c:if test="${ pi.currentPage < pi.maxPage }">
-					<c:url var="after" value="iboardListAll.kh">
+					<c:url var="after" value="adminIboardListAll.kh">
 						<c:param name="page" value="${ pi.currentPage + 1 }"/>
 					</c:url> 
 					<a href="${ after }">[다음]</a>
@@ -221,6 +200,12 @@
 			
 			
 		</form>
+		
+		<div id="checkBox">
+			<button class="button" id="deleteBtn">선택삭제</button> 
+			<button class="button" id="reviveBtn">선택복구</button> 
+		</div>
+		
 	</div>
 		
 	</div>
@@ -307,10 +292,19 @@
 			
 	});
 	
-	
+
 	
 	
 	</script>
+	
+	<script type="text/javascript" src="${contextPath }/resources/js/admin/dashboard.js"></script>
+	<script>
+	$(document).ready(function(){
+		$(".QNA").addClass("active");
+	});
+	
+	</script>
+	
 	
 	
 	

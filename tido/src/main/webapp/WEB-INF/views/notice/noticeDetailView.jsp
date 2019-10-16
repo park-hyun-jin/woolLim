@@ -15,28 +15,41 @@
             width: 50%;
             padding: 0 100px;
             margin: auto;
+           background-color: rgb(255,255,255,0.3);
         }
 		#inputAddress2{
 			height: 400px;
 		}
 		#button{
 			float : right;
-		}
+		}	
 		
+		
+ #inputCity{
+  background-color: #343a40; 
+  width: 100%;
+        }
 
+       strong{
+       color: black;
+       }
+       h5{
+       background-color: rgb(255,255,255,0.3);
+       }
         </style>
         
        
     </head>
     <body>
    <c:import url="../common/menubar.jsp" />
-    
-    
-        <form >
+    <br>
+    <br>
+    	<div id="bodyForm">
+        <form>
         
         <h2 align="center">${ notice.nNo }</h2>
         <h5 class="card-header info-color white-text text-center py-4" id="toptoptop">
-            <strong>문의사항 수정</strong>
+            <strong>공지사항 상세</strong>
         </h5>
             <div class="form-row">
             
@@ -49,15 +62,18 @@
                 <div type="text" class="form-control" id="inputPassword4" >${notice.pnoticeCreateDate }</div>
               </div>
             </div>
+            
             <div class="form-group">
               <label for="inputAddress">제목</label>
               <div type="text" class="form-control" id="inputAddress" >${ notice.pnoticeTitle }</div>
             </div>
+            
             <div class="form-group" >
               <label for="inputAddress2">내용</label>
             	
               <div type="text" class="form-control" id="inputAddress2">${notice.pnoticeContent}</div>
             </div>
+            
 		<div class="form-row">
 			<div class="form-group col-md-6">
 				<c:if test="${ !empty notice.pnoticeFilePath }">
@@ -93,10 +109,12 @@
 					</td>
 				</tr>
 			</c:if>
+</div>
+</form>
 
 
 
 
-
-		</div></body>
+		</div>
+		</body>
 </html>

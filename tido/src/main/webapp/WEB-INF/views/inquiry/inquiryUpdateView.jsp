@@ -41,8 +41,8 @@
         #browse{
        background-color: black;
         }
-        
        
+  
         </style>
     </head>
     <body>
@@ -59,7 +59,8 @@
         <div class="card-body px-lg-5 pt-0" id="cardContent">
     
             <!-- Form -->
-            <form class="text-center" style="color: #757575;" action="iupdate.kh" enctype="Multipart/form-data" method="post">
+           
+            <form class="text-center" style="color: #757575;" action="iupdate.kh" enctype="Multipart/form-data" method="post" >
 
 				<input type="hidden" name="iNo" value="${ inquiry.iNo }" />
 				<input type="hidden" name="iInquiryOriginFilename" value="${ inquiry.iInquiryOriginFilename }" />
@@ -167,7 +168,7 @@
     
             </form>
             <!-- Form -->
- 
+ 		
         </div>
     
     </div>

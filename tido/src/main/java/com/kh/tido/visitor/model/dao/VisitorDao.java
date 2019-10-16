@@ -24,4 +24,16 @@ public class VisitorDao {
 		return sqlSession.selectOne("visitorMapper.selectVisitor");
 	}
 
+	public String projectCount() {
+		return sqlSession.selectOne("visitorMapper.projectCount");
+	}
+
+	public String boardCount() {
+		return sqlSession.selectOne("visitorMapper.boardCount");
+	}
+
+	public String memberCount() {
+		return sqlSession.selectOne("visitorMapper.memberCount");
+	}
+
 }

@@ -33,40 +33,20 @@
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
-  background-color: teal;
+  background-color: #007bff;
   color: white;
 }
 
-.button {
-  background-color: #ddd;
-  border: none;
-  color: black;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 16px;
-}
 
-#reviveBtn{
-	position: relative;
-	bottom: 400px;
-	left: 980px;
+#checkBox{
+	text-align:right;
+	
 }
-
-#deleteBtn{
-	position: relative;
-	bottom: 400px;
-	left: 960px;
-}
-
 
 .paging{
 	position: relative;
 	top: 25px;
-	left: 570px;
+	text-align:center;
 }
 
 #searchArea{
@@ -115,7 +95,7 @@
 	<div class="my-4 w-100" id="myChart" width="900" height="380" >
 	
 	
-	<button class="button" onclick="location='iboardListAll.kh'">이전으로</button>
+	<button class="button" onclick="location='adminIboardListAll.kh'">이전으로</button>
 	
 	
 	
@@ -165,7 +145,7 @@
 					[이전] &nbsp;
 				</c:if>
 				<c:if test="${ pi.currentPage > 1 }">
-					<c:url var="before" value="iboardListN.kh">
+					<c:url var="before" value="adminIboardListN.kh">
 						<c:param name="page" value="${ pi.currentPage - 1 }"/>
 					</c:url>
 					<a href="${ before }">[이전]</a> &nbsp;
@@ -178,7 +158,7 @@
 					</c:if>
 					
 					<c:if test="${ p ne currentPage }">
-						<c:url var="pagination" value="iboardListN.kh">
+						<c:url var="pagination" value="adminIboardListN.kh">
 							<c:param name="page" value="${ p }"/>
 						</c:url>
 						<a href="${ pagination }">${ p }</a> &nbsp;
@@ -190,7 +170,7 @@
 					[다음]
 				</c:if>
 				<c:if test="${ pi.currentPage < pi.maxPage }">
-					<c:url var="after" value="iboardListN.kh">
+					<c:url var="after" value="adminIboardListN.kh">
 						<c:param name="page" value="${ pi.currentPage + 1 }"/>
 					</c:url> 
 					<a href="${ after }">[다음]</a>
@@ -206,7 +186,7 @@
 		
 		<!-------------- 게시물 검색하기 --------------->
 	<div id="searchArea" align="center">
-		<form action="bsearch.kh" name="searchForm" method="get">
+		<form action="adminIsearch.kh" name="searchForm" method="get">
 			
 			<select id="searchCondition" name="searchCondition">
 				<option value="all" <c:if test="${search.searchCondition == 'all'}">selected</c:if> >전체</option>
@@ -221,6 +201,10 @@
 			
 			
 		</form>
+		<div id="checkBox">
+			<button class="button" id="reviveBtn">선택복구</button> 
+		</div>
+		
 	</div>
 		
 	</div>
@@ -229,7 +213,7 @@
 	<p align="center">
 		<c:url var="home" value="admin.kh"/>
 		<a href="${ home }">시작 페이지로 이동</a> &nbsp;
-		<c:url var="blist" value="iboardListAll.kh"/>
+		<c:url var="blist" value="adminIboardListN.kh"/>
 		<a href="${ blist }">목록 전체 보기</a>
 	</p>
 	<br><br><br><br><br><br><br><br><br><br><br><br>
@@ -259,24 +243,6 @@
 			}
 			});
 			
-			$("#deleteBtn").on("click",function(){
-				var checkArray= new Array();
-				if(window.confirm("정말 삭제하시겠습니까?")){
-					$("input[name='chBox']:checked").each(function(){
-						checkArray.push($(this).val());
-					});
-					console.log(checkArray);
-					$.ajax({
-						url:"deleteBoard.kh",
-						data:{checkArray:checkArray},
-						type:"post",
-						success:function(result){
-							console.log(result);
-						}
-						
-					});
-				}
-			});
 			
 			$("#reviveBtn").on("click",function(){
 				var checkArray= new Array();
@@ -286,7 +252,7 @@
 					});
 					console.log(checkArray);
 					$.ajax({
-						url:"reviveCBoard.kh",
+						url:"reviveIBoard.kh",
 						data:{checkArray:checkArray},
 						type:"post",
 						success:function(result){
@@ -309,7 +275,13 @@
 	
 	</script>
 	
+	<script type="text/javascript" src="${contextPath }/resources/js/admin/dashboard.js"></script>
+	<script>
+	$(document).ready(function(){
+		$(".QNA").addClass("active");
+	});
 	
+	</script>
 	
 	
 	

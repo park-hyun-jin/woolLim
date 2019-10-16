@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.tido.board.model.vo.Board;
+import com.kh.tido.common.Pagination;
 import com.kh.tido.project.model.dao.ProjectDao;
 import com.kh.tido.project.model.vo.Project;
 import com.kh.tido.project.model.vo.ProjectFile;
@@ -30,9 +32,7 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public int saveProject(ProjectFile projectFile,String projectTitle,String projectPath, 
 			HttpServletRequest request, String projectWriter,String projectImagePath) {
-
 		String fileName = createFile(projectFile, request, projectPath);
-
 		if (fileName !=null) {
 			project.setProjectWriter(projectWriter);
 			project.setProjectPath(projectPath);
@@ -54,7 +54,6 @@ public class ProjectServiceImpl implements ProjectService {
 		try {
 			Properties prop = new Properties();
 			prop.load(new FileReader(filePath));
-
 			projectFile.setBpm(Integer.parseInt(prop.getProperty("bpm")));
 			projectFile.setBeat(Integer.parseInt(prop.getProperty("beat")));
 			projectFile.setLength(Integer.parseInt(prop.getProperty("length")));
@@ -62,11 +61,12 @@ public class ProjectServiceImpl implements ProjectService {
 			projectFile.setGuitarSoundInfo(prop.getProperty("guitarSoundInfo"));
 			projectFile.setBassSoundInfo(prop.getProperty("bassSoundInfo"));
 			projectFile.setDrumSoundInfo(prop.getProperty("drumSoundInfo"));
-
+			projectFile.setProjectWriter(project.getProjectWriter());
+			projectFile.setProjectTitle(project.getProjectTitle());
+			projectFile.setRefPNo(project.getpNo());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println();
 		return projectFile;
 	}
 
@@ -167,5 +167,7 @@ public class ProjectServiceImpl implements ProjectService {
 	public int deleteProject(int pNo) {
 		return pDao.deleteProject(pNo);
 	}
+
+
 
 }

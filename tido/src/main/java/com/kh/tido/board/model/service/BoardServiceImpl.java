@@ -18,9 +18,7 @@ import com.kh.tido.board.model.vo.Board;
 import com.kh.tido.board.model.vo.PageInfo;
 import com.kh.tido.board.model.vo.Reply;
 import com.kh.tido.board.model.vo.Search;
-import com.kh.tido.common.Pagination;
 import com.kh.tido.common.Pagination2;
-import com.kh.tido.notice.model.vo.Notice;
 
 @Service("bService")
 public class BoardServiceImpl implements BoardService{
@@ -41,18 +39,22 @@ public class BoardServiceImpl implements BoardService{
 		
 		board.setcBoardContent(board.getcBoardContent().replace("\n", "<br>"));
 		String cBoardChaFilename = null;
-		
+		System.out.println(board);
 // 수정할 수 있음
+		/*
 		if(!uploadFile.getOriginalFilename().equals("")) {
 			cBoardChaFilename = renameFile(uploadFile);
 			
 			board.setcBoardOriFilename(uploadFile.getOriginalFilename());
 			board.setcBoardChaFilename(cBoardChaFilename);
 		}
+		*/
 		int result = bDao.insertBoard(board);
+		/*
 		if(cBoardChaFilename != null && result == 1) {
 			result = saveFile(cBoardChaFilename, uploadFile, request);
 		}
+		*/
 		return result;
 	}
 
@@ -102,6 +104,7 @@ public class BoardServiceImpl implements BoardService{
 		board.setcBoardContent(board.getcBoardContent().replace("\n", "<br>"));
 		String cBoardOriFilename = null;
 		String cBoardChaFilename = null;
+		/*
 		if(!reloadFile.getOriginalFilename().equals("")) {
 			cBoardOriFilename = board.getcBoardChaFilename();
 			cBoardChaFilename = renameFile(reloadFile);
@@ -109,13 +112,16 @@ public class BoardServiceImpl implements BoardService{
 			board.setcBoardOriFilename(reloadFile.getOriginalFilename());
 			board.setcBoardChaFilename(cBoardChaFilename);
 		}
+		*/
 		int result = bDao.updateBoard(board);
+		/*
 		if(cBoardChaFilename != null && result == 1) {
 			result += saveFile(cBoardChaFilename, reloadFile, request);
 		}
 		if(result == 2) {
 			deleteFile(cBoardOriFilename, request);
 		}
+		*/
 		return result;
 	}
 
@@ -142,8 +148,12 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public ArrayList<Board> searchList(Search search) {
-		return bDao.searchList(search);
+	public ArrayList<Board> searchList(Search search, int currentPage) {
+		
+		int listCount = bDao.getSearchListCount(search);
+		System.out.println("갯수"+listCount);
+		PageInfo pi = Pagination2.getPageInfo(currentPage, listCount);
+		return bDao.searchList(search, pi);
 	}
 
 
