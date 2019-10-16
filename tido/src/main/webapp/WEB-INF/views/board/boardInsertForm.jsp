@@ -124,8 +124,8 @@ navbar navbar-default {
 
 		<div style="margin: 20px;"></div>
 		<a href=""></a>
-
 	</div>
 	<input type="file" name="uploadFile" placeholder="사진등록" class="btn btn-outline-default waves-effect"font-size: 17px;">
+	<jsp:include page="../common/footer.jsp"/>
 </body>
 </html>
