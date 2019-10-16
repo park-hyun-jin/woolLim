@@ -52,7 +52,7 @@ background-color: #323232;
       <input type="hidden" name="cBoardNo" value="${ board.cBoardNo }"> 
       <input type="hidden" name="cBoardChaFilename" value="${ board.cBoardChaFilename  }">
 
-      <table align="center" id="tb" cellspacing="0"></table>
+      
    </form>
    <br>
    <form method="post" action="bupdate.kh" style="width: 62%; margin: auto;  background-color: rgb(255,255,255,0.3);">
