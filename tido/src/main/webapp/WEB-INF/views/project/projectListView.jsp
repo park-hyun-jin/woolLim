@@ -361,7 +361,7 @@ var pageCheck="projectListView";
 			function addEvent(project){
 				project.on("click",function(){
 					var pNo=Number($(this).children("input:hidden").val());
-					location.href="openPjt.kh?pNo="+pNo;
+					location.href="openPjt.kh?pNo="+pNo+"&id=${loginUser.id}";
 				});
 				
 				project.contextmenu(function(e){

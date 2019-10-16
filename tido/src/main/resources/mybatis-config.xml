@@ -19,6 +19,7 @@
 		<typeAlias type="com.kh.tido.report.model.vo.Report" alias="Report"/>
 		<typeAlias type="com.kh.tido.report.model.vo.ReportReason" alias="ReportReason"/>
 		<typeAlias type="com.kh.tido.projectBoard.model.vo.ProjectBoard" alias="ProjectBoard"/>
+		<typeAlias type="com.kh.tido.projectBoard.model.vo.PBReply" alias="PBReply"/>
 		<typeAlias type="com.kh.tido.inquiry.model.vo.Search" alias="iSearch"/>
 	</typeAliases>
 	
