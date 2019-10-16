@@ -2,7 +2,8 @@ package com.kh.tido.notice.model.service;
 
 import java.util.ArrayList;
 
-import com.kh.tido.board.model.vo.Search;
+
+import com.kh.tido.notice.model.vo.Search;
 import com.kh.tido.notice.model.vo.Notice;
 
 public interface NoticeService {
@@ -24,5 +25,7 @@ public interface NoticeService {
 	public abstract int deleteNotice(int nNo);
 
 	public abstract int updateNotice(Notice notice);
+
+	public abstract ArrayList<Notice> searchList(Search search, int currentPage);
 
 }

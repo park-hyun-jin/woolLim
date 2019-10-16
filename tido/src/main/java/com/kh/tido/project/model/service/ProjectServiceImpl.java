@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.tido.board.model.vo.Board;
+import com.kh.tido.common.Pagination;
 import com.kh.tido.project.model.dao.ProjectDao;
 import com.kh.tido.project.model.vo.Project;
 import com.kh.tido.project.model.vo.ProjectFile;
@@ -165,5 +167,7 @@ public class ProjectServiceImpl implements ProjectService {
 	public int deleteProject(int pNo) {
 		return pDao.deleteProject(pNo);
 	}
+
+
 
 }

@@ -36,11 +36,18 @@
 }
 #iinn{
 	background-color: rgb(255,255,255,0.5);
+	
 	width:60%;
 	margin: auto;
 	
 	}
+	input{
+	color: black;
+	}
+	#inputGroupFile01{
+	background-color: #343a40; 
 	
+	}
 </style>
 <body>
 	<c:import url="../common/menubar.jsp" />
@@ -49,7 +56,7 @@
 
 		<div id="iinn">
 		<!--Section heading-->
-		<h2 class="h1-responsive font-weight-bold text-center my-4">Update
+		<h2 class="h1-responsive font-weight-bold text-center my-4">Detail
 			QNA</h2>
 		<!--Section description-->
 		<p class="text-center w-responsive mx-auto mb-5">Do you have any

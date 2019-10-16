@@ -13,7 +13,7 @@ public class Pagination2 {
 	
 	public static PageInfo getPageInfo(int currentPage, int listCount) {
 		
-		int limit =	8;
+		int limit =	10;
 		int pagingBarSize = 5;
 		
 		int maxPage;

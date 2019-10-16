@@ -21,6 +21,7 @@
 		<typeAlias type="com.kh.tido.projectBoard.model.vo.ProjectBoard" alias="ProjectBoard"/>
 		<typeAlias type="com.kh.tido.projectBoard.model.vo.PBReply" alias="PBReply"/>
 		<typeAlias type="com.kh.tido.inquiry.model.vo.Search" alias="iSearch"/>
+		<typeAlias type="com.kh.tido.notice.model.vo.Search" alias="nSearch"/>
 	</typeAliases>
 	
 	

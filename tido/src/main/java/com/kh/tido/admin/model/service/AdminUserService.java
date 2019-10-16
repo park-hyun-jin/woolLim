@@ -19,4 +19,8 @@ public interface AdminUserService {
 
 	Board detailBoard(int cBoardNo);
 
+	int aDeleteMemberBoard(ArrayList<Integer> aMemberBoardList);
+
+	int aReviveMemberBoard(ArrayList<Integer> aMemberBoardList);
+
 }
