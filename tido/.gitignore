@@ -10,7 +10,7 @@ tmp/
 *.bak
 *.swp
 *~.nib
-
+*.ucls
 .loadpath
 .recommenders
 

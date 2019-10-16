@@ -41,6 +41,8 @@
         #browse{
        background-color: black;
         }
+        
+       
         </style>
     </head>
     <body>
@@ -48,12 +50,12 @@
 <!-- Material form register -->
 <div class="card">
 
-        <h5 class="card-header info-color white-text text-center py-4">
+        <h5 class="card-header blue-grey darken-3 white-text text-center py-4">
             <strong>공지사항 수정</strong>
         </h5>
     
         <!--Card content-->
-        <div class="card-body px-lg-5 pt-0">
+        <div class="card-body px-lg-5 pt-0" id="cardContent">
     
             <!-- Form -->
             <form class="text-center" style="color: #757575;" action="nupdate.kh" enctype="Multipart/form-data" method="post">

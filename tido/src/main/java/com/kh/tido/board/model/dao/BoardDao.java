@@ -62,4 +62,6 @@ public class BoardDao {
 	public ArrayList<Board> searchList(Search search) {
 		return (ArrayList)sqlSession.selectList("boardMapper.searchList", search);
 	}
+
 }
+

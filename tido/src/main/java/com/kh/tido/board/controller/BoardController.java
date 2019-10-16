@@ -70,8 +70,8 @@ public class BoardController {
 	@RequestMapping("bdetail.kh")
 	public ModelAndView boardDetail(ModelAndView mv, Integer page, int cBoardNo) {
 		int currentPage = page == null ? 1 : page;
-		Board board = bService.selectBoard(cBoardNo);
-		System.out.println(board);
+		System.out.println(cBoardNo);
+		Board board = bService.selectBoard(cBoardNo);		
 		if(board != null) {
 			mv.addObject("board", board).addObject("currentPage", currentPage).setViewName("board/boardDetailView");
 		}else {
@@ -134,7 +134,11 @@ public class BoardController {
 		ArrayList<Reply> list = bService.selectReply(cBoardNo);
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		return gson.toJson(list);
-	}	
+
+		}
+	
+
+
 	
 	// 검색
 		@RequestMapping("bSearch.kh")
@@ -160,3 +164,4 @@ public class BoardController {
 		}
 		
 }
+

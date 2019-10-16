@@ -54,5 +54,6 @@
 		SET PROJECT_STATUS = 'N'
 		WHERE PROJECT_NO = #{pNo}
 	</update>
+
 	
 </mapper>

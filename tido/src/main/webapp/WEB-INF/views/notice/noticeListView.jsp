@@ -145,11 +145,12 @@ to {
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
+					
 					<form action="ninsert.kh" id="ninsert" method="post" enctype="Multipart/form-data">
 						<div class="container" id="asd">
 
-							<div class="form-group">
 
+							<div class="form-group">
 								<label for="subject">제목</label> 
 								<input type="text" class="form-control" id="subject" name="pnoticeTitle" placeholder="제목을 입력하세요.">
 							</div>
@@ -271,6 +272,24 @@ to {
 				</tr>
 			</tbody>
 		</table>
+		
+		<div>
+			<form action="nsearch.kh" name="searchForm" method="get"id="Search">
+			<select class="mdb-select md-form" id="searchCondition" name="searchCondition" searchable="Search here..">
+				<option value="all" <c:if test="${search.searchCondition == 'all'}">selected</c:if> >전체</option>
+				<option value="writer" <c:if test="${search.searchCondition == 'writer'}">selected</c:if> >작성자</option>
+				<option value="title" <c:if test="${search.searchCondition == 'title'}">selected</c:if> >제목</option>
+				<option value="content" <c:if test="${search.searchCondition == 'content'}">selected</c:if> >내용</option>
+			</select>
+
+			<div class="md-form active-pink active-pink-2 mb-3 mt-0" >
+			
+					<input class="form-control" name="searchValue" value="${search.searchValue}">
+				</div>
+			</form>
+
+
+		</div>
 	</div>
 </body>
 </html>

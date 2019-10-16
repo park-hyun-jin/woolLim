@@ -28,7 +28,7 @@
     	<c:url var="goProject" value="compPjtView.kh"></c:url>
     	<c:url var="goBoard" value="bList.kh"></c:url>
     	<c:url var="goNotice" value="nlist.kh"></c:url>
-    	<c:url var="goQna" value="Qna.kh"></c:url>
+    	<c:url var="goInquiry" value="iList.kh"></c:url>
     	<c:url var="goLoginPage" value="loginPage.kh"></c:url>
     	<c:url var="goMyPageInfo" value="myPageInfo.kh"></c:url>
     	
@@ -38,7 +38,7 @@
                 <li><a href="${goProject }">작곡하기</a></li> 
                 <li><a href="${goBoard }">공유게시판</a></li>
                 <li><a href="${goNotice }">공지사항</a></li>
-                <li><a href="#">문의하기</a></li>
+                <li><a href="${goInquiry}">문의하기</a></li>
                 <li>
                 	<c:choose>
 	                	<c:when test="${loginUser==null }">

@@ -17,51 +17,48 @@
       
    </resultMap>
    
-
-   <resultMap id="replyResultSet" type="Reply">
-      <id property="cbReplyNo" column="CB_REPLY_NO"/> 
-      <result property="cbReplyContent" column="CB_REPLY_CONTENT"/> 
-      <result property="cbReplyCreateDate" column="CB_REPLY_CREATE_DATE"/> 
-      <result property="cbReplyModifyDate" column="CB_REPLY_MODIFY_DATE"/> 
-      <result property="cbReplyStatus" column="CB_REPLY_STATUS"/> 
-      <result property="cboardNo" column="CBOARD_NO"/> 
-      <result property="memberId" column="MEMBER_ID" />
-      <result property="memberName" column="MEMBER_NAME"/>
-
-      
-   </resultMap>
-    
-   
-   <select id="getListCount" resultType="_int">
-      SELECT COUNT(*)
-      FROM CBOARD
-      WHERE CBOARD_STATUS='Y'
-   </select>
-   
-   <select id="selectList" resultMap="boardResultSet">
-      SELECT CBOARD_NO, CBOARD_TITLE, CBOARD_CONTENT, CBOARD_CREATE_DATE, 
-      CBOARD_MODIFY_DATE, CBOARD_VIEW_COUNT, CBOARD_STATUS, MEMBER_ID, 
-      CBOARD_ORIGIN_FILENAME, CBOARD_CHANGE_FILENAME, MEMBER_NAME
-      FROM CBOARD
-      JOIN MEMBER USING (MEMBER_ID)
-      WHERE CBOARD_STATUS='Y'
-      ORDER BY CBOARD_NO DESC
-   </select>
-   
-   <insert id="insertBoard" parameterType="Board">
-      INSERT INTO CBOARD VALUES(
-         SEQ_CBNO.NEXTVAL, #{cBoardTitle}, #{cBoardContent}, 
-         SYSDATE, SYSDATE, DEFAULT, DEFAULT, #{memberId}, 
-         #{cBoardOriFilename}, #{cBoardChaFilename}, DEFAULT
-      )
-   </insert>
-   
-   <update id="addReadCount" parameterType="_int">
-      UPDATE CBOARD
-      SET CBOARD_VIEW_COUNT = CBOARD_VIEW_COUNT + 1
-      WHERE CBOARD_NO = #{cBoardNo}    
-   </update>
-   
+  
+	<resultMap id="replyResultSet" type="Reply">
+		<id property="cbReplyNo" column="CB_REPLY_NO"/> 
+		<result property="cbReplyContent" column="CB_REPLY_CONTENT"/> 
+		<result property="cbReplyCreateDate" column="CB_REPLY_CREATE_DATE"/> 
+		<result property="cbReplyModifyDate" column="CB_REPLY_MODIFY_DATE"/> 
+		<result property="cbReplyStatus" column="CB_REPLY_STATUS"/> 
+		<result property="cboardNo" column="CBOARD_NO"/> 
+		<result property="memberId" column="MEMBER_ID" />
+		<result property="memberName" column="MEMBER_NAME"/>
+	</resultMap>
+	 
+	
+	<select id="getListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM CBOARD
+		WHERE CBOARD_STATUS='Y'
+	</select>
+	
+	<select id="selectList" resultMap="boardResultSet">
+		SELECT CBOARD_NO, CBOARD_TITLE, CBOARD_CONTENT, CBOARD_CREATE_DATE, 
+		CBOARD_MODIFY_DATE, CBOARD_VIEW_COUNT, CBOARD_STATUS, MEMBER_ID, 
+		CBOARD_ORIGIN_FILENAME, CBOARD_CHANGE_FILENAME, MEMBER_NAME
+		FROM CBOARD
+		JOIN MEMBER USING (MEMBER_ID)
+		WHERE CBOARD_STATUS='Y'
+		ORDER BY CBOARD_NO DESC
+	</select>
+	
+	<insert id="insertBoard" parameterType="Board">
+		INSERT INTO CBOARD VALUES(
+			SEQ_CBNO.NEXTVAL, #{cBoardTitle}, #{cBoardContent}, 
+			SYSDATE, SYSDATE, DEFAULT, DEFAULT, #{memberId}, 
+			#{cBoardOriFilename}, #{cBoardChaFilename}, DEFAULT
+		)
+	</insert>
+	
+	<update id="addReadCount" parameterType="_int">
+		UPDATE CBOARD
+		SET CBOARD_VIEW_COUNT = CBOARD_VIEW_COUNT + 1
+		WHERE CBOARD_NO = #{cBoardNo}    
+	</update>
 
    <select id="selectBoard" parameterType="_int" resultMap="boardResultSet">
       SELECT CBOARD_NO, CBOARD_TITLE, CBOARD_CONTENT, CBOARD_CREATE_DATE, CBOARD_MODIFY_DATE, CBOARD_VIEW_COUNT, 
