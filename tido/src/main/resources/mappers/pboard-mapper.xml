@@ -19,7 +19,19 @@
 		<result property="projectFileName" column="PROJECT_FILE_NAME"/>
 		<result property="projectTitle" column="PROJECT_TITLE"/>
 	</resultMap>
-		
+	
+	<resultMap type="PBReply" id="pbReplyResultSet">
+		<id property="pbRNo" column="PB_REPLY_NO"/>
+		<result property="pbRContent" column="PB_REPLY_CONTENT"/>
+		<result property="pbRCreateDate" column="PB_REPLY_CREATE_DATE"/>
+		<result property="pbRModifyDate" column="PB_REPLY_MODIFY_DATE"/>
+		<result property="pbRStatus" column="PB_REPLY_STATUS"/>
+		<result property="refPbno" column="PBOARD_NO"/>
+		<result property="pbRWriterId" column="MEMBER_ID"/>
+		<result property="pbRWriterName" column="MEMBER_NAME"/>
+		<result property="memberImagePath" column="MEMBER_IMAGE_PATH"/>
+	</resultMap>	
+	
 	<select id="getpbListCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM PBOARD 
@@ -54,5 +66,25 @@
 		SET PBOARD_STATUS='N'
 		WHERE PBOARD_NO = #{pbNo}
 	</update>
-	
+	<insert id="insertPBReply" parameterType="PBReply">
+		INSERT INTO PB_REPLY
+		VALUES (SEQ_PBRNO.NEXTVAL,#{pbRContent},SYSDATE,SYSDATE,DEFAULT,#{refPbno},#{pbRWriterId})
+	</insert>
+	<select id="selectpbReplyList" parameterType="_int" resultMap="pbReplyResultSet">
+		SELECT PB_REPLY_CONTENT,PB_REPLY_CREATE_DATE,MEMBER_NAME,MEMBER_ID,MEMBER_IMAGE_PATH
+		FROM PB_REPLY
+		JOIN MEMBER USING (MEMBER_ID)
+		WHERE PBOARD_NO=#{refPbno}
+		ORDER BY PB_REPLY_NO DESC
+	</select>
+	<select id="getReplyCount" parameterType="_int" resultType="_int">
+		SELECT COUNT(*)
+		FROM PB_REPLY
+		WHERE PBOARD_NO=#{refPbno}
+	</select>
+	<update id="increaseViewCount" parameterType="_int">
+		UPDATE PBOARD
+		SET PBOARD_VIEW_COUNT=PBOARD_VIEW_COUNT+1
+		WHERE PBOARD_NO =#{refPbno}
+	</update>
 </mapper>

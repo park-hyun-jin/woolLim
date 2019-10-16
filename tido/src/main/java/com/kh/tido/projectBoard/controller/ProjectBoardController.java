@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.kh.tido.common.Pagination;
 import com.kh.tido.project.model.service.ProjectService;
 import com.kh.tido.project.model.vo.ProjectFile;
 import com.kh.tido.projectBoard.model.service.ProjectBoardService;
+import com.kh.tido.projectBoard.model.vo.PBReply;
 import com.kh.tido.projectBoard.model.vo.ProjectBoard;
 
 @Controller
@@ -64,5 +66,30 @@ public class ProjectBoardController {
 		int result = pbService.deletepBoard(pbNo);
 		return result +"";
 	}
-
+	
+	@ResponseBody
+	@RequestMapping(value="insertPBReply.kh",produces="application/json; charset=utf-8 ")
+	public String insertPBReply(PBReply pbReply) {
+		System.out.println(pbReply);
+		int result = pbService.insertPBReply(pbReply);
+		return result +"";
+	}
+	@ResponseBody
+	@RequestMapping(value="selectpbReplyList.kh",produces="application/json; charset=utf-8 ")
+	public String selectpbReplyList(int refPbno) {
+		ArrayList<PBReply> pbrList = pbService.selectpbReplyList(refPbno);
+		return new Gson().toJson(pbrList);
+	}
+	@ResponseBody
+	@RequestMapping(value="getReplyCount.kh",produces="application/json; charset=utf-8 ")
+	public String getReplyCount(int refPbno) {
+		int count = pbService.getReplyCount(refPbno);
+		return count+"";
+	}
+	@ResponseBody
+	@RequestMapping(value="increaseViewCount.kh",produces="application/json; charset=utf-8 ")
+	public String increaseViewCount(int refPbno) {
+		int count = pbService.increaseViewCount(refPbno);
+		return count+"";
+	}
 }

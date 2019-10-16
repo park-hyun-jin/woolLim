@@ -12,11 +12,13 @@ public class ProjectFile {
 	private String guitarSoundInfo;
 	private String drumSoundInfo;
 	private String projectTitle;
+	private String projectWriter;
+	private int refPNo;
 	public ProjectFile() {
 		// TODO Auto-generated constructor stub
 	}
 	public ProjectFile(int bpm, int beat, int length, String pianoSoundInfo, String bassSoundInfo,
-			String guitarSoundInfo, String drumSoundInfo, String projectTitle) {
+			String guitarSoundInfo, String drumSoundInfo, String projectTitle, String projectWriter, int refPNo) {
 		super();
 		this.bpm = bpm;
 		this.beat = beat;
@@ -26,6 +28,8 @@ public class ProjectFile {
 		this.guitarSoundInfo = guitarSoundInfo;
 		this.drumSoundInfo = drumSoundInfo;
 		this.projectTitle = projectTitle;
+		this.projectWriter = projectWriter;
+		this.refPNo = refPNo;
 	}
 	public int getBpm() {
 		return bpm;
@@ -75,14 +79,26 @@ public class ProjectFile {
 	public void setProjectTitle(String projectTitle) {
 		this.projectTitle = projectTitle;
 	}
+	public String getProjectWriter() {
+		return projectWriter;
+	}
+	public void setProjectWriter(String projectWriter) {
+		this.projectWriter = projectWriter;
+	}
+	public int getRefPNo() {
+		return refPNo;
+	}
+	public void setRefPNo(int refPNo) {
+		this.refPNo = refPNo;
+	}
 	@Override
 	public String toString() {
 		return "ProjectFile [bpm=" + bpm + ", beat=" + beat + ", length=" + length + ", pianoSoundInfo="
 				+ pianoSoundInfo + ", bassSoundInfo=" + bassSoundInfo + ", guitarSoundInfo=" + guitarSoundInfo
-				+ ", drumSoundInfo=" + drumSoundInfo + ", projectTitle=" + projectTitle + "]";
+				+ ", drumSoundInfo=" + drumSoundInfo + ", projectTitle=" + projectTitle + ", projectWriter="
+				+ projectWriter + ", refPNo=" + refPNo + "]";
 	}
 	
-
 	
 	
 	
