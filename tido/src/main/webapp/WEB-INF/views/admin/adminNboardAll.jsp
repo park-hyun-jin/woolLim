@@ -186,7 +186,9 @@
 		<!-------------- 게시물 검색하기 --------------->
 		<div id="searchArea" align="center">
 	
+<<<<<<< HEAD
 		<form action="adminNsearch.kh" name="searchForm" method="get">
+
 			
 			<select id="searchCondition" name="searchCondition">
 				<option value="all" <c:if test="${search.searchCondition == 'all'}">selected</c:if> >전체</option>

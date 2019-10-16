@@ -53,28 +53,28 @@
 			<div class="quantity">			
 				<div class="visitor">
 					<div class="counter">
-						<span>count</span>
+						<span>${sc.projectCount }</span>
 						<br>
 						<h4>전체 프로젝트 수</h4>
 					</div>
 				</div>
 				<div class="visitor">
 					<div class="counter">
-						<span>count</span>
+						<span>${sc.boardCount }</span>
 						<br>
-						<h4>전체 프로젝트 수</h4>
+						<h4>전체 게시글 수</h4>
 					</div>
 				</div>
 				<div class="visitor">
 					<div class="counter">
-						<span>count</span>
+						<span>${sc.memberCount }</span>
 						<br>
-						<h4>전체 프로젝트 수</h4>
+						<h4>전체 회원 수</h4>
 					</div>
 				</div>
 				<div class="visitor">
 					<div class="counter">
-						<span class="total"></span>
+						<span>${sc.visitCount }</span>
 						<br>
 						<h4>전체 방문자 수</h4>
 					</div>
@@ -83,17 +83,5 @@
 		</div>
 	</section>
 	<jsp:include page="common/footer.jsp"/>
-	<script>
-		$(function(){
-			$.ajax({
-				url : "visitor.kh",
-				type : "POST",
-				success : function(result){
-					console.log(result);
-					$(".total").text(result);
-				}
-			});
-		});
-	</script>
 </body>
 </html>

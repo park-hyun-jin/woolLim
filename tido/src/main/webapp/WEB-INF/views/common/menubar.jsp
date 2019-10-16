@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
         <title></title>
-         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <link href="https://fonts.googleapis.com/css?family=Audiowide|Open+Sans"rel="stylesheet">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
@@ -28,7 +28,7 @@
     	<c:url var="goProject" value="compPjtView.kh"></c:url>
     	<c:url var="goBoard" value="bList.kh"></c:url>
     	<c:url var="goNotice" value="nlist.kh"></c:url>
-    	<c:url var="goQna" value="Qna.kh"></c:url>
+    	<c:url var="goInquiry" value="iList.kh"></c:url>
     	<c:url var="goLoginPage" value="loginPage.kh"></c:url>
     	<c:url var="goMyPageInfo" value="myPageInfo.kh"></c:url>
     	
@@ -38,7 +38,7 @@
                 <li><a href="${goProject }">작곡하기</a></li> 
                 <li><a href="${goBoard }">공유게시판</a></li>
                 <li><a href="${goNotice }">공지사항</a></li>
-                <li><a href="#">문의하기</a></li>
+                <li><a href="${goInquiry}">문의하기</a></li>
                 <li>
                 	<c:choose>
 	                	<c:when test="${loginUser==null }">
@@ -51,7 +51,14 @@
 		           					onerror="this.src='${contextPath}/resources/images/user_after.png'">
 		           				</a>
 		           			</div>
-		           			<div class="nickname">${loginUser.name} 님</div>
+		           			<div class="nickname">
+		           			<c:if test="${loginUser.name eq 'admin' }">
+		           				<a href="admin.kh">
+		           			</c:if>${loginUser.name} 님
+		           			<c:if test="${loginUser.name eq 'admin' }">
+		           				</a>
+		           			</c:if>
+		           			</div>
 		           			<a href="logout.kh">로그아웃</a>
 	                	</c:otherwise>
                 	</c:choose>

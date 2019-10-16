@@ -1,21 +1,23 @@
 package com.kh.tido.notice.model.service;
 
 import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kh.tido.board.model.vo.PageInfo;
-import com.kh.tido.board.model.vo.Search;
+import com.kh.tido.notice.model.vo.Search;
 import com.kh.tido.common.Pagination;
 import com.kh.tido.member.model.dao.MemberDao;
 import com.kh.tido.notice.model.dao.NoticeDao;
 import com.kh.tido.notice.model.vo.Notice;
+import com.kh.tido.notice.model.vo.PageInfo;
 
 @Service("nService")
 public class NoticeServiceImpl implements NoticeService {
+	
 	
 	@Autowired
 	private NoticeDao nDao;
@@ -64,6 +66,19 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 
+	@Override
+	public ArrayList<Notice> searchList(Search search, int currentPage) {
+		
+		int listCount = nDao.getListCount();
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		return nDao.searchList(search, pi);
+	}
+
+
+
+	
 
 	}
 

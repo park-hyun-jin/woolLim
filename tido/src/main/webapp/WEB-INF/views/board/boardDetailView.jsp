@@ -46,6 +46,7 @@ table.type09 tbody td  {
     /* background: snow; */
     color: white;
 }
+
 </style>
 </head>
 <body>
@@ -89,14 +90,14 @@ table.type09 tbody td  {
 								</c:if>
 							</td>
 						</tr>
-						 
-						<button type="button" class="btn btn-outline-danger waves-effect reportPopBtn" data-toggle="modal" data-target="#centralModalDanger">
-						신고하기
+						<c:if test="${ loginUser.id != board.memberId }">
+ 			<button type="button" class="btn btn-outline-danger btn-rounded waves-effect" data-toggle="modal" data-target="#centralModalDanger">신고하기
+
 						<input type="hidden" value="${board.cBoardNo}">
-						</button>
-					
+					</button>
+
 						<jsp:include page="../Report/reportCBoardModal.jsp"/>		
-									
+						</c:if>			
 						<tr>
 							<td colspan="2" class="text-center" style="color: white">
 								<c:url var="bupView" value="bupView.kh">
@@ -114,7 +115,7 @@ table.type09 tbody td  {
 									<a href="${bupView }" class="btn btn-outline-primary waves-effect">수정하기</a>&nbsp;
 									<a href="${bdelete }" class="btn btn-outline-danger waves-effect">삭제하기</a>&nbsp;
 								</c:if>
-								<a href="${blist }" class="btn btn-outline-warning waves-effect">목록으로</a>
+								<a href="${blist}" class="btn btn-outline-warning waves-effect">목록으로</a>
 							</td>
 						</tr>
 					</table>
@@ -126,7 +127,7 @@ table.type09 tbody td  {
 	<div style="margin: 50px;"></div>
 
 	<!-- 댓글 목록  -->
-	<table id="rtb" align="center" width="65%;" cellspacing="0" class="type09">
+	<table id="rtb" align="center" width="65%;" cellspacing="0" class="type09" style="opacity: 50%; background-color: #343a40; width: 1235px; border-radius: 0 10% 0 0;">
 		<thead>
 			<tr>
 				<th colspan="1">
@@ -145,19 +146,19 @@ table.type09 tbody td  {
 		</tbody>
 	</table>
 
-	<div style="margin: 20px;"></div>
+	<!-- <div style="margin: 10px;"></div> -->
 
 	<!-- 댓글 등록  -->
 	<table align="center" width="65%;" cellspacing="0">
 		<tr>
-			<td ><textarea cols="157" rows="3" id="cbReplyContent"></textarea></td>
+			<td ><textarea cols="150" rows="3" id="cbReplyContent"></textarea></td>
 			<td>
-				<button id="rSubmit" class="btn btn-primary" style="background-color: #4B0082; border-radius: 10%">등록하기</button>
+				<button id="rSubmit" class="btn btn-primary" style="background-color: #4B0082; border-radius: 7%; width: 150px; height: 60px;">등록하기</button>
 			</td>
 		</tr>
-	</table>
+	</table><div style="margin: 70px;"></div>
 	<script>
-
+	
 	/* console창에 띄우기 */
 	/* $(function(){
 		var loginUser = '<c:out value="${board.memberId}"/>';
@@ -170,7 +171,7 @@ table.type09 tbody td  {
 			var cboardNo = ${board.cBoardNo};
 
 			if(cbReplyContent == ""){
-				alert("댓글을 입력하세요를레이요 구르트아줌마 징가제트 와이스가짱!");
+				alert("댓글을 입력하세요!");
 				return false;
 			}
 
@@ -211,24 +212,34 @@ table.type09 tbody td  {
 					 var $bNo; 
 					 var $btn;
 					 var $reportType;
-
+					 var loginUser="${loginUser.name}";
+					 var boardmemberId= "${board.memberId}";
+					 
 					 if(list.length > 0){ 
 						 $.each(list, function(i){
 							 $reportType=$("<input type='hidden'>").val(list[i].reportType);
 							 $bNo=$("<input type='hidden'>").val(list[i].cbReplyNo);
 							 $btn=$("<button type='button' class='btn btn-outline-danger waves-effect reportPopBtn' data-toggle='modal' data-target='#centralModalDanger'>");
-							 $btn.append("신고");
+							 
+							 console.log(loginUser);	
+							 console.log(list[i].memberName);
+							 
+							$btn.append("신고");
+							 
 							 $btn.append($bNo);
 							 $btn.append($reportType);
 							 $tr = $("<tr>");
 							 $memberId = $("<th>").text(list[i].memberName).css("width","200px");
 							 $cbReplyContent = $("<td>").html(list[i].cbReplyContent).css("width","700px");
-							 $cbReplyCreateDate = $("<td>").text(list[i].cbReplyCreateDate).css("width","100px");
+							 $cbReplyCreateDate = $("<td>").text(list[i].cbReplyCreateDate).css("width","200px");
 
 							 $tr.append($memberId);
 							 $tr.append($cbReplyContent);
 							 $tr.append($cbReplyCreateDate);
+							 
+							 if(loginUser != list[i].memberName){
 							 $tr.append($btn);
+							 }
 							 
 							 $tableBody.append($tr);
 							 reportButtonclick($btn);
@@ -249,7 +260,10 @@ table.type09 tbody td  {
 			$("#contentsNo").val(contentsNo);
 			$("#reportType").val(${board.reportType});
 		});
-		
+	
+	
+
+	
 		function reportButtonclick(btn){
 			btn.on("click",function(){
 				contentsNo=$(this).children("input").eq(0).val().trim();
@@ -259,6 +273,7 @@ table.type09 tbody td  {
 			});
 			
 		}
+	
 		
 	</script>
 </body>

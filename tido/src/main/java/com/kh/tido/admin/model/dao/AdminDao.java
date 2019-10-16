@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.tido.board.model.vo.Board;
-import com.kh.tido.board.model.vo.PageInfo;
+import com.kh.tido.notice.model.vo.PageInfo;
 import com.kh.tido.board.model.vo.Search;
 import com.kh.tido.inquiry.model.vo.Inquiry;
 import com.kh.tido.notice.model.vo.Notice;
@@ -30,19 +30,19 @@ public class AdminDao {
 		return sqlSession.selectOne("adminMapper.getListCount");
 	}
 	
-	public ArrayList<Board> selectList(PageInfo pi) {
+	public ArrayList<Board> selectList(com.kh.tido.notice.model.vo.PageInfo pi) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
 		return (ArrayList)sqlSession.selectList("adminMapper.selectList", null, rowBounds);
 	}
 	
-	public ArrayList<Board> selectListN(PageInfo pi) {
+	public ArrayList<Board> selectListN(com.kh.tido.notice.model.vo.PageInfo pi) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
 		return (ArrayList)sqlSession.selectList("adminMapper.selectListN", null, rowBounds);
 	}
 	
-	public ArrayList<Board> selectListAll(PageInfo pi) {
+	public ArrayList<Board> selectListAll(com.kh.tido.notice.model.vo.PageInfo pi) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
 		return (ArrayList)sqlSession.selectList("adminMapper.selectListAll", null, rowBounds);
@@ -151,7 +151,7 @@ public class AdminDao {
 		return sqlSession.selectOne("adminMapper.reportGetListCount");
 	}
 
-	public ArrayList<Report> rboardListAll(PageInfo pi) {
+	public ArrayList<Report> rboardListAll(com.kh.tido.notice.model.vo.PageInfo pi) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
 		return (ArrayList)sqlSession.selectList("adminMapper.rboardListAll", null, rowBounds);

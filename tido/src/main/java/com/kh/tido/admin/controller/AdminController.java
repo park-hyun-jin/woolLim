@@ -325,30 +325,38 @@ public class AdminController {
 			mv.addObject("list", list).addObject("pi", Pagination.getPageInfo()).setViewName("admin/adminIboardAll");
 		} else {
 			mv.addObject("msg", "게시글 목록 조회 실패").setViewName("common/errorPage");
+			
 		}
-
 		return mv;
 	}
+		
+		@RequestMapping("adminIsearch.kh")
+		public String inquirySearch(Search search, Model model){
+			
+			System.out.println(search.getSearchCondition());
+			System.out.println(search.getSearchValue());
+			System.out.println(search.getExistFile());
+			// 체크 O : on
+			// 체크 X : null
+			
+			ArrayList<Inquiry> inquirySearchList 
+				= aService.inquirySearchList(search);
+			
+			for(Inquiry i : inquirySearchList) {
+				System.out.println(i);
+			}
+			
+			
+			model.addAttribute("list", inquirySearchList);
+			model.addAttribute("search", search);
+			return "admin/adminIboardAll";
 
-	@RequestMapping("adminIsearch.kh")
-	public String inquirySearch(Search search, Model model) {
-
-		System.out.println(search.getSearchCondition());
-		System.out.println(search.getSearchValue());
-		System.out.println(search.getExistFile());
-		// 체크 O : on
-		// 체크 X : null
-
-		ArrayList<Inquiry> inquirySearchList = aService.inquirySearchList(search);
-
-		for (Inquiry i : inquirySearchList) {
-			System.out.println(i);
 		}
 
-		model.addAttribute("list", inquirySearchList);
-		model.addAttribute("search", search);
-		return "admin/adminIboardAll";
-	}
+	
+	
+
+	
 
 	// 문의사항 체크박스 삭제
 	@ResponseBody
@@ -369,6 +377,7 @@ public class AdminController {
 	}
 
 	// 신고관리 삭제,비삭제 게시글 모두 조회
+	
 	@RequestMapping("adminRboardListAll.kh")
 	public ModelAndView rboardListAll(ModelAndView mv, Integer page) {
 

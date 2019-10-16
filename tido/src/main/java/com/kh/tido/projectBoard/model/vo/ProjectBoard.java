@@ -16,13 +16,17 @@ public class ProjectBoard {
 	private String projectImagePath;
 	private String writerImagePath;
 	private String writerId;
+	private String projectPath;
+	private String projectFileName;
+	private String projectTitle;
 	public ProjectBoard() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public ProjectBoard(int pbNo, String pBoardTitle, String pBoardContent, Date pBoardCreateDate,
 			Date pBoardModifyDate, int pBoardViewCount, int pBoardLikeCount, String pBoardStatus, int refPNo,
-			String memberName, String projectImagePath, String writerImagePath, String writerId) {
+			String memberName, String projectImagePath, String writerImagePath, String writerId, String projectPath,
+			String projectFileName,String projectTitle) {
 		super();
 		this.pbNo = pbNo;
 		this.pBoardTitle = pBoardTitle;
@@ -37,6 +41,9 @@ public class ProjectBoard {
 		this.projectImagePath = projectImagePath;
 		this.writerImagePath = writerImagePath;
 		this.writerId = writerId;
+		this.projectPath = projectPath;
+		this.projectFileName = projectFileName;
+		this.projectTitle=projectTitle;
 	}
 	public int getPbNo() {
 		return pbNo;
@@ -116,13 +123,34 @@ public class ProjectBoard {
 	public void setWriterId(String writerId) {
 		this.writerId = writerId;
 	}
+	public String getProjectPath() {
+		return projectPath;
+	}
+	public void setProjectPath(String projectPath) {
+		this.projectPath = projectPath;
+	}
+	public String getProjectFileName() {
+		return projectFileName;
+	}
+	public void setProjectFileName(String projectFileName) {
+		this.projectFileName = projectFileName;
+	}
+	public String getProjectTitle() {
+		return projectTitle;
+	}
+	public void setProjectTitle(String projectTitle) {
+		this.projectTitle = projectTitle;
+	}
 	@Override
 	public String toString() {
 		return "ProjectBoard [pbNo=" + pbNo + ", pBoardTitle=" + pBoardTitle + ", pBoardContent=" + pBoardContent
 				+ ", pBoardCreateDate=" + pBoardCreateDate + ", pBoardModifyDate=" + pBoardModifyDate
 				+ ", pBoardViewCount=" + pBoardViewCount + ", pBoardLikeCount=" + pBoardLikeCount + ", pBoardStatus="
 				+ pBoardStatus + ", refPNo=" + refPNo + ", memberName=" + memberName + ", projectImagePath="
-				+ projectImagePath + ", writerImagePath=" + writerImagePath + ", writerId=" + writerId + "]";
+				+ projectImagePath + ", writerImagePath=" + writerImagePath + ", writerId=" + writerId
+				+ ", projectPath=" + projectPath + ", projectFileName=" + projectFileName + ", projectTitle="
+				+ projectTitle + "]";
 	}
+	
 	
 }

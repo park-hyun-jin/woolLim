@@ -9,12 +9,12 @@ import org.springframework.stereotype.Service;
 
 import com.kh.tido.admin.model.dao.AdminDao;
 import com.kh.tido.board.model.vo.Board;
-import com.kh.tido.board.model.vo.PageInfo;
 import com.kh.tido.board.model.vo.Search;
 import com.kh.tido.common.Pagination;
 import com.kh.tido.inquiry.model.vo.Inquiry;
 import com.kh.tido.notice.model.dao.NoticeDao;
 import com.kh.tido.notice.model.vo.Notice;
+import com.kh.tido.notice.model.vo.PageInfo;
 import com.kh.tido.report.model.vo.Report;
 
 @Service("aService")

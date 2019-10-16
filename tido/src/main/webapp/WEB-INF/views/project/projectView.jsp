@@ -32,7 +32,6 @@ var pageCheck="projectView";
 					<button id="cancel">취소</button>
 				</div>
 		</div>
-	
 	</div>
 	<div id="saveMessage" align="center">
 		저장중입니다<span class="dot"></span>
@@ -97,7 +96,7 @@ var pageCheck="projectView";
     var bassNoteArr = '<c:out value="${note1}"/>'.split(",");
 	var chordArr = '<c:out value="${chord}"/>'.split(","); 
 	var drumArr = '<c:out value="${drum}"/>'.split(","); 
-	 var length = $("#length").val();
+	var length = $("#length").val();
 	$(function() {
 		var play;
 	    var instruments = ["piano","bass"];
