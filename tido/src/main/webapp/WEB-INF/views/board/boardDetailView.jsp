@@ -145,7 +145,7 @@ table.type09 tbody td  {
 
 		</tbody>
 	</table>
-
+	
 	<!-- <div style="margin: 10px;"></div> -->
 
 	<!-- 댓글 등록  -->
@@ -276,5 +276,6 @@ table.type09 tbody td  {
 	
 		
 	</script>
+	<jsp:include page="../common/footer.jsp"/>
 </body>
 </html>
