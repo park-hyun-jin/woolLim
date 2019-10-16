@@ -28,4 +28,19 @@ public class VisitorServiceImpl implements VisitorService{
 		return vDao.selectVisitor();
 	}
 
+	@Override
+	public String projectCount() {		
+		return vDao.projectCount();
+	}
+
+	@Override
+	public String boardCount() {		
+		return vDao.boardCount();
+	}
+
+	@Override
+	public String memberCount() {
+		return vDao.memberCount();
+	}
+
 }
