@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.tido.board.model.vo.PageInfo;
+import com.kh.tido.projectBoard.model.vo.PBReply;
 import com.kh.tido.projectBoard.model.vo.ProjectBoard;
 
 @Repository("pbDao")
@@ -36,6 +37,24 @@ public class ProjectBoardDao {
 
 	public int deletepBoard(int pbNo) {
 		return sqlSession.update("pboardMapper.deletepBoard",pbNo);
+	}
+
+	public int insertPBReply(PBReply pbReply) {
+		return sqlSession.insert("pboardMapper.insertPBReply",pbReply);
+	}
+
+	public ArrayList<PBReply> selectpbReplyList(int refPbno) {
+		return (ArrayList)sqlSession.selectList("pboardMapper.selectpbReplyList",refPbno);
+	}
+
+	public int getReplyCount(int refPbno) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("pboardMapper.getReplyCount",refPbno);
+	}
+
+	public int increaseViewCount(int refPbno) {
+		
+		return sqlSession.update("pboardMapper.increaseViewCount",refPbno);
 	}
 
 

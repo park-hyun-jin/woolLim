@@ -15,4 +15,10 @@ public interface VisitorService {
 	 */
 	String selectVisitor();
 
+	String projectCount();
+
+	String boardCount();
+
+	String memberCount();
+
 }

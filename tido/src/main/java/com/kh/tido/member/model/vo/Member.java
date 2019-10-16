@@ -15,6 +15,7 @@ public class Member {
 	private String imagePath;
 	private String memberAuthKey;
 	private String memberAuthStatus;
+	private Date memberBanDate;
 	
 	public Member() {
 		
@@ -42,6 +43,25 @@ public class Member {
 		this.imagePath = imagePath;
 		this.memberAuthKey = memberAuthKey;
 		this.memberAuthStatus = memberAuthStatus;
+	}
+
+	
+
+	public Member(String id, String name, String pwd, Date enrollDate, Date modifyDate, int reportCount, int banCount,
+			String status, String imagePath, String memberAuthKey, String memberAuthStatus, Date memberBanDate) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.pwd = pwd;
+		this.enrollDate = enrollDate;
+		this.modifyDate = modifyDate;
+		this.reportCount = reportCount;
+		this.banCount = banCount;
+		this.status = status;
+		this.imagePath = imagePath;
+		this.memberAuthKey = memberAuthKey;
+		this.memberAuthStatus = memberAuthStatus;
+		this.memberBanDate = memberBanDate;
 	}
 
 
@@ -155,14 +175,22 @@ public class Member {
 	}
 
 
+	public Date getMemberBanDate() {
+		return memberBanDate;
+	}
+
+
+	public void setMemberBanDate(Date memberBanDate) {
+		this.memberBanDate = memberBanDate;
+	}
+
+	
 	@Override
 	public String toString() {
 		return "Member [id=" + id + ", name=" + name + ", pwd=" + pwd + ", enrollDate=" + enrollDate + ", modifyDate="
 				+ modifyDate + ", reportCount=" + reportCount + ", banCount=" + banCount + ", status=" + status
 				+ ", imagePath=" + imagePath + ", memberAuthKey=" + memberAuthKey + ", memberAuthStatus="
-				+ memberAuthStatus + "]";
+				+ memberAuthStatus + ", memberBanDate=" + memberBanDate + "]";
 	}
-	
-	
 
 }

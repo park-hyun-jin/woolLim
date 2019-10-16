@@ -11,6 +11,18 @@
 	#myTable{
 		/* text-align:center; */
 	}
+	#user_after{
+		background-color: black;
+		width:200px;
+		height:200px;
+	}
+	.userProfile>h2{
+		display:inline-block;
+	}
+	#user_after:hover{
+		width:500px;
+		height:500px;
+	}
 </style>
 </head>
 <body>
@@ -28,8 +40,13 @@
             
           </div>
     	<br>
-           
-          <h2>${member.id } 상세 페이지</h2>
+           <div class="userProfile">
+        	<img id="user_after" src="${contextPath}/resources/muploadFiles/${member.id}/${member.imagePath}"
+				onerror="this.src='${contextPath}/resources/images/user_after.png'">
+			<h2>${member.id } 상세 페이지</h2>
+
+		  </div>
+          
           <br>
           <div class="table-responsive" style="width:98%;">
             <table class="table table-striped table-sm">
@@ -57,7 +74,7 @@
           </div>
           <br>
           <h4>유저 작성 게시글</h4>
-          <div class="table-responsive" style="width:50%;">
+          <div class="table-responsive" style="width:98%;">
             <table class="table table-striped table-sm" id="myTable">
               <thead>
                 <tr>
@@ -127,7 +144,7 @@
 						checkArray.push($(this).val());
 					});
 					$.ajax({
-						url:"aDeleteMember.kh",
+						url:"aDeleteMemberBoard.kh",
 						data:{checkArray:checkArray},
 						type:"post",
 						success:function(result){
@@ -146,7 +163,7 @@
 						checkArray.push($(this).val());
 					});
 					$.ajax({
-						url:"aReviveMember.kh",
+						url:"aReviveMemberBoard.kh",
 						data:{checkArray:checkArray},
 						type:"post",
 						success:function(result){
@@ -178,6 +195,28 @@
 			    },
 				
 			});
+			$('#myTable_filter').prepend('<input type="text" id="toDate" placeholder="yyyy-MM-dd"> ');
+		    $('#myTable_filter').prepend('<input type="text" id="fromDate" placeholder="yyyy-MM-dd">~');
+		    
+		    $.fn.dataTable.ext.search.push(
+		    	    function(settings, data, dataIndex){
+		    	        var min = Date.parse($('#fromDate').val());
+		    	        var max = Date.parse($('#toDate').val());
+		    	        var targetDate = Date.parse(data[5]);
+		    	 
+		    	        if( (isNaN(min) && isNaN(max) ) || 
+		    	            (isNaN(min) && targetDate <= max )|| 
+		    	            ( min <= targetDate && isNaN(max) ) ||
+		    	            ( targetDate >= min && targetDate <= max) ){ 
+		    	                return true;
+		    	        }
+		    	        return false;
+		    	    }
+		    	)
+		    
+		    $('#toDate, #fromDate').unbind().bind('keyup',function(){
+			    table.draw();
+			})
 		});
 	</script>
 </body>

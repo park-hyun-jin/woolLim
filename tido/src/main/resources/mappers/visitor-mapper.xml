@@ -34,4 +34,19 @@
 		FROM VISITOR
 	</select>
 	
+	<select id="projectCount" resultType="string">
+		SELECT COUNT(*)
+		FROM PROJECT
+	</select>
+	
+	<select id="boardCount" resultType="string">
+		SELECT COUNT(*)
+		FROM CBOARD
+	</select>
+	
+	<select id="memberCount" resultType="string">
+		SELECT COUNT(*)
+		FROM MEMBER
+	</select>
+	
 </mapper>

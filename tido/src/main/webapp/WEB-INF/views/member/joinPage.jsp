@@ -11,12 +11,11 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
     <style>
-
-        body {
-            width: 1200px;
-            height: 1000px;
-            margin: auto;
-            color: white;
+    
+    	.container {
+            width: 800px;
+            height: auto;
+    		background-color: rgba( 255, 255, 255, 0.5 );
         }
 
         .joinForm {
@@ -99,90 +98,98 @@
             border: 1px solid darkgray;
             margin-left: 20px;
         }
+        
+        .insertTable td:nth-child(3) {
+        	width: 200px;
+        }
 
     </style>
     <body>
     	<jsp:include page="../common/menubar.jsp"></jsp:include>
     	
-        <div class="titleArea">
-            <h1>회원가입</h1>
-        </div>
-        <form action="minsert.kh" method="POST" class="joinForm" enctype="Multipart/form-data">
-            <div id="profileArea">
-                <img id="profileImg">
-                <h5>프로필 사진</h5>
-            </div>
-            <input type="file" id="uploadFile" name="uploadFile" multiple="multiple" onchange="loadImg(this,1);">
-            <table class="insertTable">
-                    <tr>
-                        <td>
-                            <label for="inputEmail" >이메일 *</label>
-                        </td>
-                        <td>
-                        	<c:if test="${empty emailMsg}">
-                        		<input type="email" class="insertInput" id="inputEmail" placeholder="Email" name="id" value="${memberId}" readonly required>
-                        	</c:if>
-                        	<c:if test="${!empty emailMsg}">
-                            	<input type="email" class="insertInput" id="inputEmail" placeholder="Email" name="id" readonly required>
-                            	<script>alert("${emailMsg}")</script>
-                        	</c:if>
-                        </td>
-                        <td>
-                        	<c:choose>
-                        		<c:when test="${empty emailMsg && !empty memberId}">
-                        			<h6 id="emailText" style="color:green">이메일이 인증되었습니다.</h6>
-                        		</c:when>
-                        		<c:when test="${!empty emailMsg && empty memberId}">
-                        			<h6 id="emailText" style="color:red">이메일이 인증되지 않았습니다. 다시 인증해주세요</h6>
-                        		</c:when>
-                        		<c:otherwise>
-                        			<h6 id="emailText" style="color:red">이메일을 인증해주세요.</h6>
-                        		</c:otherwise>
-                        	</c:choose>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="inputPassword">비밀번호 *</label>
-                        </td>
-                        <td>
-                            <input type="password" class="insertInput" id="inputPassword" placeholder="Password" name="pwd" required>
-                        </td>
-                        <td>
-                            <h6 id="pwdText"></h6>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="inputPasswordConfirm">비밀번호 확인 *</label>
-                        </td>
-                        <td>
-                            <input type="password" class="insertInput" id="inputPasswordConfirm" placeholder="Password Confirm" required>
-                        </td>
-                        <td>
-                            <h6 id="pwdConfirmText"></h6>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="inputNickName">닉네임 *</label>
-                        </td>
-                        <td>
-                            <input type="text" class="insertInput" id="inputNickName" placeholder="nickname" name="name" required>
-                        </td>
-                        <td>
-                            <h6 id="nickNameText"></h6>
-                        </td>
-                    </tr>
-                </table>
-            <br>
-            <div>
-                <ul class="join_ul">
-                    <li><button type="submit" class="btn btn-success" onclick="return insertBtn();">가입하기</button></li>
-                    <li><button type="button" class="btn btn-secondary" onclick="history.back();">취소하기</button></a></li>
-                </ul>
-            </div>
-        </form>
+    	<div class="container">
+	    	<div class="titleArea">
+	            <h1>회원가입</h1>
+	        </div>
+	        
+	        <form action="minsert.kh" method="POST" class="joinForm" enctype="Multipart/form-data">
+	            <div id="profileArea">
+	                <img src='${contextPath}/resources/images/noimage.png' id="profileImg">
+	                <h5>프로필 사진</h5>
+	            </div>
+	            <input type="file" id="uploadFile" name="uploadFile" multiple="multiple" onchange="loadImg(this,1);">
+	            <table class="insertTable">
+	                    <tr>
+	                        <td>
+	                            <label for="inputEmail" >이메일 *</label>
+	                        </td>
+	                        <td>
+	                        	<c:if test="${empty emailMsg}">
+	                        		<input type="email" class="insertInput" id="inputEmail" placeholder="Email" name="id" value="${memberId}" readonly required>
+	                        	</c:if>
+	                        	<c:if test="${!empty emailMsg}">
+	                            	<input type="email" class="insertInput" id="inputEmail" placeholder="Email" name="id" readonly required>
+	                            	<script>alert("${emailMsg}")</script>
+	                        	</c:if>
+	                        </td>
+	                        <td>
+	                        	<c:choose>
+	                        		<c:when test="${empty emailMsg && !empty memberId}">
+	                        			<h6 id="emailText" style="color:green">이메일이 인증되었습니다.</h6>
+	                        		</c:when>
+	                        		<c:when test="${!empty emailMsg && empty memberId}">
+	                        			<h6 id="emailText" style="color:red">이메일이 인증되지 않았습니다. 다시 인증해주세요</h6>
+	                        		</c:when>
+	                        		<c:otherwise>
+	                        			<h6 id="emailText" style="color:red">이메일을 인증해주세요.</h6>
+	                        		</c:otherwise>
+	                        	</c:choose>
+	                        </td>
+	                    </tr>
+	                    <tr>
+	                        <td>
+	                            <label for="inputPassword">비밀번호 *</label>
+	                        </td>
+	                        <td>
+	                            <input type="password" class="insertInput" id="inputPassword" placeholder="Password" name="pwd" required>
+	                        </td>
+	                        <td>
+	                            <h6 id="pwdText"></h6>
+	                        </td>
+	                    </tr>
+	                    <tr>
+	                        <td>
+	                            <label for="inputPasswordConfirm">비밀번호 확인 *</label>
+	                        </td>
+	                        <td>
+	                            <input type="password" class="insertInput" id="inputPasswordConfirm" placeholder="Password Confirm" required>
+	                        </td>
+	                        <td>
+	                            <h6 id="pwdConfirmText"></h6>
+	                        </td>
+	                    </tr>
+	                    <tr>
+	                        <td>
+	                            <label for="inputNickName">닉네임 *</label>
+	                        </td>
+	                        <td>
+	                            <input type="text" class="insertInput" id="inputNickName" placeholder="nickname" name="name" required>
+	                        </td>
+	                        <td>
+	                            <h6 id="nickNameText"></h6>
+	                        </td>
+	                    </tr>
+	                </table>
+	            <br>
+	            <div>
+	                <ul class="join_ul">
+	                    <li><button type="submit" class="btn btn-success" onclick="return insertBtn();">가입하기</button></li>
+	                    <li><button type="button" class="btn btn-secondary" onclick="history.back();">취소하기</button></a></li>
+	                </ul>
+	            </div>
+	        </form>
+    	</div>
+        
         
         
 		<script>
@@ -292,8 +299,12 @@
 			var pwd = $("#inputPassword");
 	        var pwdConfirm = $("#inputPasswordConfirm");
 	        var nickName = $("#inputNickName");
-			
-	        if(pwdCheck == false) {
+	        var emailVal = $("#inputEmail").val();
+	        
+	        if(emailVal == ""){
+	        	alert("이메일을 인증해주세요");
+	        	return false;
+	        }else if(pwdCheck == false) {
 	        	alert("비밀번호를 다시 입력해주세요");
 	        	pwd.focus();
 	        	return false;

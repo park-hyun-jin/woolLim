@@ -1,0 +1,278 @@
+@charset "UTF-8";
+section{
+			height:1200px;
+			overflow: scroll;
+	}
+	section,#header{
+		width:100%;
+		margin:auto;
+		background:rgba(0,0,0,0.8);
+		
+	}
+	.wrapper{
+		background: rgba(0,0,0,0.8);
+		width:50%;
+		margin:auto;
+		margin-bottom: 20px;
+		border-radius: 10px;
+	}
+	.boardInsertbtn{
+	 	background-color: rgb(25,25,25) !important;
+	 	border: 2px solid rgb(25,25,25) !important;
+	 	margin:10px 10px 0 0;
+	}
+	#header>h2{
+		padding:10px;
+		width:80%;
+		display:inline-block;
+		color: white;
+
+	}
+	table{
+		margin:auto;
+	}
+	.pBoard{
+		width:100%;
+		height:300px;
+		margin-bottom: 5px;
+		color:white;
+	}
+	.reply,.replybtnarea,.replyView{
+		width:100%;
+		height:80px;
+		padding-left:10px;
+		color:white;
+		
+	}
+	.replybtnarea{
+	   height:30px;
+	}
+	.replyView{
+	   height: 200px;
+	   display:none;
+	   overflow: scroll;
+	}
+	.replybtnarea:hover{
+		cursor: pointer;
+		text-decoration: underline;
+	}
+	.reply>img{
+		display:inline-block;
+		line-height: 80px;
+	}
+	.reply>div:first-child{
+		float:left;
+		padding-top:18px;
+		width:8%;
+	}
+	.reply>div:nth-child(2){
+		float:left;
+		padding-top:14px;
+		width:92%;
+	}
+	.textarea{
+		height: 100%;
+	
+	}
+	.reply>div>textarea{
+		background: none;
+		resize:none;
+		border-radius: 5px;
+		border:2px solid white;
+		color:white;
+		height: auto;
+		width:95%;
+	}
+	.pBoard>div{
+		float:left;
+	}
+	
+	.pBoardInfo{
+		width:60%;
+		height: 100%;
+	}
+	.projectImage{
+		width:38%;
+		height: 95%;
+		border:1px solid white;
+		margin:1%;
+		border-radius: 10px;
+		position:relative;
+	}
+	.pBoard>.pBoardInfo>div{
+		width:100%;
+	}
+	.writer{
+		padding:20px 0 0 20px;
+		height: 48px;
+	}
+	.writer img{
+		width:48px; 
+		height:48px;
+		border-radius: 50%;
+	}
+	.count{
+		padding-left:20px;
+		height: 10%;
+		padding-left:10px;
+	}
+	.count span{
+		margin-right: 10px;
+	}
+	.count img{
+		width:20px; 
+		height:20px;
+	}
+	.date{
+	   font-size:12px;
+	   height: 10%;
+	   padding:10px;
+	}
+	.title{
+		padding-left:10px;
+		font-weight: bolder;
+		height: 10%;
+	}
+	.content{
+		padding-left:10px;
+		height: 40%;
+	}
+	.projectImage>img{
+		padding:20px;
+		padding-bottom:0px;
+		width:100%;
+		height: 70%;
+	}
+	.projectImage>div{
+		width:100%;
+		height: 30%;
+		position: relative;
+		
+	}
+	.projectImage>div>p{
+		margin:0;
+		padding:0;
+		padding-left:20px;
+		font-size: 12px;
+	}
+	.projectImage>div>h5{
+		margin:0;
+		padding:0;
+		padding-left:15px;
+		font-size: 20px;
+	}
+	::-webkit-scrollbar{
+		display:none;
+	}
+	.view,.etc{
+	  -webkit-filter: invert(100%);
+         filter: invert(100%);
+	}
+	.etc:hover{
+		cursor: pointer;
+	}
+	
+	.contextmenu {
+	  display: none;
+	  position: absolute;
+	  width: 200px;
+	  margin: 0;
+	  padding: 0;
+	  background: #FFFFFF;
+	  border-radius: 5px;
+	  list-style: none;
+	  box-shadow:
+	    0 15px 35px rgba(50,50,90,0.1),
+	    0 5px 15px rgba(0,0,0,0.07);
+	  overflow: hidden;
+	  z-index: 999999;
+	}
+
+.contextmenu li {
+  border-left: 3px solid transparent;
+  transition: ease .2s;
+}
+
+.contextmenu li span {
+  display: block;
+  padding: 10px;
+  color: black;
+  text-decoration: none;
+  transition: ease .2s;
+}
+.contextmenu li:hover {
+  background: #CE93D8;
+  border-left: 3px solid #9C27B0;
+  cursor: pointer;
+}
+
+.contextmenu li:hover span {
+  color: #FFFFFF;
+}
+
+.updateModal{
+		position: fixed;
+		width:100%;
+		height: 100%;
+		background: rgba(0,0,0,0.7);
+		top:0;
+		left:0;
+		z-index:3;
+		display: none;
+	}
+	.updateModal>div{
+		margin:auto;
+		margin-top:150px;
+		background:rgba(255,255,255,0.9);
+		width:400px;
+		height: 400px;
+		border-radius: 5px;
+	}
+	.updateModal>div>h2{
+		padding:10px;
+		
+	}
+	.updateModal>div>div{
+		width:100%;
+		text-align: center;
+	}
+	.insertTitle{
+		height: 10%;
+	}
+	.refProject{
+		height: 20%;
+		text-align: left;
+		
+	}
+	.refProject>input{
+		width:90%;
+	}
+	
+	.insertContent{
+		height: 45%;
+	}
+	.insertTitle>input{
+		width:90%;
+		border:1px solid grey;
+		border-radius: 3px;
+	}
+	.insertContent>textarea{
+		width:90%;
+		height: 90%;
+		border:1px solid grey;
+		resize: none;
+		border-radius: 3px;
+	}
+	.button{
+		height: 15%;
+		text-align: center;
+	}
+	.projectImage:hover{
+		cursor: pointer;
+		opacity: 0.7;
+	}
+	.reply img{
+		width:48px; 
+		height:48px;
+		border-radius: 50%;
+	}

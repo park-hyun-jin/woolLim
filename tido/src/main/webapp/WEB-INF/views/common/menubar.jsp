@@ -36,7 +36,7 @@
             <ul class="nav_ul">
                 <li><a href="${goMain }"><img src="${contextPath }/resources/images/main.png" width="135px" height="90px"></a></li>
                 <li><a href="${goProject }">작곡하기</a></li> 
-                <li><a href="${goBoard }">공유게시판</a></li>
+                <li><a href="${goBoard }">일반게시판</a></li>
                 <li><a href="${goNotice }">공지사항</a></li>
                 <li><a href="${goInquiry}">문의하기</a></li>
                 <li>
@@ -51,7 +51,14 @@
 		           					onerror="this.src='${contextPath}/resources/images/user_after.png'">
 		           				</a>
 		           			</div>
-		           			<div class="nickname">${loginUser.name} 님</div>
+		           			<div class="nickname">
+		           			<c:if test="${loginUser.name eq 'admin' }">
+		           				<a href="admin.kh">
+		           			</c:if>${loginUser.name} 님
+		           			<c:if test="${loginUser.name eq 'admin' }">
+		           				</a>
+		           			</c:if>
+		           			</div>
 		           			<a href="logout.kh">로그아웃</a>
 	                	</c:otherwise>
                 	</c:choose>

@@ -111,29 +111,53 @@
       CBOARD_STATUS, MEMBER_ID, CBOARD_ORIGIN_FILENAME, CBOARD_CHANGE_FILENAME, MEMBER_NAME
       FROM CBOARD
       JOIN MEMBER USING (MEMBER_ID)
-      <where>
+      WHERE
          <if test="existFile != null">
             CBOARD_ORIGIN_FILENAME IS NOT NULL
          </if>
          
          <choose>
             <when test="searchCondition == 'title'">
-               AND MEMBER_NAME LIKE #{sv}
+               CBOARD_TITLE LIKE #{sv}
             </when>
             <when test="searchCondition == 'writer'">
-               AND CBOARD_TITLE LIKE #{sv}
+               MEMBER_NAME LIKE #{sv}
             </when>
             <when test="searchCondition == 'content'">
-               AND CBOARD_CONTENT LIKE #{sv}
+               CBOARD_CONTENT LIKE #{sv}
             </when>
             <otherwise>
-               AND (MEMBER_NAME LIKE #{sv}
+               (MEMBER_NAME LIKE #{sv}
                OR CBOARD_TITLE LIKE #{sv}
                OR CBOARD_CONTENT LIKE #{sv})
             </otherwise>
          </choose>
-      </where>
       ORDER BY CBOARD_CREATE_DATE DESC   
    </select>
+   
+   <select id="getSearchListCount" parameterType="Search" resultType="_int">
+   <bind name="sv" value="'%'+ _parameter.getSearchValue() +'%'" />
+		SELECT COUNT(*)
+		FROM CBOARD
+		JOIN MEMBER USING (MEMBER_ID)
+		WHERE CBOARD_STATUS='Y'
+		AND 
+		<choose>
+            <when test="searchCondition == 'title'">
+               CBOARD_TITLE LIKE #{sv}
+            </when>
+            <when test="searchCondition == 'writer'">
+               MEMBER_NAME LIKE #{sv}
+            </when>
+            <when test="searchCondition == 'content'">
+               CBOARD_CONTENT LIKE #{sv}
+            </when>
+            <otherwise>
+               (MEMBER_NAME LIKE #{sv}
+               OR CBOARD_TITLE LIKE #{sv}
+               OR CBOARD_CONTENT LIKE #{sv})
+            </otherwise>
+         </choose>
+	</select>
 
 </mapper>
