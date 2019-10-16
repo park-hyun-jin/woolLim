@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.tido.board.model.vo.Board;
 import com.kh.tido.project.model.vo.Project;
 
 @Repository
@@ -42,7 +43,11 @@ public class ProjectDao {
 	public int deleteProject(int pNo) {
 		return sqlSession.update("projectMapper.deleteProject",pNo);
 	}
-	
+
+	public int getListCount() {
+		return sqlSession.selectOne("projectMapper.getListCount");
+	}
+
 	
 	
 }

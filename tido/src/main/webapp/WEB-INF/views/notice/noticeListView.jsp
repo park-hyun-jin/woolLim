@@ -138,8 +138,7 @@ float:right;
 	<div id="container" cellspacing="">
 		<c:if test="${ loginUser.id == 'admin@admin.com' }">
 			<div align="center">
-				<button type="button" class="btn btn-primary" id="modal_show">
-					글쓰기</button>
+				<button type="button" class="btn btn-primary" id="modal_show">글쓰기</button>
 			</div>
 		</c:if>
 

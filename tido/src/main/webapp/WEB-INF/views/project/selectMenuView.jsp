@@ -24,11 +24,11 @@
 	            <div >내 프로젝트</div>
 	         </div>
 	      </div>
-	      <div class="area area3" onclick="location.href='pjtBoardListView.kh'">
-	      	 <div>
-	            <img src="${contextPath }/resources/images/share-music.png">
-	            <div >공유게시판</div>
-	         </div>
+	      <div class="area area3" onclick="">
+	      	<div>
+	      		<img src="${contextPath }/resources/images/development-project.jpg">
+	      		<div>프로젝트 게시판</div>
+	      	</div>
 	      </div>
 	   </div>
    </section>
