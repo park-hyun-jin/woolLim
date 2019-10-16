@@ -8,9 +8,8 @@
 <html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
-    	<script type="text/javascript" src="${contextPath }/resources/js/admin/dashboard.js"></script>
-	      <link rel="icon" type="image/png"  href="resources/images/svnicon.png"/> <!-- favicon fix -->
+    
+	<link rel="icon" type="image/png"  href="resources/images/svnicon.png"/> <!-- favicon fix -->
 	<!-- jQuery, bootstrap CDN -->
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<script src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script> <!-- msie 문제 해결 -->
@@ -52,9 +51,7 @@
               </button>
             </div>
           </div>
-    	<canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
-	      
-	
+    	<%-- <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas> --%>
           <h2>일정 관리</h2>
           <div class="table-responsive">  
                 <jsp:include page="/WEB-INF/views/calendar/calendarAdmin.jsp"/>
@@ -62,7 +59,8 @@
         </main>
       </div>
     </div>	
-    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+    <script type="text/javascript" src="${contextPath }/resources/js/admin/dashboard.js"></script>
 	<script>
 		$(document).ready(function(){
 			$(".home").addClass("active");
