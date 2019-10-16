@@ -13,7 +13,7 @@
                 margin: 0;
                 padding: 0;
                 box-sizing: border-box;
-                color: white;
+                color: black;
             }
 
             .container {
@@ -21,6 +21,7 @@
                 height: 800px;
                 margin: auto;
                 padding: 0;
+                background-color: rgba( 255, 255, 255, 0.5 );
             }
 
             .menu {
@@ -43,7 +44,7 @@
 
             .menu li a {
                 text-decoration: none;
-                color: white;
+                color: black;
                 font-size: 25px;
                 font-weight: bold;
             }
@@ -104,19 +105,38 @@
                 margin-right: 10px;
                 font-size: 17px;
             }
+            
+            .content a {
+            	color: black;
+            }
+            
+            .content a:hover {
+				text-decoration: none;
+			}
 
         </style>
     </head>
     <body>
     	<jsp:include page="../common/menubar.jsp"></jsp:include>
+    	
+    	<c:url var="memberBoardPage" value="memberBoardList.kh">
+    		<c:param name="id" value="${loginUser.id }"/>
+    	</c:url>
+    	<c:url var="memberReplyPage" value="memberReplyList.kh">
+    		<c:param name="id" value="${loginUser.id }"/>
+    	</c:url>
+    	<c:url var="memberQnaPage" value="memberQnaList.kh">
+    		<c:param name="id" value="${loginUser.id }"/>
+    	</c:url>
+    	
         <div class="container">
             <div class="menu">
                 <ul>
-                    <li><a href="myPageInfo.kh" style="color: black">회원정보</a></li>
-                    <li><a href="myPageProject.kh">작곡 프로젝트 관리</a></li>
-                    <li><a href="myPageBoard.kh">작성 글</a></li>
-                    <li><a href="#">작성 댓글</a></li>
-                    <li><a href="#">신고 및 문의 내역</a></li>
+                    <li><a href="myPageInfo.kh" style="color: dimgrey">회원정보</a></li>
+                    <li><a href="projectListView.kh">작곡 프로젝트 관리</a></li>
+                    <li><a href="${ memberBoardPage }">작성 글</a></li>
+                    <li><a href="${memberReplyPage }">작성 댓글</a></li>
+                    <li><a href="${memberQnaPage}">문의 내역</a></li>
                 </ul>
             </div>
             <div class="content">
@@ -141,10 +161,23 @@
                     </table>
                 </div>
                 <div class="content-3" align="center">
-                    <button type="button" class="btn btn-primary" style="background-color:rgb(46, 46, 48)">수정</button>
-                    <button type="button" class="btn btn-danger" style="background-color:rgb(136, 5, 16)">탈퇴</button>
+                    <button type="button" class="btn btn-primary" onclick="updateBtn()" style="background-color:rgb(46, 46, 48)">수정</button>
+                    <button type="button" class="btn btn-danger" onclick="deleteBtn()" style="background-color:rgb(136, 5, 16)">탈퇴</button>
                 </div>
             </div>
         </div>
+        <script>
+        	var id = "<c:out value='${loginUser.id}'/>";
+        
+        	function updateBtn() {
+        		location.href="updatePage.kh";
+        	}
+        	
+        	function deleteBtn() {
+        		if(confirm("정말 탈퇴하시겠습니까?")) {
+        			location.href="mdelete.kh?id="+id;
+        		}
+        	}
+        </script>
     </body>
 </html>

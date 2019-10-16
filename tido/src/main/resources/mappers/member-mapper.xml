@@ -14,6 +14,47 @@
 		<result property="imagePath" column="MEMBER_IMAGE_PATH"/>
 	</resultMap>
 	
+	<resultMap id="boardResultSet" type="Board">
+		<id property="cBoardNo" column="CBOARD_NO"/> <!-- 게시글 번호 -->
+		<result property="cBoardTitle" column="CBOARD_TITLE"/> <!-- 게시글 제목 -->
+		<result property="cBoardContent" column="CBOARD_CONTENT"/> <!-- 게시글 내용 -->
+		<result property="cBoardCreateDate" column="CBOARD_CREATE_DATE"/> <!-- 게시글 작성일 -->
+		<result property="cBoardModifyDate" column="CBOARD_MODIFY_DATE"/> <!-- 게시글 수정일 -->
+		<result property="cBoardViewCount" column="CBOARD_VIEW_COUNT"/> <!-- 게시글 조회수 -->
+		<result property="cBoardStatus" column="CBOARD_STATUS"/> <!-- 게시글 상태 -->
+		<result property="memberId" column="MEMBER_ID" /> <!-- 이메일 -->
+		<result property="cBoardOriFilename" column="CBOARD_ORIGIN_FILENAME" /> <!-- 기존 파일 이름 -->
+		<result property="cBoardChaFilename" column="CBOARD_CHANGE_FILENAME" /> <!-- 바뀐 파일 이름 -->
+		<result property="memberName" column="MEMBER_NAME" /> <!-- 바뀐 파일 이름 -->
+		
+	</resultMap>
+	
+
+	<resultMap id="replyResultSet" type="Reply">
+		<id property="cbReplyNo" column="CB_REPLY_NO"/> 
+		<result property="cbReplyContent" column="CB_REPLY_CONTENT"/> 
+		<result property="cbReplyCreateDate" column="CB_REPLY_CREATE_DATE"/> 
+		<result property="cbReplyModifyDate" column="CB_REPLY_MODIFY_DATE"/> 
+		<result property="cbReplyStatus" column="CB_REPLY_STATUS"/> 
+		<result property="cboardNo" column="CBOARD_NO"/> 
+		<result property="memberId" column="MEMBER_ID" />
+		<result property="memberName" column="MEMBER_NAME"/>
+	</resultMap>
+	
+	
+	<resultMap id="inquiryResultSet" type="Inquiry">
+	<id property="iNo" column="INQUIRY_NO"/> <!-- 문의글 번호 -->
+		<result property="iInquiryTitle" column="INQUIRY_TITLE"/> <!-- 문의글 제목 -->
+		<result property="iInquiryContent" column="INQUIRY_CONTENT"/> <!-- 문의글 내용 -->
+		<result property="iInquiryDate" column="INQUIRY_DATE"/> <!-- 문의글 작성일 -->
+		<result property="iInquiryModifyDate" column="INQUIRY_MODIFY_DATE"/> <!-- 문의글 수정일 -->
+		<result property="iInquiryId" column="MEMBER_ID"/> <!-- 이메일 -->
+		<result property="iInquiryStatus" column="INQUIRY_STATUS"/> <!-- 문의글 상태 -->
+		<result property="iInquiryOriginFilename" column="INQUIRY_ORIGIN_FILENAME"/> <!-- 기존파일이름 -->
+		<result property="iInquiryChangeFilename" column="INQUIRY_CHANGE_FILENAME"/> <!-- 바뀐파일이름 -->
+	</resultMap>
+	
+	
 	<!-- 로그인 할 때 아이디 조회 -->
 	<select id="selectOne" parameterType="Member" resultMap="memberResultSet">
 		SELECT * FROM MEMBER 
@@ -62,5 +103,159 @@
 		DELETE FROM MEMBER_AUTH
 		WHERE MEMBER_ID = #{id}
 	</delete>
+	
+	
+	<!-- 회원 정보 수정 -->
+	<update id="updateMember" parameterType="Member">
+		UPDATE MEMBER
+		<if test="(imagePath == null) || (imagePath == '')">
+			SET MEMBER_PWD = #{pwd}, MODIFY_DATE = SYSDATE
+		</if>
+		<if test="(imagePath != null) and (imagePath != '')">
+			SET MEMBER_PWD = #{pwd}, MODIFY_DATE = SYSDATE, MEMBER_IMAGE_PATH = #{imagePath}
+		</if>
+		WHERE MEMBER_ID = #{id}
+	</update>
+	
+	<delete id="deleteMember" parameterType="string">
+		UPDATE MEMBER
+		SET MEMBER_STATUS = 'N', MODIFY_DATE = SYSDATE
+		WHERE MEMBER_ID = #{id}
+	</delete>
+	
+	
+	
+	
+	
+	
+	<!-- 로그인 유저가 쓴 글 개수 조회 -->
+	<select id="selectMemberBoardCount" parameterType="string" resultType="_int">
+		SELECT COUNT(*)
+		FROM CBOARD
+		WHERE MEMBER_ID = #{id}
+		AND CBOARD_STATUS = 'Y'
+	</select>
+	
+	<!-- 로그인 유저가 쓴 글 리스트 조회 -->
+	<select id="selectMemberBoard" parameterType="string" resultMap="boardResultSet">
+		SELECT * FROM CBOARD
+		WHERE MEMBER_ID = #{id}
+		AND CBOARD_STATUS = 'Y'
+		ORDER BY CBOARD_NO DESC
+	</select>
+	
+	<!-- 로그인 유저가 쓴 글 중 검색된 결과 수 조회 -->
+	<select id="selectMemberBoardSearchCount" parameterType="map" resultType="_int">
+		SELECT COUNT(*) 
+		FROM CBOARD
+		WHERE MEMBER_ID = #{id}
+		<if test="sort == 'title'">
+			AND CBOARD_TITLE LIKE '%' || #{search} || '%'
+		</if>
+		<if test="sort == 'content'">
+			AND CBOARD_TITLE LIKE '%' || #{search} || '%'
+		</if>
+		AND CBOARD_STATUS = 'Y'
+	</select>
+	
+	<!-- 로그인 유저가 쓴 글 중 검색된 결과 리스트 조회 -->
+	<select id="selectMemberBoardSearchList" parameterType="map" resultMap="boardResultSet">
+		SELECT * FROM CBOARD
+		WHERE MEMBER_ID = #{id}
+		<if test="sort == 'title'">
+			AND CBOARD_TITLE LIKE '%' || #{search} || '%'
+		</if>
+		<if test="sort == 'content'">
+			AND CBOARD_CONTENT LIKE '%' || #{search} || '%'
+		</if>
+		AND CBOARD_STATUS = 'Y'
+		ORDER BY CBOARD_NO DESC
+	</select>
+	
+	
+	
+	
+	<!-- 로그인 유저가 쓴 댓글 수 조회 -->
+	<select id="selectMemberReplyCount" parameterType="string" resultType="_int">
+		SELECT COUNT(*)
+		FROM CB_REPLY
+		WHERE MEMBER_ID = #{id}
+		AND CB_REPLY_STATUS = 'Y'
+	</select>
+	
+	<!-- 로그인 유저가 쓴 댓글  리스트 조회 -->
+	<select id="selectMemberReplyList" parameterType="string" resultMap="replyResultSet">
+		SELECT * FROM CB_REPLY
+		WHERE MEMBER_ID = #{id}
+		AND CB_REPLY_STATUS = 'Y'
+		ORDER BY CBOARD_NO DESC
+	</select>
+	
+	<!-- 로그인 유저가 쓴 댓글 중 검색된 결과 수 조회 -->
+	<select id="selectMemberReplySearchCount" parameterType="map" resultType="_int">
+		SELECT COUNT(*) 
+		FROM CB_REPLY
+		WHERE MEMBER_ID = #{id}
+		AND CB_REPLY_CONTENT LIKE '%' || #{search} || '%'
+		AND CB_REPLY_STATUS = 'Y'
+	</select>
+	
+	<!-- 로그인 유저가 쓴 댓글 중 검색된 결과 리스트 조회 -->
+	<select id="selectMemberReplySearchList" parameterType="map" resultMap="replyResultSet">
+		SELECT * FROM CB_REPLY
+		WHERE MEMBER_ID = #{id}
+		AND CB_REPLY_CONTENT LIKE '%' || #{search} || '%'
+		AND CB_REPLY_STATUS = 'Y'
+		ORDER BY CBOARD_NO DESC
+	</select>
+	
+	
+	
+	
+	<!-- 로그인 유저가 쓴 문의사항 수 조회 -->
+	<select id="selectMemberQnaCount" parameterType="string" resultType="_int">
+		SELECT COUNT(*)
+		FROM QNA
+		WHERE MEMBER_ID = #{id}
+		AND INQUIRY_STATUS = 'Y'
+	</select>
+	
+	<!-- 로그인 유저가 쓴 문의사항  리스트 조회 -->
+	<select id="selectMemberQnaList" parameterType="string" resultMap="inquiryResultSet">
+		SELECT * FROM QNA
+		WHERE MEMBER_ID = #{id}
+		AND INQUIRY_STATUS = 'Y'
+		ORDER BY INQUIRY_NO DESC
+	</select>
+	
+	<!-- 로그인 유저가 쓴 문의사항 중 검색된 결과 수 조회 -->
+	<select id="selectMemberQnaSearchCount" parameterType="map" resultType="_int">
+		SELECT COUNT(*) 
+		FROM QNA
+		WHERE MEMBER_ID = #{id}
+		<if test="sort == 'title'">
+			AND INQUIRY_TITLE LIKE '%' || #{search} || '%'
+		</if>
+		<if test="sort == 'content'">
+			AND INQUIRY_CONTENT LIKE '%' || #{search} || '%'
+		</if>
+		AND INQUIRY_STATUS = 'Y'
+	</select>
+	
+	<!-- 로그인 유저가 쓴 문의사항 중 검색된 결과 리스트 조회 -->
+	<select id="selectMemberQnaSearchList" parameterType="map" resultMap="inquiryResultSet">
+		SELECT * FROM QNA
+		WHERE MEMBER_ID = #{id}
+		<if test="sort == 'title'">
+			AND INQUIRY_TITLE LIKE '%' || #{search} || '%'
+		</if>
+		<if test="sort == 'content'">
+			AND INQUIRY_CONTENT LIKE '%' || #{search} || '%'
+		</if>
+		AND INQUIRY_STATUS = 'Y'
+		ORDER BY INQUIRY_NO DESC
+	</select>
+	
+	
 	
 </mapper>

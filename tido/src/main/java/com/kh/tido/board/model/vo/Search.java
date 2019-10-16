@@ -46,4 +46,10 @@ public class Search {
 				+ existFile + "]";
 	}
 	
+	public Search(String searchCondition, String searchValue) {
+		super();
+		this.searchCondition = searchCondition;
+		this.searchValue = searchValue;
+	}
+	
 }

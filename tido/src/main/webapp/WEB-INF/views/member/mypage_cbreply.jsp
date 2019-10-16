@@ -21,7 +21,7 @@
                 height: 700px;
                 margin: auto;
                 padding: 0;
-        		background-color: rgba( 255, 255, 255, 0.5 );
+                background-color: rgba( 255, 255, 255, 0.5 );
             }
 
             .menu {
@@ -114,10 +114,6 @@
             	color: black;
             }
             
-            .projectTable a {
-            	color: black;
-            }
-            
             .content a {
             	color: black;
             }
@@ -146,8 +142,8 @@
                 <ul>
                     <li><a href="myPageInfo.kh">회원정보</a></li>
                     <li><a href="projectListView.kh">작곡 프로젝트 관리</a></li>
-                    <li><a href="${ memberBoardPage }" style="color: dimgrey">작성 글</a></li>
-                    <li><a href="${memberReplyPage }">작성 댓글</a></li>
+                    <li><a href="${ memberBoardPage }">작성 글</a></li>
+                    <li><a href="${memberReplyPage }" style="color: dimgrey">작성 댓글</a></li>
                     <li><a href="${memberQnaPage}">문의 내역</a></li>
                 </ul>
             </div>
@@ -156,21 +152,17 @@
                     <table class="projectTable">
                         <tr>
                             <th>No</th>
-                            <th>제목</th>
                             <th>내용</th>
-                            <th>조회수</th>
                             <th>최근 수정 일자</th>
                         </tr>
-                        <c:forEach var="b" items="${list}">
+                        <c:forEach var="r" items="${list}">
                         	<tr>
                         		<c:url var="bdetail" value="bdetail.kh">
-									<c:param name="cBoardNo" value="${ b.cBoardNo }"/>
+									<c:param name="cBoardNo" value="${ r.cboardNo }"/>
 								</c:url>
-                        		<td>${b.cBoardNo}</td>
-                        		<td><a href="${bdetail}">${b.cBoardTitle}</a></td>
-                        		<td><a href="${bdetail}">${b.cBoardContent}</a></td>
-                        		<td>${b.cBoardViewCount}</td>
-                        		<td>${b.cBoardModifyDate}</td>
+                        		<td>${r.cbReplyNo}</td>
+                        		<td><a href="${bdetail}">${r.cbReplyContent}</a></td>
+                        		<td>${r.cbReplyModifyDate}</td>
                         	</tr>
                         </c:forEach>
                     </table>
@@ -178,7 +170,7 @@
                 <div class="content-2">
                     <ul>
                         <li>
-	                        <c:url var="firstPage" value="memberBoardList.kh">
+	                        <c:url var="firstPage" value="memberReplyList.kh">
 	                        	<c:param name="id" value="${ loginUser.id }"/>
 								<c:param name="page" value="${ 1 }"/>
 							</c:url>
@@ -187,7 +179,7 @@
                         <li>
                         	<c:if test="${ pi.currentPage <= 1 }">&lt;</c:if>
 							<c:if test="${ pi.currentPage > 1 }">
-								<c:url var="beforePage" value="memberBoardList.kh">
+								<c:url var="beforePage" value="memberReplyList.kh">
 									<c:param name="id" value="${ loginUser.id }"/>
 									<c:param name="page" value="${ pi.currentPage - 1 }"/>
 								</c:url>
@@ -201,7 +193,7 @@
 								</c:if>
                         	</li>
 							<c:if test="${ p != currentPage }">
-								<c:url var="pagination" value="memberBoardList.kh">
+								<c:url var="pagination" value="memberReplyList.kh">
 									<c:param name="id" value="${ loginUser.id }"/>
 									<c:param name="page" value="${ p }"/>
 								</c:url>
@@ -213,7 +205,7 @@
 								&gt;
 							</c:if>
 							<c:if test="${ pi.currentPage < pi.maxPage }">
-								<c:url var="afterPage" value="memberBoardList.kh">
+								<c:url var="afterPage" value="memberReplyList.kh">
 									<c:param name="id" value="${ loginUser.id }"/>
 									<c:param name="page" value="${ pi.currentPage + 1 }"/>
 								</c:url> 
@@ -221,7 +213,7 @@
 							</c:if>
                         </li>
                         <li>
-                        	<c:url var="lastPage" value="memberBoardList.kh">
+                        	<c:url var="lastPage" value="memberReplyList.kh">
                         		<c:param name="id" value="${ loginUser.id }"/>
 								<c:param name="page" value="${ pi.maxPage }"/>
                         	</c:url>
@@ -232,20 +224,7 @@
                 <div class="content-3">
                     <form class="form-inline" id="selectForm">
                     	<select name="sort" class="selectSearch">
-                    		<c:if  test="${!empty sort}">
-                    			<c:if test="${sort == 'title'}">
-	                                <option value="title" selected>제목</option>
-	                                <option value="content">내용</option>
-                    			</c:if>
-                    			<c:if test="${sort == 'content'}">
-	                                <option value="title">제목</option>
-	                                <option value="content" selected>내용</option>
-                    			</c:if>
-                            </c:if>
-                            <c:if test="${empty sort}">
-                            	<option value="title" selected>제목</option>
-	                            <option value="content">내용</option>
-                            </c:if>
+	                    	<option value="content" selected>내용</option>
                         </select>
                         <input type="hidden" name="id" value="${loginUser.id}">
                         <input type="hidden" name="page" value="${1}">

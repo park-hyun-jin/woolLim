@@ -78,20 +78,16 @@
             margin-bottom: 5%;
             margin-left: 30%;
         }
-        
-        #inputEmail {
-            cursor: pointer;
-        }
 
-        .insertTable {
+        .updateTable {
         	width: 100%;
         }
 
-        .insertTable tr {
+        .updateTable tr {
             height: 80px;
         }
 
-        .insertInput {
+        .updateInput {
             width: 400px;
             padding: .375rem .75rem;
             border-radius: .25rem .25rem;
@@ -99,7 +95,7 @@
             margin-left: 20px;
         }
         
-        .insertTable td:nth-child(3) {
+        .updateTable td:nth-child(3) {
         	width: 200px;
         }
 
@@ -109,41 +105,25 @@
     	
     	<div class="container">
 	    	<div class="titleArea">
-	            <h1>회원가입</h1>
+	            <h1>정보수정</h1>
 	        </div>
 	        
-	        <form action="minsert.kh" method="POST" class="joinForm" enctype="Multipart/form-data">
+	        <form action="mupdate.kh" method="POST" class="joinForm" enctype="Multipart/form-data">
 	            <div id="profileArea">
-	                <img src='${contextPath}/resources/images/noimage.png' id="profileImg">
+	                <img src="${contextPath}/resources/muploadFiles/${loginUser.id}/${loginUser.imagePath}" id="profileImg"
+	                onerror="this.src='${contextPath}/resources/images/noimage.png'">
 	                <h5>프로필 사진</h5>
 	            </div>
 	            <input type="file" id="uploadFile" name="uploadFile" multiple="multiple" onchange="loadImg(this,1);">
-	            <table class="insertTable">
+	            <table class="updateTable">
 	                    <tr>
 	                        <td>
-	                            <label for="inputEmail" >이메일 *</label>
+	                            <label for="inputEmail" >이메일 </label>
 	                        </td>
 	                        <td>
-	                        	<c:if test="${empty emailMsg}">
-	                        		<input type="email" class="insertInput" id="inputEmail" placeholder="Email" name="id" value="${memberId}" readonly required>
-	                        	</c:if>
-	                        	<c:if test="${!empty emailMsg}">
-	                            	<input type="email" class="insertInput" id="inputEmail" placeholder="Email" name="id" readonly required>
-	                            	<script>alert("${emailMsg}")</script>
-	                        	</c:if>
+	                        	<input type="email" class="updateInput" id="inputEmail" placeholder="Email" name="id" value="${loginUser.id}" readonly>
 	                        </td>
 	                        <td>
-	                        	<c:choose>
-	                        		<c:when test="${empty emailMsg && !empty memberId}">
-	                        			<h6 id="emailText" style="color:green">이메일이 인증되었습니다.</h6>
-	                        		</c:when>
-	                        		<c:when test="${!empty emailMsg && empty memberId}">
-	                        			<h6 id="emailText" style="color:red">이메일이 인증되지 않았습니다. 다시 인증해주세요</h6>
-	                        		</c:when>
-	                        		<c:otherwise>
-	                        			<h6 id="emailText" style="color:red">이메일을 인증해주세요.</h6>
-	                        		</c:otherwise>
-	                        	</c:choose>
 	                        </td>
 	                    </tr>
 	                    <tr>
@@ -151,7 +131,7 @@
 	                            <label for="inputPassword">비밀번호 *</label>
 	                        </td>
 	                        <td>
-	                            <input type="password" class="insertInput" id="inputPassword" placeholder="Password" name="pwd" required>
+	                            <input type="password" class="updateInput" id="inputPassword" placeholder="Password" name="pwd" required>
 	                        </td>
 	                        <td>
 	                            <h6 id="pwdText"></h6>
@@ -162,7 +142,7 @@
 	                            <label for="inputPasswordConfirm">비밀번호 확인 *</label>
 	                        </td>
 	                        <td>
-	                            <input type="password" class="insertInput" id="inputPasswordConfirm" placeholder="Password Confirm" required>
+	                            <input type="password" class="updateInput" id="inputPasswordConfirm" placeholder="Password Confirm" required>
 	                        </td>
 	                        <td>
 	                            <h6 id="pwdConfirmText"></h6>
@@ -170,10 +150,10 @@
 	                    </tr>
 	                    <tr>
 	                        <td>
-	                            <label for="inputNickName">닉네임 *</label>
+	                            <label for="inputNickName">닉네임 </label>
 	                        </td>
 	                        <td>
-	                            <input type="text" class="insertInput" id="inputNickName" placeholder="nickname" name="name" required>
+	                            <input type="text" class="updateInput" id="inputNickName" placeholder="nickname" name="name" value="${loginUser.name}" readonly>
 	                        </td>
 	                        <td>
 	                            <h6 id="nickNameText"></h6>
@@ -183,7 +163,7 @@
 	            <br>
 	            <div>
 	                <ul class="join_ul">
-	                    <li><button type="submit" class="btn btn-success" onclick="return insertBtn();">가입하기</button></li>
+	                    <li><button type="submit" class="btn btn-success" onclick="return updateBtn();">수정하기</button></li>
 	                    <li><button type="button" class="btn btn-secondary" onclick="history.back();">취소하기</button></a></li>
 	                </ul>
 	            </div>
@@ -193,10 +173,8 @@
         
         
 		<script>
-		var emailVal = $("#inputEmail").val();
 		var pwdCheck = false;
 		var pwdConfirmCheck = false;
-		var nickNameCheck = false;
 		
 		$(function(){
 	        
@@ -235,44 +213,6 @@
 				}
 			});
 			
-			// 닉네임 검사
-			$("#inputNickName").on("input", function(){
-				var nameVal = $(this).val();
-				var regExp = /^[A-z0-9가-힣]{2,10}$/;
-				$.ajax({
-					url : "nameCheck.kh",
-					type : "post",
-					data : { name : nameVal },
-					success : function(check) {
-						if(check == "fail") {
-							if(regExp.test(nameVal)) {
-								$("#nickNameText").text("사용 가능한 닉네임입니다.").css("color", "green");
-								nickNameCheck = true;
-							}else {
-								$("#nickNameText").text("한글,영문,숫자 포함 최소 2글자 최대 10글자만 가능합니다.").css("color", "red");
-								nickNameCheck = false;
-							}
-						}else {
-							$("#nickNameText").text("이미 사용중인 닉네임입니다.").css("color", "red");
-							nickNameCheck = false;
-						}
-					},
-					error : function(e) {
-						console.log("통신실패");
-					}
-				});
-			});
-			
-			// 이메일 input을 클릭했을 때 인증메세지를 보낼 수 있는 창이 열린다
-			$("#inputEmail").click(function(){
-	            if($(this).val() == "") {
-	                window.open("emailRegistPage.kh", "이메일 입력창", "width=500px, height=200px, left=700, top=400");
-	            }else {
-	            	if(confirm("이메일을 다시 입력하시겠습니까?")) {
-	            		window.open("emailRegistPage.kh", "이메일 입력창", "width=500px, height=200px, left=700, top=400");
-	            	}
-	            }
-	        });
 		});
 		
 		function loadImg(value, num) {
@@ -295,26 +235,17 @@
 		
 		
 		// 가입하기 눌렀을 때 처리
-		function insertBtn() {
+		function updateBtn() {
 			var pwd = $("#inputPassword");
 	        var pwdConfirm = $("#inputPasswordConfirm");
-	        var nickName = $("#inputNickName");
-	        var emailVal = $("#inputEmail").val();
 	        
-	        if(emailVal == ""){
-	        	alert("이메일을 인증해주세요");
-	        	return false;
-	        }else if(pwdCheck == false) {
+	        if(pwdCheck == false) {
 	        	alert("비밀번호를 다시 입력해주세요");
 	        	pwd.focus();
 	        	return false;
 	        }else if(pwdConfirmCheck == false) {
 	        	alert("비밀번호 확인란을 확인해주세요");
 	        	pwdConfirm.focus();
-	        	return false;
-	        }else if(nickNameCheck == false) {
-	        	alert("닉네임을 확인해주세요.");
-	        	nickName.focus();
 	        	return false;
 	        }
         }
