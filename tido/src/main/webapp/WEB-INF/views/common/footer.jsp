@@ -9,7 +9,7 @@
 		color:white;
 	}	
 	footer>p{
-		width:60%;
+		text-align:center;
 		margin:auto;
 		font-size:15px;
 	}

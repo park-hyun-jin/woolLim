@@ -55,6 +55,7 @@ public class BoardController {
 	public String boardInsert(Board board, HttpServletRequest request, MultipartFile uploadFile, Model model) {
 		System.out.println(board);
 		int result = bService.insertBoard(board, uploadFile, request);
+		
 
 		String path = null;
 		if(result > 0) {
@@ -103,11 +104,10 @@ public class BoardController {
 	
 	@RequestMapping("bupdate.kh")
 	public ModelAndView boardUpdate(ModelAndView mv, Board board, HttpServletRequest request, MultipartFile reloadFile, Integer page) {
-		
+		int currentPage = page == null ? 1 : page;
 		int result = bService.updateBoard(board, reloadFile, request);
-		
 		if(result > 0) {
-			mv.setViewName("redirect:bdetail.kh?cBoardNo="+board.getcBoardNo()+"&page="+page);
+			mv.addObject("board", board).addObject("currentPage", currentPage).setViewName("board/boardDetailView");
 		}else {
 			mv.addObject("msg", "게시글 수정 실패").setViewName("common/errorPage");
 		}

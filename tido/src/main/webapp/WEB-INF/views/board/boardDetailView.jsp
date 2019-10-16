@@ -126,7 +126,7 @@ table.type09 tbody td  {
 	<div style="margin: 50px;"></div>
 
 	<!-- 댓글 목록  -->
-	<table id="rtb" align="center" width="65%;" cellspacing="0" class="type09">
+	<table id="rtb" align="center" width="65%;" cellspacing="0" class="type09" style="opacity: 50%; background-color: #343a40; width: 1235px; border-radius: 0 10% 0 0;">
 		<thead>
 			<tr>
 				<th colspan="1">
@@ -145,19 +145,19 @@ table.type09 tbody td  {
 		</tbody>
 	</table>
 
-	<div style="margin: 20px;"></div>
+	<!-- <div style="margin: 10px;"></div> -->
 
 	<!-- 댓글 등록  -->
 	<table align="center" width="65%;" cellspacing="0">
 		<tr>
-			<td ><textarea cols="157" rows="3" id="cbReplyContent"></textarea></td>
+			<td ><textarea cols="150" rows="3" id="cbReplyContent"></textarea></td>
 			<td>
-				<button id="rSubmit" class="btn btn-primary" style="background-color: #4B0082; border-radius: 10%">등록하기</button>
+				<button id="rSubmit" class="btn btn-primary" style="background-color: #4B0082; border-radius: 7%; width: 150px; height: 60px;">등록하기</button>
 			</td>
 		</tr>
-	</table>
+	</table><div style="margin: 70px;"></div>
 	<script>
-
+	
 	/* console창에 띄우기 */
 	/* $(function(){
 		var loginUser = '<c:out value="${board.memberId}"/>';
@@ -170,7 +170,7 @@ table.type09 tbody td  {
 			var cboardNo = ${board.cBoardNo};
 
 			if(cbReplyContent == ""){
-				alert("댓글을 입력하세요를레이요 구르트아줌마 징가제트 와이스가짱!");
+				alert("댓글을 입력하세요!");
 				return false;
 			}
 

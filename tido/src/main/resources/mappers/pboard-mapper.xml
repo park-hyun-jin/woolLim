@@ -15,6 +15,9 @@
 		<result property="projectImagePath" column="PROJECT_IMAGE_PATH"/>
 		<result property="writerImagePath" column="MEMBER_IMAGE_PATH"/>
 		<result property="writerId" column="MEMBER_ID"/>
+		<result property="projectPath" column="PROJECT_PATH"/>
+		<result property="projectFileName" column="PROJECT_FILE_NAME"/>
+		<result property="projectTitle" column="PROJECT_TITLE"/>
 	</resultMap>
 		
 	<select id="getpbListCount" resultType="_int">
@@ -25,11 +28,31 @@
 	
 	<select id="selectpBoardList" parameterType="ProjectBoard" resultMap="pBoardResultSet">
 		SELECT PBOARD_NO,MEMBER_NAME,PBOARD_TITLE,PBOARD_CONTENT,PBOARD_CREATE_DATE,
-		       PBOARD_VIEW_COUNT,PBOARD_LIKE_COUNT,PROJECT_NO,PROJECT_IMAGE_PATH,MEMBER_IMAGE_PATH,MEMBER_ID
+		       PBOARD_VIEW_COUNT,PBOARD_LIKE_COUNT,PROJECT_NO,PROJECT_IMAGE_PATH,MEMBER_IMAGE_PATH,MEMBER_ID,
+		       PROJECT_PATH,PROJECT_FILE_NAME,PROJECT_TITLE
 		FROM PBOARD
 		JOIN PROJECT USING (PROJECT_NO)
 		JOIN MEMBER USING (MEMBER_ID)
 		WHERE PBOARD_STATUS='Y'
 		ORDER BY PBOARD_NO DESC
 	</select>
+	<insert id="insertpBoard" parameterType="ProjectBoard">
+		INSERT INTO PBOARD
+		VALUES (SEQ_PBNO.NEXTVAL,#{pBoardTitle},#{pBoardContent},SYSDATE,SYSDATE,DEFAULT,DEFAULT,'Y',
+				#{refPNo},#{writerId})
+		 
+	</insert>
+	
+	<update id="updatepBoard" parameterType="ProjectBoard">
+		UPDATE PBOARD
+		SET PBOARD_TITLE = #{pBoardTitle} , PBOARD_CONTENT =#{pBoardContent},PBOARD_MODIFY_DATE=SYSDATE
+		WHERE PBOARD_NO = #{pbNo}
+	</update>
+	
+	<update id="deletepBoard" parameterType="ProjectBoard">
+		UPDATE PBOARD
+		SET PBOARD_STATUS='N'
+		WHERE PBOARD_NO = #{pbNo}
+	</update>
+	
 </mapper>

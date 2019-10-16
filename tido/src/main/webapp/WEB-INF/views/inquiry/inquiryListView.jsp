@@ -36,6 +36,10 @@
 	margin: auto;
 }
 
+table {
+	background-color: #212529;
+}
+
 #Search {
 	width: 20%;
 	float: right;
@@ -43,6 +47,9 @@
 
 #iInquiryContent {
 	height: 400px;
+}
+td{
+color : white;
 }
 </style>
 </head>
@@ -76,7 +83,7 @@
 					<div class="modal-body mx-3">
 					
 						<div class="md-form mb-5">
-							<i class="fas fa-user prefix grey-text"></i>
+							<i class="fas fa-user prefix white-text"></i>
 							 <input type="text"
 								id="form3" class="form-control" name="iInquiryId" readonly value="${ loginUser.id }"> <label
 								data-error="wrong" data-success="right" for="form3"></label>

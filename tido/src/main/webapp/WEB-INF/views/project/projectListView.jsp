@@ -12,9 +12,91 @@
 <script>
 var pageCheck="projectListView";
 </script>
+<style>
+	.shareModal{
+		position: fixed;
+		width:100%;
+		height: 100%;
+		background: rgba(0,0,0,0.7);
+		top:0;
+		left:0;
+		z-index:3;
+		display: none;
+	}
+	.shareModal>div{
+		margin:auto;
+		margin-top:150px;
+		background:rgba(255,255,255,0.9);
+		width:400px;
+		height: 400px;
+		border-radius: 5px;
+	}
+	.shareModal>div>h2{
+		padding:10px;
+		
+	}
+	.shareModal>div>div{
+		width:100%;
+		text-align: center;
+	}
+	.insertTitle{
+		height: 10%;
+	}
+	.refProject{
+		height: 20%;
+		text-align: left;
+		
+	}
+	.refProject>input{
+		width:90%;
+	}
+	
+	.insertContent{
+		height: 45%;
+	}
+	.insertTitle>input{
+		width:90%;
+		border:1px solid grey;
+		border-radius: 3px;
+	}
+	.insertContent>textarea{
+		width:90%;
+		height: 90%;
+		border:1px solid grey;
+		resize: none;
+		border-radius: 3px;
+	}
+	.button{
+		height: 15%;
+		text-align: center;
+	}
+
+</style>
 </head>
 	<body>
-		<jsp:include page="../common/menubar.jsp"/>
+	<jsp:include page="../common/menubar.jsp"/>
+	<div class="shareModal">
+		<div>
+			<h2 align="center">공유하기</h2>
+			<div class="insertTitle">
+				<input placeholder="제목" id="insertTitle" >
+			</div>
+			<div class="refProject">
+				<label>공유할 프로젝트</label><br>
+				<input id="refProject" readonly="readonly" value="">
+			</div>
+			<div  class="insertContent">
+				<textarea placeholder="내용" id="insertContent"></textarea>
+			</div>
+			<div class="button">
+				<button id="shareOk">공유</button>
+				<button id="shareCancel">취소</button>
+			</div>
+		</div>
+	</div>
+	
+	
+	
 		
 		
 		<div id="createFolderPop" class="popup">
@@ -153,8 +235,11 @@ var pageCheck="projectListView";
 							}
 						});
 					}
+					
+					
+					
+					
 				});
-				
 				
 				
 				$("#deleteProjectMenu").on("click",function(){
@@ -173,8 +258,31 @@ var pageCheck="projectListView";
 						}
 					});
 				});
-				  
 				
+				$("#shareProjectMenu").on("click",function(){
+					$(".shareModal").show();
+					$("#refProject").val($project.children("div").children().eq(0).text());
+				});
+				
+				$("#shareOk").on("click",function(){
+					var title=$("#insertTitle").val();
+					var content=$("#insertContent").val();
+					$.ajax({
+						url:"insertSharePjt.kh",
+						data:{pBoardTitle:title,pBoardContent:content,refPNo:projectNo},
+						type:"get",
+						success:function(result){
+							$(".shareModal").hide();
+							$("#insertTitle").val("");
+							$("#insertContent").val("");
+						}
+					});
+				});
+				$("#shareCancel").on("click",function(){
+					$(".shareModal").hide();
+					$("#insertTitle").val("");
+					$("#insertContent").val("");
+				});
 			});
 			  
 		
