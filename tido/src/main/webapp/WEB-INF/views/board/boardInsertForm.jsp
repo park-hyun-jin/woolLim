@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -6,19 +7,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-
-
-<%-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/css/mdb.min.css" rel="stylesheet">
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/js/mdb.min.js"></script>
-
-<script src="https://ajax.googlepis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script type="text/javascript" src="${contextPath }/resources/js/board/bootstrap.js"></script>
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> --%>
 
 <title>게시판 글쓰기</title>
 <style>
@@ -85,15 +73,6 @@ navbar navbar-default {
 							border-radius: 30px 30px 0px 0 px">게시판 글쓰기</th>
 						</tr>
 					</thead>
-					<%-- <tbody>
-						<tr>
-							<td><input type="hidden" name="memberId" value="${loginUser.id }"> 
-								<input type="text" class="btn btn-default btn-rounded" value="${ loginUser.name }"
-								style="width: 100%; color: white; height: 70px; font-size: 35px; font-weight: bold; text-align: left;" readonly>
-								${ loginUser.name }
-							</td>
-						</tr>
-					</tbody> --%>
 				</table>
 			</form>
 			<!-- 썸머노트 -->
