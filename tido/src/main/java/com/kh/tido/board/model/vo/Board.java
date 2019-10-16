@@ -25,6 +25,23 @@ public class Board {
 
 	public Board(int cBoardNo, String cBoardTitle, String cBoardContent, Date cBoardCreateDate, Date cBoardModifyDate,
 			int cBoardViewCount, String cBoardStatus, String memberId, String cBoardOriFilename,
+			String cBoardChaFilename, String memberName) {
+		super();
+		this.cBoardNo = cBoardNo;
+		this.cBoardTitle = cBoardTitle;
+		this.cBoardContent = cBoardContent;
+		this.cBoardCreateDate = cBoardCreateDate;
+		this.cBoardModifyDate = cBoardModifyDate;
+		this.cBoardViewCount = cBoardViewCount;
+		this.cBoardStatus = cBoardStatus;
+		this.memberId = memberId;
+		this.cBoardOriFilename = cBoardOriFilename;
+		this.cBoardChaFilename = cBoardChaFilename;
+		this.memberName = memberName;
+	}
+
+	public Board(int cBoardNo, String cBoardTitle, String cBoardContent, Date cBoardCreateDate, Date cBoardModifyDate,
+			int cBoardViewCount, String cBoardStatus, String memberId, String cBoardOriFilename,
 			String cBoardChaFilename, String memberName, int reportType) {
 		super();
 		this.cBoardNo = cBoardNo;

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.kh.tido.board.model.vo.Board;
 import com.kh.tido.project.model.vo.Project;
 import com.kh.tido.project.model.vo.ProjectFile;
 
@@ -27,6 +28,8 @@ public interface ProjectService {
 	public abstract int  updateProjectTitle(Project project);
 
 	public abstract int deleteProject(int pNo);
+
+
 	
 	
 	

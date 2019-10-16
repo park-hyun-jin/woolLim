@@ -209,11 +209,10 @@ tbody {
 				<option value="title" <c:if test="${search.searchCondition == 'title'}">selected</c:if> >제목</option>
 				<option value="content" <c:if test="${search.searchCondition == 'content'}">selected</c:if> >내용</option>
 			</select>
-			<input type="search" name="searchValue" value="${search.searchValue}" style="width: 350px; height: 40px;">
-			&nbsp;&nbsp;&nbsp;
+			<input type="search" name="searchValue" value="${search.searchValue}" style="width: 350px; height: 40px;">&nbsp;&nbsp;&nbsp;
 			<button class="btn btn-light">검색</button><br><br>
-			<p style="color: white; font-size: 15px;">첨부파일 있는 게시물만</p>
-			<input type="checkbox" name="existFile" <c:if test="${!empty search.existFile }">checked</c:if> >			
+			<input type="checkbox"  name="existFile"<c:if test="${!empty search.existFile }">checked</c:if> >		
+			<p style="color: white; font-size: 15px;">첨부파일 있는 게시물</p>
 		</form>
 	</div>
 	<!-------------- 게시물 검색하기 --------------->
