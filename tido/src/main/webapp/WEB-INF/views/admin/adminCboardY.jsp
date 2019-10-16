@@ -4,6 +4,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
 <style>
 
 #tb {
@@ -39,6 +43,7 @@
 
 }
 
+
 .paging{
 	position: relative;
 	top: 25px;
@@ -62,8 +67,7 @@
 
 </style>
 
-<script src="/webapp/js/jquery.tablesorter.min.js"></script>
-<script src="/webapp/js/widget-scroller.js"></script>
+
 
 
 
@@ -94,6 +98,8 @@
 	<button class="button" onclick="location='adminCboardListAll.kh'">이전으로</button>
 	
 	
+	
+	
 	<!--  width="1000" -->
 	
 	
@@ -118,7 +124,15 @@
 			<td><input type="checkbox" name="chBox" class="chBox" value="${b.cBoardNo}" /></td>
 			<td align="center">${ b.cBoardNo }</td>
 				
-			<td align="center">	${ b.cBoardTitle }</td>
+			<td align="center">
+			
+			<c:url var="adminBdetail" value="adminBdetail.kh">
+			<c:param name="cBoardNo" value="${b.cBoardNo }" />
+			<c:param name="page" value="${pi.currentPage }" />
+			
+			</c:url>
+			<a href="${ adminBdetail }" style="color: black;">${ b.cBoardTitle }</a>
+			</td>	
 			
 			<td align="center">${ b.memberId }</td>
 			<td align="center">${ b.cBoardCreateDate }</td>
@@ -142,7 +156,7 @@
 					[이전] &nbsp;
 				</c:if>
 				<c:if test="${ pi.currentPage > 1 }">
-					<c:url var="before" value="adminCboardListN.kh">
+					<c:url var="before" value="adminCboardListY.kh">
 						<c:param name="page" value="${ pi.currentPage - 1 }"/>
 					</c:url>
 					<a href="${ before }">[이전]</a> &nbsp;
@@ -155,7 +169,7 @@
 					</c:if>
 					
 					<c:if test="${ p ne currentPage }">
-						<c:url var="pagination" value="adminCboardListN.kh">
+						<c:url var="pagination" value="adminCboardListY.kh">
 							<c:param name="page" value="${ p }"/>
 						</c:url>
 						<a href="${ pagination }">${ p }</a> &nbsp;
@@ -167,7 +181,7 @@
 					[다음]
 				</c:if>
 				<c:if test="${ pi.currentPage < pi.maxPage }">
-					<c:url var="after" value="adminCboardListN.kh">
+					<c:url var="after" value="adminCboardListY.kh">
 						<c:param name="page" value="${ pi.currentPage + 1 }"/>
 					</c:url> 
 					<a href="${ after }">[다음]</a>
@@ -181,8 +195,9 @@
 		
 		
 		<!-------------- 게시물 검색하기 --------------->
+		
 	<div id="searchArea" align="center">
-		<form action="adminBsearch.kh" name="searchForm" method="get">
+		<form action="bsearch.kh" name="searchForm" method="get">
 			
 			<select id="searchCondition" name="searchCondition">
 				<option value="all" <c:if test="${search.searchCondition == 'all'}">selected</c:if> >전체</option>
@@ -197,8 +212,8 @@
 		</form>
 		
 		<div id="checkBox">
-			<button class="button" id="reviveBtn">선택복구</button> 
-		</div>
+		<button id="deleteBtn" class="button">선택삭제</button> 
+	</div>
 		
 	</div>
 		
@@ -207,11 +222,10 @@
 	<p align="center">
 		<c:url var="home" value="admin.kh"/>
 		<a href="${ home }">시작 페이지로 이동</a> &nbsp;
-		<c:url var="blist" value="adminCboardListAll.kh"/>
+		<c:url var="blist" value="adminCboardListY.kh"/>
 		<a href="${ blist }">목록 전체 보기</a>
 	</p>
 	<br><br><br><br><br><br><br><br><br><br><br><br>
-	 
 	
 	</div>
 
@@ -236,17 +250,15 @@
 			}
 			});
 			
-			
-			
-			$("#reviveBtn").on("click",function(){
+			$("#deleteBtn").on("click",function(){
 				var checkArray= new Array();
-				if(window.confirm("정말 복구하시겠습니까?")){
+				if(window.confirm("정말 삭제하시겠습니까?")){
 					$("input[name='chBox']:checked").each(function(){
 						checkArray.push($(this).val());
 					});
 					console.log(checkArray);
 					$.ajax({
-						url:"reviveCBoard.kh",
+						url:"deleteCboard.kh",
 						data:{checkArray:checkArray},
 						type:"post",
 						success:function(result){

@@ -42,6 +42,23 @@
 		
 	</resultMap>
 	
+	<resultMap id="reportResultSet" type="Report">
+	<id property="rReportNo" column="REPORT_NO"/> <!-- 신고 번호 -->
+		<result property="rContentsNo" column="CONTENTS_NO"/> <!-- 글번호 -->
+		<result property="rReportType" column="REPORT_TYPE"/> <!-- 신고물유형 -->
+		<result property="rReportContent" column="REPORT_CONTENT"/> <!-- 신고한 내용 -->
+		<result property="rReportDate" column="REPORT_DATE"/> <!-- 날짜 -->
+		<result property="rRrno" column="RRNO"/> <!-- -->
+		<result property="rMemberId" column="MEMBER_ID"/> <!-- 이메일 -->
+
+	</resultMap>
+	
+	<resultMap id="reportReasonResultSet" type="ReportReason">
+		<id property="rrRrNo" column="RRNO"/>
+		<result property="rrReason" column="REASON"/>
+	</resultMap>
+	
+	
 
 <select id="getListCount" resultType="_int">
 		SELECT COUNT(*)
@@ -162,7 +179,7 @@
 				</when>
 				
 				<otherwise>
-					AND OR NOTICE_TITLE LIKE #{sv})
+					AND (NOTICE_TITLE LIKE #{sv})
 					
 				</otherwise>
 			</choose>
@@ -266,6 +283,60 @@
 		
 	</update>
 	
+	<select id="reportGetListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM REPORT
+	</select>
+	
+	<select id="rboardListAll" resultMap="reportResultSet">
+		SELECT *
+		FROM REPORT
+		ORDER BY REPORT_NO DESC
+	</select>
+	
+	<select id="reportSearch" resultMap="reportResultSet" parameterType="_int">
+	  SELECT *
+	  FROM REPORT
+      WHERE RRNO = #{rRrno}
+	  ORDER BY REPORT_NO DESC
+		
+	</select>
+	
+	<select id="adminRsearch" parameterType="Search"
+			resultMap="reportResultSet">
+		<bind name="sv" 
+			value="'%'+ _parameter.getSearchValue() +'%'" />	
+			
+		SELECT * FROM REPORT
+		<where>
+			<if test="existFile != null">
+				FILE_PATH IS NOT NULL
+			</if>
+			
+			<choose>
+				<when test="searchCondition == 'content'">
+					AND REPORT_CONTENT LIKE #{sv}
+				</when>
+				<when test="searchCondition == 'writer'">
+					AND MEMBER_ID LIKE #{sv}
+				</when>
+				
+				<otherwise>
+					AND (REPORT_CONTENT LIKE #{sv}
+					OR MEMBER_ID LIKE #{sv}
+				</otherwise>
+			</choose>
+		</where>
+		ORDER BY REPORT_DATE DESC	
+	</select>
+	
+	<select id="adminReportTypeSearch" resultMap="reportResultSet" parameterType="_int">
+	  SELECT *
+	  FROM REPORT
+      WHERE REPORT_TYPE = #{rReportType}
+	  ORDER BY REPORT_NO DESC
+		
+	</select>
 	
 
 </mapper>

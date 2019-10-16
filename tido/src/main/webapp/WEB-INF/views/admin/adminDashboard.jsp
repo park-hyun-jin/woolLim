@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>  
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %> 
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +22,7 @@
 	<link rel="stylesheet" href="resources/css/dialog/zebra_dialog.css" type="text/css"/>
 	<!-- SocketJS CDN -->
 	<script src="https://cdn.jsdelivr.net/sockjs/1/sockjs.min.js"></script>
-	
+		
 <meta charset="UTF-8">
 <title>관리자페이지 Dashboard</title>
 </head>
@@ -54,18 +56,36 @@
 	      
           <h2>Section title</h2>
           <div class="table-responsive">
+<<<<<<< HEAD
+
+           
+                <jsp:include page="/WEB-INF/views/calendar/calendarAdmin.jsp"/>
+              
+=======
           <jsp:include page="/WEB-INF/views/calendar/calendarAdmin.jsp"/>
+>>>>>>> refs/heads/master
           </div>
         </main>
       </div>
     </div>
+<<<<<<< HEAD
+
+
+	
+</html>
+	
+
+=======
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+>>>>>>> refs/heads/master
 	<script type="text/javascript" src="${contextPath }/resources/js/admin/dashboard.js"></script>
 	<script>
 		$(document).ready(function(){
 			$(".home").addClass("active");
 		});
+		
+		
 	</script>
 
 </body>

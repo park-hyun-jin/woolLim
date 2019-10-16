@@ -33,40 +33,20 @@
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
-  background-color: teal;
+  background-color: #007bff;
   color: white;
 }
 
-.button {
-  background-color: #ddd;
-  border: none;
-  color: black;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 16px;
-}
-
-#reviveBtn{
-	position: relative;
-	bottom: 400px;
-	left: 960px;
-}
-
-#deleteBtn{
-	position: relative;
-	bottom: 400px;
-	left: 980px;
+#checkBox{
+	text-align:right;
+	
 }
 
 
 .paging{
 	position: relative;
 	top: 25px;
-	left: 570px;
+	text-align:center;
 }
 
 #searchArea{
@@ -111,8 +91,8 @@
 	<div class="my-4 w-100" id="myChart" width="900" height="380" >
 	
 	
-	<button class="button"  onclick="location='nboardListN.kh'">삭제된 게시글</button>
-	<button class="button"  onclick="location='nboardList.kh'">삭제 안 된 게시글</button>
+	<button class="button"  onclick="location='adminNboardListN.kh'">삭제된 게시글</button>
+	<button class="button"  onclick="location='adminNboardListY.kh'">삭제 안 된 게시글</button>
 	
 	<!--  width="1000" -->
 	<table align="center" border="1" cellspacing="0" width="800" id="tb" class="tablesorter">
@@ -164,7 +144,7 @@
 					[이전] &nbsp;
 				</c:if>
 				<c:if test="${ pi.currentPage > 1 }">
-					<c:url var="before" value="nboardListAll.kh">
+					<c:url var="before" value="adminNboardListAll.kh">
 						<c:param name="page" value="${ pi.currentPage - 1 }"/>
 					</c:url>
 					<a href="${ before }">[이전]</a> &nbsp;
@@ -177,7 +157,7 @@
 					</c:if>
 					
 					<c:if test="${ p ne currentPage }">
-						<c:url var="pagination" value="nboardListAll.kh">
+						<c:url var="pagination" value="adminNboardListAll.kh">
 							<c:param name="page" value="${ p }"/>
 						</c:url>
 						<a href="${ pagination }">${ p }</a> &nbsp;
@@ -189,7 +169,7 @@
 					[다음]
 				</c:if>
 				<c:if test="${ pi.currentPage < pi.maxPage }">
-					<c:url var="after" value="nboardListAll.kh">
+					<c:url var="after" value="adminNboardListAll.kh">
 						<c:param name="page" value="${ pi.currentPage + 1 }"/>
 					</c:url> 
 					<a href="${ after }">[다음]</a>
@@ -206,7 +186,9 @@
 		<!-------------- 게시물 검색하기 --------------->
 		<div id="searchArea" align="center">
 	
-		<form action="ansearch.kh" name="searchForm" method="get">
+<<<<<<< HEAD
+		<form action="adminNsearch.kh" name="searchForm" method="get">
+
 			
 			<select id="searchCondition" name="searchCondition">
 				<option value="all" <c:if test="${search.searchCondition == 'all'}">selected</c:if> >전체</option>
@@ -220,6 +202,10 @@
 			<input type="checkbox" name="existFile" <c:if test="${!empty search.existFile }">checked</c:if> >
 			
 		</form>
+			<div id="checkBox">
+				<button class="button" id="deleteBtn">선택삭제</button> 
+				<button class="button" id="reviveBtn">선택복구</button> 
+			</div>
 	</div>
 		
 	</div>
@@ -227,7 +213,7 @@
 	<p align="center">
 		<c:url var="home" value="admin.kh"/>
 		<a href="${ home }">시작 페이지로 이동</a> &nbsp;
-		<c:url var="blist" value="nboardListAll.kh"/>
+		<c:url var="blist" value="adminNboardListAll.kh"/>
 		<a href="${ blist }">목록 전체 보기</a>
 	</p>
 	<br><br><br><br><br><br><br><br><br><br><br><br>
@@ -314,7 +300,13 @@
 	
 	</script>
 	
+	<script type="text/javascript" src="${contextPath }/resources/js/admin/dashboard.js"></script>
+	<script>
+	$(document).ready(function(){
+		$(".notice").addClass("active");
+	});
 	
+	</script>
 	
 	
 	
