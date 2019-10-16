@@ -96,7 +96,6 @@ navbar navbar-default {
 					</tbody> --%>
 				</table>
 			</form>
-
 			<!-- 썸머노트 -->
 			
 			<form method="post" action="binsert.kh">
@@ -120,7 +119,6 @@ navbar navbar-default {
 			</form>
 		</div>
 		<!-- 썸머노트 -->
-
 		<div style="margin: 20px;"></div>
 		<a href=""></a>
 	</div>

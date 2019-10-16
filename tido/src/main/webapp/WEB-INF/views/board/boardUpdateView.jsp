@@ -155,8 +155,7 @@ background-color: #323232;
 		</table>
 	<!-- </textarea> -->
 		<!-- <input id="subBtn" type="button" value="글 작성" style="float: right;" onclick="goWrite(this.form)" /> -->
-		
-			
+
 	</form>
 	<jsp:include page="../common/footer.jsp"/>
 </body>
