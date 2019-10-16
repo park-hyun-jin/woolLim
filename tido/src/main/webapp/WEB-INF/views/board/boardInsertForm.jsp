@@ -117,7 +117,6 @@ navbar navbar-default {
 						</td>
 					</tr>
 				</table>
-				
 			</form>
 		</div>
 		<!-- 썸머노트 -->
