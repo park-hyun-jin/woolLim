@@ -1,53 +1,101 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+   pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="contextPath" value="${pageContext.servletContext.contextPath }" scope="application"/>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-
-
-<%-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/css/mdb.min.css" rel="stylesheet">
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/js/mdb.min.js"></script>
-
-<script src="https://ajax.googlepis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script type="text/javascript" src="${contextPath }/resources/js/board/bootstrap.js"></script>
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> --%>
-
-<title>게시판 글쓰기</title>
+<meta charset="UTF-8">
+<title>게시판 목록</title>
+<link rel="stylesheet" href="${contextPath }/resources/css/board/boardlist-style.css"> 
 <style>
-navbar navbar-default {
-	width: 70%;
-	margin: auto;
+/* 게시판 리스트 목록 */
+body {
+   margin: auto;
+}
+nav, table, #wr{
+   width: 70%;
+   margin: auto;
+}
+tbody {
+   text-align: center;
 }
 
-.fade {
-	z-index: 1000000 !important;
-	left: 25px;
-	top: 25px;
-	width: 320px;
-	height: 300px;
-	display: none;
+.sub_news, .sub_news th, .sub_news td {
+   border: 0
 }
 
-.form-style {
-	width: 100%;
+.sub_news a {
+   color: #383838;
+   text-decoration: none
 }
 
-.img_wrap {
-	width: 300px;
-	margin-top: 50px;
+/* 게시판 리스트 글씨 */
+.sub_news {
+   width: 100%;
+   border-bottom: 1px solid #999;
+   color: #666;
+   font-size: 16px;
+   table-layout: fixed
 }
 
-.img_wrap img {
-	max-width: 100%;
+.sub_news caption {
+   display: none
 }
+
+.sub_news th {
+   padding: 5px 0 6px;
+   border-top: solid 1px #999;
+   border-bottom: solid 1px #b2b2b2;
+   background-color: #f1f1f4;
+   color: #333;
+   font-weight: bold;
+   line-height: 20px;
+   vertical-align: top
+}
+
+.sub_news td {
+   padding: 8px 0 9px;
+   border-bottom: solid 1px #d2d2d2;
+   text-align: center;
+   line-height: 18px;
+}
+
+.sub_news .no, .date, .sub_news .hit {
+   padding: 0;
+   font-family: Tahoma;
+   font-size: 11px;
+   line-height: normal
+}
+
+.sub_news .title {
+   text-align: left;
+   padding-left: 15px;
+   font-size: 15px;
+}
+
+.sub_news .title .pic, .sub_news .title .new {
+   margin: 0 0 2px;
+   vertical-align: middle;
+}
+
+.sub_news .title a.comment {
+   padding: 0;
+   background: none;
+   color: #f00;
+   font-size: 15px;
+   font-weight: bold
+}
+#thead tr th {
+   text-align: center;
+}
+
+.btn{
+   font-size: 20px !important;
+}
+
+
+
 </style>
 </head>
 <body>

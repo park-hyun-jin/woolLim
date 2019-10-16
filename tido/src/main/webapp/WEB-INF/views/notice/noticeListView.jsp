@@ -56,6 +56,10 @@
 	text-align: left;
 }
 
+.table{
+ background-color: #343a40;
+}
+
 div>#paging {
 	text-align: center;
 }
@@ -122,6 +126,13 @@ to {
 	color: red;
 	font-weight: bold;
 }
+}
+#searchValue{
+width : 250px;
+}
+
+#Search{
+float:right;
 }
 </style>
 </head>
@@ -284,7 +295,7 @@ to {
 
 			<div class="md-form active-pink active-pink-2 mb-3 mt-0" >
 			
-					<input class="form-control" name="searchValue" value="${search.searchValue}">
+					<input class="form-control" name="searchValue" value="${search.searchValue}" id="searchValue">
 				</div>
 			</form>
 

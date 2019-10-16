@@ -14,11 +14,18 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <!-- MDB core JavaScript -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/js/mdb.min.js"></script>
+
 <style>
-.text-center{
-color:black;}
-#form67{
-height: 300px;
+.textcenter {
+	color: black;
+}
+
+#form67 {
+	height: 300px;
+}
+
+
+
 </style>
 
  <!-- Central Modal Medium Danger -->
@@ -44,7 +51,9 @@ aria-hidden="true">
 						<i class="fas fa-check fa-4x mb-3 animated rotateIn"></i>
 						<input type="hidden" id="contentsNo">
 						<input type="hidden" id="reportType">
+						</div>
 						<br>
+						<div id="inputRadio">
 					<input type="radio" id="shit" name="rRrNo" value="1"/><label for="shit">욕설 및 비방</label><br>
 					<input type="radio" id="honor" name="rRrNo" value="2"/><label for="honor">명예훼손 / 사생활 침해</label><br>
 					<input type="radio" id="advertise" name="rRrNo" value="3"/><label for="advertise">부적절한 홍보 게시글</label><br>
@@ -52,19 +61,21 @@ aria-hidden="true">
 					<input type="radio" id="polite" name="rRrNo" value="5"/><label for=""polite"">무분별한 정치적 발언</label><br>
 					<input type="radio" id="code" name="rRrNo" value="6"/><label for="code">악성코드</label><br>
 					<input type="radio" id="overlap" name="rRrNo" value="7"/><label for="overlap">중복된 글 연속 삽입</label><br>
-					
 					</div>
+					
 				</div>
 				<div class="md-form form-sm" id="message">
 					<i class="fas fa-pencil-alt prefix"></i>
-					<textarea type="text" id="form67" class="md-textarea mb-0" name="rReportContent"></textarea>
-					
-					<label for="form67">Your message</label>
+				<textarea type="text" id="form67" class="md-textarea mb-0" name="rReportContent"
+					></textarea>
+				<br /> <span style="color: #aaa;" id="counter">(0 / 최대 200자)</span>
+
+				<label for="form67">Your message</label>
 				</div>
 
 				<!--Footer-->
 	    <div class="modal-footer justify-content-center">
-	      <a id="reportBtn" type="button" class="btn btn-danger">신고하기 <i class="far fa-gem ml-1 text-white"></i></a>
+	      <a id="reportBtn" type="button" class="btn btn-danger">신고하기 </a>
 	      <a type="reset" class="btn btn-outline-danger waves-effect" data-dismiss="modal">취소</a>
 	    </div>
   </div>
@@ -87,9 +98,24 @@ aria-hidden="true">
 			},
 			success:function(result){
 				console.log(result);
+				$(".close").click();
+				$(".fade").css("display","none");
+				alert("신고 완료");
 			}
 			
 		});
+	});
+	
+	$('#form67').keyup(function (e){
+	    var content = $(this).val();
+	    $('#counter').html("("+content.length+" / 최대 200자)");    //글자수 실시간 카운팅
+
+	    if (content.length > 200){
+	        alert("최대 200자까지 입력 가능합니다.");
+	        $(this).val(content.substring(0, 200));
+	        $('#counter').html("(200 / 최대 200자)");
+	        
+	    }
 	});
 
 </script>
