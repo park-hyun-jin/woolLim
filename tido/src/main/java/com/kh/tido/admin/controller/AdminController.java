@@ -438,9 +438,32 @@ public class AdminController {
 			return "admin/adminRboardAll";
 		}
 		
+		// 신고관리 상세
+		@RequestMapping("adminRdetail.kh")
+		public ModelAndView adminRdetail(ModelAndView mv, int rReportNo) {
+			
+			ArrayList<Report> list = aService.reportDetailBoard(rReportNo);
+			
+			if (list != null) {
+				mv.addObject("list", list).setViewName("admin/adminRboarDetail");
+			} else {
+				mv.addObject("msg", "조회 실패").setViewName("common/errorPage");
+			}
+			return mv;
+		}
 		
-		
-		
+		@RequestMapping("adminReport.kh")
+		public ModelAndView adminReport(ModelAndView mv, int rReportNo) {
+			
+			int result = aService.adminReport(rReportNo);
+			
+			if (result>0) {
+				mv.addObject("result", result).setViewName("admin/adminRboardAll");
+			} else {
+				mv.addObject("msg", "조회 실패").setViewName("common/errorPage");
+			}
+			return mv;
+		}
 		
 		
 

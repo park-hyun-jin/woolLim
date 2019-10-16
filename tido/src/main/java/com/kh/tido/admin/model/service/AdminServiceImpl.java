@@ -203,6 +203,23 @@ public class AdminServiceImpl implements AdminService {
 		return aDao.adminReportTypeSearch(rReportType);
 	}
 
+	@Override
+	public ArrayList<Report> reportDetailBoard(int rReportNo) {
+	
+		return aDao.reportDetailBoard(rReportNo);
+	}
+
+	@Override
+	public int adminReport(int rReportNo) {
+		
+		int result = aDao.adminReport(rReportNo);
+		
+		int result2 = aDao.adminReportPlus(rReportNo);
+		
+	}
+	
+	
+
 	
 		
 	
