@@ -24,10 +24,10 @@
 		border:1px solid white;
 		padding: 30px 0;
 		background-color: #E0ECF8;
+		background-color: rgba( 255, 255, 255, 0.5 );
 	}
 	.quantity{
 		width:100%;
-		border:1px solid red;
 		height:100%;
 	}
 	.visitor{
@@ -37,7 +37,7 @@
 		text-align:center;
 		font-size:42px;
 		color:black;
-		border:1px solid blue;
+		border:1px solid black;
 	}
 	.counter{
 		padding:10px;
@@ -53,28 +53,28 @@
 			<div class="quantity">			
 				<div class="visitor">
 					<div class="counter">
-						<span>${sc.projectCount }</span>
+						<span class="memberCountCon1">${sc.projectCount }</span>
 						<br>
 						<h4>전체 프로젝트 수</h4>
 					</div>
 				</div>
 				<div class="visitor">
 					<div class="counter">
-						<span>${sc.boardCount }</span>
+						<span class="memberCountCon2">${sc.boardCount }</span>
 						<br>
 						<h4>전체 게시글 수</h4>
 					</div>
 				</div>
 				<div class="visitor">
 					<div class="counter">
-						<span>${sc.memberCount }</span>
+						<span class="memberCountCon3">${sc.memberCount }</span>
 						<br>
 						<h4>전체 회원 수</h4>
 					</div>
 				</div>
 				<div class="visitor">
 					<div class="counter">
-						<span>${sc.visitCount }</span>
+						<span class="memberCountCon4">${sc.visitCount }</span>
 						<br>
 						<h4>전체 방문자 수</h4>
 					</div>
@@ -83,5 +83,63 @@
 		</div>
 	</section>
 	<jsp:include page="common/footer.jsp"/>
+	<script>
+	var memberCountConTxt1= ${sc.projectCount};
+	var memberCountConTxt2= ${sc.boardCount};
+	var memberCountConTxt3= ${sc.memberCount};
+	var memberCountConTxt4= ${sc.visitCount};
+	  
+	  $({ val : 0 }).animate({ val : memberCountConTxt1 }, {
+	   duration: 2000,
+	  step: function() {
+	    var num = numberWithCommas(Math.floor(this.val));
+	    $(".memberCountCon1").text(num);
+	  },
+	  complete: function() {
+	    var num = numberWithCommas(Math.floor(this.val));
+	    $(".memberCountCon1").text(num);
+	  }
+	});
+	  
+	  $({ val : 0 }).animate({ val : memberCountConTxt2 }, {
+		   duration: 2000,
+		  step: function() {
+		    var num = numberWithCommas(Math.floor(this.val));
+		    $(".memberCountCon2").text(num);
+		  },
+		  complete: function() {
+		    var num = numberWithCommas(Math.floor(this.val));
+		    $(".memberCountCon2").text(num);
+		  }
+		});
+	  
+	  $({ val : 0 }).animate({ val : memberCountConTxt3 }, {
+		   duration: 2000,
+		  step: function() {
+		    var num = numberWithCommas(Math.floor(this.val));
+		    $(".memberCountCon3").text(num);
+		  },
+		  complete: function() {
+		    var num = numberWithCommas(Math.floor(this.val));
+		    $(".memberCountCon3").text(num);
+		  }
+		});
+	  
+	  $({ val : 0 }).animate({ val : memberCountConTxt4 }, {
+		   duration: 2000,
+		  step: function() {
+		    var num = numberWithCommas(Math.floor(this.val));
+		    $(".memberCountCon4").text(num);
+		  },
+		  complete: function() {
+		    var num = numberWithCommas(Math.floor(this.val));
+		    $(".memberCountCon4").text(num);
+		  }
+		});
+
+	function numberWithCommas(x) {
+	    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
+	</script>
 </body>
 </html>
