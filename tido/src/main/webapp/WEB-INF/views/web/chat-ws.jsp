@@ -63,18 +63,18 @@
 
 
 #nickname{
-	width: 260px; height: 40px; overflow-y: auto; border: 1px solid black;
+	width: 310px; height: 40px; overflow-y: auto; border: 1px solid black;
 }
 
 #chatArea{
-	width: 260px; height: 200px; overflow-y: auto; border: 1px solid black;
+	width: 310px; height: 200px; overflow-y: auto; border: 1px solid black;
 
 }
 
 	#enterBtn,#exitBtn,#message,#sendBtn{
-	width: 260px;
+	width: 310px;
 	}
-
+	
 
 
 
@@ -89,7 +89,7 @@
 	<br>
 	<input type="button" id="exitBtn" value="나가기">
     <br><br>
-    <h3>대화 영역</h3>
+    <h2>대화 영역</h3>
     <div id="chatArea"><div id="chatMessageArea"></div></div>
     <br/>
     <input type="text" id="message">

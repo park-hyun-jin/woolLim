@@ -27,7 +27,7 @@
               <li class="nav-item">
 
                 <a class="nav-link board" href="adminCboardListAll.kh">
-                  <span data-feather="board"></span>
+                  <span data-feather="file"></span>
                   Board Management
                 </a>
               </li>             
@@ -35,7 +35,7 @@
               </li>
               <li class="nav-item">
                 <a class="nav-link notice" href="adminNboardListAll.kh">
-                  <span data-feather="notice"></span>
+                  <span data-feather="book"></span>
                   Notice Management
                 </a>
               </li>
@@ -43,26 +43,14 @@
             <ul class="nav flex-column mb-2">
               <li class="nav-item">
                 <a class="nav-link QNA" href="adminIboardListAll.kh">
-                  <span data-feather="QNA"></span>
+                  <span data-feather="bell"></span>
                   Q&A Management
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link report" href="adminRboardListAll.kh">
-                  <span data-feather="report"></span>
+                  <span data-feather="phone-call"></span>
                   Report Management
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="file-text"></span>
-                  Social engagement
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="file-text"></span>
-                  Year-end sale
                 </a>
               </li>
                <jsp:include page="/WEB-INF/views/web/chat-ws.jsp"/>
