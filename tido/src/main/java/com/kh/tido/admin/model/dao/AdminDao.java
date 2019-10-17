@@ -174,6 +174,20 @@ public class AdminDao {
 	public ArrayList<Report> adminReportTypeSearch(int rReportType) {
 		return (ArrayList)sqlSession.selectList("adminMapper.adminReportTypeSearch",rReportType);
 		}
+
+
+	public ArrayList<Report> reportDetailBoard(int rReportNo) {
+		return (ArrayList)sqlSession.selectList("adminMapper.reportDetailBoard", rReportNo);
+	}
+
+	public int adminReport(int rReportNo) {
+		return sqlSession.update("adminMapper.adminReport", rReportNo);
+	}
+
+	public int adminReportPlus(int rReportNo) {
+		return sqlSession.update("adminMapper.adminReportPlus", rReportNo);
+	}
+
 	
 
 

@@ -54,6 +54,12 @@ public interface AdminService {
 	public abstract ArrayList<Report> adminRsearch(Search search);
 
 	public abstract ArrayList<Report> adminReportTypeSearch(int rReportType);
+
+	public abstract ArrayList<Report> reportDetailBoard(int rReportNo);
+
+	public abstract int adminReport(int rReportNo);
+	
+	
 	
 	
 }

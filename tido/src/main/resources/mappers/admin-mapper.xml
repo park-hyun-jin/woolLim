@@ -50,7 +50,7 @@
 		<result property="rReportDate" column="REPORT_DATE"/> <!-- 날짜 -->
 		<result property="rRrno" column="RRNO"/> <!-- -->
 		<result property="rMemberId" column="MEMBER_ID"/> <!-- 이메일 -->
-
+		<result property="reportStatus" column="REPORT_STATUS"/>
 	</resultMap>
 	
 	<resultMap id="reportReasonResultSet" type="ReportReason">
@@ -337,6 +337,42 @@
 	  ORDER BY REPORT_NO DESC
 		
 	</select>
+	
+	<select id="selectBoard" parameterType="_int" 
+			resultMap="reportResultSet">
+		SELECT * 
+		FROM REPORT
+		WHERE REPORT_NO = #{rReportNo}
+	</select>
+	
+	
+	<select id="reportDetailBoard" resultMap="reportResultSet" parameterType="_int">
+	  SELECT *
+	  FROM REPORT
+      WHERE REPORT_NO = #{rReportNo}
+	  ORDER BY REPORT_NO DESC
+		
+	</select>
+	
+	<update id="adminReport" parameterType="_int">
+	  UPDATE REPORT
+	  SET REPORT_STATUS ='N'
+      WHERE REPORT_NO = #{rReportNo}  
+		
+	</update>
+	
+	<update id="adminReportPlus" parameterType="_int">
+	  UPDATE REPORT, MEMBER
+	  SET 
+      WHERE REPORT_NO = #{rReportNo}  
+  
+      INNER JOIN MEMBER ON REPORT MEMBER_REPORT_COUNT.B_id = B테이블.B_id;
+
+
+		
+	</update>
+	
+	
 	
 
 </mapper>

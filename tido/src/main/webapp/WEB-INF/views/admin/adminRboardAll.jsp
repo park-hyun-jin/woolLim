@@ -131,6 +131,7 @@
 			<th>작성자</th>
 			<th>신고물 유형</th>
 			<th>신고 날짜</th>
+			<th>status</th>
 		</tr>
 	
 		<tbody>
@@ -142,7 +143,7 @@
 			
 			<td align="center">
 			<c:url var="adminRdetail" value="adminRdetail.kh">
-			<c:param name="rNo" value="${r.rReportNo }" />
+			<c:param name="rReportNo" value="${r.rReportNo }" />
 			</c:url>
 			<a href="${ adminRdetail }" style="color: black;">${ r.rReportContent }</a>
 			</td>
@@ -168,6 +169,8 @@
 			
 			
 			<td align="center">${ r.rReportDate }</td>
+			<td align="center">${ r.reportStatus }</td>
+			
 		</tr>
 		</c:forEach>
 			</tbody>
