@@ -186,7 +186,7 @@
 		<!-------------- 게시물 검색하기 --------------->
 		<div id="searchArea" align="center">
 	
-<<<<<<< HEAD
+
 		<form action="adminNsearch.kh" name="searchForm" method="get">
 
 			
