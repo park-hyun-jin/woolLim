@@ -122,7 +122,7 @@ public class AdminController {
 
 		int result = aService.deleteBoard(deleteList);
 		return result;
-
+		
 	}
 
 	// CBOARD 체크박스 삭제 복구
@@ -152,7 +152,7 @@ public class AdminController {
 
 		model.addAttribute("list", searchList);
 		model.addAttribute("search", search);
-		return "admin/adminCboard";
+		return "admin/adminCboardAll";
 	}
 
 	// 공지사항 리스트 STATS -Y-만
