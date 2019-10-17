@@ -95,9 +95,9 @@ table.type09 tbody td  {
 
                   <input type="hidden" value="${board.cBoardNo}">
                </button>
-
-                  <jsp:include page="../Report/reportCBoardModal.jsp"/>      
-                  </c:if>         
+				</c:if> 
+                  <jsp:include page="../Report/reportCBoardModal.jsp"/>
+                          
                   <tr>
                      <td colspan="2" class="text-center" style="color: white">
                         <c:url var="bupView" value="bupView.kh">
@@ -273,6 +273,7 @@ table.type09 tbody td  {
          });
          
       }
+
    
       
    </script>
