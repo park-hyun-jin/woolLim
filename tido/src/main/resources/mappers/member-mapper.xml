@@ -12,6 +12,7 @@
 		<result property="banCount" column="MEMBER_BAN_COUNT"/>
 		<result property="status" column="MEMBER_STATUS"/>
 		<result property="imagePath" column="MEMBER_IMAGE_PATH"/>
+		<result property="memberBanDate" column="MEMBER_BAN_DATE"/>
 	</resultMap>
 	
 	<resultMap id="boardResultSet" type="Board">
@@ -80,7 +81,7 @@
 	<insert id="insertMember" parameterType="Member">
 		INSERT INTO MEMBER
 		VALUES(
-			#{id}, #{name}, #{pwd}, SYSDATE, SYSDATE, DEFAULT, DEFAULT, DEFAULT, #{imagePath}
+			#{id}, #{name}, #{pwd}, SYSDATE, SYSDATE, DEFAULT, DEFAULT, DEFAULT, #{imagePath}, DEFAULT
 		)
 	</insert>
 	
